@@ -119,6 +119,15 @@ body
     max-height: 150px !important;
 }
 
+.custoer-logo
+{
+    min-height: 40px !important;
+    max-height: 40px !important;
+}
+.rounded-20
+{
+    border-radius: 25% 25%;
+}
 .bi
 {
     font-size: 20px !important;
