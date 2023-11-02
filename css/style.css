@@ -110,6 +110,7 @@ body
     width: 100% !important;
     margin: auto !important;
     overflow-x: hidden !important;
+    color: var(--brown);
 }
 
 .h-150
