@@ -29,6 +29,14 @@
     line-height: 2.0 !important;
 }
 
+hr.line
+{
+    height:2px;
+    border-width:0;
+    opacity: 1;
+    color: var(--brown);
+    background-color:var(--brown);
+}
 .alice
 {
     font-family: Alice !important;
@@ -128,6 +136,7 @@ body
 {
     border-radius: 25% 25%;
 }
+
 .bi
 {
     font-size: 20px !important;
@@ -205,7 +214,7 @@ h4,h5,h6
 
 
 .hr-text {
-    line-height: 1em;
+    line-height: 1em !important;
     position: relative;
     outline: 0;
     border: 0;
@@ -233,7 +242,7 @@ h4,h5,h6
       padding: 0 .5em;
       line-height: 1.5em;
       color: var(--brown);
-      background-color: var(--lightbrown);
+      background-color: var(--lightbrown) !important;
     }
   }
 
