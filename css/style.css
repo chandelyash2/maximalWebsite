@@ -2,6 +2,7 @@
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+@import url('industry.css');
 
 *
 {
@@ -183,7 +184,7 @@ header {
     z-index: 2;
   }
   
-  header .overlay {
+  header .overlay-home, header .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -192,6 +193,11 @@ header {
     background-color: black;
     opacity: 0.19;
     z-index: 1;
+  }
+
+  header .overlay 
+  {
+    opacity: 0.45;
   }
 
 .row 
@@ -250,15 +256,6 @@ h4,h5,h6
       background-color: var(--lightbrown) !important;
     }
   }
-
-.bg-about
-{
-    min-height: 350px !important;
-    background-image: url('../images/about-strip.png');
-    background-position: center top;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 
 
 
