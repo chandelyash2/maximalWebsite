@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Alice&family=Josefin+Sans&family=Maven+Pro&family=Mooli&family=Poppins&family=Satisfy&display=swap');
-/* @import url('https://fonts.cdnfonts.com/css/itc-benguiat-std');
-@import url('https://fonts.cdnfonts.com/css/tt-commons'); */
+@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
-
 
 *
 {
@@ -17,6 +14,7 @@
     --lightbrown:#ede8e2;
 }
 
+/* Importing Local fonts */
 @font-face 
 {
     font-family: ITCBenguiat;
@@ -73,12 +71,6 @@ hr.line
 {
     color: white !important;
 }
-
-/* .tel-font
-{
-    font-weight: bolder;
-   
-} */
 
 .btn-danger
 {
