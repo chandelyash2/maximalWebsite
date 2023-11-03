@@ -10,3 +10,52 @@
     background-image: url('../images/Airport\ \(1\).png');
 }
 
+.bg-Commercial
+{
+    background-image: url('../images/Commercial 2.jpg.png');
+}
+
+.bg-Logistics
+{
+    background-image: url('../images/Distribution Logistics.jpgng');
+}
+
+.bg-Healthcare 
+{
+    background-image: url('../images/Healthcarev2.png');
+}
+
+.bg-Education 
+{
+    background-image: url('../images/Education3.jpeg');
+}
+
+.bg-Residential 
+{
+    background-image: url('../images/Residential2.jpg');
+}
+
+.bg-Construction  
+{
+    background-image: url('../images/Construction2.jpeg');
+}
+
+.bg-Retail   
+{
+    background-image: url('../images/Retailv2.png');
+}
+
+.bg-Manufacturing  
+{
+    background-image: url('../images/Manufacturing and Industrial.jpg');
+}
+
+.bg-Maritime  
+{
+    background-image: url('../images/Maritime.png');
+}
+
+.bg-Government  
+{
+    background-image: url('../images/Government2.jpg');
+} 
