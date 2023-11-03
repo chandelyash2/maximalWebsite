@@ -164,7 +164,8 @@ header {
     top: -180px !important;
   }
   
-  header video {
+  header video
+  {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -178,13 +179,9 @@ header {
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
   }
-  
-  header .container {
-    position: relative;
-    z-index: 2;
-  }
-  
-  header .overlay-home, header .overlay {
+
+  header .overlay-home
+   {
     position: absolute;
     top: 0;
     left: 0;
@@ -197,8 +194,48 @@ header {
 
   header .overlay 
   {
-    opacity: 0.45;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.55;
+    z-index: 1;
   }
+
+
+  .header-title
+  {
+    top: 60%;
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    -ms-transform:  translateY(-50%);
+    -moz-transform:  translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform:  translateY(-50%);
+  }
+
+
+  .header-title h1
+  {
+    font-size: 5vw;
+  }
+  .header-title p
+  {
+    font-size: 2.0vw;
+  }
+ 
+  
+  header .container {
+    position: relative;
+    z-index: 2;
+  }
+  
+
+
 
 .row 
 {
@@ -302,3 +339,24 @@ a.footer-link-dark:hover
     text-decoration: underline;
     transform: rotate(-90deg);
 } 
+
+@media screen and (max-width: 600px) {
+
+    .header-title h1
+    {
+      font-size: 10vw;
+    }
+    .header-title p
+    {
+      font-size: 4.5vw;
+    }
+   
+    .nav-link, .dropdown-item
+    {
+    font-family: Alice !important;
+    font-size: 4.5vw;
+    transition: font-size 1s;
+    }
+
+
+  }
