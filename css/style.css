@@ -233,6 +233,13 @@ header {
     z-index: 2;
   }
   
+  .dropdown-item, dropdown-menu
+  {
+    border-bottom: 1px solid var(--lightbrown);
+    padding: 10px 10px;
+    color: var(--brown) !important;
+    
+  }
 
 
 
