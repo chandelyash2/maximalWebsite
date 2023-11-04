@@ -157,13 +157,14 @@ header {
     min-height: 25rem;
     width: 100%;
     overflow: hidden;
-    top: -180px !important;
+    top: 0px !important;
     background-color: black !important;
+    transform: translateY(-180px);
   }
   
   header video
   {
-    position: absolute;
+    position: relative;
     top: 50%;
      left: 50%;
    /* min-width: 100%;
