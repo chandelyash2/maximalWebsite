@@ -14,12 +14,12 @@
     <include src="nav.html"></include>
 
     <!-- Header Section -->
-    <header>
+    <header id="head1">
         <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
         <div class="overlay-home p-0 m-0"></div>
 
         <!-- The HTML5 video element that will create the background video on the header -->
-        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" id="v1">
             <source src="images/video.mp4" type="video/mp4">
         </video>
 
@@ -187,9 +187,9 @@
         </div>
     </div>
 
-    <div class="container-fluid p-5">
+    <div class="container-fluid p-lg-5">
 
-        <div class="container px-5">
+        <div class="container px-lg-5">
             <hr class="line">
             <div class="row">
                 <div class="col-md-6">
@@ -200,7 +200,7 @@
                         tolerance. The security solutions needed to mitigate those risks are just as unique. Maximal
                         provides customized security solutions to meet the unique needs of multitude of industries.</p>
                 </div>
-                <div class="col-md-6 px-5">
+                <div class="col-md-6 px-lg-5">
                     <include src="form1.html"></include>
                 </div>
             </div>
@@ -217,7 +217,7 @@
 
         <div class="container justify-content-center">
             <h1> Our national partnerships are a testament to the quality of our services</h1>
-            <div class="swiper-container w-75 my-5">
+            <div class="swiper-container my-5">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><img src="images/Customer Logo/turner-logo-blue.svg"
                             class="custoer-logo mx-5"></div>
@@ -258,6 +258,8 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
 <script>
     //fade-up
     x = document.querySelectorAll(".col-md-3");
@@ -290,17 +292,43 @@
         fetch(filename).then(response => response.text()).then(text => callback(text));
     }
 
-    //swiper
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 3,
-        spaceBetween: 20,
+        //
+        // SWIPER CODES
+        //
+        //swiper
+        var x=window.screen.availWidth;
+        var spv;
+        var sb;
+       
+        if(x<900)
+        {
+        
+            spv=1;
+            sb=20;
+            
+        }
+        else
+        {
+            spv=3;
+            sb=40;
+        }
+
+        let swiper = new Swiper('.swiper-container', {
+        slidesPerView: spv,
+        spaceBetween: sb,
         loop: true,
         autoplay: {
             delay: 5000, // Set the delay between slide transitions (in milliseconds)
             disableOnInteraction: false, // Enable autoplay even when user interacts with the carousel
-        },
-        // Add more configuration options as needed
+        }
     });
+
+    // window.addEventListener('resize', function() 
+    // {
+    //     window.location.reload();
+    // });
+
+
 </script>
 
 
