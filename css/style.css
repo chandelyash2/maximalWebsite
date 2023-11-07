@@ -396,29 +396,54 @@ a.footer-link-dark:hover
     transform: rotate(-90deg);
 }
 
-
-
 .accordion-button {
-  background-color: #01579b;
-  color: white;
+  background-color: white;
+  color: blue;
   font: 20px Roboto, sans-serif;
+
 }
-.accordion-button:after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+
+.accordion-button:after  {
+   /* position: absolute; */
+  /* top: 0;
+  right: 0; */
+  /* margin-top: calc(1.375rem + 1.5vw);  */
+  width: 3.125rem;
+  height: 3.125rem; 
+  margin-left: auto;
+  border: 1px solid #878787;
+  border-radius: 50%;
+  background-color: #8e0202;
+  padding: 1.25rem;
+  background-clip: content-box;
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: -webkit-transform .3s ease-in-out;
+  -o-transition: -o-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  transition: transform .3s ease-in-out,-webkit-transform .3s ease-in-out,-o-transform .3s ease-in-out;
+  /* -webkit-transform: scale(.5);
+  -o-transform: scale(.5);
+  transform: scale(.5) */
 }
-.accordion-button:not(.collapsed):after{
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+
+.accordion-button:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 2.75rem;
+  height: 1px;
+  width: 4.125rem;
+  background: #878787;
+   -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+
 }
-.accordion-button:hover {
-  font: 21px Roboto, sans-serif;
-}
-.accordion-button:not(.collapsed) {
-  background-color: #0277bd;
-  color: white;
-}
-.accordion-item {
-  background-color: #e1f5fe;
-  font: 16px Roboto, sans-serif;
+
+.accordion-button:not(.collapsed)::before 
+{
+  transform: rotate(-90deg) translateX(-50%);
+  right: 0.75rem;
 }
 
 
