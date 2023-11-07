@@ -1,0 +1,97 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximal Security Services</title>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon.png">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body class="bg-white">
+    
+    <!-- NAVBAR -->
+    <div class="container p-0">
+    <include src="nav.html"></include> 
+    </div>
+  
+    <!-- Header Section -->
+    <header class="bg-image bg-Education ">
+    <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
+    <div class="overlay p-0 m-0"> </div>
+    <div class="container header-title text-white d-flex align-items-center justify-content-center p-0">
+    <div class="w-75">
+    <h1 class="text-center w-100 text-uppercase">EDUCATION</h1>
+        <p class="">Maximal offers security solutions specifically designed for the education sector whose priority is the safety of students while creating a safe and inclusive environment for their learning.</p>
+   </div>
+    </header>
+
+    <div class="container text-dark mb-5 mt-0 industry ps-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <p class="f-heading mb-5">
+                    Educational institutions must be able to provide a safe environment for students, faculty, staff and visitors. We work closely with school authorities to design flexible and sustainable security programs that meet the specific security needs of our clients.
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-around g-5">
+            <div class="col-md-5 p-0">
+                <h2 class="text-decoration-underline px-3">Customized Security Solutions</h2>
+                <p class="px-3">To discuss security solutions for your organization, please provide the following information.</p>
+                <include src="form1.html"></include> 
+            </div>
+            <div class="col-md-5 p-0">
+                <h2 class="text-decoration-underline">A Trusted Partner in Education Security</h2>
+                <p>Our core services in educational institutions include highly trained armed and unarmed security guards, mobile patrol, immediate emergency response, 24/7 alarm response, access control, and crowd management.</p>
+                
+            </div>
+        </div>
+
+    </div>
+
+  <!-- FOOTER -->
+  <include src="footer.html"></include>
+
+
+
+</body>
+
+<!-- JS FILES -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+                //fade-up
+                x=document.querySelectorAll(".col-md-3");
+                for(i=0;i<x.length;i++)
+                {
+                x[i].setAttribute("data-aos", "fade-up");
+                x[i].classList.add("px-4");
+                x[i].classList.add("py-2");
+               
+                }
+
+                //navbar scroll
+                $(window).scroll(function(){
+                    $('nav').toggleClass('scrolled', $(this).scrollTop() > 20);
+                });
+
+                //Initiate Animation AOS Object
+                AOS.init();
+
+                //JS Codes for include nav and footer html files
+                let includes = document.getElementsByTagName('include');                
+                for (var i = 0; i < includes.length; i++) {
+                let include = includes[i];
+                load_file(includes[i].attributes.src.value, function(text) 
+                {
+                    include.insertAdjacentHTML('afterend', text);
+                    include.remove();
+                });
+                }
+                function load_file(filename, callback) {
+                fetch(filename).then(response => response.text()).then(text => callback(text));
+                }
+ </script>
+ 
+
+</html>    
