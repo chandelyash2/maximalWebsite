@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Alice&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
@@ -38,6 +38,17 @@
 {
     font-family: ttcommons-expanded;
     src: url(../fonts/fonts/Fontspring-DEMO-tt_commons_pro_expanded_light.otf);
+}
+
+@font-face 
+{
+    font-family: CatchyMager;
+    src: url(../fonts/Catchy\ Mager\ Regular.ttf);
+}
+
+.ff-CatchyMager
+{
+  font-family: 'CatchyMager' !important;
 }
 
 
@@ -404,9 +415,9 @@ a.footer-link-dark:hover
 }
 
 .accordion-button {
-  background-color: white;
-  color: blue;
-  font: 20px Roboto, sans-serif;
+  color: #9a9a9a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26.5px;
 
 }
 
@@ -463,6 +474,10 @@ a.footer-link-dark:hover
   border-bottom: 0.5px solid lightgray;
   }
 
+  .accordion-body
+  {
+    padding-right: 60px !important;
+  }
 
 @media screen and (max-width: 1086px) 
 {
