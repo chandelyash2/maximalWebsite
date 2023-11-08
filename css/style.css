@@ -371,29 +371,16 @@ h4,h5,h6
 
 
 
-
 a.footer-link:link, a.footer-link:hover, a.footer-link:active, a.footer-link:visited
 {
-    text-decoration: none;
-    color: black;
+    text-decoration: underline;
+    color: white;
 }
 
 a.footer-link:hover
 {
-    text-decoration: none;
-    color: green;
-}
-
-a.footer-link-dark:link, a.footer-link-dark:hover, a.footer-link-dark:active, a.footer-link-dark:visited
-{
-    text-decoration: none;
-    color: white;
-}
-
-a.footer-link-dark:hover
-{
-    text-decoration: none;
-    color: lime;
+    text-decoration: underline;
+    color: var(--lightbrown);
 }
 
 .navbar-nav li:hover > ul.dropdown-menu {
@@ -517,6 +504,7 @@ a.footer-link-dark:hover
     transition: transform 1s;
     cursor: pointer;
   }
+
 
 @media screen and (max-width: 1086px) 
 {
