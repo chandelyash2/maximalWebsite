@@ -178,9 +178,11 @@ body
 header {
     position: relative;
     background-color: transparent;
+    /* height: 100%; */
+    min-height: 850px;
     height: 850px;
-    min-height: 25rem;
     width: 100%;
+    /* height: calc(100vw * 0.5625); */
     overflow: hidden;
     top: 0px !important;
     background-color: white !important;
@@ -192,11 +194,12 @@ header {
     position: relative;
     top: 50%;
      left: 50%;
-   /* min-width: 100%;
-    min-height: 100%; */
+    /* min-width: 100%; */
+    /* min-height: auto;  */
     width: auto;
+    height: auto;
     height: inherit;
-    /* object-fit: fill; */
+    object-fit: fill;
     z-index: 0;
     -ms-transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
@@ -249,18 +252,18 @@ header {
     font-size: 50px;
     letter-spacing: 2px;
   }
+  .banner-text
+  {
+    font-size: 22px;
+    line-height: 1.4;
+  }
   .btn-danger
   {
     font-family: 'ITCBenguiat';
     font-size: 24px;
     letter-spacing: 2px;
   }
-  .banner-text
-  {
-    font-size: 22px;
-    line-height: 1.4;
 
-  }
 .home-industries p
 {
     font-size: 18px;
@@ -460,24 +463,17 @@ a.footer-link-dark:hover
   border-bottom: 0.5px solid lightgray;
   }
 
-@media screen and (max-width: 600px) 
+
+@media screen and (max-width: 1086px) 
 {
 
-    .header-title h1
+    .header-title h1, .header-title>p, .nav-link, .dropdown-item
     {
-      font-size: 10vw;
+      font-size: 8px;
+      line-height: 1;
     }
-    .header-title p
-    {
-      font-size: 4.5vw;
-    }
-   
-    .nav-link, .dropdown-item
-    {
-    font-family: Alice !important;
-    font-size: 4.5vw;
-    transition: font-size 1s;
-    }
+  
 
+    
 
   }
