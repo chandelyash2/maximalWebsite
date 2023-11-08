@@ -327,7 +327,6 @@ h1,h2,h3,h4,h5,h6
 {
     font-family: 'ITCBenguiat';
     font-style: normal;
-    font-weight: 400;
 }
 
 h4,h5,h6
@@ -521,10 +520,10 @@ a.footer-link-dark:hover
 
 @media screen and (max-width: 1086px) 
 {
-
-    .header-title h1, .header-title>p, .nav-link, .dropdown-item
+  /* .header-title h1, */
+     .header-title>p, .nav-link, .dropdown-item
     {
-      font-size: 8px;
+      font-size: 10px;
       line-height: 1;
     }
   
