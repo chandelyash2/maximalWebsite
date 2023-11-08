@@ -64,3 +64,18 @@
 {
     background-image: url('../images/Security\ officer\ watching\ camera2.jpeg');
 }
+
+.bg-Armed
+{
+    background-image: url('../images/Armed Security Officer.jpeg');
+}
+
+.bg-Mobile
+{
+    background-image: url('../images/Patrol Vehicle.jpeg');
+}
+
+.bg-Concierge
+{
+    background-image: url('../images/Concierge.jpeg');
+}
