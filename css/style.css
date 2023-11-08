@@ -260,7 +260,7 @@ header {
 
   .banner-header
   {
-    font-size: 50px;
+    font-size: 40px;
     letter-spacing: 2px;
   }
   .banner-text
@@ -271,8 +271,9 @@ header {
   .btn-danger
   {
     font-family: 'ITCBenguiat';
-    font-size: 24px;
-    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: lighter;
+    letter-spacing: 1px;
   }
 
 .home-industries p
