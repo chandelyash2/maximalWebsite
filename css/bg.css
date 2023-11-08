@@ -5,6 +5,15 @@
     background-repeat: no-repeat;
 }
 
+/*
+####### INDUSTRY BACKGROUNS ########
+*/
+
+.bg-industry
+{
+    background-image: url('../images/Smiling\ security\ lady.jpeg');
+}
+
 .bg-airport
 {
     background-image: url('../images/Airport\ \(1\).png');
@@ -60,6 +69,10 @@
     background-image: url('../images/Government2.jpg');
 } 
 
+/*
+####### SERVICES BACKGROUNS ########
+*/
+
 .bg-unarmed
 {
     background-image: url('../images/Security\ officer\ watching\ camera2.jpeg');
@@ -79,3 +92,23 @@
 {
     background-image: url('../images/Concierge.jpeg');
 }
+
+.bg-securityroom
+{
+    background-image: url('../images/Security\ room.jpeg');
+}
+
+/*
+####### Differentiators BACKGROUNS ########
+*/
+
+.bg-differentiators
+{
+    background-image: url('../images/Security\ guard\ with\ flashlight.jpeg');
+}
+
+.bg-professional-team
+{
+    background-image: url('../images/Smiling\ security\ lady.jpeg');
+}
+
