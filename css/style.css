@@ -25,13 +25,13 @@
 @font-face 
 {
     font-family: ITCBenguiat;
-    src: url(../fonts/ITCBenguiatStdMediumCn.OTF);
+    src: url(../fonts/BenguiatStd-Book.otf);
 }
 
 @font-face 
 {
     font-family: ttcommons;
-    src: url(../fonts/Fontspring-DEMO-tt_commons_pro_condensed_light.otf);
+    src: url(../fonts/Fontspring-DEMO-tt_commons_pro_regular.otf);
 }
 
 @font-face 
