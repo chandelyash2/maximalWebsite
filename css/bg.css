@@ -116,4 +116,23 @@
 {
     background-image: url('../images/Contact\ Us.jpeg');
 }
+
+.bg-technology
+{
+    background-image: url('../images/Security Techonology.jpeg');
+}
+
+.bg-Customized
+{
+    background-image: url('../images/Tailored solutions.jpeg');
+}
+
+.bg-Availability
+{
+    background-image: url('../images/247v2.png');
+}
+
+.bg-Flexible
+{
+    background-image: url('../images/Flexible contract terms.png');
 }
