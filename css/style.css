@@ -25,13 +25,29 @@
 @font-face 
 {
     font-family: ITCBenguiat;
-    src: url(../fonts/BenguiatStd-Book.otf);
+    src: url(../fonts/heading-400.ttf);
+    /* src: url(../fonts/BenguiatStd-Book.otf); */
 }
 
 @font-face 
 {
+    font-family: coco;
+    src: url(../fonts/coco.ttf);
+    font-style: normal;  font-weight: 400;
+    
+}
+
+@font-face 
+{
+    font-family: contact-ff;
+    src: url(../fonts/contactus.woff2);
+    /* src: url(../fonts/BenguiatStd-Book.otf); */
+}
+@font-face 
+{
     font-family: ttcommons;
-    src: url(../fonts/Fontspring-DEMO-tt_commons_pro_regular.otf);
+    src: url(../fonts/ttcommonspro-400.ttf);
+    /* src: url(../fonts/Fontspring-DEMO-tt_commons_pro_regular.otf); */
 }
 
 @font-face 
@@ -51,12 +67,23 @@
   font-family: 'CatchyMager' !important;
 }
 
+
 .contact-special
 {
   font-size: 25px;
   font-family: ITCBenguiat;
 }
 
+.f-coco
+{
+    font-family: 'coco', sans-serif;
+    font-size: 28px !important;
+}
+
+.f-contact
+{
+  font-family: 'contact-ff' !important;
+}
 .bg-brown
 {
     background-color: var(--brown) !important;
@@ -179,7 +206,7 @@ body
     border-radius: 25% 25%;
 }
 
-.bi
+.bi, i
 {
     font-size: 20px !important;
     margin:9px;
@@ -309,8 +336,16 @@ header {
   .dropdown-item, dropdown-menu
   {
     border-bottom: 1px solid var(--lightbrown);
-    padding: 10px 10px;
-    color: var(--brown) !important;
+    padding: 6px 10px;
+    /* color: var(--brown) !important; */
+    
+  }
+
+  .dropdown-item:last-child, dropdown-menu:last-child
+  {
+    border-bottom: 0px solid var(--lightbrown);
+    padding: 6px 10px;
+    /* color: var(--brown) !important; */
     
   }
 
@@ -508,6 +543,7 @@ a.footer-link:hover
     transition: transform 1s;
     cursor: pointer;
   }
+
 
 
 @media screen and (max-width: 1086px) 
