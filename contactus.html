@@ -1,0 +1,101 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximal Security Services</title>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon.png">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+        <include src="nav.html"></include>
+
+    <!-- Header Section -->
+    <header class="bg-image bg-contactus">
+        <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
+        <div class="overlay p-0 m-0"> </div>
+        <div class="container header-title text-white d-flex align-items-center justify-content-center p-0">
+            <div class="w-75">
+                <h1 class="text-center w-100 text-uppercase">CONTACT US</h1>
+                <p>Whether you have questions, feedback, or are interested in receiving a quote for our services, we're here to listen and assist you. At Maximal, we value your thoughts, inquiries, and potential business collaborations, and we're committed to providing you with the support and information you need.</p>
+            </div>
+    </header>
+
+    <div class="container text-dark mb-5 mt-0 industry ps-lg-5 bg-light">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <p class="f-heading mb-5">
+                    Please use the contact options below to get in touch with our dedicated team. You can reach us by phone, e-mail, or submit the form to speak with a member of our team. Your feedback, inquiries, and service quote requests are important to us, and we look forward to hearing from you.
+                </p>
+                <p class="bg-brown text-white rounded p-4 text-center contact-special">Contact us via the following form or via Contact Us section below</h2>
+            </div>
+        </div>
+        
+        <div class="row justify-content-around g-5">
+
+            <div class="col-md-4" onclick="window.location='industries-commercial.html';">
+                <div class="card bg-commercial">
+                    <div class="card-overlay"></div>
+                    <h1>COMMERCIAL</h1>
+                </div>
+            </div>
+
+            <div class="col-md-4" onclick="window.location='industries-residential.html';">
+                <div class="card bg-Residential">
+                    <div class="card-overlay"></div>
+                    <h1>RESIDENTIAL</h1>
+                </div>
+            </div>
+
+            <div class="col-md-4" onclick="window.location='industries-distributions.html';">
+                <div class="card bg-Logistics">
+                    <div class="card-overlay"></div>
+                    <h1>DISTRIBUTION & LOGISTICS</h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <include src="footer.html"></include>
+
+
+
+</body>
+
+<!-- JS FILES -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    //navbar scroll
+    $(window).scroll(function () {
+        $('nav').toggleClass('scrolled', $(this).scrollTop() > 20);
+    });
+
+    //Initiate Animation AOS Object
+    AOS.init();
+
+    //JS Codes for include nav and footer html files
+    let includes = document.getElementsByTagName('include');
+    for (var i = 0; i < includes.length; i++) {
+        let include = includes[i];
+        load_file(includes[i].attributes.src.value, function (text) {
+            include.insertAdjacentHTML('afterend', text);
+            include.remove();
+        });
+    }
+
+    function load_file(filename, callback) {
+        fetch(filename).then(response => response.text()).then(text => callback(text));
+    }
+</script>
+
+
+</html>
