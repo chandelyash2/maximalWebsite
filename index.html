@@ -272,13 +272,14 @@
 
     }
 
+
+    
     //navbar scroll
     $(window).scroll(function () {
         $('nav').toggleClass('scrolled', $(this).scrollTop() > 0);
     });
 
-    //Initiate Animation AOS Object
-    AOS.init();
+
 
     //JS Codes for include nav and footer html files
     let includes = document.getElementsByTagName('include');
@@ -331,6 +332,11 @@
     //     window.location.reload();
     // });
 
+        y = document.querySelectorAll("#contactblock");
+        y[0].setAttribute("data-aos", "fade-up");
+
+        //Initiate Animation AOS Object
+        AOS.init();
 
 </script>
 
