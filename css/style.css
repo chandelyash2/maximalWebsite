@@ -113,15 +113,15 @@ hr.line
 
 .logo
 {
-    height: 84px !important;
-    width: 100px !important;
+    height: 117px !important;
+    width: 134px !important;
     transition: width 1s, height 1s;
 }
 
 .nav-link, .dropdown-item
 {
     font-family: Alice !important;
-    font-size: 20px;
+    font-size: 21px;
     transition: font-size 1s;
 }
 
@@ -145,8 +145,7 @@ hr.line
 .navbar:hover, .navbar.scrolled
 {
     background-color: rgba(255,255,255,0.98) !important;
-    color: black !important;
-    /* transition: background-color 1s,color 1s; */
+    color: black !important; 
 
 }
 
@@ -161,7 +160,6 @@ hr.line
 .navbar:hover .nav-link, .navbar.scrolled .nav-link
 {
     color: black !important;
-    transition: color 1s;
 }
 
 body
@@ -291,27 +289,35 @@ header {
 
   .banner-header
   {
-    font-size: 40px;
+    font-size: 45px;
     letter-spacing: 2px;
   }
   .banner-text
   {
-    font-size: 22px;
-    line-height: 1.4;
+    font-size: 23px;
+    line-height: 1.35;
   }
+
+  .service-text
+  {
+    font-family: Alice !important;;
+    font-size: 24px;
+    line-height: 1.40;
+  }
+
   .btn-danger
   {
     font-family: 'ITCBenguiat';
-    font-size: 20px;
+    font-size: 19px;
     font-weight: lighter;
     letter-spacing: 1px;
+    line-height: 26px;
   }
 
 .home-industries p
 {
-    font-size: 18px;
-    letter-spacing: 1px;
-    line-height: 1.5;
+    font-size: 19px;
+    line-height: 1.35;
 }
   
 
@@ -349,8 +355,6 @@ header {
     
   }
 
-
-
 .row 
 {
     max-width: 1240px !important;
@@ -382,7 +386,7 @@ h4,h5,h6
     color: var(--brown);
     text-align: center;
     font-family: Alice !important;
-    font-size: 32px;
+    font-size: 28px;
     height: 1.5em;
     opacity: 1;
     &:before {
