@@ -1,0 +1,10 @@
+input, select
+{
+    height: 70px !important;
+}
+
+label:after {
+    content:" *";
+    color: red !important;
+  }
+
