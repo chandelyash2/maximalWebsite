@@ -172,12 +172,161 @@
                                 </div>     
                             </div>
                          
-                          
+
                             <div class="col-md-6">
-                                <input type="text" class="form-control W-100 py-3 my-2" id="city" placeholder="CITY *">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control W-100 pt-4 my-2" id="ename" placeholder="Emergency Contact Name (First and Last)" required>
+                                    <label for="ename">Emergency Contact Name (First and Last)</label>
+                                </div>     
                             </div>
+                               
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control W-100 pt-4 my-2" id="ephone" placeholder="Emergency Contact Phone Number" required>
+                                    <label for="ephone">Emergency Contact Phone Number</label>
+                                </div>     
+                            </div>                
+                         
+                            <div class="col-md-6">
+                                
+                                    <label for="ephone">Please attach the following information:
+                                    </label>
+                                
+                            </div>   
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="file" class="form-control W-25 pt-4 my-2 d-inline" id="resume" placeholder="Resume" required>
+                                    <input type="file" class="form-control W-25 pt-4 my-2 d-inline" id="photoid" placeholder="Photo ID" required>
+                                    <input type="file" class="form-control W-25 pt-4 my-2 d-inline" id="guardlicense" placeholder="Guard License" required>
+                                   
+                                </div>     
+                            </div>   
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                <input type="number" class="form-control W-100 pt-4 my-2" id="experience" placeholder="Years of experience in selected position" 
+                                min=0 max=20 required>
+                        
+                                <label for="experience">Years of experience in selected position</label>
+                                </div> 
+                            </div>                                
+                            
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                <select class="form-select W-100  my-2" id="position" placeholder="Choose Position Applying for" required>
+                                    <option selected>Select Position</option>
+                                    <option value="Security Officer">Security Officer</option>
+                                    <option value="Security Supervisor">Security Supervisor</option>
+                                    <option value="Security Account Manager">Security Account Manager</option>
+                                    <option value="Concierge / Receptionist">Concierge / Receptionist</option>
+                                    <option value="Software Developer">Software Developer</option>
+                                    <option value="ales Representativ">Sales Representative</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Accounting and Bookkeeping Administrative Staff">Accounting and Bookkeeping Administrative Staff</option>
+                                </select>
+                                <label for="position">Choose Position Applying for </label>
+                                </div> 
+                            </div>   
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select W-100  my-2" id="guard" placeholder="Do you currently hold a guard license?" required>
+                                        <option selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                    <label for="guard">Do you currently hold a guard license? </label>
+                                </div>     
+                            </div>                               
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select W-100  my-2" id="firearm" placeholder="Do you hold license to carry firearm?" required>
+                                        <option selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                    <label for="firearm">Do you hold license to carry firearm?</label>
+                                </div>     
+                            </div>                     
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select W-100  my-2" id="transportation" placeholder="Do you have a reliable means of transportation?" required>
+                                        <option selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <label for="transportation">Do you have a reliable means of transportation?</label>
+                                </div>     
+                            </div>    
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select W-100  my-2" id="communication" placeholder="Do you have a reliable means of communication? " required>
+                                        <option selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <label for="communication">Do you have a reliable means of communication? </label>
+                                </div>     
+                            </div>   
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select W-100 my-2" id="age" placeholder="Are you at least age 18? " required>
+                                        <option selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <label for="age">Are you at least age 18?</label>
+                                </div>     
+                            </div>    
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select W-100  my-2" id="english" placeholder="Do you have the ability to effectively speak, read, and write English?" required>
+                                        <option selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <label for="english">Do you have the ability to effectively speak, read, and write English? *</label>
+                                </div>     
+                            </div>   
+                            
+                            
+
                             <div class="col-md-12 text-center">
-                                <textarea class="form-control W-100 py-3 my-2" id="inputEmail4" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
+                                <div class="form-floating mb-3">
+                                <textarea class="form-control W-100 py-3 my-2 pt-4" id="inputEmail4" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
+                                <label for="position">QUESTIONS OR COMMENTS</label>
+                                </div>
+                            
+                                <p>A member of our team will review your application and contact you regarding opportunities that match your qualifications.</p>
+                                <h2 class="text-danger text-center">E-signature</h2>
+                                <p>I hereby confirm that the information I have provided in the application process is true, accurate, and complete.</p>
+                                <p><button class="btn btn-danger rounded-pill w-50 m-auto my-4 py-2" id="showbutton" onclick="showmore()">Show More </button></p>
+                            
+                                <!-- HIDDEN SECTION -->
+                            <div class="text-start d-none" id="moretext">
+                                <p>I hereby authorize The Company to investigate and verify the information I provided in my application for employment which may include contacting former and/or current employers or any other person or entity.  I authorize all persons and entities having information relevant to my application to provide that information to The Company.  I understand that any offer of employment may be rescinded if I violate any of the provisions of this Certification.</p>
+                                <p>I understand that any omission, misrepresentation, or falsification in connection with this application process may be grounds for denial of employment, or if hired, immediate termination of employment.</p>
+                                <p>For U.S. only -I further understand that if I am hired, I must abide by all the rules and policies of The Company, which, other than the at-will employment policy, may be changed without notice.</p>
+                            </div>
+                            
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                        <p>Full Name *</p>
+                                        <input type="text" class="form-control W-100 m-auto my-2" id="fullname" required>
+                                       
+                                </div>
+                            </div>
+                          
+                            </p>
                                 <button class="btn btn-danger rounded-pill w-50 m-auto my-4 py-2">Submit</button>
                             </div>
                         </div>    
@@ -229,6 +378,14 @@
 
     function load_file(filename, callback) {
         fetch(filename).then(response => response.text()).then(text => callback(text));
+    }
+
+    function showmore()
+    {
+        
+        $( "#moretext" ).removeClass( "d-none" );
+        $( "#showbutton" ).addClass( "d-none" );
+        
     }
 </script>
 
