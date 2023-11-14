@@ -51,7 +51,7 @@
             <div class="col-md-11">
                 <p class="bg-brown text-white rounded-pill py-3 w-100 mt-5 text-center contact-special">Apply for opportunity to join our team via the form below</h2>
             
-                    <form>
+                    <form onsubmit="event.preventDefault();">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -313,15 +313,20 @@
                                 <p>A member of our team will review your application and contact you regarding opportunities that match your qualifications.</p>
                                 <h2 class="text-danger text-center">E-signature</h2>
                                 <p>I hereby confirm that the information I have provided in the application process is true, accurate, and complete.</p>
-                                <p><button class="btn btn-danger rounded-pill w-50 m-auto my-4 py-2" id="showbutton" onclick="showmore()">Show More </button></p>
-                            
-                                <!-- HIDDEN SECTION -->
-                            <div class="text-start d-none" id="moretext">
-                                <p>I hereby authorize The Company to investigate and verify the information I provided in my application for employment which may include contacting former and/or current employers or any other person or entity.  I authorize all persons and entities having information relevant to my application to provide that information to The Company.  I understand that any offer of employment may be rescinded if I violate any of the provisions of this Certification.</p>
-                                <p>I understand that any omission, misrepresentation, or falsification in connection with this application process may be grounds for denial of employment, or if hired, immediate termination of employment.</p>
-                                <p>For U.S. only -I further understand that if I am hired, I must abide by all the rules and policies of The Company, which, other than the at-will employment policy, may be changed without notice.</p>
+                                <p>
+                                      <button class="btn btn-danger rounded-pill w-50 m-auto my-4 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Show / Hide More
+                                      </button>
+                                    </p>
+                                    <div class="collapse" id="collapseExample">
+                                  
+                                            <p class="text-start">I hereby authorize The Company to investigate and verify the information I provided in my application for employment which may include contacting former and/or current employers or any other person or entity.  I authorize all persons and entities having information relevant to my application to provide that information to The Company.  I understand that any offer of employment may be rescinded if I violate any of the provisions of this Certification.</p>
+                                            <p class="text-start">I understand that any omission, misrepresentation, or falsification in connection with this application process may be grounds for denial of employment, or if hired, immediate termination of employment.</p>
+                                            <p class="text-start">For U.S. only -I further understand that if I am hired, I must abide by all the rules and policies of The Company, which, other than the at-will employment policy, may be changed without notice.</p>
+                                 
+                                    </div>
+                                
                             </div>
-                            
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                         <p>Full Name *</p>
@@ -347,7 +352,7 @@
     </div>
 </div>  
         
-                  
+
             
 
     <!-- FOOTER -->
@@ -362,8 +367,10 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
 </script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+
+
+
     //navbar scroll
     $(window).scroll(function () {
         $('nav').toggleClass('scrolled', $(this).scrollTop() > 20);
