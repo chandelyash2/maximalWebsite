@@ -176,7 +176,7 @@ body
  
 }
 
-.container, .navbar, .header
+.container /*, .navbar, .header*/
 {
   max-width: var(--maxwdith);
   margin: auto;
@@ -233,9 +233,11 @@ header {
   {
     position: relative;
     top: 50%;
-     left: 50%;
-    /* min-width: 100%; */
-    /* min-height: auto;  */
+    left: 50%;
+    
+    min-width: 100%;
+    min-height: auto; 
+    
     width: auto;
     height: auto;
     height: inherit;
