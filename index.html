@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="images/logo-icon.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body class="bg-white" data-aos="fade-in">
@@ -262,15 +263,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-
 <script>
+
+
     
-
-       //Initiate Animation AOS Object
-       AOS.init();
-
-       
-
 //fade-up
     x = document.querySelectorAll(".col-md-3");
     for (i = 0; i < x.length; i++) {
@@ -292,7 +288,8 @@
     for (var i = 0; i < includes.length; i++) {
         let include = includes[i];
         load_file(includes[i].attributes.src.value, function (text) {
-            include.insertAdjacentHTML('afterend', text);
+            $(include).before(text);
+            // include.insertAdjacentHTML('afterend', text);
             include.remove();
         });
     }
@@ -322,7 +319,8 @@
             sb=10;
         }
 
-        let swiper = new Swiper('.swiper-container', {
+        let swiper = new Swiper('.swiper-container', 
+        {
         slidesPerView: spv,
         spaceBetween: sb,
         speed: 3000,
@@ -331,14 +329,11 @@
             delay: 1000, // Set the delay between slide transitions (in milliseconds)
             disableOnInteraction: false, // Enable autoplay even when user interacts with the carousel
         }
-    });
-
-    // window.addEventListener('resize', function() 
-    // {
-    //     window.location.reload();
-    // });
+        });
 
 
+
+       AOS.init();
      
 </script>
 
