@@ -197,6 +197,7 @@ body
 .custoer-logo
 {
     min-height: 40px !important;
+    min-width: 80%;
     max-height: 40px !important;
 }
 .rounded-20
