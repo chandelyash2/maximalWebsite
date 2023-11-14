@@ -474,7 +474,7 @@ a.footer-link:hover
 .dropdown-submenu > .dropdown-menu {
     top: 0;
     left: 100%;
-    margin-top:-6px;
+    margin-top:-8px;
 }
 
 /* rotate caret on hover */
