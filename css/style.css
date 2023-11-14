@@ -252,8 +252,8 @@ header {
     position: relative;
     background-color: transparent;
     /* height: 100%; */
-    min-height: 850px;
-    height: 850px;
+    min-height: 105vh; 
+    height: 105vh;
     width: 100%;
     /* height: calc(100vw * 0.5625); */
     overflow: hidden;
@@ -269,7 +269,7 @@ header {
     left: 50%;
     
     min-width: 100%;
-    min-height: auto; 
+    min-height: 100%; 
     
     width: auto;
     height: auto;
