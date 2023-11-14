@@ -252,12 +252,6 @@
         </div>
 
     </div>
-
-
-
-
-
-
 </body>
 
 <!-- JS FILES -->
@@ -270,23 +264,28 @@
 
 
 <script>
-    //fade-up
+    
+
+       //Initiate Animation AOS Object
+       AOS.init();
+
+       
+
+//fade-up
     x = document.querySelectorAll(".col-md-3");
     for (i = 0; i < x.length; i++) {
         // x[i].setAttribute("data-aos", "fade-up");
         x[i].classList.add("px-4");
         x[i].classList.add("py-2");
-
     }
 
-
-    
+ 
     //navbar scroll
     $(window).scroll(function () {
         $('nav').toggleClass('scrolled', $(this).scrollTop() > 0);
     });
 
-
+    // window.addEventListener('load', )
 
     //JS Codes for include nav and footer html files
     let includes = document.getElementsByTagName('include');
@@ -339,12 +338,8 @@
     //     window.location.reload();
     // });
 
-        y = document.querySelectorAll("#contactblock");
-        y[0].setAttribute("data-aos", "fade-up");
 
-        //Initiate Animation AOS Object
-        AOS.init();
-
+     
 </script>
 
 

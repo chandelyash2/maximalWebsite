@@ -17,6 +17,11 @@
     --maxwdith: 1440px;
 }
 
+
+
+
+
+
 .bg-light
 {
   background-color: #ebebeb !important;
@@ -59,12 +64,32 @@
 @font-face 
 {
     font-family: CatchyMager;
-    src: url(../fonts/Catchy\ Mager\ Regular.ttf);
+    src: url(../fonts/catchymager.ttf);
+
 }
+
+.fadeInUp
+{ animation:fadeInUp 1s ease backwards;}
+
+@keyframes fadeInUp
+{
+  0%{transform:translate(0px, 100px); opacity: 0;}
+  100%{transform:translate(0px, 0); opacity: 1;}
+}
+
 
 .ff-CatchyMager
 {
   font-family: 'CatchyMager' !important;
+  font-synthesis: none;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "kern" 0, "calt" 0, "liga" 0, "clig" 0, "dlig" 0, "hlig" 0;
+  font-family: unset;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricprecision;
+  white-space: normal;
 }
 
 
@@ -84,6 +109,13 @@
 {
   font-family: 'contact-ff' !important;
 }
+
+.f-53
+{
+  font-size: 53px;
+  line-height: 53px;;
+}
+
 .bg-brown
 {
     background-color: var(--brown) !important;
@@ -514,6 +546,10 @@ a.footer-link:hover
   .accordion-body
   {
     padding-right: 60px !important;
+  }
+
+  .accordion-button:not(.collapsed) {
+    color: #9a9a9a !important;
   }
 
   .card 
