@@ -30,11 +30,11 @@
             </div>
     </header>
     <div class="removegap">
-    <div class="container text-dark mb-5 mt-0 industry ps-lg-5 bg-light ">
+    <div class="container text-dark mb-5 mt-0 industry ps-lg-5 bg-light" >
         <div class="row justify-content-center">
             <div class="col-md-9">
                 
-                <p class="f-heading mb-5">
+                <p class="f-heading text-center">
                     At Maximal, we believe in fostering talent, empowering creativity, and nurturing a culture that values innovation. Our commitment extends beyond just delivering exceptional services; it's about building a community of diverse minds driven by a shared passion for excellence.
                 </p>
 
@@ -49,45 +49,45 @@
     <div class="container text-dark my-5 mt-5 industry ps-lg-5 bg-light">
         <div class="row mt-5 justify-content-center">
             <div class="col-md-11">
-                <p class="bg-brown text-white rounded-pill py-3 w-100 mt-5 text-center contact-special">Apply for opportunity to join our team via the form below</h2>
+                <p class="bg-brown text-white rounded-pill py-1 w-100 my-5 text-center contact-special alice ">Apply for opportunity to join our team via the form below</h2>
             
                     <form onsubmit="event.preventDefault();">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 pt-4 my-2" id="fname" placeholder="FIRST NAME" required>
-                                <label for="cname">First Name </label>
+                                <label for="cname">First Name <span class='text-danger'>*</span></label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 pt-4 my-2" id="lname" placeholder="LAST NAME" required>
-                                <label for="cname">Last Name </label>
+                                <label for="cname">Last Name <span class='text-danger'>*</span> </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="email" placeholder="E-mail" required>
-                                    <label for="email">Email </label>
+                                    <label for="email">Email <span class='text-danger'>*</span></label>
                                 </div>                                
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="reemail" placeholder="Re-Enter E-mail" required>
-                                    <label for="reemail">Re-Enter Email </label>
+                                    <label for="reemail">Re-Enter Email <span class='text-danger'>*</span></label>
                                 </div>                                
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="street" placeholder="Street Address" required>
-                                    <label for="street">Street Address </label>
+                                    <label for="street">Street Address <span class='text-danger'>*</span></label>
                                 </div>                                
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="city" placeholder="City" required>
-                                    <label for="city">City </label>
+                                    <label for="city">City <span class='text-danger'>*</span></label>
                                 </div>                                
                             </div>
 
@@ -147,28 +147,28 @@
                                     <option value="WI">Wisconsin</option>
                                     <option value="WY">Wyoming</option>
                                 </select>
-                                <label for="state">State </label>
+                                <label for="state">State <span class='text-danger'>*</span></label>
                             </div>                        
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="zip" placeholder="Zip Code" required>
-                                    <label for="zip">Zip Code </label>
+                                    <label for="zip">Zip Code <span class='text-danger'>*</span></label>
                                 </div>                                
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="p-phone" placeholder="Primary Phone" required>
-                                    <label for="pphone">Primary Phone </label>
+                                    <label for="pphone">Primary Phone <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>
                                
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="date" class="form-control W-100 pt-4 my-2" id="dob" placeholder="Date of Birth " required>
-                                    <label for="dob">Date of Birth</label>
+                                    <label for="dob">Date of Birth <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>
                          
@@ -176,43 +176,59 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="ename" placeholder="Emergency Contact Name (First and Last)" required>
-                                    <label for="ename">Emergency Contact Name (First and Last)</label>
+                                    <label for="ename">Emergency Contact Name (First and Last) <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>
                                
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 pt-4 my-2" id="ephone" placeholder="Emergency Contact Phone Number" required>
-                                    <label for="ephone">Emergency Contact Phone Number</label>
+                                    <label for="ephone">Emergency Contact Phone Number <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>                
                          
                             <div class="col-md-6">
-                                    <label for="ephone">Please attach the following information:
+                                    <label for="ephone" class="ps-2">Please attach the following information: <span class='text-danger'>*</span>
                                     </label>
                             </div>   
 
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="resume" placeholder="Resume" required>
-                                    <label for="resume">Resume</label>
+                                <div class="row">
+                                    <div class="col-3 d-flex align-items-center">
+                                    <label for="resume">Resume <span class='text-danger'>*</span></label>
+                                    </div>
+                                    <div class="col-9">
+                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="resume" required>
+                                    </div>    
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="photoid" placeholder="Photo ID" required>
-                                    <label for="photoid">Photo ID</label>
+
+                                <div class="row">
+                                    <div class="col-3 d-flex align-items-center">
+                                    <label for="resume">Photo ID <span class='text-danger'>*</span></label>
+                                    </div>
+                                    <div class="col-9">
+                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="photoid" required>
+                                    </div>    
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="guardlicense" placeholder="Guard License" required>
-                                    <label for="guardlicense">Guard License</label>
-                                </div>     
+
+                                <div class="row">
+                                    <div class="col-3 d-flex align-items-center">
+                                    <label for="resume">Guard License <span class='text-danger'>*</span></label>
+                                    </div>
+                                    <div class="col-9">
+                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="guardlicense" required>
+                                    </div>    
+                                </div>
+                                
+                 
                             </div>   
                             
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="number" class="form-control W-100 pt-4 my-2" id="experience" placeholder="Years of experience in selected position" 
-                                min=0 max=20 required>
+                                min=0 max=60 required>
                         
-                                <label for="experience">Years of experience in selected position</label>
+                                <label for="experience">Years of experience in selected position <span class='text-danger'>*</span></label>
                                 </div> 
                             </div>                                
                             
@@ -228,9 +244,10 @@
                                     <option value="Software Developer">Software Developer</option>
                                     <option value="ales Representativ">Sales Representative</option>
                                     <option value="Marketing">Marketing</option>
-                                    <option value="Accounting and Bookkeeping Administrative Staff">Accounting and Bookkeeping Administrative Staff</option>
+                                    <option value="Accounting and Bookkeeping">Accounting and Bookkeeping</option>
+                                    <option value="Administrative Staff">Administrative Staff</option>
                                 </select>
-                                <label for="position">Choose Position Applying for </label>
+                                <label for="position">Choose Position Applying for <span class='text-danger'>*</span></label>
                                 </div> 
                             </div>   
 
@@ -242,7 +259,7 @@
                                         <option value="No">No</option>
                                         <option value="N/A">N/A</option>
                                     </select>
-                                    <label for="guard">Do you currently hold a guard license? </label>
+                                    <label for="guard">Do you currently hold a guard license? <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>                               
 
@@ -254,7 +271,7 @@
                                         <option value="No">No</option>
                                         <option value="N/A">N/A</option>
                                     </select>
-                                    <label for="firearm">Do you hold license to carry firearm?</label>
+                                    <label for="firearm">Do you hold license to carry firearm? <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>                     
 
@@ -265,7 +282,7 @@
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
-                                    <label for="transportation">Do you have a reliable means of transportation?</label>
+                                    <label for="transportation">Do you have a reliable means of transportation? <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>    
 
@@ -276,7 +293,7 @@
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
-                                    <label for="communication">Do you have a reliable means of communication? </label>
+                                    <label for="communication">Do you have a reliable means of communication? <span class='text-danger'>*</span> </label>
                                 </div>     
                             </div>   
 
@@ -287,7 +304,7 @@
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
-                                    <label for="age">Are you at least age 18?</label>
+                                    <label for="age">Are you at least age 18? <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>    
 
@@ -298,7 +315,7 @@
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
-                                    <label for="english">Do you have the ability to effectively speak, read, and write English? *</label>
+                                    <label for="english">Do you have the ability to effectively speak, read, and write English? * <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>   
                             
@@ -307,15 +324,15 @@
                             <div class="col-md-12 text-center">
                                 <div class="form-floating mb-3">
                                 <textarea class="form-control W-100 py-3 my-2 pt-4" id="inputEmail4" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
-                                <label for="position">QUESTIONS OR COMMENTS</label>
+                                <label for="position">QUESTIONS OR COMMENTS <span class='text-danger'>*</span></label>
                                 </div>
                             
                                 <p>A member of our team will review your application and contact you regarding opportunities that match your qualifications.</p>
-                                <h2 class="text-danger text-center">E-signature</h2>
+                                <h2 class="text-danger text-center ttcommons">E-signature</h2>
                                 <p>I hereby confirm that the information I have provided in the application process is true, accurate, and complete.</p>
                                 <p>
-                                      <button class="btn btn-danger rounded-pill w-50 m-auto my-4 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        Show / Hide More
+                                      <button class="btn btn-danger rounded-pill w-50 m-auto my-4 py-1 alice" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Show More / Hide
                                       </button>
                                     </p>
                                     <div class="collapse" id="collapseExample">
@@ -329,14 +346,14 @@
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
-                                        <p>Full Name *</p>
+                                        <p>Full Name <span class='text-danger'>*</span></p>
                                         <input type="text" class="form-control W-100 m-auto my-2" id="fullname" required>
                                        
                                 </div>
                             </div>
                           
                             </p>
-                                <button class="btn btn-danger rounded-pill w-50 m-auto mt-4 pt-2">Submit</button>
+                                <button class="btn btn-danger rounded-pill w-50 m-auto mt-4 py-1 alice">Submit</button>
                             </div>
                         </div>    
                   
@@ -345,7 +362,7 @@
                 </div>
         </div>
 
-            
+    
 
     <!-- FOOTER -->
     <div class="container-fluid p-0 bg-brown text-light">
