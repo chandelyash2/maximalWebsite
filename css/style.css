@@ -84,6 +84,7 @@
 }
 
 
+
 .contact-special
 {
   font-size: 25px;
@@ -218,13 +219,20 @@ body
 
 .custoer-logo
 {
+    /* size 346 x 40 */
     min-height: 40px !important;
     min-width: 80%;
     max-height: 40px !important;
 }
+
+.bdr-brown
+{
+  border: 2px solid var(--brown) !important;
+}
+
 .rounded-20
 {
-    border-radius: 25% 25%;
+    border-radius: 15% 15%;
 }
 
 .bi, i
@@ -499,6 +507,7 @@ a.footer-link:hover
   line-height: 49px;
   padding-top: 30px;
   padding-bottom: 30px;
+  padding-left: 0px;
 
 }
 
@@ -559,6 +568,7 @@ a.footer-link:hover
   .accordion-body
   {
     padding-right: 60px !important;
+    font-size: 24px;
   }
 
   .accordion-button:not(.collapsed) {
@@ -620,6 +630,27 @@ a.footer-link:hover
   }
 }
 
+@media screen and (min-width: 1500px) 
+{
+  .logo
+  {
+    height: 143px !important;
+    width: 160px !important;
+    transition: width 1s, height 1s;
+  }
+  .nav-link, .dropdown-item
+  {
+    font-family: Alice !important;
+    font-size: 24px;
+    transition: font-size 1s;
+  }
+
+}
+
+
+
+}
+
  @media screen and (max-width: 1086px) 
 {
   .logo
@@ -629,10 +660,6 @@ a.footer-link:hover
       transition: width 1s, height 1s;
   }
 
-  /* .header-title>p, .nav-link, .dropdown-item
-    {
-      font-size: 10px;
-      line-height: 1;
-    } */
+
   } 
 

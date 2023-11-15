@@ -3,8 +3,8 @@ input, select
     height: 70px !important;
 }
 
-/* label:after {
+-webkit-input-placeholder::after {
     content:" *";
     color: red !important;
-  } */
+  }
 
