@@ -273,7 +273,7 @@ var apiurl="https://rssambedkar.com/mail/send.php";
   
 // }
 function upload() {
-  fetch(apiurl + 'post', {
+  fetch(apiurl, {
     method: 'POST',
     body: JSON.stringify(st),
     headers: {
