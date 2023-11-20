@@ -250,29 +250,57 @@ constructor(fname,lname,email,title,phone,cname,industry,state,city,comment)
 //Upload function for adding record in dataabase which will be called by add function
 //var apiurl="http://localhost:3001/";
 //var apiurl="https://rest-api-production-847e.up.railway.app/";
-var apiurl="https://rssamedbkar.com/mail/send.php";
+var apiurl="https://rssambedkar.com/mail/send.php";
 
-function upload()
-{
-    fetch(apiurl+'post', {
+// function upload()
+// {
+//     fetch(apiurl+'post', {
+//     method: 'POST',
+//     body: JSON.stringify(st),
+//     headers: {
+//       'Content-type': 'application/json; charset=UTF-8'
+//     }
+//   }).then(function (response) {
+//     if (response.ok) {
+//       return response.json();
+//     }
+//     return Promise.reject(response);
+//   }).then(function (data) {
+//     alert("You Request is received Successfully...");
+//   }).catch(function (error) {
+//     alert('Something went wrong. Plz Try Later.', error);
+//   });
+  
+// }
+function upload() {
+  fetch(apiurl + 'post', {
     method: 'POST',
     body: JSON.stringify(st),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8'
-    }
-  }).then(function (response) {
-    if (response.ok) {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then(function (response) {
+      if (!response.ok) {
+        // Check for HTTP error status
+        throw new Error('Network response was not ok');
+      }
       return response.json();
-    }
-    return Promise.reject(response);
-  }).then(function (data) {
-    alert("You Request is received Successfully...");
-  }).catch(function (error) {
-    alert('Something went wrong. Plz Try Later.', error);
-  });
-  
+    })
+    .then(function (data) {
+      // Check for a success property in the response data
+      if (data.success) {
+        alert('Your request was received successfully.');
+      } else {
+        // Handle server-side errors or unexpected response
+        throw new Error('Server error: ' + data.message);
+      }
+    })
+    .catch(function (error) {
+      // Handle errors including network errors and server errors
+      alert('Something went wrong. Please try again later. ' + error.message);
+    });
 }
-
 // Function for adding data to listbox and database
 function add()
 {
