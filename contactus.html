@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form.css">
     <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body class="bg-light" data-aos="fade-in">
@@ -165,7 +166,7 @@
                                 <textarea class="form-control W-100 my-2" id="comment" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
                                 <label for="city">QUESTIONS OR COMMENTS</label>
                                 </div>
-                                <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2">Submit</button>
+                                <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" onclick="add()">Submit</button>
                             </div>
                         </div>    
                 </div>
@@ -174,7 +175,9 @@
      </div>  
                     
         
-        
+     <divi id="demo">
+
+     </divi>   
         
                   
             
@@ -223,5 +226,72 @@
     }
 </script>
 
+
+<script>
+
+//student class structure  
+class student {
+constructor(name,rollno,hindi,english,math)
+    {
+    this.name=name;
+    this.rollno=rollno;
+    this.hindi=hindi;
+    this.english=english;
+    this.math=math;
+    }
+}
+
+//Upload function for adding record in dataabase which will be called by add function
+//var apiurl="http://localhost:3001/";
+var apiurl="https://rest-api-production-847e.up.railway.app/";
+
+function upload()
+{
+    fetch(apiurl+'post', {
+    method: 'POST',
+    body: JSON.stringify(st),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
+  }).then(function (response) {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(response);
+  }).then(function (data) {
+    alert("You Request is received Successfully...");
+  }).catch(function (error) {
+    alert('Something went wrong. Plz Try Later.', error);
+  });
+  
+}
+
+// Function for adding data to listbox and database
+function add()
+{
+  
+st=
+    new student(
+        fname.value,
+        rollno.value,
+        parseInt(d1.value),
+        parseInt(d2.value),
+        parseInt(d3.value),
+        );
+
+  //calling upload function for adding record in database
+//   upload();
+
+}
+
+
+//Function for showing sutdent object (like json format)
+function showobj()
+{
+demo.innerHTML= JSON.stringify(st);
+
+}
+
+</script>
 
 </html>
