@@ -38,13 +38,13 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 pt-4 my-2" id="fname" placeholder="FIRST NAME *" required>
-                                <label for="cname" class="form-label">FIRST NAME</label>
+                                <label for="fname" class="form-label">FIRST NAME</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 pt-4 my-2" id="lname" placeholder="LAST NAME *" required>
-                                <label for="cname">LAST NAME </label>
+                                <label for="lname">LAST NAME </label>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -56,7 +56,7 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 my-2" id="title" placeholder="TITLE " required>
-                                <label for="phone">TITLE </label>
+                                <label for="title">TITLE </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -164,7 +164,7 @@
                             <div class="col-md-12 text-center">
                                 <div class="form-floating mb-3">
                                 <textarea class="form-control W-100 my-2" id="comment" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
-                                <label for="city">QUESTIONS OR COMMENTS</label>
+                                <label for="comment">QUESTIONS OR COMMENTS</label>
                                 </div>
                                 <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" onclick="add()">Submit</button>
                             </div>
@@ -231,14 +231,19 @@
 
 //student class structure  
 class student {
-constructor(name,rollno,hindi,english,math)
+constructor(fname,lname,email,title,phone,cname,industry,state,city,comment)
     {
-    this.name=name;
-    this.rollno=rollno;
-    this.hindi=hindi;
-    this.english=english;
-    this.math=math;
-    }
+    this.fname=fname;
+    this.lname=lname;
+    this.email=email;
+    this.title=title;
+    this.phone=phone;
+    this.cname=cname;
+    this.industry=industry;
+    this.state=state;
+    this.city=city;
+    this.comment=comment;
+ }
 }
 
 //Upload function for adding record in dataabase which will be called by add function
@@ -273,10 +278,15 @@ function add()
 st=
     new student(
         fname.value,
-        rollno.value,
-        parseInt(d1.value),
-        parseInt(d2.value),
-        parseInt(d3.value),
+        lname.value,
+        email.value,
+        title.value,
+        phone.value,
+        cname.value,
+        industry.value,
+        state.value,
+        city.value,
+        comment.value,
         );
 
   //calling upload function for adding record in database
