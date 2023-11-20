@@ -33,7 +33,7 @@
                 </p>
                 <p class=" bg-brown text-white rounded-pill py-1 w-100 text-center contact-special">Contact us via the following form or via Contact Us section below</h2>
                     
-                    <form action="#">
+                    <form>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -166,7 +166,8 @@
                                 <textarea class="form-control W-100 my-2" id="comment" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
                                 <label for="comment">QUESTIONS OR COMMENTS</label>
                                 </div>
-                                <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" onclick="add()">Submit</button>
+                            </form>
+                                <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" onclick="add()">ADD Form</button>
                             </div>
                         </div>    
                 </div>
@@ -248,7 +249,8 @@ constructor(fname,lname,email,title,phone,cname,industry,state,city,comment)
 
 //Upload function for adding record in dataabase which will be called by add function
 //var apiurl="http://localhost:3001/";
-var apiurl="https://rest-api-production-847e.up.railway.app/";
+//var apiurl="https://rest-api-production-847e.up.railway.app/";
+var apiurl="https://rssamedbkar.com/mail/send.php";
 
 function upload()
 {
@@ -274,7 +276,7 @@ function upload()
 // Function for adding data to listbox and database
 function add()
 {
-  
+  alert("hello");
 st=
     new student(
         fname.value,
@@ -290,8 +292,12 @@ st=
         );
 
   //calling upload function for adding record in database
-//   upload();
+  demo.innerHTML= JSON.stringify(st);
+  alert("hello");
+  upload();
+    
 
+    return;
 }
 
 
