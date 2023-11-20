@@ -160,7 +160,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control W-100 pt-4 my-2" id="p-phone" placeholder="Primary Phone" required>
+                                    <input type="text" class="form-control W-100 pt-4 my-2" id="pphone" placeholder="Primary Phone" required>
                                     <label for="pphone">Primary Phone <span class='text-danger'>*</span></label>
                                 </div>     
                             </div>
@@ -412,6 +412,114 @@
 
 
 </script>
+
+<script>
+
+    //student class structure  
+    class student {
+    constructor(fname,lname,email,reemail,street,state,city,zip,pphone,dob,ename,ephone,resume,photoid,
+    guardlicense,experience,position,guard,firearm,transportation,communication,age,english,inputEmail4,fullname)
+        {
+        this.fname=fname;
+        this.lname=lname;
+        this.email=email;
+        this.reemail=reemail;
+        this.street=street;
+        this.state=state;
+        this.city=city;
+        this.zip=zip;
+        this.pphone=pphone;
+        this.dob=dob;
+        this.ename=ename;
+        this.ephone=ephone;
+        this.resume=resume;
+        this.photoid=photoid;
+        this.guardlicense=guardlicense;
+        this.experience=experience;
+        this.position=position;
+        this.guard=guard;
+        this.firearm=firearm;
+        this.transportation=transportation;
+        this.communication=communication;
+        this.age=age;
+        this.english=english;
+        this.inputEmail4=inputEmail4;
+        this.fullname=fullname;
+        }
+    }
+    
+    //Upload function for adding record in dataabase which will be called by add function
+    //var apiurl="http://localhost:3001/";
+    var apiurl="https://rest-api-production-847e.up.railway.app/";
+    
+    function upload()
+    {
+        fetch(apiurl+'post', {
+        method: 'POST',
+        body: JSON.stringify(st),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      }).then(function (response) {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(response);
+      }).then(function (data) {
+        alert("You Request is received Successfully...");
+      }).catch(function (error) {
+        alert('Something went wrong. Plz Try Later.', error);
+      });
+      
+    }
+    
+    // Function for adding data to listbox and database
+    function add()
+    {
+      
+    st=
+        new student(
+            fname.value,
+            lname.value,
+            email.value,
+            reemail.value,
+            street.value,
+            zip.value,
+            pphone.value,
+            dob.value,
+            ename.value,
+            ephone.value,
+            state.value,
+            city.value,
+            resume.value,
+            photoid.value,
+            guardlicense.value,
+            experience.value,
+            position.value,
+            guard.value,
+            firearm.value,
+            transportation.value,
+            communication.value,
+            age.value,
+            english.value,
+            inputEmail4.value,
+            fullname.value,
+        );
+    
+      //calling upload function for adding record in database
+    //   upload();
+    
+    }
+    
+    
+    //Function for showing sutdent object (like json format)
+    function showobj()
+    {
+    demo.innerHTML= JSON.stringify(st);
+    
+    }
+    
+    </script>
 
 
 </html>
