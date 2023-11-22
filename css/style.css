@@ -149,7 +149,15 @@ hr.line
     transition: font-size 1s;
 }
 
-.nav-link
+.nav-link1
+{
+    font-family: Alice !important;
+    font-size: 26px;
+    transition: font-size 1s;
+}
+
+
+.nav-link, .nav-link1
 {
     color: white !important;
 }
