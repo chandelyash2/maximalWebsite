@@ -60,7 +60,9 @@
 @font-face 
 {
     font-family: CatchyMager;
-    src: url(../fonts/catchymager.ttf);
+    /* src: url(../fonts/catchymager.ttf); */
+    src: url(../fonts/GeorgiaPro-Light.ttf);
+    
 
 }
 
