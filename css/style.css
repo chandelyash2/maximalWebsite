@@ -15,6 +15,7 @@
     --brown:#593521;
     --lightbrown:#ede8e2;
     --maxwdith: 1440px;
+    --fs:18;
 }
 
 .bg-light
@@ -85,11 +86,28 @@
   white-space: normal;
 }
 
+body
+{
+    font-family: 'ttcommons', sans-serif;
+    font-style:normal;
+    font-weight:400;
+    font-size: 18px;
+    line-height: 1.8;
+    width: 100% !important;
+    margin: auto !important;
+    overflow-x: hidden !important;
+    color: var(--brown);
+}
 
+.f-heading
+{
+    font-size: 24px;
+    line-height: 1.5;
+}
 
 .contact-special
 {
-  font-size: 25px;
+  font-size: 24px;
   font-family: Alice;
 }
 
@@ -123,6 +141,20 @@
     line-height: 2.0 !important;
 }
 
+.nav-link, .dropdown-item
+{
+    font-family: Alice !important;
+    font-size: 21px;
+    transition: font-size 1s;
+}
+
+.nav-link1
+{
+    font-family: Alice !important;
+    font-size: 27px;
+    transition: font-size 1s;
+}
+
 hr.line
 {
     height:1.5px;
@@ -144,19 +176,6 @@ hr.line
     transition: width 1s, height 1s;
 }
 
-.nav-link, .dropdown-item
-{
-    font-family: Alice !important;
-    font-size: 21px;
-    transition: font-size 1s;
-}
-
-.nav-link1
-{
-    font-family: Alice !important;
-    font-size: 27px;
-    transition: font-size 1s;
-}
 
 .nav-link, .nav-link1
 {
@@ -194,30 +213,12 @@ hr.line
     color: black !important;
 }
 
-body
-{
-    font-family: 'ttcommons', sans-serif;
-    font-style:normal;
-    font-weight:400;
-    font-size: 18px;
-    line-height: 1.8;
-    width: 100% !important;
-    margin: auto !important;
-    overflow-x: hidden !important;
-    color: var(--brown);
- 
-}
+
 
 .container /*, .navbar, .header*/
 {
   max-width: var(--maxwdith);
   margin: auto;
-}
-
-.f-heading
-{
-    font-size: 24px;
-    line-height: 1.5;
 }
 
 .h-150
@@ -250,13 +251,13 @@ body
 
 .bi, i
 {
-    font-size: 20px !important;
+    font-size: 18px !important;
     margin:9px;
 }
 
 .navbar-brand
 {
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 
 header {
@@ -334,13 +335,13 @@ header {
 
   .banner-header
   {
-    font-size: 45px;
+    font-size: 48px;
     letter-spacing: 2px;
   }
 
   .banner-text
   {
-    font-size: 23px;
+    font-size: 24px;
     line-height: 1.35;
   }
 
@@ -354,7 +355,7 @@ header {
   .btn-danger
   {
     font-family: 'ITCBenguiat';
-    font-size: 19px;
+    font-size: 18px;
     font-weight: lighter;
     letter-spacing: 1px;
     line-height: 26px;
@@ -362,7 +363,7 @@ header {
 
 .home-industries p
 {
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.35;
 }
   
@@ -677,10 +678,6 @@ a.footer-link:hover
 
 }
 
-
-
-}
-
  @media screen and (max-width: 1086px) 
 {
   .logo
@@ -690,6 +687,39 @@ a.footer-link:hover
       transition: width 1s, height 1s;
   }
 
+  .bg-lightbrown 
+  { font-size: 12px !important;}
+  body, .nav-link, .dropdown-item 
+  {font-size: 14px !important  }
+  .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
+  {
+	font-size: 18px !important;
+  
+  }
+  .f-coco, .nav-link1
+  { font-size: 20px !important;}
+  .header-title p {font-size: 22px !important; line-height: 1.5;}
+  .accordion-button {font-size: 28px !important;}
+  .header-title h1, .f-53
+  {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }  
+
+  .contact-special {padding: 5px 25px !important; width: 100% !important;}
 
   } 
+
+  @media screen and (max-width: 500px) 
+  {
+    .logo
+    {
+        height: 81px !important;
+        width: 100px !important;
+        transition: width 1s, height 1s;
+    }
+    .accordion-button {font-size: 18px !important;
+    margin-right: 30px; padding: 18px;
+    }
+  }
 
