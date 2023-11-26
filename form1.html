@@ -1,22 +1,41 @@
 <form action="#" class="from1">
     <div class="row">
         <div class="col-md-12">
-        <input type="email" class="form-control W-100 my-2" id="email" placeholder="Business e-mail *">
+            <div class="form-floating mb-1">    
+                <input type="email" class="form-control W-100 my-1" id="email" placeholder="">
+                <label for="email" style="color:grey">Business e-mail <span class='text-danger'>*</span></label>
+            </div>    
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control W-100 my-2" id="fname" placeholder="First name*">
+            <div class="form-floating mb-1">    
+                <input type="text" class="form-control W-100 my-1" id="fname" placeholder="">
+                <label for="fname" style="color:grey">First name <span class='text-danger'>*</span></label>
+            </div>  
+            
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control W-100 my-2" id="lname" placeholder="Last name *">
+            <div class="form-floating mb-1">    
+            <input type="text" class="form-control W-100 my-1" id="lname" placeholder="">
+            <label for="lname" style="color:grey">Last name <span class='text-danger'>*</span></label>
+            </div>
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control W-100 my-2" id="cname" placeholder="Company name *">
+            <div class="form-floating mb-1">    
+                <input type="text" class="form-control W-100 my-1" id="cname" placeholder="">
+                <label for="cname" style="color:grey">Company name <span class='text-danger'>*</span></label>
+                </div>
+    
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control W-100 my-2" id="job" placeholder="Job title *">
+            <div class="form-floating mb-1">    
+                <input type="text" class="form-control W-100 my-1" id="job" placeholder="">
+                <label for="job" style="color:grey">Job title <span class='text-danger'>*</span></label>
+                </div>
+
         </div>
         <div class="col-md-6">
-            <select class="form-select W-100 my-2" id="state" placeholder="State *">
+            <div class="form-floating mb-1">   
+            <select class="form-select W-100 my-1" id="state" placeholder="State *">
                 <option selected>Select State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -70,19 +89,29 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
             </select>
-
+            <label for="state" style="color:grey">State <span class='text-danger'>*</span></label>
+            </div>
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control W-100 my-2" id="phone" placeholder="Phone *">
+            <div class="form-floating mb-1">   
+            <input type="text" class="form-control W-100 my-1" id="phone" >
+            <label for="phone" style="color:grey">Phone <span class='text-danger'>*</span></label>
+            </div>
         </div>
         <div class="col-md-8">
-            <input type="text" class="form-control W-100 my-2" id="city" placeholder="City *">
+            <div class="form-floating mb-1">   
+            <input type="text" class="form-control W-100 my-1" id="city" placeholder="City *">
+            <label for="city" style="color:grey">City <span class='text-danger'>*</span></label>
+            </div>
         </div>
         <div class="col-md-4">
-            <input type="text" class="form-control W-100 my-2" id="postal" placeholder="Postal code *">
+            <div class="form-floating mb-1">   
+            <input type="text" class="form-control W-100 my-1" id="postal" placeholder="Postal code *">
+            <label for="postal" style="color:grey">Postal code <span class='text-danger'>*</span></label>
+            </div>
         </div>
         <div class="col-md-12">
-            <textarea class="form-control W-100 my-2" id="inputEmail4" placeholder="Questions or comments" style="height:100px;"></textarea>
+            <textarea class="form-control W-100 my-1" id="inputEmail4" placeholder="Questions or comments" style="height:100px;"></textarea>
             <button class="btn btn-danger rounded-pill w-100 my-2 py-1 ff-CatchyMager">Send</button>
         </div>
     </div>    

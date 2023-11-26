@@ -38,38 +38,38 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 pt-4 my-2" id="fname" placeholder="FIRST NAME *" required>
-                                <label for="fname" class="form-label">First name</label>
+                                <label for="fname" class="form-label">First name <span class='text-danger'>*</span></label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 pt-4 my-2" id="lname" placeholder="LAST NAME *" required>
-                                <label for="lname">Last name </label>
+                                <label for="lname">Last name <span class='text-danger'>*</span></label>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating mb-3">
                                 <input type="email" class="form-control W-100 my-2" id="email" placeholder="BUSINESS EMAIL " required>
-                                <label for="email">Business e-mail</label>
+                                <label for="email">Business e-mail <span class='text-danger'>*</span></label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 my-2" id="title" placeholder="TITLE " required>
-                                <label for="title">Title</label>
+                                <label for="title">Title <span class='text-danger'>*</span></label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 my-2" id="phone" placeholder="PHONE " required>
-                                <label for="phone">Phone </label>
+                                <label for="phone">Phone <span class='text-danger'>*</span></label>
                                 </div>
                             </div>
     
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control W-100 my-2" id="cname" placeholder="COMPANY NAME" required>
-                                    <label for="cname">Company name</label>
+                                    <label for="cname">Company name <span class='text-danger'>*</span></label>
                                   </div>
 
                             
@@ -91,7 +91,7 @@
                                     <option value='Residential'>Residential</option>
                                     <option value='Retail'>Retail</option>
                                 </select>
-                                <label for="industry">Industry*</label>
+                                <label for="industry">Industry <span class='text-danger'>*</span></label>
                             </div>
 
                             </div>
@@ -151,20 +151,20 @@
                                     <option value="WI">Wisconsin</option>
                                     <option value="WY">Wyoming</option>
                                 </select>
-                                <label for="state">State*</label>
+                                <label for="state">State <span class='text-danger'>*</span></label>
                             </div>
                     
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="text" class="form-control W-100 my-2" id="city" placeholder="CITY" required>
-                                <label for="city">City</label>
+                                <label for="city">City <span class='text-danger'>*</span></label>
                             </div>
                             </div>
                             <div class="col-md-12 text-center">
                                 <div class="form-floating mb-3">
-                                <textarea class="form-control W-100 my-2" id="comment" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
-                                <label for="comment">Questions or comments</label>
+                                <textarea class="form-control W-100 my-2" id="comment" placeholder="QUESTIONS OR COMMENTS" style="height:100px;" required></textarea>
+                                <label for="comment">Questions or comments <span class='text-danger'>*</span></label>
                                 </div>
                             </form>
                                 <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" onclick="add()">Submit</button>

@@ -90,7 +90,7 @@
 .contact-special
 {
   font-size: 25px;
-  font-family: ITCBenguiat;
+  font-family: Alice;
 }
 
 .f-coco
@@ -156,13 +156,6 @@ hr.line
     font-family: Alice !important;
     font-size: 27px;
     transition: font-size 1s;
-}
-
-.nav-item
-{
-  display: flex;
-  align-items: baseline !important;
-  
 }
 
 .nav-link, .nav-link1
@@ -246,6 +239,10 @@ body
   border: 2px solid var(--brown) !important;
 }
 
+.bdr-transparent
+{
+  border: 2px solid transparent !important;
+}
 .rounded-20
 {
     border-radius: 15% 15%;
