@@ -154,10 +154,16 @@ hr.line
 .nav-link1
 {
     font-family: Alice !important;
-    font-size: 26px;
+    font-size: 27px;
     transition: font-size 1s;
 }
 
+.nav-item
+{
+  display: flex;
+  align-items: baseline !important;
+  
+}
 
 .nav-link, .nav-link1
 {
