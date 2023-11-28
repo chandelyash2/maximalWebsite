@@ -579,10 +579,20 @@ a.footer-link:hover
 .accordion-item {
   border: none;
   border-bottom: 0.5px solid lightgray;
+  border-top: none;
+  }
+
+  .accordion-button {
+    box-shadow: none !important;
+  }
+
+  .accordion-button:focus {
+    border-bottom: none !important;
   }
 
   .accordion-body
   {
+   
     padding-right: 60px !important;
     font-size: 24px;
   }
@@ -590,6 +600,10 @@ a.footer-link:hover
   .accordion-button:not(.collapsed) {
     color: #292929 !important;
     background-color: transparent;
+  }
+
+  .accordion-button:focus {
+    box-shadow: none !important;
   }
 
   .card
@@ -652,6 +666,30 @@ a.footer-link:hover
     cursor: pointer;
   }
 
+  .form-floating input,
+  .form-floating label {
+    background-color: transparent !important; /* Set your desired background color */
+  }
+
+  /* Override Bootstrap's default focus styles */
+  .form-floating input:focus,
+  .form-floating label.form-label {
+    background-color: transparent !important;
+  }
+
+  h1[data-aos-duration="2000"]
+  {
+    padding-left: 60px;
+  }
+
+  /* Change autofill background color to white */
+  .form-floating input:-webkit-autofill,
+  .form-floating input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  }
+
+  
   @media screen and (max-width: 2113px) 
 {
   header video
@@ -669,12 +707,13 @@ a.footer-link:hover
     width: 160px !important;
     transition: width 1s, height 1s;
   }
-  .nav-link, .dropdown-item
+  .nav-link,   .nav-link1, .dropdown-item
   {
     font-family: Alice !important;
     font-size: 24px;
     transition: font-size 1s;
   }
+
 
 }
 
@@ -708,9 +747,14 @@ a.footer-link:hover
 
   .contact-special {padding: 5px 25px !important; width: 100% !important;}
 
+  h1[data-aos-duration="2000"]
+  {
+    padding-left: 55px;
+  }
+
   } 
 
-  @media screen and (max-width: 500px) 
+  @media screen and (max-width: 700px) 
   {
     .logo
     {
@@ -721,5 +765,12 @@ a.footer-link:hover
     .accordion-button {font-size: 18px !important;
     margin-right: 30px; padding: 18px;
     }
+
+    h1[data-aos-duration="2000"]
+    {
+      padding-left: 22px;
+    }
+  
+  
   }
 
