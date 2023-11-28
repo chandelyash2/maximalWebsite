@@ -231,7 +231,7 @@ hr.line
 {
     /* size 346 x 40 */
     min-height: 40px !important;
-    min-width: 80%;
+    max-width: 80%;
     max-height: 40px !important;
 }
 
