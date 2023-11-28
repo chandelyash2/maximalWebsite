@@ -366,7 +366,6 @@ header {
     font-size: 18px;
     line-height: 1.35;
 }
-  
 
   .header-title h1
   {
@@ -390,7 +389,6 @@ header {
     white-space: normal;
   }
  
-  
   header .container {
     position: relative;
     z-index: 2;
@@ -667,7 +665,7 @@ a.footer-link:hover
   {
     color: white;
     z-index: 2;
-    transition: transform 1s !important;
+    /* transition: transform 1s !important; */
   }
 
   .card:hover
