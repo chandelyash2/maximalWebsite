@@ -414,7 +414,7 @@ header {
 
 .dropdown-menu
 {
-  overflow: scroll !important;
+  overflow-y: auto !important;
   max-height: 80vh !important;
 
 }
