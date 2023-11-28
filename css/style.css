@@ -402,12 +402,24 @@ header {
     padding: 6px 10px;    
   }
 
+  .dropdown-item:active
+  {
+    background-color: transparent !important;
+    color: black;
+  }
+
   .dropdown-item:last-child, dropdown-menu:last-child
   {
     border-bottom: 0px solid var(--lightbrown);
     padding: 6px 10px;    
   }
 
+.dropdown-menu
+{
+  overflow: scroll !important;
+  max-height: 80vh !important;
+
+}
 .row 
 {
     max-width: 1240px !important;
