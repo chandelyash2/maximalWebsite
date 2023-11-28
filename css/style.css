@@ -781,6 +781,11 @@ a.footer-link:hover
       padding-left: 22px;
     }
   
+    .accordion-button  p
+    {
+      width: 70%;
+      line-height: 1.3;
+    }
   
   }
 
