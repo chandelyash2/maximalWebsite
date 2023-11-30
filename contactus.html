@@ -33,7 +33,7 @@
                 </p>
                 <p class=" bg-brown text-white rounded-pill py-1 w-100 text-center contact-special">Contact us via the following form or via Contact Us section below</h2>
                     
-                    <form>
+                    <form id="Form">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -225,10 +225,13 @@
     function load_file(filename, callback) {
         fetch(filename).then(response => response.text()).then(text => callback(text));
     }
+
 </script>
 
 
 <script>
+
+
 
 //student class structure  
 class student {
@@ -273,6 +276,9 @@ var apiurl="https://rssambedkar.com/mail/send.php";
   
 // }
 function upload() {
+    alert(JSON.stringify(st));
+
+    return
   fetch(apiurl, {
     method: 'POST',
     body: JSON.stringify(st),
