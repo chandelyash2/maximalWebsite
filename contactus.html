@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form.css">
     <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -32,8 +35,8 @@
                     Please use the contact options below to get in touch with our dedicated team. You can reach us by phone, e-mail, or submit the form to speak with a member of our team. Your feedback, inquiries, and service quote requests are important to us, and we look forward to hearing from you.
                 </p>
                 <p class=" bg-brown text-white rounded-pill py-1 w-100 text-center contact-special">Contact us via the following form or via Contact Us section below</h2>
-                    
-                    <form id="Form">
+                    <!-- action="https://us-central1-maximal-security-services.cloudfunctions.net/submitData" method="POST" -->
+                    <form id="Form" action="" onsubmit="event.preventDefault()" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -166,22 +169,45 @@
                                 <textarea class="form-control W-100 my-2" id="comment" placeholder="QUESTIONS OR COMMENTS" style="height:100px;" required></textarea>
                                 <label for="comment">Questions or comments <span class='text-danger'>*</span></label>
                                 </div>
+                                <!-- <input class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" type="submit"> -->
                             </form>
-                                <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2" onclick="add()">Submit</button>
+
+                                <button class="btn btn-danger alice rounded-pill w-50 m-auto mt-4 py-2 d-flex justify-content-center align-items-center" onclick="add()">
+                                 Submit</button>
+                               
                             </div>
                         </div>    
                 </div>
         </div>
         
      </div>  
-                    
-        
-     <divi id="demo">
-
-     </divi>   
-        
                   
-            
+        
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Sending Data</h5>
+        <button type="button" id="mclosebtn" class="btn-close disabled" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
     <!-- FOOTER -->
     <div class="container-fluid p-0 bg-brown text-light">
@@ -192,24 +218,21 @@
         </div>
     </div>
     <include src="footer.html"></include>
-
-
+   
 
 </body>
 
 <!-- JS FILES -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-</script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"> </script>
+
 <script>
     //navbar scroll
     $(window).scroll(function () {
         $('nav').toggleClass('scrolled', $(this).scrollTop() > 20);
     });
 
-    //Initiate Animation AOS Object
+    // Initiate Animation AOS Object
     AOS.init();
 
     //JS Codes for include nav and footer html files
@@ -226,6 +249,19 @@
         fetch(filename).then(response => response.text()).then(text => callback(text));
     }
 
+    // END
+//     $(window).on("shown.bs.modal", function() {
+// AOS.init({disable:true});
+// });
+
+// $(window).on("hidden.bs.modal", function() {
+// AOS.init({disable:false});
+// });
+
+$(document).ready(function () {
+      $('#Form').validate();
+      });
+
 </script>
 
 
@@ -235,55 +271,37 @@
 
 //student class structure  
 class student {
-constructor(fname,lname,email,title,phone,cname,industry,state,city,comment)
+constructor(fname,lname,email,title,phone,cname,industry,state,city,comment,reqtype="Contact Form Query")
     {
-    this.fname=fname;
-    this.lname=lname;
-    this.email=email;
-    this.title=title;
-    this.phone=phone;
-    this.cname=cname;
-    this.industry=industry;
-    this.state=state;
-    this.city=city;
-    this.comment=comment;
+    this.FirstName=fname;
+    this.LastName=lname;
+    this.Email=email;
+    this.Title=title;
+    this.Phone=phone;
+    this.CompanyName=cname;
+    this.Industry=industry;
+    this.State=state;
+    this.City=city;
+    this.Comment=comment;
+    this.Reqtype=reqtype;
  }
 }
 
 //Upload function for adding record in dataabase which will be called by add function
-//var apiurl="http://localhost:3001/";
-//var apiurl="https://rest-api-production-847e.up.railway.app/";
-var apiurl="https://rssambedkar.com/mail/send.php";
+var apiurl="https://us-central1-maximal-security-services.cloudfunctions.net/submitData";
+// Local host testing
+// var apiurl="http://127.0.0.1:5001/maximal-security-services/us-central1/submitData";
 
-// function upload()
-// {
-//     fetch(apiurl+'post', {
-//     method: 'POST',
-//     body: JSON.stringify(st),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8'
-//     }
-//   }).then(function (response) {
-//     if (response.ok) {
-//       return response.json();
-//     }
-//     return Promise.reject(response);
-//   }).then(function (data) {
-//     alert("You Request is received Successfully...");
-//   }).catch(function (error) {
-//     alert('Something went wrong. Plz Try Later.', error);
-//   });
-  
-// }
+
 function upload() {
     alert(JSON.stringify(st));
 
-    return
+    // return
   fetch(apiurl, {
     method: 'POST',
     body: JSON.stringify(st),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      'Content-type': 'application/json',
     },
   })
     .then(function (response) {
@@ -296,7 +314,10 @@ function upload() {
     .then(function (data) {
       // Check for a success property in the response data
       if (data.success) {
-        alert('Your request was received successfully.');
+
+        $('.modal-body').html('<h2 class="text-success">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon</h2>');
+       
+        // alert('Your request was received successfully.');
       } else {
         // Handle server-side errors or unexpected response
         throw new Error('Server error: ' + data.message);
@@ -304,34 +325,38 @@ function upload() {
     })
     .catch(function (error) {
       // Handle errors including network errors and server errors
-      alert('Something went wrong. Please try again later. ' + error.message);
+      $('.modal-body').html('<h2 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h2>');
     });
 }
 // Function for adding data to listbox and database
 function add()
 {
-  alert("hello");
-st=
-    new student(
-        fname.value,
-        lname.value,
-        email.value,
-        title.value,
-        phone.value,
-        cname.value,
-        industry.value,
-        state.value,
-        city.value,
-        comment.value,
-        );
 
-  //calling upload function for adding record in database
-  demo.innerHTML= JSON.stringify(st);
-  alert("hello");
-  upload();
-    
+  if (Form.checkValidity()) 
+  {
+        AOS.init({disable:true});
+        $('#staticBackdrop').modal('show');
+        $('.modal-body').html('<p>Please Wait... Until Data is Submitted and Confirmation is Received. Please Do not colose the broswer/tab.</p>');
+       
+          st=
+              new student(
+                  fname.value,
+                  lname.value,
+                  email.value,
+                  title.value,
+                  phone.value,
+                  cname.value,
+                  industry.value,
+                  state.value,
+                  city.value,
+                  comment.value,
+                  );
 
-    return;
+          upload();
+          $('#mclosebtn').removeClass('disabled');
+          AOS.init({disable:false});
+          return;
+  }
 }
 
 
