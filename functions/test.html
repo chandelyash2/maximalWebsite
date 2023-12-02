@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Form</title>
+</head>
+<body>
+    <h2>File Upload Form</h2>
+
+    <form id="fileUploadForm" enctype="multipart/form-data">
+        <label for="file">Choose a file:</label>
+        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
+        <br>
+        <button type="button" onclick="uploadFile()">Upload File</button>
+    </form>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please choose a file before uploading.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5001/maximal-security-services/us-central1/app', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    console.log('File uploaded successfully');
+                } else {
+                    console.error('File upload failed');
+                }
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        }
+    </script>
+</body>
+</html>
