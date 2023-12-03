@@ -416,7 +416,7 @@ header {
 {
   overflow-y: auto !important;
   max-height: 80vh !important;
-
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 .row 
 {
@@ -627,7 +627,8 @@ a.footer-link:hover
     justify-content: center !important;
     align-items: center !important;
     text-align: center !important;
-    transition: transform 1s !important;
+    transition: transform 1s, transform-origin 0.5s; /* Added transform-origin transition */
+    transform-origin: center center; /* Added transform-origin property */
     border: 1px solid white !important;
   }
 
@@ -672,7 +673,7 @@ a.footer-link:hover
   {
     /* background-size: 110% 110%; */
     transform: scale(1.05);
-    transition: transform 1s;
+    transform-origin: center center; /* Added transform-origin property */
     cursor: pointer;
   }
 
@@ -693,8 +694,10 @@ a.footer-link:hover
   }
 
   /* Change autofill background color to white */
-  .form-floating input:-webkit-autofill,
-  .form-floating input:-webkit-autofill:focus {
+  :autofill, :-webkit-autofill, .form-floating input:-webkit-autofill,
+  .form-floating input:-webkit-autofill:focus,
+  .form-floating select:-webkit-autofill,
+  .form-floating select:-webkit-autofill:focus {
     box-shadow: 0 0 0 1000px white inset !important;
     -webkit-box-shadow: 0 0 0 1000px white inset !important;
   }
@@ -733,14 +736,32 @@ a.footer-link:hover
     width: 160px !important;
     transition: width 1s, height 1s;
   }
-  .nav-link,   .nav-link1, .dropdown-item
+  .nav-link,    .dropdown-item
   {
     font-family: Alice !important;
     font-size: 24px;
     transition: font-size 1s;
   }
+  .nav-link1
+  {
+    font-size: 26px;
+    transition: font-size 1s;
+  }
 
 
+}
+@media screen and (max-width: 1360px) 
+{
+  .nav-link
+  { font-size: 16px !important;}
+}
+
+@media screen and (max-width: 1152px) 
+{
+  .nav-link
+  { font-size: 14px !important;}
+  .nav-link1
+  { font-size: 16px !important;}
 }
 
  @media screen and (max-width: 1086px) 
@@ -777,7 +798,16 @@ a.footer-link:hover
   {
     padding-left: 55px;
   }
+  .nav-item
+  {
+    width: 90% !important;
+  }
 
+  .navbar:hover, .navbar.scrolled
+{
+    background-color: rgba(255,255,255,1) !important;
+
+}
   } 
 
   @media screen and (max-width: 700px) 
@@ -788,7 +818,8 @@ a.footer-link:hover
         width: 100px !important;
         transition: width 1s, height 1s;
     }
-    .accordion-button {font-size: 18px !important;
+    .accordion-button {font-size: 22px !important;
+      line-height: 1.2;
     margin-right: 30px; padding: 18px;
     }
 
@@ -801,7 +832,17 @@ a.footer-link:hover
     {
       width: 70%;
       line-height: 1.3;
+      margin-bottom: 0;
     }
+    .accordion-button:not(.collapsed)::before 
+      {
+        transform: rotate(-90deg) ;
+        top: 50%;
+        right: 2.69rem;
+        transform-origin: right;
+        transition: transform 0.5s;
+        z-index: 2;
+      }
   
   }
 

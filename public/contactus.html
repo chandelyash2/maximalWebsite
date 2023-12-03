@@ -294,7 +294,7 @@ var apiurl="https://us-central1-maximal-security-services.cloudfunctions.net/sub
 
 
 function upload() {
-    alert(JSON.stringify(st));
+    // alert(JSON.stringify(st));
 
     // return
   fetch(apiurl, {
@@ -315,7 +315,7 @@ function upload() {
       // Check for a success property in the response data
       if (data.success) {
 
-        $('.modal-body').html('<h2 class="text-success">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon</h2>');
+        $('.modal-body').html('<h3 class="text-success">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon</h3>');
        
         // alert('Your request was received successfully.');
       } else {
@@ -325,7 +325,7 @@ function upload() {
     })
     .catch(function (error) {
       // Handle errors including network errors and server errors
-      $('.modal-body').html('<h2 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h2>');
+      $('.modal-body').html('<h3 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h3>');
     });
 }
 // Function for adding data to listbox and database
