@@ -13,7 +13,7 @@ admin.initializeApp({
 const storage = new Storage();
 const bucket = storage.bucket(admin.storage().bucket().name);
 
-async function submitFormbus(req, res) {
+async function bus(req, res) {
     // Add CORS headers
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Methods', 'POST');
@@ -124,4 +124,4 @@ async function submitFormbus(req, res) {
     req.pipe(busboy);
 }
 
-module.exports = { submitFormbus };
+module.exports = { bus };

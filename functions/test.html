@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
 </head>
 <body>
-    <h2>File Upload Form</h2>
+  <input type="file" id="fileInput" />
+  <button onclick="uploadFile()">Upload</button>
 
-    <form id="fileUploadForm" enctype="multipart/form-data">
-        <label for="file">Choose a file:</label>
-        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
-        <br>
-        <button type="button" onclick="uploadFile()">Upload File</button>
-    </form>
+  <script>
+    async function uploadFile() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
 
-    <script>
-        async function uploadFile() {
-            const fileInput = document.getElementById('file');
-            const file = fileInput.files[0];
+      if (file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
 
-            if (!file) {
-                alert('Please choose a file before uploading.');
-                return;
-            }
+        fileReader.onload = function () {
+          const base64Data = fileReader.result.split(',')[1]; // Extract base64 data (omit the data URL prefix)
+          
+          // Send the file as base64 data in a JSON payload
+          const formData = {
+            file: base64Data,
+          };
 
-            const formData = new FormData();
-            formData.append('file', file);
-
-            try {
-                const response = await fetch('http://127.0.0.1:5001/maximal-security-services/us-central1/app', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                if (response.ok) {
-                    console.log('File uploaded successfully');
-                } else {
-                    console.error('File upload failed');
-                }
-            } catch (error) {
-                console.error('Error uploading file:', error);
-            }
-        }
-    </script>
+          // Send the JSON payload to your server (you might use fetch or another AJAX library)
+          fetch('https://us-central1-your-firebase-project-id.cloudfunctions.net/app/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          })
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+        };
+      } else {
+        console.error('No file selected.');
+      }
+    }
+  </script>
 </body>
 </html>

@@ -63,7 +63,7 @@ async function submitData(req, res) {
         <p>In the meantime, if you have any urgent questions or if you would like to speak with one of our service professionals immediately, feel free to contact our office directly at <a href='tel:+18447633567'>844-763-3567</a>. When calling, please choose prompt 1 to be connected with the representative who can address your inquiries promptly.</p>
         <p>Thank you once again for considering Maximal Security. We look forward to the opportunity to serve you.</p>
         <p>Best Regards,</p>
-        <p><img src='https://pankaj250483.github.io/maximalsecurityservices/images/logo.png' style='width:70px;height:50px;'></p>
+        <p><img src='https://maximal-security-services.web.app/images/logo.png' style='width:70px;height:50px;'></p>
         <p>Maximal Security Services Team<br>
         info@maximalsecurityservices.com<nr>
         <br>844-763-3567</p>

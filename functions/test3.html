@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Storage Upload</title>
+
+  <!-- Import Firebase SDK modules as modules -->
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+
+  <!-- Your custom JavaScript code comes after Firebase scripts -->
+  <script>
+    // Your Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyCR-soGi4VvGPwNq-1NWLthPZXwwcoGZo8",
+    authDomain: "maximal-security-services.firebaseapp.com",
+    projectId: "maximal-security-services",
+    storageBucket: "maximal-security-services.appspot.com",
+    messagingSenderId: "599144898107",
+    appId: "1:599144898107:web:f7fa697561f057edab861e",
+    measurementId: "G-DWS4XY8NEM"
+
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Create a storage reference
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+
+    // Function to handle file upload
+    function handleFileUpload() {
+      var fileInput = document.getElementById('fileInput');
+      var file = fileInput.files[0];
+
+      if (!file) {
+        console.error('No file selected');
+        return;
+      }
+
+      // Create the file metadata
+      var metadata = {
+        contentType: 'image/jpeg'
+      };
+
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING:
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error) => {
+          // Handle errors during upload
+          switch (error.code) {
+            case 'storage/unauthorized':
+              console.error('User doesn\'t have permission to access the object');
+              break;
+            case 'storage/canceled':
+              console.error('User canceled the upload');
+              break;
+
+            // Handle other error codes as needed
+
+            default:
+              console.error('Unknown error occurred:', error);
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File available at', downloadURL);
+          });
+        }
+      );
+    }
+  </script>
+</head>
+<body>
+  <!-- Your HTML content goes here -->
+  <form>
+    <input type="file" id="fileInput" />
+    <button type="button" onclick="handleFileUpload()">Upload File</button>
+  </form>
+</body>
+</html>
