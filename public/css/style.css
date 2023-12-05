@@ -736,7 +736,7 @@ a.footer-link:hover
     width: 160px !important;
     transition: width 1s, height 1s;
   }
-  .nav-link,    .dropdown-item
+  .nav-link, .dropdown-item
   {
     font-family: Alice !important;
     font-size: 24px;
@@ -752,8 +752,14 @@ a.footer-link:hover
 }
 @media screen and (max-width: 1360px) 
 {
-  .nav-link
+  .nav-link, .dropdown-item 
   { font-size: 16px !important;}
+  .nav-link1
+  {
+    font-size: 20px;
+    transition: font-size 1s;
+  }
+
 }
 
 @media screen and (max-width: 1152px) 
@@ -761,7 +767,7 @@ a.footer-link:hover
   .nav-link
   { font-size: 14px !important;}
   .nav-link1
-  { font-size: 16px !important;}
+  { font-size: 18px !important;}
 }
 
  @media screen and (max-width: 1086px) 
