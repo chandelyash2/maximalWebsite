@@ -50,7 +50,7 @@
             <div class="col-md-10">
                 <p class="bg-brown text-white rounded-pill py-1 w-100 my-5 text-center contact-special alice ">Apply for opportunity to join our team via the form below</h2>
             
-                    <form onsubmit="event.preventDefault();">
+                    <form id="Form" action="" onsubmit="event.preventDefault()" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -197,25 +197,25 @@
                                     <label for="resume">Resume <span class='text-danger'>*</span></label>
                                     </div>
                                     <div class="col-8">
-                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="resume" required>
+                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="Resume" required>
                                     </div>    
                                 </div>
 
                                 <div class="row">
                                     <div class="col-4 d-flex align-items-center">
-                                    <label for="resume">Photo ID <span class='text-danger'>*</span></label>
+                                    <label for="photoid">Photo ID <span class='text-danger'>*</span></label>
                                     </div>
                                     <div class="col-8">
-                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="photoid" required>
+                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="PhotoId" required>
                                     </div>    
                                 </div>
 
                                 <div class="row">
                                     <div class="col-4 d-flex align-items-center">
-                                    <label for="resume">Guard license</label>
+                                    <label for="guardlicense">Guard license</label>
                                     </div>
                                     <div class="col-8">
-                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="guardlicense">
+                                    <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="GuardLicense">
                                     </div>    
                                 </div>
                                 
@@ -350,7 +350,7 @@
                             </div>
                           
                             </p>
-                                <button class="btn btn-danger rounded-pill w-50 m-auto mt-4 py-1 alice">Submit</button>
+                                <button class="btn btn-danger rounded-pill w-50 m-auto mt-4 py-1 alice" onclick="add()">Submit</button>
                             </div>
                         </div>    
                   
@@ -360,6 +360,23 @@
         
 
             </div> 
+
+
+            <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Sending Data</h5>
+          <button type="button" id="mclosebtn" class="btn-close disabled" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> </div>
+        <div class="modal-footer">
+            <p id="msg"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- FOOTER -->
     <div class="container-fluid p-0 bg-brown text-light">
@@ -382,6 +399,7 @@
 </script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
 <script>
 
 
@@ -408,79 +426,166 @@
         fetch(filename).then(response => response.text()).then(text => callback(text));
     }
 
+    // ***************** new uplaod ***
+	// Initialize Firebase
+    var config = {
+			apiKey: "AIzaSyCR-soGi4VvGPwNq-1NWLthPZXwwcoGZo8",
+			authDomain: "maximal-security-services.firebaseapp.com",
+			projectId: "maximal-security-services",
+			storageBucket: "maximal-security-services.appspot.com",
+			messagingSenderId: "599144898107",
+			appId: "1:599144898107:web:f7fa697561f057edab861e",
+			measurementId: "G-DWS4XY8NEM"
 
-</script>
+		}; 
 
-<script>
+firebase.initializeApp(config);
+var fbBucketName = 'images';
+
+async function uploadFileAndGetDownloadURL(fdata) {
+    return new Promise(async (resolve, reject) => {
+        // get file
+        if (document.getElementById(fdata).files.length === 0) {
+            msg.innerHTML('No file selected.');
+            resolve('No File');
+            return;
+        }
+        var timestamp = Date.now(); 
+        var file = document.getElementById(fdata).files[0];
+        var uniqueFilename = fdata +"_"+ timestamp + '_' + file.name;
+        // create a storage ref
+        var storageRef = firebase.storage().ref(`${fbBucketName}/${uniqueFilename}`);
+
+        // upload file
+        var uploadTask = storageRef.put(file);
+
+        uploadTask.on(
+            firebase.storage.TaskEvent.STATE_CHANGED,
+            function (snapshot) {
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                msg.innerHTML='Upload is ' + progress + '% done';
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED:
+                    msg.innerHTML='Upload is paused';
+                        break;
+                    case firebase.storage.TaskState.RUNNING:
+                    msg.innerHTML='Upload is running';
+                        break;
+                }
+            },
+            function (error) {
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                    msg.innerHTML='User doesn\'t have permission to access the object';
+                        break;
+                    case 'storage/canceled':
+                    msg.innerHTML='User canceled the upload';
+                        break;
+                    case 'storage/unknown':
+                    msg.innerHTML='Unknown error occurred, inspect error.serverResponse';
+                        break;
+                }
+            },
+            async function () {
+                // Upload completed successfully, now we can get the download URL
+                try {
+                    // const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                    st[fdata]= await uploadTask.snapshot.ref.getDownloadURL();
+                    // alert(st[fdata]);
+                    // console.log(downloadURL);
+                    resolve(st[fdata]);
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        );
+    });
+}
 
     //student class structure  
     class student {
-    constructor(fname,lname,email,reemail,street,state,city,zip,pphone,dob,ename,ephone,resume,photoid,
-    guardlicense,experience,position,guard,firearm,transportation,communication,age,english,inputEmail4,fullname)
+    constructor(fname,lname,email,street,state,city,zip,pphone,dob,ename,ephone,resume,photoid,
+    guardlicense,experience,position,guard,firearm,transportation,communication,age,english,inputEmail4,reqtype="Careers Form Query")
         {
-        this.fname=fname;
-        this.lname=lname;
-        this.email=email;
-        this.reemail=reemail;
-        this.street=street;
-        this.state=state;
-        this.city=city;
-        this.zip=zip;
-        this.pphone=pphone;
-        this.dob=dob;
-        this.ename=ename;
-        this.ephone=ephone;
-        this.resume=resume;
-        this.photoid=photoid;
-        this.guardlicense=guardlicense;
-        this.experience=experience;
-        this.position=position;
-        this.guard=guard;
-        this.firearm=firearm;
-        this.transportation=transportation;
-        this.communication=communication;
-        this.age=age;
-        this.english=english;
-        this.inputEmail4=inputEmail4;
-        this.fullname=fullname;
+        this.FirstName=fname;
+        this.LastName=lname;
+        this.Email=email;
+        this.Street=street;
+        this.State=state;
+        this.City=city;
+        this.Zip=zip;
+        this.PrimaryPhone=pphone;
+        this.DateOfBirth=dob;
+        this.EmergencyContactName=ename;
+        this.EmergencyPhone=ephone;
+        this.Resume=resume;
+        this.PhotoId=photoid;
+        this.GuardLicense=guardlicense;
+        this.ExperienceInYears=experience;
+        this.Position=position;
+        this.HoldGuardLicense=guard;
+        this.HoldfirearmLicense=firearm;
+        this.ReliableTransportation=transportation;
+        this.ReliableCommunication=communication;
+        this.AgeAtLeast18=age;
+        this.EnglishKnow=english;
+        this.Reqtype=reqtype;
         }
     }
     
     //Upload function for adding record in dataabase which will be called by add function
-    //var apiurl="http://localhost:3001/";
-    var apiurl="https://rest-api-production-847e.up.railway.app/";
+    var apiurl="https://us-central1-maximal-security-services.cloudfunctions.net/submitData";
+    // Local host testing
+    // var apiurl="http://127.0.0.1:5001/maximal-security-services/us-central1/submitData";
     
-    function upload()
-    {
-        fetch(apiurl+'post', {
-        method: 'POST',
-        body: JSON.stringify(st),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      }).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(response);
-      }).then(function (data) {
-        alert("You Request is received Successfully...");
-      }).catch(function (error) {
-        alert('Something went wrong. Plz Try Later.', error);
-      });
-      
-    }
-    
+function upload() {
+    // alert(JSON.stringify(st));
+
+    // return
+  fetch(apiurl, {
+    method: 'POST',
+    body: JSON.stringify(st),
+    headers: {
+      'Content-type': 'application/json',
+    },
+  })
+    .then(function (response) {
+      if (!response.ok) {
+        // Check for HTTP error status
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      // Check for a success property in the response data
+      if (data.success) {
+        $('.modal-title').html('Data Sent.');
+        $('.modal-body').html('<h3 class="text-success">Your Form Has Been Successfully Submitted!</h3>');
+       
+        // alert('Your request was received successfully.');
+      } else {
+        // Handle server-side errors or unexpected response
+        throw new Error('Server error: ' + data.message);
+      }
+    })
+    .catch(function (error) {
+      // Handle errors including network errors and server errors
+      $('.modal-title').html('Data Sending Fail...');
+      $('.modal-body').html('<h3 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h3>');
+    });
+}
+
     // Function for adding data to listbox and database
-    function add()
-    {
-      
-    st=
-        new student(
+    async function add() {
+    if (Form.checkValidity()) {
+        AOS.init({ disable: true });
+        $('#staticBackdrop').modal('show');
+        $('.modal-body').html('<p>Please wait until data is submitted and confirmation is received. Please do not close the browser window.</p>');
+
+        st = new student(
             fname.value,
             lname.value,
             email.value,
-            reemail.value,
             street.value,
             zip.value,
             pphone.value,
@@ -489,9 +594,9 @@
             ephone.value,
             state.value,
             city.value,
-            resume.value,
-            photoid.value,
-            guardlicense.value,
+            Resume.value,
+            PhotoId.value,
+            GuardLicense.value,
             experience.value,
             position.value,
             guard.value,
@@ -500,24 +605,28 @@
             communication.value,
             age.value,
             english.value,
-            inputEmail4.value,
-            fullname.value,
+            inputEmail4.value
         );
-    
-      //calling upload function for adding record in database
-    //   upload();
-    showobj()
-    
+
+        try {
+            // Wait for all file uploads to complete
+            await uploadFileAndGetDownloadURL('Resume');
+            await uploadFileAndGetDownloadURL('PhotoId');
+            await uploadFileAndGetDownloadURL('GuardLicense');
+            msg.innerHTML="";
+            // After all uploads are complete, call the upload function
+            upload();
+            $('#mclosebtn').removeClass('disabled');
+            AOS.init({ disable: false });
+        } catch (error) {
+            // Handle errors during file uploads or other async operations
+            console.error('Error:', error);
+            // Show error in modal or take appropriate action
+        }
     }
-    
-    
-    //Function for showing sutdent object (like json format)
-    function showobj()
-    {
-    demo.innerHTML= JSON.stringify(st);
-    
     }
-    
+
+        
     </script>
 
 

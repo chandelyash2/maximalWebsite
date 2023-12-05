@@ -27,24 +27,12 @@
 
 		};
 		firebase.initializeApp(config);
-	</script>
-
-	<script type="text/javascript">
-
-		// firebase bucket name
-		// REPLACE WITH THE ONE YOU CREATE
-		// ALSO CHECK STORAGE RULES IN FIREBASE CONSOLE
 		var fbBucketName = 'images';
-
-		// get elements
 		var uploader = document.getElementById('uploader');
 		var fileButton = document.getElementById('fileButton');
 
-		// listen for file selection
 		fileButton.addEventListener('change', function (e) {
-
-			// what happened
-			console.log('file upload event', e);
+		console.log('file upload event', e);
 
 			// get file
 			var file = e.target.files[0];
@@ -55,10 +43,6 @@
 			// upload file
 			var uploadTask = storageRef.put(file);
 
-			// The part below is largely copy-pasted from the 'Full Example' section from
-			// https://firebase.google.com/docs/storage/web/upload-files
-
-			// update progress bar
 			uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
 				function (snapshot) {
 					// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded

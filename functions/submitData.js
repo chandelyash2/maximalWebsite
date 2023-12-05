@@ -55,6 +55,8 @@ async function submitData(req, res) {
         };
 
         subjectreply="Thanks for your interest.";
+        if(req.body.Reqtype=='Contact Form Query')
+        {
         bodyreply=
         `
         <p>Dear ${req.body.FirstName+" "+req.body.LastName},<p>
@@ -63,11 +65,30 @@ async function submitData(req, res) {
         <p>In the meantime, if you have any urgent questions or if you would like to speak with one of our service professionals immediately, feel free to contact our office directly at <a href='tel:+18447633567'>844-763-3567</a>. When calling, please choose prompt 1 to be connected with the representative who can address your inquiries promptly.</p>
         <p>Thank you once again for considering Maximal Security. We look forward to the opportunity to serve you.</p>
         <p>Best Regards,</p>
-        <p><img src='https://maximal-security-services.web.app/images/logo.png' style='width:70px;height:50px;'></p>
         <p>Maximal Security Services Team<br>
-        info@maximalsecurityservices.com<nr>
-        <br>844-763-3567</p>
+        info@maximalsecurityservices.com<br>
+        www.maximalsecurityservices.com<br>
+        (844) 763-3567<br>
+        <img src='https://maximal-security-services.web.app/images/logo.png' style='width:70px;height:50px;'></p>   
         `;
+        }
+        else if (req.body.Reqtype=='Careers Form Query')
+        {
+            bodyreply=
+            `
+            <p>Dear ${req.body.FirstName+" "+req.body.LastName},</p>
+            <p>Thank you for expressing your interest in joining Maximal Security Services as part of our dedicated team. We appreciate the time and effort you invested in submitting your employment application.</p>
+            <p>This automated response is to confirm that we have received your inquiry, and our hiring team will carefully review your application.</p> 
+            <p>Please be assured that your application is important to us, and we will make every effort to thoroughly evaluate your qualifications. Our team will reach out to you via email or phone to discuss the next steps in the hiring process if your skills and experience align with our current needs.</p>
+            <p>Thank you again for considering Maximal Security Services as your employer of choice. We look forward to the possibility of working together.</p>
+            <p>Best Regards,</p>
+            <p>Maximal Security Services Team<br>
+            info@maximalsecurityservices.com<br>
+            www.maximalsecurityservices.com<br>
+            (844) 763-3567<br>
+            <img src='https://maximal-security-services.web.app/images/logo.png' style='width:70px;height:50px;'></p>   
+            `;            
+        }
 
         const mailOptionsreply = {
             from: 'noreply@MaximalSecurityServices.com' ,

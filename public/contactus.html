@@ -314,8 +314,8 @@ function upload() {
     .then(function (data) {
       // Check for a success property in the response data
       if (data.success) {
-
-        $('.modal-body').html('<h3 class="text-success">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon</h3>');
+        $('.modal-title').html('Data Sent.');
+        $('.modal-body').html('<h3 class="text-success">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon.</h3>');
        
         // alert('Your request was received successfully.');
       } else {
@@ -325,6 +325,7 @@ function upload() {
     })
     .catch(function (error) {
       // Handle errors including network errors and server errors
+      $('.modal-title').html('Data Sending Fail...');
       $('.modal-body').html('<h3 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h3>');
     });
 }
@@ -336,7 +337,7 @@ function add()
   {
         AOS.init({disable:true});
         $('#staticBackdrop').modal('show');
-        $('.modal-body').html('<p>Please Wait... Until Data is Submitted and Confirmation is Received. Please Do not colose the broswer/tab.</p>');
+        $('.modal-body').html('<p>Please wait until data is submitted and confirmation is received. Please do not close the browser window.</p>');
        
           st=
               new student(
