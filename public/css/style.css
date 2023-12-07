@@ -739,14 +739,14 @@ a.footer-link:hover
   }
   .nav-link, .dropdown-item
   {
-    font-family: Alice !important;
     font-size: 24px;
     transition: font-size 1s;
   }
   .nav-link1
   {
-    font-size: 26px;
+    font-size: 30px;
     transition: font-size 1s;
+    padding-bottom: 12px !important;
   }
 
 
@@ -754,26 +754,60 @@ a.footer-link:hover
 @media screen and (max-width: 1360px) 
 {
   .nav-link, .dropdown-item 
+  { font-size: 19px !important;}
+  .nav-link1
+  {
+    font-size: 25px !important;
+    transition: font-size 1s;
+    padding-bottom: 12px !important;
+  }
+}
+  @media screen and (max-width: 1289px) 
+  {
+    .nav-link, .dropdown-item 
+    { font-size: 17px !important;}
+    .nav-link1
+    {
+      font-size: 23px !important;
+      transition: font-size 0.4s;
+      padding-bottom: 12px !important;
+    }
+
+}
+@media screen and (max-width: 1220px) 
+{
+  .nav-link, .dropdown-item 
   { font-size: 16px !important;}
   .nav-link1
   {
-    font-size: 20px;
+    font-size: 24px !important;
     transition: font-size 1s;
   }
 
 }
 
-@media screen and (max-width: 1152px) 
+@media screen and (max-width: 1200px) 
 {
   .nav-link
   { font-size: 14px !important;}
   .nav-link1
-  { font-size: 18px !important;}
+  { font-size: 20px !important;}
+ 
   .navbar-nav, .navbar, .nav-link, .nav-link1, .scrolled
   {
     background-color: white !important;
     color: black !important;
   }
+  .nav-item
+  {
+    width: 90% !important;
+  }
+
+  .navbar:hover, .navbar.scrolled
+{
+    background-color: rgba(255,255,255,1) !important;
+
+}
 }
 
  @media screen and (max-width: 1086px) 
@@ -810,16 +844,7 @@ a.footer-link:hover
   {
     padding-left: 55px;
   }
-  .nav-item
-  {
-    width: 90% !important;
-  }
 
-  .navbar:hover, .navbar.scrolled
-{
-    background-color: rgba(255,255,255,1) !important;
-
-}
   } 
 
   @media screen and (max-width: 700px) 
@@ -858,4 +883,3 @@ a.footer-link:hover
       }
   
   }
-
