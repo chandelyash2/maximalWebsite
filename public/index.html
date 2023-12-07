@@ -6,7 +6,6 @@
     <link rel="icon" type="image/x-icon" href="images/logo-icon.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body class="bg-white" data-aos="fade-in">
@@ -15,13 +14,13 @@
 
     <div class="container-fluid p-0">
     <!-- Header Section -->
-    <header id="head1">
+    <header id="head1" class="bg-image bg-Main">
         <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
         <div class="overlay-home p-0 m-0"></div>
 
         <!-- The HTML5 video element that will create the background video on the header -->
         <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" id="v1">
-            <source src="images/video.mp4" type="video/mp4">
+            <source src="images/video.mov" type="video/mp4">
         </video>
 
     </header>
@@ -190,8 +189,10 @@
     <div class="container-fluid p-lg-5">
 
         <div class="container px-lg-5">
-            <hr class="line">
-            <div class="row pt-3"">
+           
+            <div class="row">
+                
+                <hr class="line">
                 <div class="col-md-6 pt-2">
                     <h2>SCHEDULE A CONSULTATION</h2>
                     <p class="banner-text">Get in touch with us to receive a professional consultation from one of our experts.
@@ -201,12 +202,12 @@
                 <div class="col-md-6 px-lg-5">
                     <include src="form1.html"></include>
                 </div>
+               
+                <hr class="line" >
             </div>
-            <hr class="line">
+           
         </div>
     </div>
-
-
 
     <!-- FOOTER -->
     <div class="container-fluid p-0 bg-brown text-light">
@@ -228,6 +229,9 @@
                         <img src="images/Customer Logo/staples_logo_transparent.svg" class="custoer-logo mx-5"> 
                     </div>
                     <div class="swiper-slide">
+                        <img src="images/Customer Logo/GreyStar_blue-removebg-preview.png" class="custoer-logo mx-5">
+                    </div>
+                    <div class="swiper-slide">
                         <img src="images/Customer Logo/turner-logo-blue.png" class="custoer-logo mx-5">
                     </div>
                     <div class="swiper-slide">
@@ -242,6 +246,7 @@
                     <div class="swiper-slide">
                         <img src="images/Customer Logo/Greenbriar-removebg-preview.png" class="custoer-logo mx-5">
                     </div>
+                
                     <div class="swiper-slide">
                         <img src="images/Customer Logo/central-logo-removebg-preview.png" class="custoer-logo mx-5">
                     </div>
@@ -268,8 +273,6 @@
 
 <script>
 
-
-    
 //fade-up
     x = document.querySelectorAll(".col-md-3");
     for (i = 0; i < x.length; i++) {
@@ -278,7 +281,6 @@
         x[i].classList.add("py-2");
     }
 
- 
     //navbar scroll
     $(window).scroll(function () {
         $('nav').toggleClass('scrolled', $(this).scrollTop() > 0);
@@ -301,10 +303,6 @@
         fetch(filename).then(response => response.text()).then(text => callback(text));
     }
 
-        //
-        // SWIPER CODES
-        //
-        //swiper
         var x=window.screen.availWidth;
         var spv;
         var sb;
@@ -340,5 +338,6 @@
      
 </script>
 
+<script src="modal.js"></script>
 
 </html>

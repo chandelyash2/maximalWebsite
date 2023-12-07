@@ -1,4 +1,4 @@
-<form action="#" class="from1">
+<form id="Form" action="" onsubmit="event.preventDefault()" method="POST">
     <div class="row">
         <div class="col-md-12">
             <div class="form-floating mb-1">    
@@ -112,10 +112,10 @@
         </div>
         <div class="col-md-12">
             <div class="form-floating mb-1">  
-            <textarea class="form-control W-100 my-1" id="inputEmail4" placeholder="Questions or comments" style="height:100px;"></textarea>
+            <textarea class="form-control W-100 my-1" id="comments" placeholder="Questions or comments" style="height:100px;"></textarea>
             <label for="postal" style="color:grey">Questions or comments</label>
         </div>
-            <button class="btn btn-danger rounded-pill w-100 my-2 pt-1 ff-CatchyMager">Send</button>
+            <button class="btn btn-danger rounded-pill w-100 my-2 pt-1 ff-CatchyMager" onclick="add()">Send</button>
         </div>
     </div>    
             

@@ -5,6 +5,10 @@
     background-repeat: no-repeat;
 }
 
+.bg-Main 
+{
+    background-image: url('../images/bg-main.png');   
+}
 /*
 ####### INDUSTRY BACKGROUNS ########
 */

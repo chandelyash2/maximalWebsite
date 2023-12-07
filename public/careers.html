@@ -6,12 +6,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form.css">
     <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
-<style>
-
-
-</style>
-
-
 </head>
 
 <body class="bg-light" data-aos="fade-in">
@@ -194,7 +188,7 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-4 d-flex align-items-center">
-                                    <label for="resume">Resume <span class='text-danger'>*</span></label>
+                                    <label for="Resume">Resume <span class='text-danger'>*</span></label>
                                     </div>
                                     <div class="col-8">
                                     <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="Resume" required>
@@ -203,7 +197,7 @@
 
                                 <div class="row">
                                     <div class="col-4 d-flex align-items-center">
-                                    <label for="photoid">Photo ID <span class='text-danger'>*</span></label>
+                                    <label for="PhotoId">Photo ID <span class='text-danger'>*</span></label>
                                     </div>
                                     <div class="col-8">
                                     <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="PhotoId" required>
@@ -212,7 +206,7 @@
 
                                 <div class="row">
                                     <div class="col-4 d-flex align-items-center">
-                                    <label for="guardlicense">Guard license</label>
+                                    <label for="GuardLicense">Guard license</label>
                                     </div>
                                     <div class="col-8">
                                     <input type="file" class="form-control W-100 pt-4 my-2 d-inline" id="GuardLicense">
@@ -322,7 +316,7 @@
 
                             <div class="col-md-12 text-center">
                                 <div class="form-floating mb-3">
-                                <textarea class="form-control W-100 py-3 my-2 pt-4" id="inputEmail4" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
+                                <textarea class="form-control W-100 py-3 my-2 pt-4" id="comments" placeholder="QUESTIONS OR COMMENTS" style="height:100px;"></textarea>
                                 <label for="position">Questions or comments <span class='text-danger'>*</span></label>
                                 </div>
                             
@@ -367,11 +361,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Sending Data</h5>
+          <h5 class="modal-title alice" id="staticBackdropLabel">Sending Data</h5>
           <button type="button" id="mclosebtn" class="btn-close disabled" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body"> </div>
-        <div class="modal-footer">
+        <div class="modal-body alice"> </div>
+        <div class="modal-footer alice">
             <p id="msg"></p>
         </div>
       </div>
@@ -400,10 +394,8 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+
 <script>
-
-
-
     //navbar scroll
     $(window).scroll(function () {
         $('nav').toggleClass('scrolled', $(this).scrollTop() > 20);
@@ -446,7 +438,7 @@ async function uploadFileAndGetDownloadURL(fdata) {
     return new Promise(async (resolve, reject) => {
         // get file
         if (document.getElementById(fdata).files.length === 0) {
-            msg.innerHTML('No file selected.');
+            msg.innerHTML='No file selected.';
             resolve('No File');
             return;
         }
@@ -502,46 +494,13 @@ async function uploadFileAndGetDownloadURL(fdata) {
     });
 }
 
-    //student class structure  
-    class student {
-    constructor(fname,lname,email,street,state,city,zip,pphone,dob,ename,ephone,resume,photoid,
-    guardlicense,experience,position,guard,firearm,transportation,communication,age,english,inputEmail4,reqtype="Careers Form Query")
-        {
-        this.FirstName=fname;
-        this.LastName=lname;
-        this.Email=email;
-        this.Street=street;
-        this.State=state;
-        this.City=city;
-        this.Zip=zip;
-        this.PrimaryPhone=pphone;
-        this.DateOfBirth=dob;
-        this.EmergencyContactName=ename;
-        this.EmergencyPhone=ephone;
-        this.Resume=resume;
-        this.PhotoId=photoid;
-        this.GuardLicense=guardlicense;
-        this.ExperienceInYears=experience;
-        this.Position=position;
-        this.HoldGuardLicense=guard;
-        this.HoldfirearmLicense=firearm;
-        this.ReliableTransportation=transportation;
-        this.ReliableCommunication=communication;
-        this.AgeAtLeast18=age;
-        this.EnglishKnow=english;
-        this.Reqtype=reqtype;
-        }
-    }
-    
     //Upload function for adding record in dataabase which will be called by add function
     var apiurl="https://us-central1-maximal-security-services.cloudfunctions.net/submitData";
     // Local host testing
     // var apiurl="http://127.0.0.1:5001/maximal-security-services/us-central1/submitData";
     
-function upload() {
-    // alert(JSON.stringify(st));
+function upload(st) {
 
-    // return
   fetch(apiurl, {
     method: 'POST',
     body: JSON.stringify(st),
@@ -560,7 +519,7 @@ function upload() {
       // Check for a success property in the response data
       if (data.success) {
         $('.modal-title').html('Data Sent.');
-        $('.modal-body').html('<h3 class="text-success">Your Form Has Been Successfully Submitted!</h3>');
+        $('.modal-body').html('<h3 class="text-success alice">Your Form Has Been Successfully Submitted!</h3>');
        
         // alert('Your request was received successfully.');
       } else {
@@ -571,51 +530,57 @@ function upload() {
     .catch(function (error) {
       // Handle errors including network errors and server errors
       $('.modal-title').html('Data Sending Fail...');
-      $('.modal-body').html('<h3 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h3>');
+      $('.modal-body').html('<h3 class="text-danger alice">Something went wrong. Please try again later. ' + error.message+'</h3>');
     });
 }
 
     // Function for adding data to listbox and database
     async function add() {
     if (Form.checkValidity()) {
+        if(email.value != reemail.value)
+        {
+            alert("Email and Retype Email Should be Euqal.");
+            return;
+        }
         AOS.init({ disable: true });
+        $('.modal-title').html('Sending Data...');
+        $('.modal-body').html('<p class="alice">Please wait until data is submitted and confirmation is received. Please do not close the browser window.</p>');
         $('#staticBackdrop').modal('show');
-        $('.modal-body').html('<p>Please wait until data is submitted and confirmation is received. Please do not close the browser window.</p>');
 
-        st = new student(
-            fname.value,
-            lname.value,
-            email.value,
-            street.value,
-            zip.value,
-            pphone.value,
-            dob.value,
-            ename.value,
-            ephone.value,
-            state.value,
-            city.value,
-            Resume.value,
-            PhotoId.value,
-            GuardLicense.value,
-            experience.value,
-            position.value,
-            guard.value,
-            firearm.value,
-            transportation.value,
-            communication.value,
-            age.value,
-            english.value,
-            inputEmail4.value
-        );
+        st = {}
+        st.FirstName=fname.value;
+        st.LastName=lname.value;
+        st.Email=email.value;
+        st.Street=street.value;
+        st.State=state.value;
+        st.City=city.value;
+        st.Zip=zip.value;
+        st.PrimaryPhone=pphone.value;
+        st.DateOfBirth=dob.value;
+        st.EmergencyContactName=ename.value;
+        st.EmergencyPhone=ephone.value;
+        st.ExperienceInYears=experience.value;
+        st.Position=position.value;
+        st.HoldGuardLicense=guard.value;
+        st.HoldfirearmLicense=firearm.value;
+        st.ReliableTransportation=transportation.value;
+        st.ReliableCommunication=communication.value;
+        st.AgeAtLeast18=age.value;
+        st.EnglishKnow=english.value;
+        st.Comments=comments.value
+        st.Reqtype="Careers Form Query";
 
         try {
             // Wait for all file uploads to complete
             await uploadFileAndGetDownloadURL('Resume');
             await uploadFileAndGetDownloadURL('PhotoId');
-            await uploadFileAndGetDownloadURL('GuardLicense');
-            msg.innerHTML="";
+            if (document.getElementById('GuardLicense').files.length != 0)  
+                { await uploadFileAndGetDownloadURL('GuardLicense');}
+            else
+                {st.GuardLicense="Not Uploaded.";}
+   
             // After all uploads are complete, call the upload function
-            upload();
+            upload(st);
             $('#mclosebtn').removeClass('disabled');
             AOS.init({ disable: false });
         } catch (error) {

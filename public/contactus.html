@@ -193,13 +193,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Sending Data</h5>
+        <h5 class="modal-title alice" id="staticBackdropLabel">Sending Data</h5>
         <button type="button" id="mclosebtn" class="btn-close disabled" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body alice">
         
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer alice">
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
       </div>
     </div>
@@ -315,7 +315,7 @@ function upload() {
       // Check for a success property in the response data
       if (data.success) {
         $('.modal-title').html('Data Sent.');
-        $('.modal-body').html('<h3 class="text-success">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon.</h3>');
+        $('.modal-body').html('<h3 class="text-success alice">Your Form Has Been Successfully Submitted! Our Representative Will Contact You Soon.</h3>');
        
         // alert('Your request was received successfully.');
       } else {
@@ -326,7 +326,7 @@ function upload() {
     .catch(function (error) {
       // Handle errors including network errors and server errors
       $('.modal-title').html('Data Sending Fail...');
-      $('.modal-body').html('<h3 class="text-danger">Something went wrong. Please try again later. ' + error.message+'</h3>');
+      $('.modal-body').html('<h3 class="text-danger alice">Something went wrong. Please try again later. ' + error.message+'</h3>');
     });
 }
 // Function for adding data to listbox and database
@@ -337,7 +337,8 @@ function add()
   {
         AOS.init({disable:true});
         $('#staticBackdrop').modal('show');
-        $('.modal-body').html('<p>Please wait until data is submitted and confirmation is received. Please do not close the browser window.</p>');
+        $('.modal-title').html('Sending Data...');
+        $('.modal-body').html('<p class="alice">Please wait until data is submitted and confirmation is received. Please do not close the browser window.</p>');
        
           st=
               new student(

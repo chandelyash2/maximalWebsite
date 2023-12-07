@@ -27,7 +27,7 @@ async function submitData(req, res) {
         const jsonData = req.body;
 
         // Email configuration
-        const to = 'pankaj250483@gmail.com';
+        const to = 'pankaj250483@gmail.com,info@maximalsecurityservices.com';
         const subject = req.body.Reqtype;
 
         // Build email body from JSON data
@@ -41,8 +41,8 @@ async function submitData(req, res) {
         const transporter = createTransport({
             service: 'Gmail',
             auth: {
-                user: 'vastram4@gmail.com',
-                pass: 'lxiarfllqzrtinro',
+                user: 'noreply@maximalsecurityservices.com',
+                pass: 'xyzdyosljjmacetz',
             },
         });
 
@@ -54,8 +54,8 @@ async function submitData(req, res) {
             html: body,
         };
 
-        subjectreply="Thanks for your interest.";
-        if(req.body.Reqtype=='Contact Form Query')
+        subjectreply="Thank you for your inquiry!";
+        if(req.body.Reqtype=='Contact Form Query' || req.body.Reqtype=='SCHEDULE A CONSULTATION')
         {
         bodyreply=
         `

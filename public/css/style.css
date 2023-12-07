@@ -101,7 +101,7 @@ body
 
 .f-heading
 {
-    font-size: 24px;
+    font-size: 22px;
     line-height: 1.5;
 }
 
@@ -157,11 +157,12 @@ body
 
 hr.line
 {
-    height:1.5px;
-    border-width:0;
-    opacity: 1;
-    color: var(--brown);
-    background-color:var(--brown);
+    height: 1px;
+    border-width:0 !important;
+    opacity: 1 !important;
+    color: var(--brown) !important;
+    border-top: none !important;
+    background-color:var(--brown) !important;
 }
 
 .alice
@@ -768,6 +769,11 @@ a.footer-link:hover
   { font-size: 14px !important;}
   .nav-link1
   { font-size: 18px !important;}
+  .navbar-nav, .navbar, .nav-link, .nav-link1, .scrolled
+  {
+    background-color: white !important;
+    color: black !important;
+  }
 }
 
  @media screen and (max-width: 1086px) 
@@ -818,6 +824,7 @@ a.footer-link:hover
 
   @media screen and (max-width: 700px) 
   {
+
     .logo
     {
         height: 81px !important;
