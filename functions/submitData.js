@@ -69,7 +69,7 @@ async function submitData(req, res) {
         info@maximalsecurityservices.com<br>
         www.maximalsecurityservices.com<br>
         (844) 763-3567<br>
-        <img src='https://maximal-security-services.web.app/images/logo.png' style='width:70px;height:50px;'></p>   
+        <img src='https://maximal-security-services.web.app/images/logo.png' width='200'></p>   
         `;
         }
         else if (req.body.Reqtype=='Careers Form Query')
@@ -86,7 +86,7 @@ async function submitData(req, res) {
             info@maximalsecurityservices.com<br>
             www.maximalsecurityservices.com<br>
             (844) 763-3567<br>
-            <img src='https://maximal-security-services.web.app/images/logo.png' style='width:70px;height:50px;'></p>   
+            <img src='https://maximal-security-services.web.app/images/logo.png' width='200'></p>   
             `;            
         }
 
