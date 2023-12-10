@@ -780,6 +780,18 @@ a.footer-link:hover
     transition: font-size 1s;
     padding-bottom: 12px !important;
   }
+  .f-heading {
+    font-size: 21px !important;
+  }
+  body 
+  {
+    font-size: 17px !important;
+  }
+  h4.text-decoration-underline
+  {
+    font-size: 26px !important;
+    font-weight: 400;
+  }
 }
   @media screen and (max-width: 1289px) 
   {
@@ -792,13 +804,7 @@ a.footer-link:hover
       padding-bottom: 12px !important;
     }
 
-    .f-heading {
-      font-size: 21px;
-    }
-    body 
-    {
-      font-size: 17px;
-    }
+ 
     .container /*, .navbar, .header*/
     {
       max-width: 1180px;
@@ -814,11 +820,7 @@ a.footer-link:hover
       font-size: 20px;
       line-height: 1.5;
     }
-    h4.text-decoration-underline
-    {
-      font-size: 26px !important;
-      font-weight: 400;
-    }
+
 
 }
 @media screen and (max-width: 1220px) 
