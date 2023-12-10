@@ -580,6 +580,7 @@ function upload(st) {
                 {st.GuardLicense="Not Uploaded.";}
    
             // After all uploads are complete, call the upload function
+            msg.innerHTML="";
             upload(st);
             $('#mclosebtn').removeClass('disabled');
             AOS.init({ disable: false });
