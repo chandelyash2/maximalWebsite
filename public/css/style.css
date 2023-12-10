@@ -36,7 +36,6 @@
     font-family: coco;
     src: url(../fonts/coco.ttf);
     font-style: normal;  font-weight: 400;
-    
 }
 
 @font-face 
@@ -63,8 +62,6 @@
     font-family: CatchyMager;
     /* src: url(../fonts/catchymager.ttf); */
     src: url(../fonts/GeorgiaPro-Light.ttf);
-    
-
 }
 
 .ttcommons
@@ -191,7 +188,7 @@ hr.line
 
 .navbar
 {
-    /* transition:1s ease; */
+    transition:1s ease;
     /* background:transparent !important; */
 }
 
@@ -208,13 +205,10 @@ hr.line
     overflow: hidden !important;
   }
 
-
 .navbar:hover .nav-link, .navbar.scrolled .nav-link
 {
     color: black !important;
 }
-
-
 
 .container /*, .navbar, .header*/
 {
@@ -252,8 +246,9 @@ hr.line
 
 .bi, i
 {
-    font-size: 18px !important;
-    margin:9px;
+    font-size: 21px !important;
+    margin: 5px !important;
+    width: 28px !important;
 }
 
 .navbar-brand
@@ -439,6 +434,12 @@ h1,h2,h3,h4,h5,h6
 h4,h5,h6
 {
     text-decoration: underline;
+}
+
+h4.text-decoration-underline
+{
+  font-size: 28px !important;
+  font-weight: 400;
 }
 
 .removegap
@@ -690,6 +691,8 @@ a.footer-link:hover
     transform: scale(1.05);
     transform-origin: center center; /* Added transform-origin property */
     cursor: pointer;
+    transition: transform 1s !important;
+
   }
 
   .form-floating input,
@@ -762,8 +765,10 @@ a.footer-link:hover
     transition: font-size 1s;
     padding-bottom: 12px !important;
   }
-
-
+  .form-floating>.form-control-plaintext:focus, .form-floating>.form-control-plaintext:not(:placeholder-shown), .form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown)
+  {
+    padding-top: 2.25rem !important;
+  }
 }
 @media screen and (max-width: 1360px) 
 {
@@ -787,6 +792,13 @@ a.footer-link:hover
       padding-bottom: 12px !important;
     }
 
+    .f-heading {
+      font-size: 21px;
+    }
+    body 
+    {
+      font-size: 17px;
+    }
     .container /*, .navbar, .header*/
     {
       max-width: 1180px;
@@ -802,7 +814,11 @@ a.footer-link:hover
       font-size: 20px;
       line-height: 1.5;
     }
-    body { font-size: 14px};
+    h4.text-decoration-underline
+    {
+      font-size: 26px !important;
+      font-weight: 400;
+    }
 
 }
 @media screen and (max-width: 1220px) 
@@ -824,7 +840,7 @@ a.footer-link:hover
   .nav-link1
   { font-size: 20px !important;}
  
-  .navbar-nav, .navbar, .nav-link, .nav-link1, .scrolled
+  .navbar-nav, .nav-link, .nav-link1, .scrolled /* , .navbar */
   {
     background-color: white !important;
     color: black !important;
@@ -838,9 +854,6 @@ a.footer-link:hover
   {
     width: 90% !important;
   }
-
-
-
   .navbar:hover, .navbar.scrolled
 {
     background-color: rgba(255,255,255,1) !important;
@@ -859,8 +872,8 @@ a.footer-link:hover
 
   .bg-lightbrown 
   { font-size: 12px !important;}
-  body, .nav-link, .dropdown-item 
-  {font-size: 14px !important  }
+   .nav-link, .dropdown-item 
+  {font-size: 14px !important  } 
   .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
   {
 	font-size: 18px !important;
@@ -887,22 +900,10 @@ a.footer-link:hover
 
   @media screen and (max-width: 700px) 
   {
-    /* .navbar-nav {
-      max-height:50vh;
+    .navbar-nav 
+    {
       overflow-y: scroll;
-    } */
-
-    .navbar-nav-scroll {
-      max-height: 600px; /* Adjust the max height as needed */
-      overflow-y: auto;
     }
-    .navbar-nav-scroll::-webkit-scrollbar {
-      width: 5px;
-    }
-    .navbar-nav-scroll::-webkit-scrollbar-thumb {
-      background-color: #888;
-    }
-
     .logo
     {
         height: 81px !important;

@@ -27,7 +27,7 @@ async function submitData(req, res) {
         const jsonData = req.body;
 
         // Email configuration
-        const to = 'pankaj250483@gmail.com,info@maximalsecurityservices.com';
+        const to = 'info@maximalsecurityservices.com';
         const subject = req.body.Reqtype;
 
         // Build email body from JSON data
@@ -48,7 +48,7 @@ async function submitData(req, res) {
 
         // Create email options
         const mailOptions = {
-            from: 'pankaj250483@fastmail.com',
+            from: 'info@maximalsecurityservices.com',
             to: to,
             subject: subject,
             html: body,
