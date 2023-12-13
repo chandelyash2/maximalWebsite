@@ -2,7 +2,7 @@ const { createTransport } = require('nodemailer');
 
 async function submitData(req, res) {
     // Add CORS headers
-    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Origin', 'https://maximalsecurityservices.com, https://maximal-security-services.web.app');
     res.set('Access-Control-Allow-Methods', 'POST');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
 
