@@ -33,6 +33,19 @@
 
 @font-face 
 {
+    font-family: GSA1;
+    src: url(../fonts/GSAB1.woff2);
+}
+
+li b
+{
+    font-family: 'GSA1' !important;
+    font-weight: boldder !important;
+    color: #292929 !important;
+}
+
+@font-face 
+{
     font-family: coco;
     src: url(../fonts/coco.ttf);
     font-style: normal;  font-weight: 400;
@@ -447,6 +460,7 @@ h4.text-decoration-underline
 {
   font-size: 28px !important;
   font-weight: 400;
+  font-family: Alice !important;
 }
 
 .removegap
