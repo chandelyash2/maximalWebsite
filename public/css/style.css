@@ -111,9 +111,28 @@ body
 
 #playbtn-container
 {
-    position: sticky !important;
-    bottom: 10px !important;
-    padding-right: 10px !important;
+    position: absolute !important;
+    bottom: 50px !important;
+    right: 20px !important;
+}
+
+#playbtn
+{
+  border: 1px solid transparent !important;
+  overflow: auto;
+  width: 45px;
+  height: 45px;
+}
+
+#playbtn i
+{
+  font-size: 26px !important;
+}
+
+#playbtn:active
+{
+  background-color: rgba(0 ,128,128,0.5) !important;
+  transition: background-color 10s; 
 }
 
 .f-heading

@@ -1,10 +1,14 @@
+var von="fa-solid fa-volume-high";
+var voff="fa-solid fa-volume-xmark";
+
 function toggleMusic() 
 {
   var audioElement = document.getElementById('music');
   if (audioElement.paused) {
-      
+      playicon.className=voff;
       audioElement.play();
   } else {
+    playicon.className=von;
       audioElement.pause();
   }
 }
@@ -40,26 +44,27 @@ function addElements() {
     // Create a new button element
     var playBtn = document.createElement('button');
     playBtn.id = 'playbtn';
-    playBtn.className = 'btn btn-outline-primary p-0 rounded-circle d-inline-block';
+    playBtn.className = 'btn btn-lg btn-outline-secondary p-0 border-none rounded-circle d-inline-block d-flex justify-content-center align-items-center';
     playBtn.title = 'Play/Pause Music';
     playBtn.addEventListener('click', toggleMusic);
     playBtn.style.zIndex = "3";
 
     // Create a new i (icon) element
     var iconElement = document.createElement('i');
-    iconElement.className = 'fa-solid fa-music';
+    iconElement.id="playicon";
+    iconElement.className = 'fa-solid fa-volume-high';
 
     // Append the icon element to the button
     playBtn.appendChild(iconElement);
 
     // Append the button to the div container
+    divContainer.appendChild(audioElement);
     divContainer.appendChild(playBtn);
 
     // Append the div container to the document body
     // document.querySelector('body :last-child');
     // var lastChildOfBody = document.querySelector('body :last-child');
       var header = document.querySelector('#head1');
-      header.appendChild(audioElement);
       header.appendChild(divContainer)
 
   }
