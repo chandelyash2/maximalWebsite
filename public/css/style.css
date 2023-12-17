@@ -979,3 +979,51 @@ a.footer-link:hover
       }
   
   }
+
+  @media screen and (min-width: 1110px) and (max-width: 1290px) {
+    body {
+        zoom: 0.80 !important; /* Set the desired zoom level, 0.75 corresponds to 75% zoom */
+    }
+
+    header {
+      position: relative;
+      background-color: transparent;
+      /* height: 100%; */
+      min-height: 135vh; 
+      height: 135vh;
+      width: 100%;
+    }
+
+    .logo
+    {
+        height: 97px !important;
+        width: 120px !important;
+        transition: width 1s, height 1s;
+    }
+  
+    .bg-lightbrown 
+    { font-size: 12px !important;}
+     .nav-link, .dropdown-item 
+    {font-size: 14px !important  } 
+    .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
+    {
+    font-size: 18px !important;
+    
+    }
+    .f-coco, .nav-link1
+    { font-size: 20px !important;}
+    .header-title p {font-size: 22px !important; line-height: 1.5;}
+    .accordion-button {font-size: 28px !important;}
+    .header-title h1, .f-53
+    {
+      font-size: 32px !important;
+      line-height: 1.2 !important;
+    }  
+  
+    .contact-special {padding: 5px 25px !important; width: 100% !important;}
+  
+    h1[data-aos-duration="2000"]
+    {
+      padding-left: 55px;
+    }
+}
