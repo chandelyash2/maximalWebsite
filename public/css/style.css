@@ -18,6 +18,13 @@
     --fs:18;
 }
 
+.f-link:link, .f-link:active, .f-link:hover, .f-link:visited
+{
+  color: var(--brown) !important;
+  font-size: 10px !important;
+}
+
+
 .bg-light
 {
   background-color: #fff !important;
@@ -119,7 +126,7 @@ body
 #playbtn
 {
   border: 1px solid transparent !important;
-  overflow: auto;
+  overflow: show;
   width: 45px;
   height: 45px;
   transition: background-color 1s; 
@@ -804,7 +811,7 @@ a.footer-link:hover
   }
   #playbtn-container
   {
-    bottom: 150px !important;
+    bottom: 70px !important;
     right: 20px !important;
   }
 
@@ -931,7 +938,7 @@ a.footer-link:hover
     }
     #playbtn-container
     {
-      bottom: 150px !important;
+      bottom: 80px !important;
       right: 20px !important;
     }
 
@@ -969,23 +976,23 @@ a.footer-link:hover
   
   }
 
-  @media screen and (min-width: 1110px) and (max-width: 1290px) {
+  @media screen and (min-width: 1100px) and (max-width: 1290px) {
     body {
-        zoom: 0.85 !important; /* Set the desired zoom level, 0.75 corresponds to 75% zoom */
+        zoom: 0.8 !important; /* Set the desired zoom level, 0.75 corresponds to 75% zoom */
     }
 
     .bi, i
     {
         font-size: 16px !important;
-        margin: 1px !important;
+        margin: 5px !important;
         width: 16px !important;
     }
     header {
       position: relative;
       background-color: transparent;
       /* height: 100%; */
-      min-height: 135vh; 
-      height: 135vh;
+      min-height: 146vh; 
+      height: 146vh;
       width: 100%;
     }
 
@@ -997,21 +1004,21 @@ a.footer-link:hover
     }
   
     .bg-lightbrown 
-    { font-size: 12px !important;}
+    { font-size: 13px !important;}
      .nav-link, .dropdown-item 
-    {font-size: 16px !important  } 
+    {font-size: 17px !important  } 
     .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
     {
-    font-size: 18px !important;
+    font-size: 20px !important;
     
     }
     .f-coco, .nav-link1
-    { font-size: 20px !important;}
+    { font-size: 21px !important;}
     .header-title p {font-size: 22px !important; line-height: 1.5;}
     .accordion-button {font-size: 28px !important;}
     .header-title h1, .f-53
     {
-      font-size: 32px !important;
+      font-size: 34px !important;
       line-height: 1.2 !important;
     }  
   
