@@ -122,6 +122,13 @@ body
   overflow: auto;
   width: 45px;
   height: 45px;
+  transition: background-color 1s; 
+}
+
+#playbtn:active
+{
+  background-color: grey !important;
+
 }
 
 #playbtn i
@@ -129,11 +136,7 @@ body
   font-size: 26px !important;
 }
 
-#playbtn:active
-{
-  background-color: rgba(0 ,128,128,0.5) !important;
-  transition: background-color 10s; 
-}
+
 
 .f-heading
 {
@@ -787,6 +790,8 @@ a.footer-link:hover
     min-height: 100%;
     height: 100%;
   }
+
+
 }
 
 @media screen and (min-width: 1500px) 
@@ -797,6 +802,12 @@ a.footer-link:hover
     width: 160px !important;
     transition: width 1s, height 1s;
   }
+  #playbtn-container
+  {
+    bottom: 150px !important;
+    right: 20px !important;
+  }
+
   .nav-link, .dropdown-item
   {
     font-size: 24px;
@@ -875,34 +886,6 @@ a.footer-link:hover
 
 }
 
-@media screen and (max-width: 1200px) 
-{
-  .nav-link
-  { font-size: 14px !important;}
-  .nav-link1
-  { font-size: 20px !important;}
- 
-  .navbar-nav, .nav-link, .nav-link1, .scrolled /* , .navbar */
-  {
-    background-color: white !important;
-    color: black !important;
-  }
-  .navbar-collapse
-  {
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  .nav-item
-  {
-    width: 100% !important;
-  }
-  .navbar:hover, .navbar.scrolled
-{
-    background-color: rgba(255,255,255,1) !important;
-
-}
-}
-
  @media screen and (max-width: 1086px) 
 {
   .logo
@@ -946,6 +929,12 @@ a.footer-link:hover
     {
       overflow-y: scroll;
     }
+    #playbtn-container
+    {
+      bottom: 150px !important;
+      right: 20px !important;
+    }
+
     .logo
     {
         height: 81px !important;
@@ -982,9 +971,15 @@ a.footer-link:hover
 
   @media screen and (min-width: 1110px) and (max-width: 1290px) {
     body {
-        zoom: 0.80 !important; /* Set the desired zoom level, 0.75 corresponds to 75% zoom */
+        zoom: 0.85 !important; /* Set the desired zoom level, 0.75 corresponds to 75% zoom */
     }
 
+    .bi, i
+    {
+        font-size: 16px !important;
+        margin: 1px !important;
+        width: 16px !important;
+    }
     header {
       position: relative;
       background-color: transparent;
@@ -1004,7 +999,7 @@ a.footer-link:hover
     .bg-lightbrown 
     { font-size: 12px !important;}
      .nav-link, .dropdown-item 
-    {font-size: 14px !important  } 
+    {font-size: 16px !important  } 
     .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
     {
     font-size: 18px !important;

@@ -44,7 +44,7 @@ function addElements() {
     // Create a new button element
     var playBtn = document.createElement('button');
     playBtn.id = 'playbtn';
-    playBtn.className = 'btn btn-lg btn-outline-secondary p-0 border-none rounded-circle d-inline-block d-flex justify-content-center align-items-center';
+    playBtn.className = 'btn btn-lg text-light p-0 border-none rounded-circle d-inline-block d-flex justify-content-center align-items-center volumebtn';
     playBtn.title = 'Play/Pause Music';
     playBtn.addEventListener('click', toggleMusic);
     playBtn.style.zIndex = "3";
@@ -71,3 +71,15 @@ function addElements() {
   
   // Call the function to add elements when the page loads
   window.onload = addElements;
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var playBtn = document.getElementById("playbtn");
+  
+    playBtn.addEventListener("click", function() {
+      playBtn.classList.toggle("active");
+      setTimeout(function() {
+        playBtn.classList.remove("active");
+      }, 1000); // 1000 milliseconds = 1 second
+    });
+  });
+  
