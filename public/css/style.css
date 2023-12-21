@@ -35,7 +35,6 @@
 {
     font-family: ITCBenguiat;
     src: url(../fonts/heading-400.ttf);
-    /* src: url(../fonts/BenguiatStd-Book.otf); */
 }
 
 @font-face 
@@ -62,13 +61,11 @@ li b
 {
     font-family: contact-ff;
     src: url(../fonts/contactus.woff2);
-    /* src: url(../fonts/BenguiatStd-Book.otf); */
 }
 @font-face 
 {
     font-family: ttcommons;
     src: url(../fonts/ttcommonspro-400.ttf);
-    /* src: url(../fonts/Fontspring-DEMO-tt_commons_pro_regular.otf); */
 }
 
 @font-face 
@@ -142,8 +139,6 @@ body
 {
   font-size: 26px !important;
 }
-
-
 
 .f-heading
 {
@@ -530,9 +525,6 @@ h4.text-decoration-underline
     }
   }
 
-
-
-
 a.footer-link:link, a.footer-link:hover, a.footer-link:active, a.footer-link:visited
 {
     text-decoration: underline;
@@ -696,37 +688,14 @@ a.footer-link:hover
     align-items: center !important;
     text-align: center !important;
     transition: transform 1s !important;
-    /* border: 2px solid gray !important; */
 
     position: absolute;
     margin: 0px;
-    /* top: 0;
-    left: 0; */
-    /* min-width: 100%;
-    min-height: 100%; */
     background-color: black;
     opacity: 0.55;
     z-index: 1;
     border-radius: inherit;
   }
-
-  /* .card .card-overlay
-  {
-    position: absolute;
-    margin: 0px; */
-    
-    /* top: 0;
-    left: 0; */
-    /* min-width: 100%;
-    min-height: 100%; */
-
-    /* background-color: black;
-    opacity: 0.55;
-    z-index: 1;
-    border-radius: inherit;
-    transition: transform 1s !important; */
-    /* border: 2px solid gray; */
-  /* } */
 
   .card h1, .card h2
   {
@@ -828,7 +797,7 @@ a.footer-link:hover
   }
   
 }
-@media screen and (max-width: 1360px) 
+/* @media screen and (max-width: 1360px) 
 {
   .nav-link, .dropdown-item 
   { font-size: 19px !important;}
@@ -845,42 +814,9 @@ a.footer-link:hover
   {
     font-size: 17px !important;
   }
-  h4.text-decoration-underline
-  {
-    font-size: 26px !important;
-    font-weight: 400;
-  }
-}
-  @media screen and (max-width: 1289px) 
-  {
-    .nav-link, .dropdown-item 
-    { font-size: 17px !important;}
-    .nav-link1
-    {
-      font-size: 23px !important;
-      transition: font-size 0.4s;
-      padding-bottom: 12px !important;
-    }
 
- 
-    .container /*, .navbar, .header*/
-    {
-      max-width: 1180px;
-      margin: auto;
-    }
+} */
 
-    .banner-header
-    {
-      font-size: 42px;
-    } 
-    .banner-text
-    {
-      font-size: 20px;
-      line-height: 1.5;
-    }
-
-
-}
 @media screen and (max-width: 1220px) 
 {
   .nav-link, .dropdown-item 
@@ -905,7 +841,8 @@ a.footer-link:hover
   .bg-lightbrown 
   { font-size: 12px !important;}
    .nav-link, .dropdown-item 
-  {font-size: 14px !important  } 
+  {font-size: 14px !important;
+      } 
   .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
   {
 	font-size: 18px !important;
@@ -935,6 +872,7 @@ a.footer-link:hover
     .navbar-nav 
     {
       overflow-y: scroll;
+      text-align: left;
     }
     #playbtn-container
     {
@@ -976,11 +914,45 @@ a.footer-link:hover
   
   }
 
+ /*
+ #############################################################################
+ #
+ #############################################################################
+ */
   @media screen and (min-width: 1100px) and (max-width: 1290px) {
-    body {
-        zoom: 1.00 !important; /* Set the desired zoom level, 0.75 corresponds to 75% zoom */
+
+    .nav-link, .dropdown-item 
+    { font-size: 20px !important;}
+    .nav-link1
+    {
+      font-size: 22px !important;
+      transition: font-size 0.4s;
+      padding-bottom: 12px !important;
+    }
+    .container 
+    {
+      max-width: 1180px;
+      margin: auto;
     }
 
+    .banner-header
+    {
+      font-size: 42px;
+    } 
+    .banner-text
+    {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    body 
+    {
+      font-size: 16px;
+    }
+    .container 
+    {
+      max-width: 1080px;
+      margin: auto;
+    }
     .bi, i
     {
         font-size: 16px !important;
@@ -991,25 +963,30 @@ a.footer-link:hover
       position: relative;
       background-color: transparent;
       /* height: 100%; */
-      min-height: 146vh; 
-      height: 146vh;
+      min-height: 114vh; 
+      height: 114vh;
       width: 100%;
     }
 
     .logo
     {
-        height: 97px !important;
-        width: 120px !important;
+        height: 87px !important;
+        width: 110px !important;
         transition: width 1s, height 1s;
+    }
+    .card h1 
+    {
+      font-size: 22px !important;
     }
   
     .bg-lightbrown 
     { font-size: 13px !important;}
+
      .nav-link, .dropdown-item 
     {font-size: 17px !important  } 
     .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
     {
-    font-size: 20px !important;
+    font-size: 18px !important;
     
     }
     .f-coco, .nav-link1
@@ -1027,5 +1004,28 @@ a.footer-link:hover
     h1[data-aos-duration="2000"]
     {
       padding-left: 55px;
+    }
+
+    .accordion-button {font-size: 22px !important;
+      line-height: 1.2;
+    margin-right: 30px; padding: 18px;
+    }
+    h4.text-decoration-underline
+    {
+      font-size: 22px !important;
+      font-weight: 400;
+    }
+    h4 
+    {
+      font-size: 19px !important;
+    }
+    .home-industries p
+    {
+    font-size: 16px;
+    line-height: 1.25;
+    }
+    .pb-4
+    {
+     padding-bottom: 8px !important; 
     }
 }
