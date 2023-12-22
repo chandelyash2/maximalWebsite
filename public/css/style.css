@@ -817,7 +817,7 @@ a.footer-link:hover
 
 } */
 
-@media screen and (max-width: 1220px) 
+/* @media screen and (max-width: 1220px) 
 {
   .nav-link, .dropdown-item 
   { font-size: 16px !important;}
@@ -827,7 +827,7 @@ a.footer-link:hover
     transition: font-size 1s;
   }
 
-}
+} */
 
  @media screen and (max-width: 1086px) 
 {
@@ -922,10 +922,10 @@ a.footer-link:hover
   @media screen and (min-width: 1100px) and (max-width: 1290px) {
 
     .nav-link, .dropdown-item 
-    { font-size: 20px !important;}
+    { font-size: 16px !important;}
     .nav-link1
     {
-      font-size: 22px !important;
+      font-size: 21px !important;
       transition: font-size 0.4s;
       padding-bottom: 12px !important;
     }
@@ -968,12 +968,6 @@ a.footer-link:hover
       width: 100%;
     }
 
-    .logo
-    {
-        height: 87px !important;
-        width: 110px !important;
-        transition: width 1s, height 1s;
-    }
     .card h1 
     {
       font-size: 22px !important;
@@ -982,8 +976,6 @@ a.footer-link:hover
     .bg-lightbrown 
     { font-size: 13px !important;}
 
-     .nav-link, .dropdown-item 
-    {font-size: 17px !important  } 
     .f-heading, .contact-special, .banner-text, .service-text, .accordion-body   
     {
     font-size: 18px !important;
@@ -1017,7 +1009,7 @@ a.footer-link:hover
     }
     h4 
     {
-      font-size: 19px !important;
+      font-size: 26px !important;
     }
     .home-industries p
     {
