@@ -745,7 +745,10 @@ a.footer-link:hover
     padding-top: 2.35rem !important;
   }
 
-
+  .form-floating label {
+    width: 100%;
+    white-space: normal;
+  }
 
   /*
   #-#-#-#-#-#-#-##-#-#-#-#-#-#-##-#-#-#-#-#-#-##-#-#-#-#-#-#-##-#-#-#-#-#-#-#
@@ -869,6 +872,10 @@ a.footer-link:hover
 
   @media screen and (max-width: 700px) 
   {
+    .form-floating label {
+      font-size: 12px;
+    }
+  
     .navbar-nav 
     {
       overflow-y: scroll;
@@ -920,6 +927,9 @@ a.footer-link:hover
  #############################################################################
  */
   @media screen and (min-width: 1100px) and (max-width: 1290px) {
+    .form-floating label {
+      font-size: 13px;
+    }
 
     .nav-link, .dropdown-item 
     { font-size: 16px !important;}
