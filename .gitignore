@@ -67,4 +67,6 @@ node_modules/
 
 req
 
-public/images/video.mov
+*.mp4
+*.mov
+*.zip

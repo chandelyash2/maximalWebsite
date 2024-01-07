@@ -1,56 +1,241 @@
-<nav class="navbar sticky-top navbar-expand-xl navbar-dark px-lg-5 w-100">
+  <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+    Button with data-bs-target
+  </button> -->
+  <style>
+    .offcanvas {
+      border: 0px solid green !important;
+      outline: none !important;
+      padding: 8px;
+      height: 100vh !important;
+      background-color: (250, 250, 250);
+    }
+
+    .offcanvas-body a:link,
+    .offcanvas-body a:hover,
+    .offcanvas-body a:active,
+    .offcanvas-body a:visited,
+    accordion-header,
+    accordion-body a:link,
+    accordion-body a:hover,
+    accordion-body a:active,
+    accordion-body a:visited,
+    .ab-special {
+      color: black;
+      display: block;
+      text-decoration: none;
+      font-family: 'Alice';
+      font-size: 20px;
+      padding: 5px;
+      display: block !important;
+      /* border: 1px solid grey !important; */
+    }
+
+    .accordion {
+      border: none !important;
+      outline: none !important;
+    }
+
+    .accordion-item1 {
+      border: none;
+      /*border-top: none; */
+      border: 1px solid white !important;
+      background-color: rgb(250, 250, 250);
+      padding: 10px;
+    }
+
+    .accordion-item1 .accordion-body a
+    {
+      background-color: rgb(235, 233, 233);
+      padding: 10px;
+      font-family: 'Alice';
+      font-size: 16px;
+    }
+    
+    [type=button]:not(:disabled)
+    {
+      background-color: rgb(250, 250, 250);
+    }
+
+   
+  </style>
+
+  <div class="offcanvas offcanvas-top bg-white" tabindex="-1" id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo"></a>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body border-1 border-light">
+
+      <div class="accordion" id="accordionmenu">
+        <div class="accordion-item accordion-item1">
+          <a class="ps-4" href="aboutus.html">About Us</a>
+        </div>
+        <div class="accordion-item accordion-item1">
+          <div class="accordion-header" id="headingOne">
+            <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              <a href="services.html" class="ps-4">Services</a></button>
+          </div>
+          <div id="collapseOne" class="accordion-collapse collapse py-0" aria-labelledby="headingOne"
+            data-bs-parent="#accordionmenu">
+            <div class="accordion-body py-2 ps-2">
+              <a href="services-unarmed.html"><i class="fa-solid fa-user-shield"></i> Unarmed Security
+                Services</a>
+              <a href="services-armed.html"><i class="fa-solid fa-person-military-rifle"></i> Armed Security Services
+              </a>
+              <a href="services-mobilepatrol.html"><i class="fa-solid fa-car-side"></i> Mobile Patrol Services </a>
+              <a href="services-concierge.html"><i class="bi bi-person-video3"></i>&nbsp; Concierge Services</a>
+            </div>
+          </div>
+        </div>
+        <!-- </div>
+
+      <div class="accordion" id="accordionExample1"> -->
+        <div class="accordion-item accordion-item1">
+          <div class="accordion-header" id="headingTwo">
+            <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+              aria-expanded="true" aria-controls="collapseTwo">
+              <a href="differentiators.html" class="ps-4">Differentiators</a>
+            </button>
+          </div>
+          <div id="collapseTwo" class="accordion-collapse collapse py-0" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionmenu">
+            <div class="accordion-body py-2 border-1" style="padding-left:10px;">
+              <a href="d-professionalteam.html"><i class="fa-solid fa-people-group fa-sm"></i> Professional Team</a>
+              <a href="d-cuttingedgetechnology.html"><i class="fa-solid fa-laptop fa-xs"></i> Cutting edge
+                technology</a>
+              <a href="d-customizedsolutions.html"><i class="fa-solid fa-star-of-life"></i> Customized Solutions</a>
+              <a href="d-availability.html"><i class="fa-solid fa-award"></i></i> 24/7 Availability</a>
+              <a href="d-flexiblecontractterms.html"><i class="fa-solid fa-newspaper"></i> Flexible contract terms</a>
+            </div>
+          </div>
+        </div>
+        <!-- </div>
+
+      <div class="accordion" id="accordionExample2"> -->
+        <div class="accordion-item accordion-item1">
+          <div class="accordion-header" id="headingThree">
+            <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+              aria-expanded="true" aria-controls="collapseThree">
+              <a href="industries.html" class="ps-4">Industries</span></a>
+            </button>
+          </div>
+          <div id="collapseThree" class="accordion-collapse collapse py-0" aria-labelledby="headingThree"
+            data-bs-parent="#accordionmenu">
+            <div class="accordion-body py-2 ps-2 border-1">
+              <a href="industries-airports.html"><i class="fa-solid fa-plane-up"></i> Airports</a>
+              <a href="industries-commercial.html"><i class="fa-solid fa-building"></i> Commercial</a>
+              <a href="industries-construction.html"><i class="fa-solid fa-person-digging"></i> Construction</a>
+              <a href="industries-distributions.html"><i class="fa-solid fa-city"></i> Distributions and Logistics</a>
+              <a href="industries-education.html"><i class="fa-solid fa-graduation-cap"></i> Education</a>
+              <a href="industries-government.html"><i class="fa-solid fa-building-columns"></i> Government</a>
+              <a href="industries-healthcare.html"><i class="fa-solid fa-kit-medical"></i> Healthcare</a>
+              <a href="industries-industrial.html"><i class="fa-solid fa-cube"></i> Industrial and Manufacturing</a>
+              <a href="industries-maritime.html"><i class="fa-solid fa-cubes"></i> Maritime</a>
+              <a href="industries-residential.html"><i class="fa-solid fa-house"></i> Residential</a>
+              <a href="industries-retail.html"><i class="fa-solid fa-calendar-week"></i> Retail</a>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item accordion-item1">
+          <a class="ps-4" href="careers.html">Careers</a>
+        </div>
+        <div class="accordion-item accordion-item1">
+          <a class="ps-4" href="contactus.html">Contact Us</a>
+        </div>
+        <div class="accordion-item accordion-item1">
+          <a class="tel-font ps-4" href="tel:+18447633567"><i class="bi bi-telephone-fill"></i> 844-763-3567</a>
+        </div>
+
+      </div>
+
+
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+
+  <nav class="navbar sticky-top navbar-expand-xl navbar-dark px-lg-5 w-100">
     <div class="container p-0 px-3 px-lg-5">
       <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo"></a>
-      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+      <button class="navbar-toggler bg-dark"" type=" button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav  me-auto mb-2 mb-lg-0 w-100 justify-content-end align-items-center" >
+      <div class="collapse navbar-collapse d-md-none d-none" id="navbarSupportedContent">
+        <ul class="navbar-nav  me-auto mb-2 mb-lg-0 w-100 justify-content-end align-items-center">
           <li class="nav-item">
-            <a class="nav-link nav-link1 tel-font ps-0 pe-4" aria-current="page" href="tel:+18447633567"><i class="bi bi-telephone-fill"></i> 844-763-3567</a>
+            <a class="nav-link nav-link1 tel-font ps-0 pe-4" aria-current="page" href="tel:+18447633567"><i
+                class="bi bi-telephone-fill"></i> 844-763-3567</a>
           </li>
           <li class="nav-item">
             <a class="nav-link  ps-0 pe-4" aria-current="page" href="aboutus.html">About Us</a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link ps-0 pe-4 dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="services.html"> Services</a>
+            <a class="nav-link ps-0 pe-4 dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" href="services.html"> Services</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="services-unarmed.html"><i class="fa-solid fa-user-shield"></i> Unarmed Security Services</a></li>
-                        <li><a class="dropdown-item" href="services-armed.html"><i class="fa-solid fa-person-military-rifle"></i> Armed Security Services </a></li>
-                        <li><a class="dropdown-item" href="services-mobilepatrol.html"><i class="fa-solid fa-car-side"></i> Mobile Patrol Services </a></li>
-                        <li><a class="dropdown-item" href="services-concierge.html"><i class="bi bi-person-video3"></i>&nbsp; Concierge Services</a></li>
-                        
+              <li><a class="dropdown-item" href="services-unarmed.html"><i class="fa-solid fa-user-shield"></i> Unarmed
+                  Security Services</a></li>
+              <li><a class="dropdown-item" href="services-armed.html"><i class="fa-solid fa-person-military-rifle"></i>
+                  Armed Security Services </a></li>
+              <li><a class="dropdown-item" href="services-mobilepatrol.html"><i class="fa-solid fa-car-side"></i> Mobile
+                  Patrol Services </a></li>
+              <li><a class="dropdown-item" href="services-concierge.html"><i class="bi bi-person-video3"></i>&nbsp;
+                  Concierge Services</a></li>
+
             </ul>
-                    
+
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link ps-0 pe-4 dropdown-toggle" href="differentiators.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Differentiators</a>
+            <a class="nav-link ps-0 pe-4 dropdown-toggle" href="differentiators.html" id="navbarDropdownMenuLink"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Differentiators</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="d-professionalteam.html"><i class="fa-solid fa-people-group fa-sm"></i> Professional Team</a></li>
-                      <li><a class="dropdown-item" href="d-cuttingedgetechnology.html"><i class="fa-solid fa-laptop fa-xs"></i> Cutting edge technology</a></li>
-                      <li><a class="dropdown-item" href="d-customizedsolutions.html"><i class="fa-solid fa-star-of-life"></i> Customized Solutions</a></li>
-                      <li><a class="dropdown-item" href="d-availability.html"><i class="fa-solid fa-award"></i></i> 24/7 Availability</a></li>
-                      <li><a class="dropdown-item" href="d-flexiblecontractterms.html"><i class="fa-solid fa-newspaper"></i> Flexible contract terms</a></li>  
+              <li><a class="dropdown-item" href="d-professionalteam.html"><i class="fa-solid fa-people-group fa-sm"></i>
+                  Professional Team</a></li>
+              <li><a class="dropdown-item" href="d-cuttingedgetechnology.html"><i class="fa-solid fa-laptop fa-xs"></i>
+                  Cutting edge technology</a></li>
+              <li><a class="dropdown-item" href="d-customizedsolutions.html"><i class="fa-solid fa-star-of-life"></i>
+                  Customized Solutions</a></li>
+              <li><a class="dropdown-item" href="d-availability.html"><i class="fa-solid fa-award"></i></i> 24/7
+                  Availability</a></li>
+              <li><a class="dropdown-item" href="d-flexiblecontractterms.html"><i class="fa-solid fa-newspaper"></i>
+                  Flexible contract terms</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link ps-0 pe-4 dropdown-toggle" href="industries.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Industries</a>
+            <a class="nav-link ps-0 pe-4 dropdown-toggle" href="industries.html" id="navbarDropdownMenuLink"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Industries</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="industries-airports.html"><i class="fa-solid fa-plane-up"></i> Airports</a></li>
-                      <li><a class="dropdown-item" href="industries-commercial.html"><i class="fa-solid fa-building"></i> Commercial</a></li>
-                      <li><a class="dropdown-item" href="industries-construction.html"><i class="fa-solid fa-person-digging"></i> Construction</a></li>                  
-                      <li><a class="dropdown-item" href="industries-distributions.html"><i class="fa-solid fa-city"></i> Distributions and Logistics</a></li>
-                      <li><a class="dropdown-item" href="industries-education.html"><i class="fa-solid fa-graduation-cap"></i> Education</a></li> 
-                      <li><a class="dropdown-item" href="industries-government.html"><i class="fa-solid fa-building-columns"></i> Government</a></li>  
-                      <li><a class="dropdown-item" href="industries-healthcare.html"><i class="fa-solid fa-kit-medical"></i> Healthcare</a></li>
-                      <li><a class="dropdown-item" href="industries-industrial.html"><i class="fa-solid fa-cube"></i> Industrial and Manufacturing</a></li> 
-                      <li><a class="dropdown-item" href="industries-maritime.html"><i class="fa-solid fa-cubes"></i> Maritime</a></li> 
-                      <li><a class="dropdown-item" href="industries-residential.html"><i class="fa-solid fa-house"></i> Residential</a></li>  
-                      <li><a class="dropdown-item" href="industries-retail.html"><i class="fa-solid fa-calendar-week"></i> Retail</a></li> 
-                
+              <li><a class="dropdown-item" href="industries-airports.html"><i class="fa-solid fa-plane-up"></i>
+                  Airports</a></li>
+              <li><a class="dropdown-item" href="industries-commercial.html"><i class="fa-solid fa-building"></i>
+                  Commercial</a></li>
+              <li><a class="dropdown-item" href="industries-construction.html"><i
+                    class="fa-solid fa-person-digging"></i> Construction</a></li>
+              <li><a class="dropdown-item" href="industries-distributions.html"><i class="fa-solid fa-city"></i>
+                  Distributions and Logistics</a></li>
+              <li><a class="dropdown-item" href="industries-education.html"><i class="fa-solid fa-graduation-cap"></i>
+                  Education</a></li>
+              <li><a class="dropdown-item" href="industries-government.html"><i
+                    class="fa-solid fa-building-columns"></i> Government</a></li>
+              <li><a class="dropdown-item" href="industries-healthcare.html"><i class="fa-solid fa-kit-medical"></i>
+                  Healthcare</a></li>
+              <li><a class="dropdown-item" href="industries-industrial.html"><i class="fa-solid fa-cube"></i> Industrial
+                  and Manufacturing</a></li>
+              <li><a class="dropdown-item" href="industries-maritime.html"><i class="fa-solid fa-cubes"></i>
+                  Maritime</a></li>
+              <li><a class="dropdown-item" href="industries-residential.html"><i class="fa-solid fa-house"></i>
+                  Residential</a></li>
+              <li><a class="dropdown-item" href="industries-retail.html"><i class="fa-solid fa-calendar-week"></i>
+                  Retail</a></li>
+
             </ul>
           </li>
 
@@ -61,8 +246,6 @@
             <a class="nav-link" href="contactus.html">Contact Us</a>
           </li>
         </ul>
-        
       </div>
     </div>
   </nav>
-  
