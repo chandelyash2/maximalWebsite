@@ -18,6 +18,14 @@
     --fs:18;
 }
 
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+.navbar-toggler {
+  border: none !important; /* Removes the border */
+  outline: none !important; /* Optional: Removes the outline on focus for accessibility, consider a different focus indicator */
+}
+
 .f-link:link, .f-link:active, .f-link:hover, .f-link:visited
 {
   color: var(--brown) !important;
@@ -503,26 +511,25 @@ h4.text-decoration-underline
     font-size: 28px;
     height: 1.5em;
     opacity: 1;
-    &:before {
-      content: '';
-      background: var(--brown) ; /* linear-gradient(to right, transparent, #818078, transparent) */
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 100%;
-      height: 1px;
-    }
-    &:after {
-      content: attr(data-content);
-      position: relative;
-      display: inline-block;
-      color: black;
-  
-      padding: 0 .5em;
-      line-height: 1.5em;
-      color: var(--brown);
-      background-color: var(--lightbrown) !important;
-    }
+  }
+  .hr-text:before {
+    content: '';
+    background: var(--brown) ; /* linear-gradient(to right, transparent, #818078, transparent) */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  .hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+    padding: 0 .5em;
+    line-height: 1.5em;
+    color: var(--brown);
+    background-color: var(--lightbrown) !important;
   }
 
 a.footer-link:link, a.footer-link:hover, a.footer-link:active, a.footer-link:visited
