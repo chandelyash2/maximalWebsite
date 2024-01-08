@@ -872,6 +872,19 @@ a.footer-link:hover
 
   @media screen and (max-width: 700px) 
   {
+    #head1 {
+      min-height: 60vh; 
+      height: 60vh;
+      width: 100%;
+      /* height: calc(100vw * 0.5625); */
+    }
+
+    #head1 video
+    {
+      min-width: 100%;
+      width: 100%;
+    }
+
     .form-floating label {
       font-size: 12px;
     }
@@ -883,7 +896,7 @@ a.footer-link:hover
     }
     #playbtn-container
     {
-      bottom: 80px !important;
+      bottom: 20px !important;
       right: 20px !important;
     }
 
