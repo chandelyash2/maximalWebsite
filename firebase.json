@@ -9,7 +9,10 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "expressupload"
+        "function": "expressupload",
+        "source": "/about",
+        "destination": "/aboutus.html",
+        "type": 301
       }
     ]
   },
