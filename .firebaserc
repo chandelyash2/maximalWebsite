@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "maximal-security-services"
-  }
+  },
+  "targets": {
+    "maximal-security-services": {
+      "hosting": {
+        "app-maximal-security-services": [
+          "webapp/build"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

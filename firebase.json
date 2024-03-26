@@ -1,5 +1,6 @@
 {
-  "hosting": {
+  "hosting": [{
+    "site": "maximal-security-services",
     "public": "public",
     "ignore": [
       "firebase.json",
@@ -16,6 +17,22 @@
       }
     ]
   },
+  {
+    "site": "app-maximal-security-services",
+    "public": "webapp/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+  ],
   "functions": {
     "source": "functions",
     "codebase": "default",

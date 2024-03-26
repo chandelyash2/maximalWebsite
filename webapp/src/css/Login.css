@@ -1,0 +1,13 @@
+/* Login.css */
+body {
+    background-image: url('../../public/images/hero.jpg'); /* Replace with the path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+  }
+  
