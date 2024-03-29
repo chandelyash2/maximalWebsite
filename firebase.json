@@ -1,7 +1,7 @@
 {
   "hosting": [{
     "site": "maximal-security-services",
-    "public": "public",
+    "public": "website",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -19,7 +19,22 @@
   },
   {
     "site": "app-maximal-security-services",
-    "public": "webapp/build",
+    "public": "clients/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  {
+    "site": "admin-maximal-security-services",
+    "public": "admin/build",
     "ignore": [
       "firebase.json",
       "**/.*",

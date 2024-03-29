@@ -1,0 +1,156 @@
+.bg-image
+{
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg-Main 
+{
+    background-image: url('../images/bg-main.png');   
+}
+/*
+####### INDUSTRY BACKGROUNS ########
+*/
+
+.bg-industry
+{
+    background-image: url('../images/Smiling\ security\ lady.jpeg');
+}
+
+.bg-airport
+{
+    background-image: url('../images/Airport\ \(1\).png');
+}
+
+.bg-Commercial
+{
+    background-image: url('../images/Commercial 2.jpg');
+}
+
+.bg-Logistics
+{
+    background-image: url('../images/Distribution Logistics.jpg');
+}
+
+.bg-Healthcare 
+{
+    background-image: url('../images/Healthcarev2.png');
+}
+
+.bg-Education 
+{
+    background-image: url('../images/Education3.jpeg');
+}
+
+.bg-Residential 
+{
+    background-image: url('../images/Residential2.jpg');
+}
+
+.bg-Construction  
+{
+    background-image: url('../images/Construction2.jpeg');
+}
+
+.bg-Retail   
+{
+    background-image: url('../images/Retailv2.png');
+}
+
+.bg-Manufacturing  
+{
+    background-image: url('../images/Manufacturing and Industrial.jpg');
+}
+
+.bg-Maritime  
+{
+    background-image: url('../images/Maritime.png');
+}
+
+.bg-Government  
+{
+    background-image: url('../images/Government2.jpg');
+} 
+
+/*
+####### SERVICES BACKGROUNS ########
+*/
+
+.bg-unarmed
+{
+    background-image: url('../images/Security\ officer\ watching\ camera2.jpeg');
+}
+
+.bg-Armed
+{
+    background-image: url('../images/Armed Security Officer.jpeg');
+}
+
+.bg-Mobile
+{
+    background-image: url('../images/Patrol Vehicle.jpeg');
+}
+
+.bg-Concierge
+{
+    background-image: url('../images/Concierge.jpeg');
+}
+
+.bg-securityroom
+{
+    background-image: url('../images/Security\ room.jpeg');
+}
+
+/*
+####### Differentiators BACKGROUNS ########
+*/
+
+.bg-differentiators
+{
+    background-image: url('../images/Security\ guard\ with\ flashlight.jpeg');
+}
+
+.bg-professional-team
+{
+    background-image: url('../images/Smiling\ security\ lady.jpeg');
+}
+
+.bg-contactus
+{
+    background-image: url('../images/Contact\ Us.jpeg');
+}
+
+.bg-technology
+{
+    background-image: url('../images/Security Techonology.jpeg');
+}
+
+.bg-Customized
+{
+    background-image: url('../images/Tailored solutions.jpeg');
+}
+
+.bg-Availability
+{
+    background-image: url('../images/247v2.png');
+}
+
+.bg-Flexible
+{
+    background-image: url('../images/Flexible contract terms.png');
+}
+
+/*
+####### aboutus ########
+*/
+
+.bg-aboutus
+{
+    background-image: url('../images/Security\ with\ radio-min.jpeg');
+}
+
+.bg-careers
+{
+    background-image: url('../images/career.jpeg');
+}

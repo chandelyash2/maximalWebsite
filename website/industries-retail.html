@@ -1,0 +1,102 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximal Security Services</title>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
+    <script src="custom.js"></script>
+</head>
+
+<body class="bg-white" data-aos="fade-in">
+    
+    <!-- NAVBAR -->
+    <include src="nav.html"></include> 
+    
+    <!-- Header Section -->
+    <header class="bg-image bg-Retail ">
+    <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
+    <div class="overlay p-0 m-0"> </div>
+    <div class="container header-title text-white d-flex align-items-center justify-content-center p-0">
+    <div class="w-75">
+    <h1 class="text-center w-100 text-uppercase">RETAIL</h1>
+        <p class="">Maximal provides security services to retail clients, which can include supermarkets, store chains, a shopping centers or shopping malls as well as the property owners of these buildings.</p>
+   </div>
+    </header>
+
+    <div class="container text-dark mb-5 mt-0 industry ps-lg-5 removegap">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <p class="f-heading mb-5">
+                    Our solution is developed according to the needs and the risks of each client and comprises a combination of different services, such as parking surveillance, people counting and visitor handling as well as remote services and lone worker protection after closing times.
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-around g-5">
+            <div class="col-lg-5 p-lg-0 px-md-4">
+                <h4 class="text-decoration-underline px-3">Customized Security Solutions</h4>
+                <p class="px-3">To discuss security solutions for your organization, please provide the following information.</p>
+                <include src="form1.html"></include> 
+            </div>
+            <div class="col-lg-5 p-lg-0 px-md-4">
+                <h4 class="text-decoration-underline">A Trusted Partner in Retail  Security</h4>
+                <p>Our retail security solution goes way beyond conventional alarm panels focusing on sending alarms to our clients. By combining our knowledge with the latest technologies, we give our clients real-time control over their entire business. Our clients need 24/7 surveillance to cover loitering in the parking lot, an increased number of incidents at the stores and unwanted wandering around at night. In addition, special events organized by the clients need extra security services. With an easily deployed video surveillance device all incidents are instantly reported based on intelligent video analytics. The Maximal Operation Center alerts remote guarding officers who analyze the live video and sends out the mobile guarding officers in the local area of the site.</p>
+                </div>
+        </div>
+
+    </div>
+
+  <!-- FOOTER -->
+  <div class="container-fluid p-0 bg-brown text-light">
+    <div class="row justify-content-center">
+        <div class="col-md-9 pt-5">
+            <h1 class="ps-4 ps-xl-5 ff-CatchyMager f-53" data-aos="fade-up" data-aos-once="true" data-aos-duration="2000">Contact Us</h1>
+        </div>
+    </div>
+</div>
+  <include src="footer.html"></include>
+
+
+
+</body>
+
+<!-- JS FILES -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+                //fade-up
+                x=document.querySelectorAll(".col-md-3");
+                for(i=0;i<x.length;i++)
+                {
+                x[i].setAttribute("data-aos", "fade-up");
+                x[i].classList.add("px-4");
+                x[i].classList.add("py-2");
+               
+                }
+
+                //navbar scroll
+                $(window).scroll(function(){
+                    $('nav').toggleClass('scrolled', $(this).scrollTop() > 20);
+                });
+
+                //Initiate Animation AOS Object
+                AOS.init();
+
+                //JS Codes for include nav and footer html files
+                let includes = document.getElementsByTagName('include');                
+                for (var i = 0; i < includes.length; i++) {
+                let include = includes[i];
+                load_file(includes[i].attributes.src.value, function(text) 
+                {
+                    include.insertAdjacentHTML('afterend', text);
+                    include.remove();
+                });
+                }
+                function load_file(filename, callback) {
+                fetch(filename).then(response => response.text()).then(text => callback(text));
+                }
+ </script>
+ <script src="modal.js"></script>
+
+</html>    

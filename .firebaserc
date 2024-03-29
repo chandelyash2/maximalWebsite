@@ -6,7 +6,7 @@
     "maximal-security-services": {
       "hosting": {
         "app-maximal-security-services": [
-          "webapp/build"
+          "clients/build"
         ]
       }
     }
