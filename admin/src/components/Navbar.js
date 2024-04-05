@@ -34,6 +34,9 @@ function Navbar() {
           <li className="nav-item px-3">
             <Link className="nav-link" to="/UserProfile">Profile Update</Link>
           </li>
+          <li className="nav-item px-3">
+            <Link className="nav-link" to="/makeadmin">Make Admin</Link>
+          </li>
           <li className="nav-item ml-auto">
             <button onClick={handleSignOut} className="btn btn-outline-danger my-2 my-sm-0" type="button">
             <i className="bi bi-power"></i> Sign Out

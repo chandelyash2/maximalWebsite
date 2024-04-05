@@ -8,6 +8,8 @@ import Register from './components/Register';
 import Home from './components/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from './components/UserProfile';
+import Unauthorised from './components/Unauthorised.js'
+import MakeAdmin from './components/MakeAdmin.js'
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -68,8 +70,18 @@ function App() {
               </ProtectedRoute>
             } 
           />
+
+           <Route 
+            path="/makeadmin" 
+            element={
+              <ProtectedRoute>
+                <MakeAdmin />
+              </ProtectedRoute>
+            } 
+          />
           
           <Route path="/register" element={<Register />} />
+          <Route path="/unauthorised" element={<Unauthorised />} />
         </Routes>
         </AlertProvider>
       </div>

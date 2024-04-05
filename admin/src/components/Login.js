@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebaseconfig';
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import the function
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-// import '../css/Login.css';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -12,73 +10,67 @@ function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if the user is already authenticated
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is authenticated, navigate to home page
-        navigate('/home');
-      }
-    });
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, [navigate]); // Include navigate as a dependency
-
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    console.log("Login attempt with:", email, password); // Log email and password
+    e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("Login successful, redirecting..."); // Log on successful login
-      window.location.href = '/home'; // Redirect on successful login
+      const user = auth.currentUser;
+      if (user) {
+        const idTokenResult = await user.getIdTokenResult();
+        const isAdmin = idTokenResult.claims.admin;
+        if (isAdmin) {
+          navigate('/home'); // Redirect admin users
+        } else {
+          auth.signOut();
+          navigate('/unauthorised'); // Redirect regular users
+        }
+      } else {
+        setError('User not found after login.');
+      }
     } catch (error) {
-      console.error("Login failed:", error); // Log any error
+      console.error("Login failed:", error);
       if (error.code === 'auth/invalid-credential') {
         setError('The credentials are invalid.');
       } else {
-        // For other errors, you can either display a generic message
-        // or handle specific errors similarly by checking error.code
         setError('An error occurred during login. Please try again later.');
       }
     }
   };
+  
 
   return (
     <div className="container mt-5" data-aos="flip-left">
       <div className="row justify-content-center">
         <div className="col-lg-4 col-md-8">
           <div className="card">
-            <div className="card-header  text-center text-white">
+            <div className="card-header text-center text-white">
               <div>
                 <a href="https://maximalsecurityservices.com">
-                 <img src="/images/logo.png" className="w-50"/>
-                 </a>
+                  <img src="/images/logo.png" alt="Logo" className="w-50"/>
+                </a>
               </div>
             </div>
             <div className="card-body">
-            <h3 className="mb-0 text-center">ADMIN PORTAL</h3>
-                 {/* Display error message if it exists */}
-                 {error && (
+              <h3 className="mb-0 text-center">ADMIN PORTAL</h3>
+              {error && (
                 <div className="alert alert-danger" role="alert">
                   {error}
                 </div>
               )}
-            <form onSubmit={handleLogin}>
+              <form onSubmit={handleLogin}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
                     Email address
                   </label>
                   <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">
@@ -93,7 +85,6 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
-
                 </div>
                 <div className="mb-3 form-check">
                   <input
@@ -109,15 +100,14 @@ function Login() {
                   Login
                 </button>
               </form>
-                          {/* Add a "Register" button */}
-            <div className="mt-3">
-        <p className="text-center text-primary">Don't have an account?  
-        <Link to="/register" className="">
-          <b> Register</b>
-        </Link>
-        </p>
-      </div>
-
+              <div className="mt-3">
+                <p className="text-center text-primary">
+                  Don't have an account?  
+                  <Link to="/register" className="">
+                    <b> Register</b>
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -125,6 +115,5 @@ function Login() {
     </div>
   );
 }
-
 
 export default Login;
