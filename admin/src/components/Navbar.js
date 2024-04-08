@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../firebaseconfig'; // Import the auth module
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection after sign out
@@ -8,7 +8,11 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 
 function Navbar() {
   const navigate = useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
   // Sign out handler
   const handleSignOut = async () => {
     try {
@@ -35,8 +39,20 @@ function Navbar() {
             <Link className="nav-link" to="/UserProfile">Profile Update</Link>
           </li>
           <li className="nav-item px-3">
-            <Link className="nav-link" to="/makeadmin">Make Admin</Link>
+            <Link className="nav-link" to="/makeadmin">Admin Role</Link>
           </li>
+          <li className={`nav-item px-3 dropdown ${dropdownOpen ? 'show' : ''}`} onMouseEnter={() => toggleDropdown()} onMouseLeave={() => toggleDropdown()}>
+              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Report Template
+              </a>
+              <div className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/ReportTemplateCreator">Create Report Template</Link>
+                <Link className="dropdown-item" to="/ReportTemplateCreator">Edit Report Template</Link>
+                <Link className="dropdown-item" to="/ReportTemplateCreator">Delete Report Template</Link>
+                {/* Add more dropdown items here */}
+              </div>
+            </li>
+
           <li className="nav-item ml-auto">
             <button onClick={handleSignOut} className="btn btn-outline-danger my-2 my-sm-0" type="button">
             <i className="bi bi-power"></i> Sign Out

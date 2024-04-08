@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from './components/UserProfile';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
+import ReportTemplateCreator from './components/ReportTemplateCreate.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -76,6 +77,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <MakeAdmin />
+              </ProtectedRoute>
+            } 
+          />
+
+          <Route 
+            path="/ReportTemplateCreator" 
+            element={
+              <ProtectedRoute>
+                <ReportTemplateCreator />
               </ProtectedRoute>
             } 
           />

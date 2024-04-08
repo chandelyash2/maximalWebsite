@@ -26,28 +26,35 @@ const MakeAdmin = () => {
   };
 
   return (
-    <div>
+    <div className='row justify-content-center'>
+    <div className='col-md-6 my-4'>
       <h2>Set User Admin Privileges</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          User ID:
+        <div className="form-group">
+          <label>User ID:</label>
           <input
             type="text"
+            className="form-control"
             value={userId}
             onChange={handleUserIdChange}
           />
-        </label><br/>
-        <label>
-          Action:
-          <select value={action} onChange={handleActionChange}>
+        </div>
+        <div className="form-group">
+          <label>Action:</label>
+          <select
+            className="form-control"
+            value={action}
+            onChange={handleActionChange}
+          >
             <option value="grant">Grant</option>
             <option value="revoke">Revoke</option>
           </select>
-        </label>
-        <button type="submit">Submit</button>
+        </div>
+        <button type="submit" className="btn btn-primary my-5 w-50">Submit</button>
       </form>
       <p>{message}</p>
     </div>
+  </div>
   );
 };
 
