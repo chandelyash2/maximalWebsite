@@ -49,10 +49,14 @@ function Navbar() {
                 <Link className="dropdown-item" to="/ReportTemplateCreator">Create Report Template</Link>
                 <Link className="dropdown-item" to="/ReportTemplateCreator">Edit Report Template</Link>
                 <Link className="dropdown-item" to="/ReportTemplateCreator">Delete Report Template</Link>
+
+                
                 {/* Add more dropdown items here */}
               </div>
             </li>
-
+            <li className="nav-item px-3">
+            <Link className="nav-link" to="/ReportSelector">Report Generate</Link>
+          </li>
           <li className="nav-item ml-auto">
             <button onClick={handleSignOut} className="btn btn-outline-danger my-2 my-sm-0" type="button">
             <i className="bi bi-power"></i> Sign Out
