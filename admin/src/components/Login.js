@@ -3,6 +3,8 @@ import { auth } from '../firebaseconfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from 'react-router-dom';
+import '../css/style.css';
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -39,19 +41,11 @@ function Login() {
   
 
   return (
+  
     <div className="container mt-5" data-aos="flip-left">
       <div className="row justify-content-center">
-        <div className="col-lg-4 col-md-8">
-          <div className="card">
-            <div className="card-header text-center text-white">
-              <div>
-                <a href="https://maximalsecurityservices.com">
-                  <img src="/images/logo.png" alt="Logo" className="w-50"/>
-                </a>
-              </div>
-            </div>
-            <div className="card-body">
-              <h3 className="mb-0 text-center">ADMIN PORTAL</h3>
+        <div className="col-lg-4 mt-5 col-md-5 px-5 justify-content-center text-center">
+              <button class="btn btn-danger mb-4 rounded-pill px-5">ADMINISTRATOR PORTAL</button>
               {error && (
                 <div className="alert alert-danger" role="alert">
                   {error}
@@ -59,59 +53,43 @@ function Login() {
               )}
               <form onSubmit={handleLogin}>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email address
-                  </label>
                   <input
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="Enter your email"
+                    placeholder="E-mail"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
                   <input
                     type="password"
                     className="form-control"
                     id="password"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
-                <div className="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="rememberMe"
-                  />
-                  <label className="form-check-label" htmlFor="rememberMe">
-                    Remember me
-                  </label>
-                </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Login
+              
+                <button type="submit" className="btn btn-danger w-50 rounded-pill">
+                  Sign In
+                </button>
+                <Link to="/register" className="">
+                <button className="btn btn-danger w-50 rounded-pill">
+                  Register
+                </button>
+                </Link>
+
+                <button className="btn btn-danger w-50 my-2 rounded-pill">
+                  Forget Password
                 </button>
               </form>
-              <div className="mt-3">
-                <p className="text-center text-primary">
-                  Don't have an account?  
-                  <Link to="/register" className="">
-                    <b> Register</b>
-                  </Link>
-                </p>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
+    </div>
     </div>
   );
 }

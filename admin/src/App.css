@@ -85,3 +85,9 @@ body
 {
   color: #735744;
 }
+
+btn-danger
+{
+  background-color:  #735744 !important;
+  color: white !important;
+}

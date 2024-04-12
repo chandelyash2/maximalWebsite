@@ -25,13 +25,13 @@ function Navbar() {
   };
 
   return (
-    <Nav className="navbar navbar-expand-lg navbar-light bg-light px-5">
+    <Nav className="navbar navbar-expand-lg px-5">
       <Link className="navbar-brand" to="/"><img src="../images/logo.png" className='logo'/></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul className="navbar-nav ml-auto"> {/* Use ml-auto class to push items to the right */}
+      {/* <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul className="navbar-nav ml-auto"> {/* Use ml-auto class to push items to the right 
           <li className="nav-item px-3">
             <Link className="nav-link" to="/home">Home</Link>
           </li>
@@ -49,9 +49,6 @@ function Navbar() {
                 <Link className="dropdown-item" to="/ReportTemplateCreator">Create Report Template</Link>
                 <Link className="dropdown-item" to="/ReportTemplateCreator">Edit Report Template</Link>
                 <Link className="dropdown-item" to="/ReportTemplateCreator">Delete Report Template</Link>
-
-                
-                {/* Add more dropdown items here */}
               </div>
             </li>
             <li className="nav-item px-3">
@@ -63,7 +60,7 @@ function Navbar() {
             </button>
           </li>
         </ul>
-      </div>
+      </div> */}
     </Nav>
   );
 }

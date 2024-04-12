@@ -13,6 +13,7 @@ import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
 import ReportTemplateCreator from './components/ReportTemplateCreate.js';
 import ReportSelector from './components/ReportSelector.js';
+import Reporting from './components/Reporting.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -102,6 +103,8 @@ function App() {
             } 
           />
 
+          
+
 <Route 
             path="/ReportSelector" 
             element={
@@ -110,6 +113,17 @@ function App() {
               </ProtectedRoute>
             } 
           />
+
+
+<Route 
+            path="/Reporting" 
+            element={
+              <ProtectedRoute>
+                <Reporting />
+              </ProtectedRoute>
+            } 
+          />
+          
           
           
           <Route path="/register" element={<Register />} />
