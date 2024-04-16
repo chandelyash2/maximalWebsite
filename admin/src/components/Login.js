@@ -41,8 +41,10 @@ function Login() {
   
 
   return (
-  
     <div className="container mt-5" data-aos="flip-left">
+      <Link to="https://maximalsecurityservices.com">
+      <img src="../images/logo.png" className='logo' title="Visit Website"/>
+      </Link>
       <div className="row justify-content-center">
         <div className="col-lg-4 mt-5 col-md-5 px-5 justify-content-center text-center">
               <button class="btn btn-danger mb-4 rounded-pill px-5">ADMINISTRATOR PORTAL</button>

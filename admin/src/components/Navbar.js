@@ -26,7 +26,7 @@ function Navbar() {
 
   return (
     <Nav className="navbar navbar-expand-lg px-5">
-      <Link className="navbar-brand" to="/"><img src="../images/logo.png" className='logo'/></Link>
+      <Link className="navbar-brand" to="https://maximalsecurityservices.com"><img src="../images/logo.png" className='logo' title="Visit Website"/></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>

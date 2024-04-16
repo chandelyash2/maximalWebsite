@@ -14,6 +14,7 @@ import ReportGenerate from './components/ReportGenerate.js'
 import ReportTemplateCreator from './components/ReportTemplateCreate.js';
 import ReportSelector from './components/ReportSelector.js';
 import Reporting from './components/Reporting.js';
+import ReportCreateNew from './components/ReportCreateNew.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -57,75 +58,17 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route 
-            path="/UserProfile" 
-            element={
-              <ProtectedRoute>
-                <UserProfile />
-              </ProtectedRoute>
-            } 
-          />
-           
-                    <Route 
-            path="/home" 
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            } 
-          />
-
-           <Route 
-            path="/makeadmin" 
-            element={
-              <ProtectedRoute>
-                <MakeAdmin />
-              </ProtectedRoute>
-            } 
-          />
-
-          <Route 
-            path="/ReportTemplateCreator" 
-            element={
-              <ProtectedRoute>
-                <ReportTemplateCreator />
-              </ProtectedRoute>
-            } 
-          />
-
-
-          <Route 
-            path="/ReportGenerate/:reportName" 
-            element={
-              <ProtectedRoute>
-                <ReportGenerate />
-              </ProtectedRoute>
-            } 
-          />
-
           
-
-<Route 
-            path="/ReportSelector" 
-            element={
-              <ProtectedRoute>
-                <ReportSelector />
-              </ProtectedRoute>
-            } 
-          />
-
-
-<Route 
-            path="/Reporting" 
-            element={
-              <ProtectedRoute>
-                <Reporting />
-              </ProtectedRoute>
-            } 
-          />
-          
-          
-          
+          {/* PROTECTED ROUTES */}
+          <Route path="/UserProfile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} /> 
+          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
+          <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 
+          <Route path="/ReportTemplateCreator" element={<ProtectedRoute><ReportTemplateCreator /></ProtectedRoute>} /> 
+          <Route path="/ReportGenerate/:reportName" element={<ProtectedRoute><ReportGenerate /></ProtectedRoute>} /> 
+          <Route path="/ReportSelector" element={<ProtectedRoute><ReportSelector /></ProtectedRoute>} /> 
+          <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
+          <Route path="/ReportCreateNew" element={<ProtectedRoute><ReportCreateNew /></ProtectedRoute>} />
+                      
           <Route path="/register" element={<Register />} />
           <Route path="/unauthorised" element={<Unauthorised />} />
         </Routes>

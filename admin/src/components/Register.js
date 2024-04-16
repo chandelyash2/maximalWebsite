@@ -40,20 +40,16 @@ function Register() {
     }
   };
 
-  return (
+  return ( 
     <div className="container mt-5" data-aos="flip-right">
       <div className="row justify-content-center">
-        <div className="col-lg-4 col-md-8">
-          <div className="card">
-            <div className="card-header  text-center text-white">
-              <div>
-                <a href="https://maximalsecurityservices.com">
-                 <img src="/images/logo.png" className="w-50"/>
-                 </a>
-              </div>
-            </div>
-            <div className="card-body">
-            <h3 className="mb-0 text-center">Register</h3>
+      <Link to="https://maximalsecurityservices.com">
+      <img src="../images/logo.png" className='logo' title="Visit Website"/>
+      </Link>
+        <div className="col-lg-4 col-md-8 text-center">
+        <button class="btn btn-danger mb-4 rounded-pill px-5">ADMINISTRATOR PORTAL</button>
+        <button class="btn btn-danger mb-4 rounded-pill px-5">Register</button>
+      
              {/* Display success message if it exists */}
              {successMessage && (
                 <div className="alert alert-success" role="alert">
@@ -68,60 +64,49 @@ function Register() {
               )}
     <form onSubmit={handleRegister}>
       <div className="mb-3">
-        <label htmlFor="name" className="form-label">
-          Name
-        </label>
         <input 
           type="text" 
           className="form-control" 
           id="name" 
-          placeholder="Enter your name"
+          placeholder="Name"
           value={name} // Added value attribute
           onChange={(e) => setName(e.target.value)} // Added onChange event
           required 
         />
       </div>
   <div className="mb-3">
-    <label htmlFor="email" className="form-label">
-      Email address
-    </label>
     <input 
         type="email" 
         className="form-control" 
         id="email" 
-        placeholder="Enter your email" 
+        placeholder="Email" 
         value={email} // Added value attribute
         onChange={(e) => setEmail(e.target.value)} // Added onChange event
         required 
       />
   </div>
   <div className="mb-3">
-    <label htmlFor="password" className="form-label">
-      Password
-    </label>
     <input 
         type="password" 
         className="form-control" 
         id="password" 
-        placeholder="Enter your password" 
+        placeholder="Password" 
         value={password} // Added value attribute
         onChange={(e) => setPassword(e.target.value)} // Added onChange event
         required 
       />
   </div>
-  <button type="submit" className="btn btn-danger w-100">
+  <button type="submit" className="btn btn-danger mb-4 rounded-pill px-5">
     Register
   </button>
+  <Link to="/" className="">
+            <button class="btn btn-danger mb-4 rounded-pill px-5 "> Login </button>
+            </Link>
 </form>
             <div className="mt-3">
-        <p className="text-center text-primary">Already have an account?  
-        <Link to="/" className="">
-          <b> Login</b>
-        </Link>
-        </p>
-      </div>
+         
             </div>
-          </div>
+            
         </div>
       </div>
     </div>
