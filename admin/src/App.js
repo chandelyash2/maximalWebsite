@@ -1,6 +1,5 @@
-// App.js
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AlertProvider } from './components/AlertContext';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
@@ -11,10 +10,10 @@ import UserProfile from './components/UserProfile';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
-import ReportTemplateCreator from './components/ReportTemplateCreate.js';
+import ReportTemplateSave from './components/ReportTemplateSave.js';
 import ReportSelector from './components/ReportSelector.js';
 import Reporting from './components/Reporting.js';
-import ReportCreateNew from './components/ReportCreateNew.js';
+import ReportTemplateNew from './components/ReportTemplateNew.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -54,24 +53,25 @@ function App() {
       <VideoBackground /> 
       {currentUser && <Navbar />} {/* Render Navbar only if currentUser exists */}
       <div className="content">
-      <AlertProvider>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          
-          {/* PROTECTED ROUTES */}
-          <Route path="/UserProfile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} /> 
-          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
-          <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 
-          <Route path="/ReportTemplateCreator" element={<ProtectedRoute><ReportTemplateCreator /></ProtectedRoute>} /> 
-          <Route path="/ReportGenerate/:reportName" element={<ProtectedRoute><ReportGenerate /></ProtectedRoute>} /> 
-          <Route path="/ReportSelector" element={<ProtectedRoute><ReportSelector /></ProtectedRoute>} /> 
-          <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
-          <Route path="/ReportCreateNew" element={<ProtectedRoute><ReportCreateNew /></ProtectedRoute>} />
-                      
-          <Route path="/register" element={<Register />} />
-          <Route path="/unauthorised" element={<Unauthorised />} />
-        </Routes>
+        <AlertProvider>
+          <Routes>
+            <Route path="/" element={currentUser ? <Navigate to="/home" /> : <Login />} />
+            <Route path="/login" element={currentUser ? <Navigate to="/home" /> : <Login />} />
+            
+            {/* PROTECTED ROUTES */}
+            <Route path="/UserProfile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} /> 
+            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
+            <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
+            <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
+            <Route path="/ReportTemplateSave/:reportTempId" element={<ProtectedRoute><ReportTemplateSave /></ProtectedRoute>} />
+
+            <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 
+            <Route path="/ReportGenerate/:reportName" element={<ProtectedRoute><ReportGenerate /></ProtectedRoute>} /> 
+            <Route path="/ReportSelector" element={<ProtectedRoute><ReportSelector /></ProtectedRoute>} /> 
+                        
+            <Route path="/register" element={<Register />} />
+            <Route path="/unauthorised" element={<Unauthorised />} />
+          </Routes>
         </AlertProvider>
       </div>
     </Router>

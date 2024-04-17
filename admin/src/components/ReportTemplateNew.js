@@ -1,16 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
-import { AlertContext } from './AlertContext';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ref, get, push, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 import '../css/style.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-const ReportCreateNew = () => {
+const ReportTemplateNew = () => {
   let navigate = useNavigate();
-  const [columnName, setColumnName] = useState('');
-  const [dataType, setDataType] = useState('');
-  const [columnCount, setColumnCount] = useState(1);
   const [reportName, setReportName] = useState('');
   const [reportType, setReportType] = useState('Tabular Report');
   const [columns, setColumns] = useState([]);
@@ -18,7 +14,6 @@ const ReportCreateNew = () => {
   const [customerUserId, setCustomerUserId] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [reportTempdId, setReportTempId] = useState('');
 
   const handleCreateReportDocument = () => {
     alert("Sorry, Document Report is under construction.");
@@ -40,37 +35,30 @@ const ReportCreateNew = () => {
     const handleSaveReport = async () => {
       const reportTempRef = push(ref(database, 'reportTemplates'));
       const newReportTempId = reportTempRef.key;
-
+    
       try {
         await set(ref(database, `reportTemplates/${newReportTempId}`), {
           name: reportName,
           type: reportType,
-          columns: columns,
+          columns: [],
           employeeUserId: employeeUserId,
           customerUserId: customerUserId
         });
-        setReportTempId(newReportTempId);
+        // alert(newReportTempId);
+        // Navigate to ReportTemplateSave immediately after saving report template
+        navigate(`/ReportTemplateSave/${newReportTempId}`);
       } catch (error) {
         alert('Error saving report Template:' + error);
       }
     };
-
+    
     handleSaveReport()
-      .then(() => {
-        setSuccessMessage('New Report Template Created successfully.!');
-        setTimeout(() => {
-          navigate('/ReportTemplateCreator');
-        }, 2000); // 2 seconds delay
-      })
-      .catch((error) => {
-        setErrorMessage(`Error: ${error.message}`);
-      });
-
-    setReportName('');
-    setReportType('Tabular Report');
-    setColumns([]);
-    setEmployeeUserId('');
-    setCustomerUserId('');
+    .then(() => {
+      setSuccessMessage('New Report Template Created successfully.!');
+    })
+    .catch((error) => {
+      setErrorMessage(`Error: ${error.message}`);
+    });
   };
 
   const handleSubmit = () => {
@@ -119,4 +107,4 @@ const ReportCreateNew = () => {
   );
 }
 
-export default ReportCreateNew;
+export default ReportTemplateNew;

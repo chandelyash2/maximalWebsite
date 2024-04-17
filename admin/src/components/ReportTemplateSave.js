@@ -1,18 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 
-const ReportTemplateCreator = () => {
+const ReportTemplateSave = () => {
+  const { reportTempId } = useParams();
+
   const [columnName, setColumnName] = useState('');
   const [dataType, setDataType] = useState('');
   const [columnCount, setColumnCount] = useState(1);
   const [reportName, setReportName] = useState('');
-  const [reportType, setReportType] = useState('Document Report'); // Default value for report type
+  const [reportType, setReportType] = useState('Document Report');
   const [columns, setColumns] = useState([]);
   const [employeeUserId, setEmployeeUserId] = useState('');
   const [customerUserId, setCustomerUserId] = useState('');
-  const [successMessage, setSuccessMessage] = useState(''); // State for success message
-  const [errorMessage, setErrorMessage] = useState(''); // State for error message
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (reportTempId) {
+      const reportTemplateRef = ref(database, `reportTemplates/${reportTempId}`);
+      get(reportTemplateRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setReportName(data.name);
+            setReportType(data.type);
+            setColumns(data.columns || []); // Ensure columns is always initialized as an array
+            setEmployeeUserId(data.employeeUserId);
+            setCustomerUserId(data.customerUserId);
+          } else {
+            setErrorMessage('Report template not found');
+          }
+        })
+        .catch((error) => {
+          setErrorMessage(`Error fetching report template: ${error.message}`);
+        });
+    }
+  }, [reportTempId]);
 
   const handleAddColumn = () => {
     setColumns([...columns, { name: columnName, type: dataType }]);
@@ -20,9 +45,9 @@ const ReportTemplateCreator = () => {
     setDataType('');
   };
 
-  const handleCreateReportTemplate = () => {
-    const reportTemplateRef = ref(database, `reportTemplates/${reportName}`); // Correct way to get a reference
-    const newReportTemplate = {
+  const handleUpdateReportTemplate = () => {
+    const reportTemplateRef = ref(database, `reportTemplates/${reportTempId}`);
+    const updatedReportTemplate = {
       name: reportName,
       type: reportType,
       columns: columns,
@@ -30,30 +55,20 @@ const ReportTemplateCreator = () => {
       customerUserId: customerUserId
     };
 
-    set(reportTemplateRef, newReportTemplate) // Use the 'set' function to save data
-    .then(() => {
-      setSuccessMessage('New Report Temmplate Created successfully.!');
-      setTimeout(() => {
-        // navigate('/'); // Navigate to home page after a short delay
-      }, 2000); // 2 seconds delay
-    })
-    .catch((error) => {
-      setErrorMessage(`Error: ${error.message}`);
-    });
-
-    // Clear input fields after submitting
-    setReportName('');
-    setReportType('Document Report'); // Reset report type after submission
-    setColumns([]);
-    setEmployeeUserId('');
-    setCustomerUserId('');
+    set(reportTemplateRef, updatedReportTemplate)
+      .then(() => {
+        setSuccessMessage('Report Template Updated successfully!');
+      })
+      .catch((error) => {
+        setErrorMessage(`Error updating report template: ${error.message}`);
+      });
   };
 
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center" >
         <div className="col-md-6 py-4" style={{ color: '#735744', height:'680px' }}>
-          <h2 className='text-center'>Create Report Template</h2>
+          <h2 className='text-center'>Report Template</h2>
           {/* Form inputs */}
           {/* Report Name and Type inputs */}
           <div className="form-group row">
@@ -147,7 +162,7 @@ const ReportTemplateCreator = () => {
               </tr>
             </thead>
             <tbody>
-              {columns.map((column, index) => (
+              {columns && columns.map((column, index) => ( // Check if columns is not undefined before mapping
                 <tr key={index}>
                   <td>{column.name}</td>
                   <td>{column.type}</td>
@@ -168,16 +183,16 @@ const ReportTemplateCreator = () => {
           </div>
           {/* Success and Error messages */}
           {successMessage && <div className="alert alert-success alert-dismissible fade show mt-3">{successMessage}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
           {errorMessage && <div className="alert alert-danger alert-dismissible fade show mt-3">{errorMessage}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>}
           {/* Create Report Template button */}
-          <button className="btn btn-success" onClick={handleCreateReportTemplate}>Create Report Template</button>
+          <button className="btn btn-success" onClick={handleUpdateReportTemplate}>Save Report Template</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default ReportTemplateCreator;
+export default ReportTemplateSave;

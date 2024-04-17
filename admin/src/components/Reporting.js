@@ -22,7 +22,7 @@ const Reporting = () => {
       <Link to="/home" className='w-75'><button className='btn btn-danger rounded-pill px-5 my-3 mb-4 w-100'><h4> <i class="bi bi-arrow-left-square"></i>&nbsp;&nbsp; Reporting</h4></button></Link>
       <div className='row d-flex flex-column align-items-center'>
         <div className='col-md-8'>
-        <Link to="/ReportCreateNew"><button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Create New Report</button></Link>
+        <Link to="/ReportTemplateNew"><button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Create New Report</button></Link>
         <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Replicate Existing Report</button>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Edit Existing Report</button>
    
