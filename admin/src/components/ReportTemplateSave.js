@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 
 const ReportTemplateSave = () => {
   const { reportTempId } = useParams();
 
-  const [columnName, setColumnName] = useState('');
-  const [dataType, setDataType] = useState('');
+
+  const [sequence, setSequencee] = useState('');
+  const [rowcol, setRowcol] = useState('');
+  const [title, setTitle] = useState('');
+  const [width, setWidth] = useState('10');
+  const [format, setFormat] = useState('');
   const [columnCount, setColumnCount] = useState(1);
   const [reportName, setReportName] = useState('');
   const [reportType, setReportType] = useState('Document Report');
   const [columns, setColumns] = useState([]);
   const [employeeUserId, setEmployeeUserId] = useState('');
   const [customerUserId, setCustomerUserId] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [companyLocation, setCompanyLocation] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [enddDte, setEndDate] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -40,9 +48,7 @@ const ReportTemplateSave = () => {
   }, [reportTempId]);
 
   const handleAddColumn = () => {
-    setColumns([...columns, { name: columnName, type: dataType }]);
-    setColumnName('');
-    setDataType('');
+    setColumns([...columns, { sequence: '', rowcol: 'row', title: 'title',  width: '10', format: 'Text' }]);
   };
 
   const handleUpdateReportTemplate = () => {
@@ -64,123 +70,168 @@ const ReportTemplateSave = () => {
       });
   };
 
+  const handleChange = (index, field, value) => {
+    const newColumns = [...columns];
+    newColumns[index][field] = value;
+    setColumns(newColumns);
+  };
+
+  const handleDeleteRow = (index) => {
+    setColumns((prevColumns) => {
+      const updatedColumns = [...prevColumns];
+      updatedColumns.splice(index, 1);
+      return updatedColumns;
+    });
+  };
+
+  const handlePreview = () => { };
+  
+
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center" >
-        <div className="col-md-6 py-4" style={{ color: '#735744', height:'680px' }}>
-          <h2 className='text-center'>Report Template</h2>
+        <div className="col-md-8 py-4" style={{ color: '#735744', height:'680px' }}>
+      <div className="text-center">
+        <Link to="/home">
+      <button className="btn btn-danger mb-4 rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>  </Link>
+      </div>
+      <div className="text-center">
+      <input
+                type="text"
+                className="form-control w-25 btn-danger text-center m-auto rounded-pill"
+                id="reportName"
+                value={reportName}
+                onChange={(e) => setReportName(e.target.value)}
+                placeholder='Report Name....'
+      />
+    
+      </div>
           {/* Form inputs */}
           {/* Report Name and Type inputs */}
           <div className="form-group row">
             <div className="col-md-6">
-              <label htmlFor="reportName">Report Name:</label>
-              <input
+            <input
                 type="text"
-                className="form-control"
-                id="reportName"
-                value={reportName}
-                onChange={(e) => setReportName(e.target.value)}
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="reportType">Report Type:</label>
-              <select
-                className="form-control"
-                id="reportType"
-                value={reportType}
-                onChange={(e) => setReportType(e.target.value)}
-              >
-                <option value="Document Report">Document Report</option>
-                <option value="Tabular Report">Tabular Report</option>
-              </select>
-            </div>
-          </div>
-          {/* Employee and Customer User ID inputs */}
-          <div className='row'>
-            <div className="form-group col-md-6">
-              <label htmlFor="employeeUserId">Employee User ID:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="employeeUserId"
-                value={employeeUserId}
-                onChange={(e) => setEmployeeUserId(e.target.value)}
-              />
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="customerUserId">Customer User ID:</label>
-              <input
-                type="text"
-                className="form-control"
+                className="form-control btn-danger rounded-pill w-75  my-2"
                 id="customerUserId"
                 value={customerUserId}
-                onChange={(e) => setCustomerUserId(e.target.value)}
+                onChange={(e) => setCompanyName(e.target.value)}
+                placeholder="Company Name..."
               />
-            </div>
-          </div>
-          {/* Column Name and Data Type inputs */}
-          <div className='row'>
-            <div className="form-group col-md-4">
-              <label htmlFor="columnName">Column Name:</label>
+
               <input
                 type="text"
-                className="form-control"
-                id="columnName"
-                value={columnName}
-                onChange={(e) => setColumnName(e.target.value)}
+                className="form-control btn-danger rounded-pill w-75  my-2"
+                id="customerUserId"
+                value={customerUserId}
+                onChange={(e) => setCompanyLocation(e.target.value)}
+                placeholder="Company Location..."
               />
+
+<input
+                type="date"
+                className="form-control btn-danger rounded-pill w-75 my-2"
+                id="customerUserId"
+                value={customerUserId}
+                onChange={(e) => setStartDate(e.target.value)}
+                placeholder="Report Start Date..."
+              />
+
+<input
+                type="date"
+                className="form-control btn-danger rounded-pill w-75  my-2"
+                id="customerUserId"
+                value={customerUserId}
+                onChange={(e) => setEndDate(e.target.value)}
+                placeholder="Report End Date..."
+              />
+            
+             
             </div>
-            <div className="form-group col-md-4">
-              <label htmlFor="dataType">Data Type:</label>
-              <select
-                className="form-control"
-                id="dataType"
-                value={dataType}
-                onChange={(e) => setDataType(e.target.value)}
-              >
-                <option value="input">Text</option>
-                <option value="number">Number</option>
-                <option value="date">Date</option>
-                <option value="time">Time</option>
-                <option value="textarea">Text Area</option>
-                <option value="photo">Photo Upload</option>
-                {/* Add more options for other data types */}
-              </select>
-            </div>
-            <div className='col-md-4'>
-              <label htmlFor="dataType">Action:</label>
-              <button className="btn btn-primary w-100" onClick={handleAddColumn}>Add Column</button>
+            <div className="col-md-6">
+             
             </div>
           </div>
+
           {/* Report Columns */}
-          <h3>Report Columns:</h3>
-          <table className="table">
+        
+          <table className="" width="100%">
             <thead className="thead-dark">
               <tr>
-                <th scope="col">Column Name</th>
-                <th scope="col">Data Type</th>
+              <th scope="col" className='btn-danger rounded-pill text-center'>Sequence</th>
+              <th scope="col" className='btn-danger rounded-pill text-center'>Row/Column</th>
+                <th scope="col" className='btn-danger rounded-pill text-center'>Choose Title</th>
+                <th scope="col" className='btn-danger rounded-pill text-center'>Choose Width (%)</th>
+                <th scope="col" className='btn-danger rounded-pill text-center'>Specific Format</th>
+                <th scope="col" className='text-center'>  <button className="btn btn-danger rounded-pill text-center" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button></th>
+
               </tr>
             </thead>
             <tbody>
-              {columns && columns.map((column, index) => ( // Check if columns is not undefined before mapping
-                <tr key={index}>
-                  <td>{column.name}</td>
-                  <td>{column.type}</td>
-                </tr>
-              ))}
+            {columns && columns.map((column, index) => (
+  <tr key={index}>
+    <td>
+      <input
+        className="btn-danger rounded-pill my-1 text-center"
+        type="number"
+        value={column.sequence}
+        onChange={(e) => handleChange(index, 'sequence', e.target.value)}
+      />
+    </td>
+    <td>
+      <select
+        className="btn-danger rounded-pill my-1 text-center w-100"
+        value={column.rowcol}
+        onChange={(e) => handleChange(index, 'rowcol', e.target.value)}
+      >
+        <option value="Row">Row</option>
+        <option value="Column">Column</option>
+      </select>
+    </td>
+    <td>
+      <input
+        className="btn-danger rounded-pill my-1 text-center w-100"
+        type="text"
+        value={column.title}
+        onChange={(e) => handleChange(index, 'title', e.target.value)}
+      />
+    </td>
+    <td>
+      <input
+        className="btn-danger rounded-pill my-1 text-center w-100"
+        type="text"
+        value={column.width}
+        onChange={(e) => handleChange(index, 'width', e.target.value)}
+      />
+    </td>
+    <td>
+      <select
+        className="btn-danger rounded-pill my-1 text-center w-100"
+        value={column.format}
+        onChange={(e) => handleChange(index, 'format', e.target.value)}
+      >
+        <option value="input">Text</option>
+        <option value="number">Number</option>
+        <option value="date">Date</option>
+        <option value="time">Time</option>
+        <option value="textarea">Text Area</option>
+        <option value="photo">Photo Upload</option>
+      </select>
+    </td>
+    <td>
+      <button
+        className=" btn-outline-danger rounded-pill my-1 text-center w-100"
+        onClick={() => handleDeleteRow(index)}
+      >
+        <i class="bi bi-trash3"></i>
+      </button>
+    </td>
+  </tr>
+))}
+
             </tbody>
           </table>
-          {/* Number of Columns input */}
-          <div className="form-group">
-            <label htmlFor="columnCount">Number of Columns:</label>
-            <input
-              type="number"
-              className="form-control"
-              id="columnCount"
-              value={columnCount}
-              onChange={(e) => setColumnCount(e.target.value)}
-            />
-          </div>
+        
           {/* Success and Error messages */}
           {successMessage && <div className="alert alert-success alert-dismissible fade show mt-3">{successMessage}
           <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
@@ -188,7 +239,8 @@ const ReportTemplateSave = () => {
           <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>}
           {/* Create Report Template button */}
-          <button className="btn btn-success" onClick={handleUpdateReportTemplate}>Save Report Template</button>
+          <button className="btn btn-danger px-5 m-auto my-2" onClick={handlePreview}>Preview</button>
+          <button className="btn btn-danger px-5 m-auto my-2" onClick={handleUpdateReportTemplate}>Save </button>
         </div>
       </div>
     </div>

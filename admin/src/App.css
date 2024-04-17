@@ -86,8 +86,17 @@ body
   color: #735744;
 }
 
-btn-danger
+.btn-danger
 {
   background-color:  #735744 !important;
   color: white !important;
+}
+
+.btn-danger::placeholder {
+  color: rgb(183, 178, 170) !important;
+  opacity: 1 !important; /* Firefox */
+}
+
+.btn-danger::-ms-input-placeholder { /* Edge 12 -18 */
+  color: rgb(183, 178, 170) !important;
 }
