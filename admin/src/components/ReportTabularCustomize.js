@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 
-const ReportTemplateSave = () => {
+const ReportTabularCustomize = () => {
   const { reportTempId } = useParams();
+  let navigate = useNavigate();
 
-
-  const [sequence, setSequencee] = useState('');
-  const [rowcol, setRowcol] = useState('');
-  const [title, setTitle] = useState('');
-  const [width, setWidth] = useState('10');
-  const [format, setFormat] = useState('');
-  const [columnCount, setColumnCount] = useState(1);
   const [reportName, setReportName] = useState('');
   const [reportType, setReportType] = useState('Document Report');
   const [columns, setColumns] = useState([]);
@@ -21,7 +15,7 @@ const ReportTemplateSave = () => {
   const [companyName, setCompanyName] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
   const [startDate, setStartDate] = useState('');
-  const [enddDte, setEndDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -35,8 +29,12 @@ const ReportTemplateSave = () => {
             setReportName(data.name);
             setReportType(data.type);
             setColumns(data.columns || []); // Ensure columns is always initialized as an array
+            setCompanyName(data.companyName);
+            setCompanyLocation(data.companyLocation);
             setEmployeeUserId(data.employeeUserId);
             setCustomerUserId(data.customerUserId);
+            setStartDate(data.startDate);
+            setEndDate(data.endDate);
           } else {
             setErrorMessage('Report template not found');
           }
@@ -58,7 +56,11 @@ const ReportTemplateSave = () => {
       type: reportType,
       columns: columns,
       employeeUserId: employeeUserId,
-      customerUserId: customerUserId
+      customerUserId: customerUserId,
+      companyName: companyName,
+      companyLocation: companyLocation,
+      startDate: startDate,
+      endDate: endDate,
     };
 
     set(reportTemplateRef, updatedReportTemplate)
@@ -84,7 +86,9 @@ const ReportTemplateSave = () => {
     });
   };
 
-  const handlePreview = () => { };
+  const handlePreview = () => { 
+    navigate(`/ReportTabularPreview/${reportTempId}`);
+  };
   
 
   return (
@@ -94,6 +98,7 @@ const ReportTemplateSave = () => {
       <div className="text-center">
         <Link to="/home">
       <button className="btn btn-danger mb-4 rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>  </Link>
+   
       </div>
       <div className="text-center">
       <input
@@ -113,8 +118,8 @@ const ReportTemplateSave = () => {
             <input
                 type="text"
                 className="form-control btn-danger rounded-pill w-75  my-2"
-                id="customerUserId"
-                value={customerUserId}
+                id="companyNameID"
+                value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="Company Name..."
               />
@@ -122,65 +127,81 @@ const ReportTemplateSave = () => {
               <input
                 type="text"
                 className="form-control btn-danger rounded-pill w-75  my-2"
-                id="customerUserId"
-                value={customerUserId}
+                id="companyLocationID"
+                value={companyLocation}
                 onChange={(e) => setCompanyLocation(e.target.value)}
                 placeholder="Company Location..."
               />
 
-<input
+              <input
                 type="date"
                 className="form-control btn-danger rounded-pill w-75 my-2"
-                id="customerUserId"
-                value={customerUserId}
+                id="startDateID"
+                value={startDate || ""}
                 onChange={(e) => setStartDate(e.target.value)}
+                // JavaScript to handle the placeholder behavior
+                onFocus={(e) => e.target.type = 'date'}
+                onBlur={(e) => !e.target.value && (e.target.type = 'text')}
                 placeholder="Report Start Date..."
               />
+
 
 <input
                 type="date"
                 className="form-control btn-danger rounded-pill w-75  my-2"
-                id="customerUserId"
-                value={customerUserId}
+                id="endDateID"
+                value={endDate || ""}
                 onChange={(e) => setEndDate(e.target.value)}
                 placeholder="Report End Date..."
+                onFocus={(e) => e.target.type = 'date'}
+                onBlur={(e) => !e.target.value && (e.target.type = 'text')}
               />
             
              
             </div>
             <div className="col-md-6">
-             
+            <p className='pt-2'>Customizing Report Template ID: <span className='text-success'><b>{reportTempId}</b></span></p>
+                 {/* Success and Error messages */}
+                {successMessage && <div className="alert alert-success alert-dismissible fade show mt-3">{successMessage}
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
+                {errorMessage && <div className="alert alert-danger alert-dismissible fade show mt-3">{errorMessage}
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>}
+
             </div>
           </div>
 
           {/* Report Columns */}
-        
+          <hr/>
           <table className="" width="100%">
             <thead className="thead-dark">
               <tr>
-              <th scope="col" className='btn-danger rounded-pill text-center'>Sequence</th>
-              <th scope="col" className='btn-danger rounded-pill text-center'>Row/Column</th>
-                <th scope="col" className='btn-danger rounded-pill text-center'>Choose Title</th>
-                <th scope="col" className='btn-danger rounded-pill text-center'>Choose Width (%)</th>
+              <th scope="col" className='btn-danger rounded-pill text-center' width="15%">Sequence</th>
+              <th scope="col" className='btn-danger rounded-pill text-center px-2' width="15%">Row/Column</th>
+                <th scope="col" className='btn-danger rounded-pill text-center' width="30%">Title</th>
+                <th scope="col" className='btn-danger rounded-pill text-center' width="15%">Width(%)</th>
                 <th scope="col" className='btn-danger rounded-pill text-center'>Specific Format</th>
-                <th scope="col" className='text-center'>  <button className="btn btn-danger rounded-pill text-center" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button></th>
-
+                <th scope="col" className='text-center'>
+                  <button className="btn btn-success rounded-pill text-center w-100" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button>
+                  </th>
               </tr>
             </thead>
+            
             <tbody>
             {columns && columns.map((column, index) => (
   <tr key={index}>
     <td>
       <input
-        className="btn-danger rounded-pill my-1 text-center"
+        className="form-control btn-danger rounded-pill my-1 text-center"
         type="number"
         value={column.sequence}
         onChange={(e) => handleChange(index, 'sequence', e.target.value)}
+        size="5"
       />
     </td>
     <td>
       <select
-        className="btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded-pill my-1 text-center w-100"
         value={column.rowcol}
         onChange={(e) => handleChange(index, 'rowcol', e.target.value)}
       >
@@ -190,7 +211,7 @@ const ReportTemplateSave = () => {
     </td>
     <td>
       <input
-        className="btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded-pill my-1 text-center w-100"
         type="text"
         value={column.title}
         onChange={(e) => handleChange(index, 'title', e.target.value)}
@@ -198,7 +219,7 @@ const ReportTemplateSave = () => {
     </td>
     <td>
       <input
-        className="btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded-pill my-1 text-center w-100"
         type="text"
         value={column.width}
         onChange={(e) => handleChange(index, 'width', e.target.value)}
@@ -206,7 +227,7 @@ const ReportTemplateSave = () => {
     </td>
     <td>
       <select
-        className="btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded-pill my-1 text-center w-100"
         value={column.format}
         onChange={(e) => handleChange(index, 'format', e.target.value)}
       >
@@ -220,7 +241,7 @@ const ReportTemplateSave = () => {
     </td>
     <td>
       <button
-        className=" btn-outline-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn btn-warning rounded-pill my-1 text-center "
         onClick={() => handleDeleteRow(index)}
       >
         <i class="bi bi-trash3"></i>
@@ -232,19 +253,17 @@ const ReportTemplateSave = () => {
             </tbody>
           </table>
         
-          {/* Success and Error messages */}
-          {successMessage && <div className="alert alert-success alert-dismissible fade show mt-3">{successMessage}
-          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
-          {errorMessage && <div className="alert alert-danger alert-dismissible fade show mt-3">{errorMessage}
-          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>}
+      
           {/* Create Report Template button */}
-          <button className="btn btn-danger px-5 m-auto my-2" onClick={handlePreview}>Preview</button>
+          <hr/>
+          <div className='text-center'>
+          <button className="btn btn-danger px-5 m-auto my-2 me-5" onClick={handlePreview}>Preview</button>
           <button className="btn btn-danger px-5 m-auto my-2" onClick={handleUpdateReportTemplate}>Save </button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default ReportTemplateSave;
+export default ReportTabularCustomize;

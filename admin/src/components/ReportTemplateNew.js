@@ -46,7 +46,7 @@ const ReportTemplateNew = () => {
         });
         // alert(newReportTempId);
         // Navigate to ReportTemplateSave immediately after saving report template
-        navigate(`/ReportTemplateSave/${newReportTempId}`);
+        navigate(`/ReportTabularCustomize/${newReportTempId}`);
       } catch (error) {
         alert('Error saving report Template:' + error);
       }

@@ -10,10 +10,11 @@ import UserProfile from './components/UserProfile';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
-import ReportTemplateSave from './components/ReportTemplateSave.js';
+import ReportTabularCustomize from './components/ReportTabularCustomize.js';
 import ReportSelector from './components/ReportSelector.js';
 import Reporting from './components/Reporting.js';
 import ReportTemplateNew from './components/ReportTemplateNew.js';
+import ReportTabularPreview from './components/ReportTabularPreview.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -63,7 +64,8 @@ function App() {
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
             <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
-            <Route path="/ReportTemplateSave/:reportTempId" element={<ProtectedRoute><ReportTemplateSave /></ProtectedRoute>} />
+            <Route path="/ReportTabularCustomize/:reportTempId" element={<ProtectedRoute><ReportTabularCustomize /></ProtectedRoute>} />
+            <Route path="/ReportTabularPreview/:reportTempId" element={<ProtectedRoute><ReportTabularPreview /></ProtectedRoute>} />
 
             <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 
             <Route path="/ReportGenerate/:reportName" element={<ProtectedRoute><ReportGenerate /></ProtectedRoute>} /> 
