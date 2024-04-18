@@ -10,12 +10,12 @@ import UserProfile from './components/UserProfile';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
-import ReportTabularCustomize from './components/ReportTabularCustomize.js';
+import ReportCustomizeTabular from './components/ReportCustomizeTabular.js';
 import ReportSelector from './components/ReportSelector.js';
 import Reporting from './components/Reporting.js';
 import ReportTemplateNew from './components/ReportTemplateNew.js';
 import ReportPreview from './components/ReportPreview.js';
-import ReportDocumentCustomize from './components/ReportDocumentCustomize.js';
+import ReportCustomizeDocument from './components/ReportCustomizeDocument.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -65,8 +65,8 @@ function App() {
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
             <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
-            <Route path="/ReportTabularCustomize/:reportTempId" element={<ProtectedRoute><ReportTabularCustomize /></ProtectedRoute>} />
-            <Route path="/ReportDocumentCustomize/:reportTempId" element={<ProtectedRoute><ReportDocumentCustomize /></ProtectedRoute>} />
+            <Route path="/ReportCustomizeTabular/:reportTempId" element={<ProtectedRoute><ReportCustomizeTabular /></ProtectedRoute>} />
+            <Route path="/ReportCustomizeDocument/:reportTempId" element={<ProtectedRoute><ReportCustomizeDocument /></ProtectedRoute>} />
             <Route path="/ReportPreview/:reportTempId" element={<ProtectedRoute><ReportPreview /></ProtectedRoute>} />
 
             <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 

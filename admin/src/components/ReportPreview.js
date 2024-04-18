@@ -59,6 +59,16 @@ const ReportPreview = () => {
     }
   }, [reportTempId]);
 
+  const handleGoBack = () => {
+    navigate(-1); // This will navigate back to the previous page
+  };
+
+  const handleGoHome = () => {
+    navigate('/home'); // This will navigate back to the previous page
+  };
+
+
+  
 
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
@@ -129,36 +139,37 @@ const ReportPreview = () => {
               <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{companyLocation}</button>
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Date</button>
               <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{date}</button>
-  
+              <hr/>
               {/* Report Columns */}
               {columns && columns
-                .filter(column => column.position === "Header")
-                .sort((a, b) => a.sequence - b.sequence)
-                .map((column, index) => (
-                  <div width={column.width + "%"} key={index}>
-                    <button className="btn my-1 btn-danger text-center m-auto rounded-pill" width={column.width + "%"}>{column.title}</button>
-                    <div className="btn my-1  m-auto rounded-pill text-start ps-5" height={column.height + "px"} width={column.width + "%"}>Values</div>
-                  </div>
-                ))}
-  
+              .filter(column => column.position == "Header")
+              .sort((a, b) => a.sequence - b.sequence)
+              .map((column, index) => (
+                <div key={index} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%' }}>
+                  <button className="btn my-1 btn-danger text-center rounded-pill" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
+                  <span className={`my-1 text-start rounded-pill ps-5 ${column.border == "Yes" ? 'border border-1' : ''}`} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%', height: column.height + "px" }}>.....Values.....</span>
+                </div>
+              ))}
+              <hr/>
               {columns && columns
-                .filter(column => column.position === "Body")
-                .sort((a, b) => a.sequence - b.sequence)
-                .map((column, index) => (
-                  <div key={index} style={{ width: column.width + "%" }}>
-                    <button className='btn btn-danger my-1 rounded-pill text-center' style={{ width: "100%" }}>
-                      {column.title}
-                    </button>
-                    <div style={{ width: column.width + "%", height: column.height + "px" }} className='border border-1'>
-                      Values
-                    </div>
-                  </div>
-                ))}
+              .filter(column => column.position == "Body")
+              .sort((a, b) => a.sequence - b.sequence)
+              .map((column, index) => (
+                <div key={index} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%' }}>
+                  <button className="btn my-1 btn-danger text-center rounded-pill" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
+                  <span className={`my-1 text-start ps-5 ${column.border == "Yes" ? 'border border-1 border-dark' : ''}`} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%', height: column.height + "px" }}>.....Values.....</span>
+                </div>
+              ))}
+
+
+  
+
             </div>
           )}
   
           <div className='text-center'>
-            <button className="btn btn-danger px-5 m-auto my-2 me-5">Back</button>
+            <button className="btn btn-danger px-5 m-auto my-2 me-5" onClick={handleGoHome}>Home</button>
+            <button className="btn btn-danger px-5 m-auto my-2 me-5" onClick={handleGoBack}>Back</button>
           </div>
         </div>
       </div>

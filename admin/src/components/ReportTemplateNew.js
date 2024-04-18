@@ -48,11 +48,11 @@ const ReportTemplateNew = () => {
         // Navigate to ReportTemplateSave immediately after saving report template
         if(reportType=="Tabular Report")
         {
-        navigate(`/ReportTabularCustomize/${newReportTempId}`);
+        navigate(`/ReportCustomizeTabular/${newReportTempId}`);
         }
         if(reportType=="Document Report")
         {
-          navigate(`/ReportDocumentCustomize/${newReportTempId}`);
+          navigate(`/ReportCustomizeDocument/${newReportTempId}`);
         }
       } catch (error) {
         alert('Error saving report Template:' + error);

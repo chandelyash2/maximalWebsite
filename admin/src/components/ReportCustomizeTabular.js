@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 
-const ReportTabularCustomize = () => {
+const ReportCustomizeTabular = () => {
   const { reportTempId } = useParams();
   let navigate = useNavigate();
 
@@ -272,4 +272,4 @@ const ReportTabularCustomize = () => {
   );
 };
 
-export default ReportTabularCustomize;
+export default ReportCustomizeTabular;

@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 
-const ReportDocumentCustomize = () => {
+const ReportCustomizeDocument = () => {
   const { reportTempId } = useParams();
   let navigate = useNavigate();
 
@@ -183,7 +183,7 @@ const ReportDocumentCustomize = () => {
             </thead>
             
             <tbody>
-            {columns && columns.map((column, index) => (
+  {columns && columns.map((column, index) => (
   <tr key={index}>
     <td>
       <input
@@ -197,8 +197,8 @@ const ReportDocumentCustomize = () => {
     <td>
       <select
         className="form-control btn-danger rounded-pill my-1 text-center w-100"
-        value={column.rowcol}
-        onChange={(e) => handleChange(index, 'rowcol', e.target.value)}
+        value={column.position}
+        onChange={(e) => handleChange(index, 'position', e.target.value)}
       >
         <option value="Row">Header</option>
         <option value="Column">Body</option>
@@ -279,4 +279,4 @@ const ReportDocumentCustomize = () => {
   );
 };
 
-export default ReportDocumentCustomize;
+export default ReportCustomizeDocument;

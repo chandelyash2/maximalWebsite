@@ -23,8 +23,9 @@ const Reporting = () => {
       <div className='row d-flex flex-column align-items-center'>
         <div className='col-md-8'>
         <Link to="/ReportTemplateNew"><button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Create New Report</button></Link>
+        <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Edit Existing Report</button>
         <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Replicate Existing Report</button>
-      <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Edit Existing Report</button>
+     
    
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Community Watch</button>
       <Link to="/MakeAdmin">
