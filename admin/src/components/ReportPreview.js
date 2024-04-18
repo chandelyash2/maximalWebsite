@@ -99,15 +99,15 @@ const ReportPreview = () => {
   
               {/* Report Columns */}
               <hr />
-              <table className="" width="100%">
+              <table className="w-100" width="100%">
                 <thead className="thead-dark">
-                  <tr>
-                    <th></th>
+                  <tr className="w-100 d-flex justify-content-start">
+                    <th width="10%" className='btn rounded-pill text-center d-flex justify-content-center align-items-center'>Rows</th>
                     {columns && columns
                       .filter(column => column.rowcol === "Column" || column.rowcol === "column")
                       .sort((a, b) => a.sequence - b.sequence)
                       .map((column, index) => (
-                        <th scope="col" className='btn-danger rounded-pill text-center' width={column.width + "%"} key={index}>
+                        <th scope="col" className='btn-danger rounded-pill text-center d-flex justify-content-center align-items-center' width={column.width + "%"} key={index}>
                           {column.title}
                         </th>
                       ))}

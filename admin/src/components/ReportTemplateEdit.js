@@ -101,13 +101,14 @@ function ReportTemplateEdit() {
                 <td className='text-center'>{template.companyName}</td>
                 <td className='text-center'>{template.companyLocation}</td>
                 <td className='text-center'>
-                  <Link to={template.type === "Tabular Report" ? `/ReportCustomizeTabular/${template.id}` : `/ReportCustomizeDocument/${template.id}`} className="btn btn-danger rounded-pill text-center">Edit Template</Link>
+                  <Link to={template.type === "Tabular Report" ? `/ReportCustomizeTabular/${template.id}` : `/ReportCustomizeDocument/${template.id}`} className="btn btn-danger rounded-pill text-center"><i class="bi bi-pencil-square"></i></Link>
                 </td>
                 {/* Add additional table cells as needed */}
               </tr>
             ))}
           </tbody>
         </table>
+        <p class='mt-3'><small>Note:- The ID is Report Template Database ID, helpful for identify during development phase, later we can hide it.</small></p>
       </div>
 
       {/* Display error message if any */}
