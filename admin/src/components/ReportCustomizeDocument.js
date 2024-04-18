@@ -92,6 +92,7 @@ const ReportCustomizeDocument = () => {
   };
 
   const handlePreview = () => { 
+    handleUpdateReportTemplate();
     navigate(`/ReportPreview/${reportTempId}`);
   };
   

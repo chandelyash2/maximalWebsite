@@ -93,6 +93,7 @@ const ReportCustomizeTabular = () => {
   };
 
   const handlePreview = () => { 
+    handleUpdateReportTemplate();
     navigate(`/ReportPreview/${reportTempId}`);
   };
   

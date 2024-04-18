@@ -162,8 +162,6 @@ const ReportPreview = () => {
               ))}
 
 
-  
-
             </div>
           )}
   
