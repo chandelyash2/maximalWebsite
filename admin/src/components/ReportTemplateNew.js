@@ -19,14 +19,14 @@ const ReportTemplateNew = () => {
     alert("Sorry, Document Report is under construction.");
   };
 
-  const handleCreateReportTabular = () => {
+  const handleCreateReport = () => {
     const TemplateRef = ref(database, `reportTemplates`);
     get(TemplateRef).then((snapshot) => {
       if (snapshot.exists()) {
         const numChildren = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
-        setReportName("Tabular Report " + numChildren);
+        setReportName(reportType+" "+ numChildren);
       } else {
-        setReportName("Tabular Report 0");
+        setReportName(reportType+" 0");
       }
     }).catch((error) => {
       alert("Error getting data: " + error.message);
@@ -46,7 +46,14 @@ const ReportTemplateNew = () => {
         });
         // alert(newReportTempId);
         // Navigate to ReportTemplateSave immediately after saving report template
+        if(reportType=="Tabular Report")
+        {
         navigate(`/ReportTabularCustomize/${newReportTempId}`);
+        }
+        if(reportType=="Document Report")
+        {
+          navigate(`/ReportDocumentCustomize/${newReportTempId}`);
+        }
       } catch (error) {
         alert('Error saving report Template:' + error);
       }
@@ -59,14 +66,6 @@ const ReportTemplateNew = () => {
     .catch((error) => {
       setErrorMessage(`Error: ${error.message}`);
     });
-  };
-
-  const handleSubmit = () => {
-    if (reportType === 'Tabular Report') {
-      handleCreateReportTabular();
-    } else if (reportType === 'Document Report') {
-      handleCreateReportDocument();
-    }
   };
 
   return (
@@ -89,7 +88,7 @@ const ReportTemplateNew = () => {
                 <option value="Document Report">Document Report</option>
               </select>
             </div>
-            <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mt-3' onClick={handleSubmit}>Submit</button>
+            <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mt-3' onClick={handleCreateReport}>Submit</button>
             {errorMessage && (
               <p className='alert alert-danger text-danger alert-dismissible fade show' role='alert'>
                 Error: {errorMessage}

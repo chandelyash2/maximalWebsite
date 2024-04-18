@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 
-const ReportTabularCustomize = () => {
+const ReportDocumentCustomize = () => {
   const { reportTempId } = useParams();
   let navigate = useNavigate();
 
@@ -14,8 +14,7 @@ const ReportTabularCustomize = () => {
   const [customerUserId, setCustomerUserId] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [Date, setDate] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -26,12 +25,12 @@ const ReportTabularCustomize = () => {
         .then((snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val();
-            if(data.type!="Tabular Report")
+            if(data.type!="Document Report")
             {
-              alert("Sorry! You Are trying customisze Document Report, This Page is for Tabular Customization, So You are Redirected to Documeent Customization.");
-              navigate(`/ReportDocumentCustomization/${reportTempId}`);
+              alert("Sorry! You Are trying customisze Tabular Report, This Page is for Document Customization, So You are Redirected to Tabular Customization.");
+              navigate(`/ReportTabularCustomization/${reportTempId}`);
             }
-
+            
             setReportName(data.name);
             setReportType(data.type);
             setColumns(data.columns || []); // Ensure columns is always initialized as an array
@@ -39,8 +38,7 @@ const ReportTabularCustomize = () => {
             setCompanyLocation(data.companyLocation);
             setEmployeeUserId(data.employeeUserId);
             setCustomerUserId(data.customerUserId);
-            setStartDate(data.startDate);
-            setEndDate(data.endDate);
+            setDate(data.Date);
           } else {
             setErrorMessage('Report template not found');
           }
@@ -52,7 +50,7 @@ const ReportTabularCustomize = () => {
   }, [reportTempId]);
 
   const handleAddColumn = () => {
-    setColumns([...columns, { sequence: '', rowcol: 'Row', title: 'Title',  width: '10', format: 'Text' }]);
+    setColumns([...columns, { sequence: '', position: 'Header', title: 'Title',  height: '15', width: '10', format: 'Text', border: 'No' }]);
   };
 
   const handleUpdateReportTemplate = () => {
@@ -65,15 +63,16 @@ const ReportTabularCustomize = () => {
       customerUserId: customerUserId,
       companyName: companyName,
       companyLocation: companyLocation,
-      startDate: startDate,
-      endDate: endDate,
+      Date: Date,
     };
 
     set(reportTemplateRef, updatedReportTemplate)
       .then(() => {
         setSuccessMessage('Report Template Updated successfully!');
+        setErrorMessage('');
       })
       .catch((error) => {
+        setSuccessMessage('');
         setErrorMessage(`Error updating report template: ${error.message}`);
       });
   };
@@ -143,24 +142,12 @@ const ReportTabularCustomize = () => {
                 type="date"
                 className="form-control btn-danger rounded-pill w-75 my-2"
                 id="startDateID"
-                value={startDate || ""}
-                onChange={(e) => setStartDate(e.target.value)}
+                value={Date || ""}
+                onChange={(e) => setDate(e.target.value)}
                 // JavaScript to handle the placeholder behavior
                 onFocus={(e) => e.target.type = 'date'}
                 onBlur={(e) => !e.target.value && (e.target.type = 'text')}
                 placeholder="Report Start Date..."
-              />
-
-
-<input
-                type="date"
-                className="form-control btn-danger rounded-pill w-75  my-2"
-                id="endDateID"
-                value={endDate || ""}
-                onChange={(e) => setEndDate(e.target.value)}
-                placeholder="Report End Date..."
-                onFocus={(e) => e.target.type = 'date'}
-                onBlur={(e) => !e.target.value && (e.target.type = 'text')}
               />
             
              
@@ -182,11 +169,13 @@ const ReportTabularCustomize = () => {
           <table className="" width="100%">
             <thead className="thead-dark">
               <tr>
-              <th scope="col" className='btn-danger rounded-pill text-center' width="15%">Sequence</th>
-              <th scope="col" className='btn-danger rounded-pill text-center px-2' width="15%">Row/Column</th>
+              <th scope="col" className='btn-danger rounded-pill text-center' width="12%">Sequence</th>
+              <th scope="col" className='btn-danger rounded-pill text-center px-2' width="12%">Position</th>
                 <th scope="col" className='btn-danger rounded-pill text-center' width="30%">Title</th>
-                <th scope="col" className='btn-danger rounded-pill text-center' width="15%">Width(%)</th>
+                <th scope="col" className='btn-danger rounded-pill text-center' >Height<br/>(px)</th>
+                <th scope="col" className='btn-danger rounded-pill text-center' >Width<br/>(%)</th>
                 <th scope="col" className='btn-danger rounded-pill text-center'>Specific Format</th>
+                <th scope="col" className='btn-danger rounded-pill text-center'>Border</th>
                 <th scope="col" className='text-center'>
                   <button className="btn btn-success rounded-pill text-center w-100" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button>
                   </th>
@@ -211,8 +200,8 @@ const ReportTabularCustomize = () => {
         value={column.rowcol}
         onChange={(e) => handleChange(index, 'rowcol', e.target.value)}
       >
-        <option value="Row">Row</option>
-        <option value="Column">Column</option>
+        <option value="Row">Header</option>
+        <option value="Column">Body</option>
       </select>
     </td>
     <td>
@@ -221,6 +210,14 @@ const ReportTabularCustomize = () => {
         type="text"
         value={column.title}
         onChange={(e) => handleChange(index, 'title', e.target.value)}
+      />
+    </td>
+    <td>
+      <input
+        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        type="text"
+        value={column.height}
+        onChange={(e) => handleChange(index, 'height', e.target.value)}
       />
     </td>
     <td>
@@ -243,6 +240,16 @@ const ReportTabularCustomize = () => {
         <option value="time">Time</option>
         <option value="textarea">Text Area</option>
         <option value="photo">Photo Upload</option>
+      </select>
+    </td>
+    <td>
+    <select
+        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        value={column.border}
+        onChange={(e) => handleChange(index, 'border', e.target.value)}
+      >
+        <option value="Row">Yes</option>
+        <option value="Column">No</option>
       </select>
     </td>
     <td>
@@ -272,4 +279,4 @@ const ReportTabularCustomize = () => {
   );
 };
 
-export default ReportTabularCustomize;
+export default ReportDocumentCustomize;

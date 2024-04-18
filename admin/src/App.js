@@ -14,7 +14,8 @@ import ReportTabularCustomize from './components/ReportTabularCustomize.js';
 import ReportSelector from './components/ReportSelector.js';
 import Reporting from './components/Reporting.js';
 import ReportTemplateNew from './components/ReportTemplateNew.js';
-import ReportTabularPreview from './components/ReportTabularPreview.js';
+import ReportPreview from './components/ReportPreview.js';
+import ReportDocumentCustomize from './components/ReportDocumentCustomize.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
@@ -65,7 +66,8 @@ function App() {
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
             <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
             <Route path="/ReportTabularCustomize/:reportTempId" element={<ProtectedRoute><ReportTabularCustomize /></ProtectedRoute>} />
-            <Route path="/ReportTabularPreview/:reportTempId" element={<ProtectedRoute><ReportTabularPreview /></ProtectedRoute>} />
+            <Route path="/ReportDocumentCustomize/:reportTempId" element={<ProtectedRoute><ReportDocumentCustomize /></ProtectedRoute>} />
+            <Route path="/ReportPreview/:reportTempId" element={<ProtectedRoute><ReportPreview /></ProtectedRoute>} />
 
             <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 
             <Route path="/ReportGenerate/:reportName" element={<ProtectedRoute><ReportGenerate /></ProtectedRoute>} /> 
