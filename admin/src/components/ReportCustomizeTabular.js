@@ -140,7 +140,9 @@ const ReportCustomizeTabular = () => {
                 placeholder="Company Location..."
               />
 
-              <input
+
+
+              {/* <input
                 type="date"
                 className="form-control btn-danger rounded-pill w-75 my-2"
                 id="startDateID"
@@ -152,8 +154,7 @@ const ReportCustomizeTabular = () => {
                 placeholder="Report Start Date..."
               />
 
-
-<input
+                <input
                 type="date"
                 className="form-control btn-danger rounded-pill w-75  my-2"
                 id="endDateID"
@@ -162,12 +163,11 @@ const ReportCustomizeTabular = () => {
                 placeholder="Report End Date..."
                 onFocus={(e) => e.target.type = 'date'}
                 onBlur={(e) => !e.target.value && (e.target.type = 'text')}
-              />
+              /> */}
             
              
             </div>
             <div className="col-md-6">
-            <p className='pt-2'>Customizing Report Template ID: <span className='text-success'><b>{reportTempId}</b></span></p>
                  {/* Success and Error messages */}
                 {successMessage && <div className="alert alert-success alert-dismissible fade show mt-3">{successMessage}
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
@@ -176,6 +176,19 @@ const ReportCustomizeTabular = () => {
                 </div>}
 
             </div>
+            <div className="col-md-6">
+            <button className='btn btn-danger rounded-pill w-75 my-2 text-start'>Start Date...</button>
+              <button className='btn btn-danger rounded-pill w-75 my-2  text-start'>End Date...</button>
+
+            </div>
+
+            <div className="col-md-6">
+
+            <button className='btn btn-danger rounded-pill w-75 my-2 text-start'>Start Time...</button>
+              <button className='btn btn-danger rounded-pill w-75 my-2  text-start'>End Time...</button>
+            </div>
+
+
           </div>
 
           {/* Report Columns */}

@@ -67,9 +67,6 @@ const ReportPreview = () => {
     navigate('/home'); // This will navigate back to the previous page
   };
 
-
-  
-
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center">
@@ -80,7 +77,6 @@ const ReportPreview = () => {
             </Link>
           </div>
           <div className="text-center">
-            <p className='pt-2'>Preview Report Template ID: <span className='text-success'><b>{reportTempId}</b></span></p>
             <button className="btn w-25 btn-danger text-center m-auto rounded-pill">{reportName}</button>
           </div>
   
@@ -93,9 +89,13 @@ const ReportPreview = () => {
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Company Location</button>
               <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{companyLocation}</button>
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Start Date</button>
-              <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{startDate}</button>
+              <button className="btn w-25 my-1  m-auto rounded-pill text-start ps-5">{startDate}</button>
+              <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Start Time</button>
+              <button className="btn w-25 my-1  m-auto rounded-pill text-start ps-5">06:00 AM</button>
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">End Date</button>
-              <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{endDate}</button>
+              <button className="btn w-25 my-1  m-auto rounded-pill text-start ps-5">{endDate}</button>
+              <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">End Time</button>
+              <button className="btn w-25 my-1  m-auto rounded-pill text-start ps-5">06:00 PM</button>
   
               {/* Report Columns */}
               <hr />
@@ -119,7 +119,7 @@ const ReportPreview = () => {
                     .sort((a, b) => a.sequence - b.sequence)
                     .map((column, index) => (
                       <tr key={index}>
-                        <td scope="col" className='btn-danger my-1 rounded-pill text-center' width={column.width + "%"}>
+                        <td  className='btn-danger my-1 rounded-pill text-center' style={{'width':'20%',}}>
                           {column.title}
                         </td>
                       </tr>

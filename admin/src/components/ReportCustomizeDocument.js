@@ -154,7 +154,6 @@ const ReportCustomizeDocument = () => {
              
             </div>
             <div className="col-md-6">
-            <p className='pt-2'>Customizing Report Template ID: <span className='text-success'><b>{reportTempId}</b></span></p>
                  {/* Success and Error messages */}
                 {successMessage && <div className="alert alert-success alert-dismissible fade show mt-3">{successMessage}
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>}
