@@ -102,12 +102,12 @@ const ReportPreview = () => {
               <table className="w-100" width="100%">
                 <thead className="thead-dark">
                   <tr className="w-100 d-flex justify-content-start">
-                    <th width="10%" className='btn rounded-pill text-center d-flex justify-content-center align-items-center'>Rows</th>
+                    {/* <th width="10%" className='btn rounded-pill text-center d-flex justify-content-center align-items-center'></th> */}
                     {columns && columns
                       .filter(column => column.rowcol === "Column" || column.rowcol === "column")
                       .sort((a, b) => a.sequence - b.sequence)
                       .map((column, index) => (
-                        <th scope="col" className='btn-danger rounded-pill text-center d-flex justify-content-center align-items-center' width={column.width + "%"} key={index}>
+                        <th scope="col" className='btn-danger rounded text-center d-flex justify-content-center align-items-center' width={column.width + "%"} key={index}>
                           {column.title}
                         </th>
                       ))}
@@ -119,7 +119,7 @@ const ReportPreview = () => {
                     .sort((a, b) => a.sequence - b.sequence)
                     .map((column, index) => (
                       <tr key={index}>
-                        <td  className='btn-danger my-1 rounded-pill text-center' style={{'width':'20%',}}>
+                        <td  className='btn-danger my-1 rounded text-center' style={{'width':'20%',}}>
                           {column.title}
                         </td>
                       </tr>
@@ -146,7 +146,7 @@ const ReportPreview = () => {
               .sort((a, b) => a.sequence - b.sequence)
               .map((column, index) => (
                 <div key={index} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%' }}>
-                  <button className="btn my-1 btn-danger text-center rounded-pill" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
+                  <button className="btn my-1 btn-danger text-center rounded" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
                   <span className={`my-1 text-start rounded-pill ps-5 ${column.border == "Yes" ? 'border border-1' : ''}`} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%', height: column.height + "px" }}>.....Values.....</span>
                 </div>
               ))}
@@ -156,7 +156,7 @@ const ReportPreview = () => {
               .sort((a, b) => a.sequence - b.sequence)
               .map((column, index) => (
                 <div key={index} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%' }}>
-                  <button className="btn my-1 btn-danger text-center rounded-pill" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
+                  <button className="btn my-1 btn-danger text-center rounded" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
                   <span className={`my-1 text-start ps-5 ${column.border == "Yes" ? 'border border-1 border-dark' : ''}`} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%', height: column.height + "px" }}>.....Values.....</span>
                 </div>
               ))}

@@ -27,19 +27,19 @@ const HomePage = () => {
     }
   };
  
-  return (
+  return ( 
 <div className="container-fluid">
   <div className='row justify-content-center'>
-    <div className='col-lg-5 d-flex flex-column px-5 align-items-center'>
-      <Link to="/home">
-      <button className="btn btn-danger mb-4 rounded-pill px-5 w-100"><h2>ADMINISTRATOR PORTAL</h2></button>
-      </Link>
+    <div className='fixed-width-container d-flex flex-column align-items-center'>
+    
+      <h3 class="text-center mb-4 my-2">ADMINISTRATOR PORTAL</h3>
+
       <div className='row d-flex flex-column align-items-center'>
-        <div className='col-md-8'>
+        <div className='fixed-width'>
         <Link to="/Reporting"><button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Reporting</button></Link>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Checkpoint Tour</button>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Attendance</button>
-      <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Community Watch</button>
+      <button className='btn btn-danger rounded-pill  my-2 w-100'>Community Watch</button>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Payroll</button>
       <button onClick={handleSignOut} className='btn btn-danger rounded-pill px-5 my-2 w-100 text-warning'><i class="bi bi-box-arrow-left"></i> Sign Out</button>
         </div>

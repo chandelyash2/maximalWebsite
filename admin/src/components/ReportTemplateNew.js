@@ -71,24 +71,21 @@ const ReportTemplateNew = () => {
   return (
     <div className="container-fluid">
       <div className='row justify-content-center'>
-        <div className='col-lg-5 d-flex flex-column px-5 align-items-center'>
+        <div className='fixed-width-container d-flex flex-column align-items-center'>
           <Link to="/home">
-            <button className="btn btn-danger mb-4 rounded-pill px-5 w-100"><h2>ADMINISTRATOR PORTAL</h2></button>
-          </Link>
-          <Link to="/Reporting" className='w-75'>
-            <button className='btn btn-danger rounded-pill px-5 my-3 mb-4 w-100'>
-              <h4> <i className="bi bi-arrow-left-square"></i>&nbsp;&nbsp; Create New Report</h4>
-            </button>
-          </Link>
-          <div className='row d-flex flex-column align-items-center'>
-            <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mb-3'>Select Report Type</button>
-            <div>
+            <button className="btn btn-danger mb-4 rounded-pill  w-100"><h3>ADMINISTRATOR PORTAL</h3></button>
+          </Link>        
+              <h3 className='text-center my-2 mb-4'> Create New Report</h3>
+
+          <div className='row fixed-width d-flex flex-column align-items-center'>
+            {/* <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mb-3'>Select Report Type</button> */}
+            <div class="fixed-width">
               <select className="form-control" id="reportType" value={reportType} onChange={(e) => setReportType(e.target.value)} size="2">
                 <option value="Tabular Report">Tabular Report</option>
                 <option value="Document Report">Document Report</option>
               </select>
             </div>
-            <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mt-3' onClick={handleCreateReport}>Submit</button>
+            <button className='btn btn-danger rounded-pill my-2 w-100 mt-3' onClick={handleCreateReport}>Submit</button>
             {errorMessage && (
               <p className='alert alert-danger text-danger alert-dismissible fade show' role='alert'>
                 Error: {errorMessage}

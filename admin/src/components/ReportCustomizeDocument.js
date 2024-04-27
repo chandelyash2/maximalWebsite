@@ -169,13 +169,13 @@ const ReportCustomizeDocument = () => {
           <table className="" width="100%">
             <thead className="thead-dark">
               <tr>
-              <th scope="col" className='btn-danger rounded-pill text-center' width="12%">Sequence</th>
-              <th scope="col" className='btn-danger rounded-pill text-center px-2' width="12%">Position</th>
-                <th scope="col" className='btn-danger rounded-pill text-center' width="30%">Title</th>
-                <th scope="col" className='btn-danger rounded-pill text-center' >Height<br/>(px)</th>
-                <th scope="col" className='btn-danger rounded-pill text-center' >Width<br/>(%)</th>
-                <th scope="col" className='btn-danger rounded-pill text-center'>Specific Format</th>
-                <th scope="col" className='btn-danger rounded-pill text-center'>Border</th>
+              <th scope="col" className='btn-danger rounded text-center' width="12%">Sequence</th>
+              <th scope="col" className='btn-danger rounded text-center px-2' width="12%">Position</th>
+                <th scope="col" className='btn-danger rounded text-center' width="30%">Title</th>
+                <th scope="col" className='btn-danger rounded text-center' >Height<br/>(px)</th>
+                <th scope="col" className='btn-danger rounded text-center' >Width<br/>(%)</th>
+                <th scope="col" className='btn-danger rounded text-center'>Specific Format</th>
+                <th scope="col" className='btn-danger rounded text-center'>Border</th>
                 <th scope="col" className='text-center'>
                   <button className="btn btn-success rounded-pill text-center w-100" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button>
                   </th>
@@ -187,7 +187,7 @@ const ReportCustomizeDocument = () => {
   <tr key={index}>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center"
+        className="form-control btn-danger rounded my-1 text-center"
         type="number"
         value={column.sequence}
         onChange={(e) => handleChange(index, 'sequence', e.target.value)}
@@ -196,7 +196,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         value={column.position}
         onChange={(e) => handleChange(index, 'position', e.target.value)}
       >
@@ -206,7 +206,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         type="text"
         value={column.title}
         onChange={(e) => handleChange(index, 'title', e.target.value)}
@@ -214,7 +214,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         type="text"
         value={column.height}
         onChange={(e) => handleChange(index, 'height', e.target.value)}
@@ -222,7 +222,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         type="text"
         value={column.width}
         onChange={(e) => handleChange(index, 'width', e.target.value)}
@@ -230,7 +230,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         value={column.format}
         onChange={(e) => handleChange(index, 'format', e.target.value)}
       >
@@ -244,7 +244,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
     <select
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         value={column.border}
         onChange={(e) => handleChange(index, 'border', e.target.value)}
       >
@@ -254,7 +254,7 @@ const ReportCustomizeDocument = () => {
     </td>
     <td>
       <button
-        className="form-control btn btn-warning rounded-pill my-1 text-center "
+        className="form-control btn btn-warning rounded my-1 text-center "
         onClick={() => handleDeleteRow(index)}
       >
         <i class="bi bi-trash3"></i>

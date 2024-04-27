@@ -104,7 +104,7 @@ const ReportCustomizeTabular = () => {
         <div className="col-md-8 py-4" style={{ color: '#735744', height:'680px' }}>
       <div className="text-center">
         <Link to="/home">
-      <button className="btn btn-danger mb-4 rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>  </Link>
+      <button className="btn mb-4 btn-danger rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>  </Link>
    
       </div>
       <div className="text-center">
@@ -196,13 +196,13 @@ const ReportCustomizeTabular = () => {
           <table className="" width="100%">
             <thead className="thead-dark">
               <tr>
-              <th scope="col" className='btn-danger rounded-pill text-center' width="15%">Sequence</th>
-              <th scope="col" className='btn-danger rounded-pill text-center px-2' width="15%">Row/Column</th>
-                <th scope="col" className='btn-danger rounded-pill text-center' width="30%">Title</th>
-                <th scope="col" className='btn-danger rounded-pill text-center' width="15%">Width(%)</th>
-                <th scope="col" className='btn-danger rounded-pill text-center'>Specific Format</th>
+              <th scope="col" className='btn-danger rounded text-center' width="15%">Sequence</th>
+              <th scope="col" className='btn-danger rounded text-center px-2' width="15%">Row/Column</th>
+                <th scope="col" className='btn-danger rounded text-center' width="30%">Title</th>
+                <th scope="col" className='btn-danger rounded text-center' width="15%">Width(%)</th>
+                <th scope="col" className='btn-danger rounded text-center'>Specific Format</th>
                 <th scope="col" className='text-center'>
-                  <button className="btn btn-success rounded-pill text-center w-100" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button>
+                  <button className="btn btn-success rounded text-center w-100" onClick={handleAddColumn}><i class="bi bi-plus-circle"></i></button>
                   </th>
               </tr>
             </thead>
@@ -212,7 +212,7 @@ const ReportCustomizeTabular = () => {
   <tr key={index}>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center"
+        className="form-control btn-danger rounded my-1 text-center"
         type="number"
         value={column.sequence}
         onChange={(e) => handleChange(index, 'sequence', e.target.value)}
@@ -221,7 +221,7 @@ const ReportCustomizeTabular = () => {
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         value={column.rowcol}
         onChange={(e) => handleChange(index, 'rowcol', e.target.value)}
       >
@@ -231,7 +231,7 @@ const ReportCustomizeTabular = () => {
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         type="text"
         value={column.title}
         onChange={(e) => handleChange(index, 'title', e.target.value)}
@@ -239,7 +239,7 @@ const ReportCustomizeTabular = () => {
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         type="text"
         value={column.width}
         onChange={(e) => handleChange(index, 'width', e.target.value)}
@@ -247,7 +247,7 @@ const ReportCustomizeTabular = () => {
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded-pill my-1 text-center w-100"
+        className="form-control btn-danger rounded my-1 text-center w-100"
         value={column.format}
         onChange={(e) => handleChange(index, 'format', e.target.value)}
       >
@@ -261,7 +261,7 @@ const ReportCustomizeTabular = () => {
     </td>
     <td>
       <button
-        className="form-control btn btn-warning rounded-pill my-1 text-center "
+        className="form-control btn btn-warning rounded my-1 text-center "
         onClick={() => handleDeleteRow(index)}
       >
         <i class="bi bi-trash3"></i>

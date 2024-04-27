@@ -1,6 +1,37 @@
+@font-face {
+  font-family: 'CatchyMager';
+  src: url('../../public/CatchyMager.ttf') format('truetype');
+}
+
+body {
+  /* font-family: 'CatchyMager', sans-serif !important; */
+  
+}
+
+
 /* styles.css */
 .btn-danger {
   background-color: #593521 !important;
   color: white !important;
   border: none !important;
+ 
 }
+.rounded
+{
+  border-radius: 15px !important;
+  border: 1px solid #ede8e2 !important;
+}
+.fixed-width {
+  width: 250px !important;
+  /* border: 1px solid red !important; */
+}
+
+.fixed-width-container {
+  width: 390px !important;
+  /* border: 1px solid green !important; */
+}
+
+th {
+  font-weight: normal !important;
+}
+
