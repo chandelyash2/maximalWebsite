@@ -25,6 +25,21 @@ const ReportPreview = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [pdfData, setPdfData] = useState(null);
   const htmlRef = useRef(null);
+  const [orientation, setOrientation] = useState('portrait');
+  const [scale, setScale] = useState(0.85); // Default scale
+
+  const handleOrientationChange = (event) => {
+    setOrientation(event.target.value);
+  };
+
+  const handleScaleChange = (event) => {
+    const newScale = parseFloat(event.target.value);
+    if (newScale >= 0.8 && newScale <= 1.2) { // Validate scale between 80% and 120%
+      setScale(newScale);
+    } else {
+      console.warn('Invalid scale value. Please enter a value between 0.8 and 1.2.');
+    }
+  };
 
   useEffect(() => {
     if (reportTempId) {
@@ -78,26 +93,31 @@ const ReportPreview = () => {
   }, [reportTempId]);
 
   
+        // * * * * * * * * * * * * * * * * * * * *
+        //
+        // GENERATE PDF
+        //
+        // * * * * * * * * * * * * * * * * * * * *
 
+        const generatePdf = async () => {
+          const element = htmlRef.current;
 
-          const generatePdf = async () => {
-            const element = htmlRef.current;
+          try {
+            const canvas = await html2canvas(element,  {
+              scale, // Optional: Try a slight scaling factor
+              logging: true, // Enable logging for debugging
+            });
 
-            try {
-              const canvas = await html2canvas(element);
-              const margin = 20; // Adjust margin value as needed
-              const newWidth = canvas.width - margin * 2;
-              const newHeight = canvas.height - margin * 2;
-              const imgData = canvas.toDataURL('image/png', newWidth, newHeight); // Specify new width and height
-
-              const doc = new jsPDF();
-              doc.addImage(imgData, 'PNG', 10, 10 );
-              doc.save('report.pdf');
-              setPdfData(doc.output()); // Optional for displaying PDF data
-            } catch (error) {
-              console.error('Error generating PDF:', error);
-            }
-          };
+            const imgData = canvas.toDataURL('image/png');
+        
+            const doc = new jsPDF(orientation);//'landscape'
+            doc.addImage(imgData, 'PNG', 10, 10);
+            doc.save('report.pdf');
+            setPdfData(doc.output()); // Optional for displaying PDF data
+          } catch (error) {
+            console.error('Error generating PDF:', error);
+          }
+        };
 
         // * * * * * * * * * * * * * * * * * * * *
         //
@@ -107,22 +127,26 @@ const ReportPreview = () => {
 
         const generateExcel = async () => {
 
+          const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+
           const setCellheaders = (worksheet, cellIndex, column, col) => 
           {
             const cell = worksheet.getCell(col + cellIndex); // Get cell reference
             cell.value = column.title; 
             cell.fill = {type: 'pattern',pattern: 'solid',fgColor: { argb: '593521' },};
-            const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+            // const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
             cell.font = { color: { argb: 'FFFFFF' }, bold: true }; // White font, bold
             cell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};
+            cell.alignment = { vertical: 'middle' };
           };
 
           const setCellBorders = (cell, borderStyle = { style: 'thin' }) =>
           { cell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};};
           
-          const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+          
           const workbook = new Workbook();
           const worksheet = workbook.addWorksheet('Sheet1');
+          worksheet.pageSetup.orientation = orientation;
         
           // Handle "Tabular Report" case
           if (reportType === "Tabular Report") {
@@ -243,6 +267,9 @@ const ReportPreview = () => {
                     setCellheaders(worksheet, 'A'+i, column);
                     worksheet.getCell('B'+i).value='..value...';
                     worksheet.getRow(i).height = column.height;
+
+                    worksheet.getCell('A'+i).alignment = { vertical: 'middle' };
+                    worksheet.getCell('B'+i).alignment = { vertical: 'middle' };
                     
                     lr=1;
                     
@@ -252,6 +279,7 @@ const ReportPreview = () => {
                     i--
                     setCellheaders(worksheet, 'C'+i, column);
                     worksheet.getCell('D'+i).value='..value...';
+                    worksheet.getCell('D'+i).alignment = { vertical: 'middle' };
                     worksheet.getRow(i).height = column.height;
                     lr=0;
                   }
@@ -288,6 +316,22 @@ const ReportPreview = () => {
           </div>
           <div className="text-center">
             <button className="btn w-25 btn-danger text-center m-auto rounded-pill mb-3">{reportName}</button><br/>
+            <select className='btn rounded-pill btn-danger' value={orientation} onChange={handleOrientationChange}
+            title='Orientation'>
+      <option value="portrait">Portrait</option>
+      <option value="landscape">Landscape</option>
+    </select>
+    <input
+      type="number"
+      title='Scale 0.80 to 1.20'
+      id="scale"
+      value={scale}
+      min={0.8}
+      max={1.2}
+      className='btn btn-danger rounded-pill'
+      step={0.01} // Optional: Set step for finer control (adjust as needed)
+      onChange={handleScaleChange}
+    />
            <button className="btn btn-warning text-center m-auto rounded-pill me-1" onClick={generatePdf}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
            <button className="btn btn-success text-center m-auto rounded-pill" onClick={generateExcel}>Export Excel <i class="bi bi-filetype-xls"></i></button>
           </div>
