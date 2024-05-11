@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { Workbook } from 'exceljs';
+import { saveAs } from 'file-saver';
+
 
 const ReportPreview = () => {
   const { reportTempId } = useParams();
@@ -18,6 +23,8 @@ const ReportPreview = () => {
   const [endDate, setEndDate] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [pdfData, setPdfData] = useState(null);
+  const htmlRef = useRef(null);
 
   useEffect(() => {
     if (reportTempId) {
@@ -42,12 +49,23 @@ const ReportPreview = () => {
             {
               setReportName(data.name);
               setReportType(data.type);
-              setColumns(data.columns || []); // Ensure columns is always initialized as an array
+              // setColumns(data.columns || []); // Ensure columns is always initialized as an array
               setCompanyName(data.companyName);
               setCompanyLocation(data.companyLocation);
               setEmployeeUserId(data.employeeUserId);
               setCustomerUserId(data.customerUserId);
               setDate(data.date);
+
+              const columnsData = data.columns || [];
+              const sortedColumns = columnsData.sort((a, b) => a.sequence - b.sequence);
+              const maxSequence = Math.max(...sortedColumns.map(column => column.sequence));
+              for (let i = 1; i < maxSequence; i++) {
+                const sequenceIndex = sortedColumns.findIndex(column => column.sequence === i);
+                if (sequenceIndex === -1) {
+                  sortedColumns.splice(i, 0, { sequence: i, title:'blank',border:'No',width: '100%', height: 50 });
+                }
+              }
+              setColumns(sortedColumns);
             }
           } else {
             setErrorMessage('Report template not found');
@@ -58,6 +76,198 @@ const ReportPreview = () => {
         });
     }
   }, [reportTempId]);
+
+  
+
+
+          const generatePdf = async () => {
+            const element = htmlRef.current;
+
+            try {
+              const canvas = await html2canvas(element);
+              const margin = 20; // Adjust margin value as needed
+              const newWidth = canvas.width - margin * 2;
+              const newHeight = canvas.height - margin * 2;
+              const imgData = canvas.toDataURL('image/png', newWidth, newHeight); // Specify new width and height
+
+              const doc = new jsPDF();
+              doc.addImage(imgData, 'PNG', 10, 10 );
+              doc.save('report.pdf');
+              setPdfData(doc.output()); // Optional for displaying PDF data
+            } catch (error) {
+              console.error('Error generating PDF:', error);
+            }
+          };
+
+        // * * * * * * * * * * * * * * * * * * * *
+        //
+        // GENERATE EXCEL FILES
+        //
+        // * * * * * * * * * * * * * * * * * * * *
+
+        const generateExcel = async () => {
+
+          const setCellheaders = (worksheet, cellIndex, column, col) => 
+          {
+            const cell = worksheet.getCell(col + cellIndex); // Get cell reference
+            cell.value = column.title; 
+            cell.fill = {type: 'pattern',pattern: 'solid',fgColor: { argb: '593521' },};
+            const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+            cell.font = { color: { argb: 'FFFFFF' }, bold: true }; // White font, bold
+            cell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};
+          };
+
+          const setCellBorders = (cell, borderStyle = { style: 'thin' }) =>
+          { cell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};};
+          
+          const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+          const workbook = new Workbook();
+          const worksheet = workbook.addWorksheet('Sheet1');
+        
+          // Handle "Tabular Report" case
+          if (reportType === "Tabular Report") {
+            const headerData = [
+              ['Company Name', companyName],
+              ['Company Location', companyLocation],
+              ['Start Date', startDate],
+              ['End Date', endDate],
+              ['Start Time', '06:00 AM'],
+              ['End Time', '06:00 PM']
+            ];
+        
+            // Add headers
+            for (let i = 0; i < headerData.length; i++) {
+              worksheet.addRow(headerData[i]);
+            }
+        
+            // Style first column (adjust as needed)
+            worksheet.getColumn(1).eachCell((cell) => {
+              cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: '593521' }, // Adjust color here
+              };
+              // const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+              cell.font = { color: { argb: 'FFFFFF' }, bold: true }; // White font, bold
+              cell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};
+              
+            });
+        
+            // Set column widths (adjust as needed)
+
+            let columnIndex = 1;
+            columns.forEach((column, index) => {
+              const headerCell = worksheet.getCell(`${String.fromCharCode(64 + columnIndex)}${8}`); // Use ASCII code for column letter
+              worksheet.getColumn(columnIndex).width = column.width;
+              headerCell.value = column.title;
+              headerCell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};
+              headerCell.font = { color: { argb: 'FFFFFF' }, bold: true };
+              headerCell.fill = {type: 'pattern',pattern: 'solid',fgColor: { argb: '593521' },};
+              headerCell.alignment = { horizontal: 'center', vertical: 'middle' };
+
+              columnIndex++; // Increment column index for next iteration
+            });
+
+          }
+            // * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+            // * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+            // Handle "Document Report" case
+            //  
+            // * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+           else if (reportType === "Document Report") {
+            const headerData = [
+              ['Company Name', companyName],
+              ['Company Location', companyLocation],
+              ['Date', 'mm/dd/yyyyy'],
+              ['Time', '06:00 AM']
+            ];
+        
+            // Add headers
+            for (let i = 0; i < headerData.length; i++) {
+              worksheet.addRow(headerData[i]);
+            }
+        
+            // Style first column (adjust as needed)
+            worksheet.getColumn(1).eachCell((cell) => {
+              cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: '593521' }, // Adjust color here
+              };
+              // const borderStyle = { style: 'thin', color: { argb: 'FFFFFF' }, };
+              cell.font = { color: { argb: 'FFFFFF' }, bold: true }; // White font, bold
+              cell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};
+            });
+        
+            // Set column widths (adjust as needed)
+
+        
+            // Handle special cases in "Document Report" (assuming "columns" data is available)
+            let last,lr=0,i=5; // Keep track of last special case handled
+            
+     
+
+            columns.forEach((column, index) => {
+              i++;
+              if (column.title === 'blank') { // Add a blank row only once
+                if(lr==0)  
+                { worksheet.mergeCells('A'+i+':B'+i);
+                  lr=1;
+                  
+                }
+                else
+                { i--
+                  worksheet.mergeCells('C'+i+':D'+i);
+                  lr=0;
+                }
+              
+              } 
+              else if (column.width === '100%') 
+                { // Add title and a placeholder row
+                  worksheet.mergeCells('A'+i+':D'+i);
+                  setCellheaders(worksheet, 'A'+i, column);
+                  
+                i++;
+                worksheet.mergeCells('A'+i+':D'+i);
+                worksheet.getCell('A'+i).value='..value...';
+                worksheet.getRow(i).height = column.height;
+                if(column.border='Yes') {setCellBorders(worksheet.getCell('A'+i));}
+                lr=0;
+                i++;
+              }
+              else
+              {
+                if(lr==0)  
+                  { 
+                    worksheet.getCell('A'+i).value=column.title;
+                    setCellheaders(worksheet, 'A'+i, column);
+                    worksheet.getCell('B'+i).value='..value...';
+                    worksheet.getRow(i).height = column.height;
+                    
+                    lr=1;
+                    
+                  }
+                  else
+                  { 
+                    i--
+                    setCellheaders(worksheet, 'C'+i, column);
+                    worksheet.getCell('D'+i).value='..value...';
+                    worksheet.getRow(i).height = column.height;
+                    lr=0;
+                  }
+              }
+            });
+            const col = worksheet.columns.slice(0, 4); // Columns A to D (inclusive)
+            col.forEach(col => col.width = 20);
+          }
+   
+
+          // Generate and save the Excel file
+          const buffer = await workbook.xlsx.writeBuffer();
+          const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          saveAs(blob, 'Report.xlsx');
+        };
+        
 
   const handleGoBack = () => {
     navigate(-1); // This will navigate back to the previous page
@@ -77,10 +287,15 @@ const ReportPreview = () => {
             </Link>
           </div>
           <div className="text-center">
-            <button className="btn w-25 btn-danger text-center m-auto rounded-pill">{reportName}</button>
+            <button className="btn w-25 btn-danger text-center m-auto rounded-pill mb-3">{reportName}</button><br/>
+           <button className="btn btn-warning text-center m-auto rounded-pill me-1" onClick={generatePdf}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
+           <button className="btn btn-success text-center m-auto rounded-pill" onClick={generateExcel}>Export Excel <i class="bi bi-filetype-xls"></i></button>
           </div>
   
-          {/* Form inputs */}
+          {/* Form inputs 
+          'Company Name','','','','','','',
+          */}
+          <div ref={htmlRef}>
           {/* Report Name and Type inputs */}
           {reportType === "Tabular Report" && (
             <div>
@@ -134,37 +349,34 @@ const ReportPreview = () => {
           {reportType === "Document Report" && (
             <div>
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Company Name</button>
-              <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{companyName}</button>
+              <p className="w-75 d-inline-block my-1 m-auto text-start py-1 ps-5">{companyName}</p>
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Company Location</button>
-              <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{companyLocation}</button>
+              <p className="w-75 d-inline-block my-1 m-auto text-start py-1 ps-5">{companyLocation}</p>
               <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Date</button>
-              <button className="btn w-75 my-1  m-auto rounded-pill text-start ps-5">{date}</button>
-              <hr/>
+              <p className="w-75 d-inline-block my-1 m-auto text-start py-1 ps-5">{date}</p>
+              <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Time</button>
+              <p className="w-75 d-inline-block my-1 m-auto text-start py-1 ps-5">hh:mm</p>
               {/* Report Columns */}
               {columns && columns
-              .filter(column => column.position == "Header")
               .sort((a, b) => a.sequence - b.sequence)
               .map((column, index) => (
-                <div key={index} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%' }}>
-                  <button className="btn my-1 btn-danger text-center rounded" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
-                  <span className={`my-1 text-start rounded-pill ps-5 ${column.border == "Yes" ? 'border border-1' : ''}`} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%', height: column.height + "px" }}>.....Values.....</span>
-                </div>
-              ))}
-              <hr/>
-              {columns && columns
-              .filter(column => column.position == "Body")
-              .sort((a, b) => a.sequence - b.sequence)
-              .map((column, index) => (
-                <div key={index} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%' }}>
-                  <button className="btn my-1 btn-danger text-center rounded" style={{ width: column.width == 100 ? '25%' : '50%' }}>{column.title}</button>
-                  <span className={`my-1 text-start ps-5 ${column.border == "Yes" ? 'border border-1 border-dark' : ''}`} style={{ display: column.width == 100 ? 'block' : 'inline-block' , width: column.width == 100 ? '100%' : '50%', height: column.height + "px" }}>.....Values.....</span>
-                </div>
-              ))}
+                column.title === 'blank' ? (
+                  <div key={index} className="w-50 " style={{ display: 'inline-block', minHeight: column.height + "px" }}>
+                    {/* {index} */}
+                  </div>
+                ) : (
+                  <div key={index} className='' style={{ display: column.width === '100%' ? 'block' : 'inline-block', width: column.width === '100%' ? '100%' : '45%'  }}>
+                    <button className="btn my-1 btn-danger text-center rounded" style={{ width: column.width === '100%' ? '24%' : '49%' }}>{column.title}</button>
+                    <p className={`my-1 pt-3 text-start overflow-auto ps-5 ${column.border === "Yes" ? 'border border-1 border-dark' : ''}`} style={{ display: column.width === '100%' ? 'block' : 'inline-block', width: column.width === '100%' ? '100%' : '48%', minHeight: column.height + "px" }}>.....Values.....</p>
+                  </div>
+                )
+              ))
 
+              }
 
             </div>
           )}
-  
+          </div>
           <div className='text-center'>
             <button className="btn btn-danger px-5 m-auto my-2 me-5" onClick={handleGoHome}>Home</button>
             <button className="btn btn-danger px-5 m-auto my-2 me-5" onClick={handleGoBack}>Back</button>

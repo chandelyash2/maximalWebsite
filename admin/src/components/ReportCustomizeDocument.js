@@ -15,6 +15,7 @@ const ReportCustomizeDocument = () => {
   const [companyName, setCompanyName] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
   const [Date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -38,7 +39,8 @@ const ReportCustomizeDocument = () => {
             setCompanyLocation(data.companyLocation);
             setEmployeeUserId(data.employeeUserId);
             setCustomerUserId(data.customerUserId);
-            setDate(data.Date);
+            setDate('');
+            setTime('');
           } else {
             setErrorMessage('Report template not found');
           }
@@ -64,6 +66,7 @@ const ReportCustomizeDocument = () => {
       companyName: companyName,
       companyLocation: companyLocation,
       Date: Date,
+      time: time,
     };
 
     set(reportTemplateRef, updatedReportTemplate)
@@ -139,7 +142,10 @@ const ReportCustomizeDocument = () => {
                 placeholder="Company Location..."
               />
 
-              <input
+              <p className='btn-danger rounded-pill w-75 py-1 ps-3 my-2'><span className='text-warning'>Date of Incedent..</span></p>
+              <p className='btn-danger rounded-pill w-75 py-1 ps-3 my-2'><span className='text-warning'>Time of Incedent..</span></p>
+
+              {/* <input
                 type="date"
                 className="form-control btn-danger rounded-pill w-75 my-2"
                 id="startDateID"
@@ -149,7 +155,7 @@ const ReportCustomizeDocument = () => {
                 onFocus={(e) => e.target.type = 'date'}
                 onBlur={(e) => !e.target.value && (e.target.type = 'text')}
                 placeholder="Report Start Date..."
-              />
+              /> */}
             
              
             </div>
@@ -170,7 +176,6 @@ const ReportCustomizeDocument = () => {
             <thead className="thead-dark">
               <tr>
               <th scope="col" className='btn-danger rounded text-center' width="12%">Sequence</th>
-              <th scope="col" className='btn-danger rounded text-center px-2' width="12%">Position</th>
                 <th scope="col" className='btn-danger rounded text-center' width="30%">Title</th>
                 <th scope="col" className='btn-danger rounded text-center' >Height<br/>(px)</th>
                 <th scope="col" className='btn-danger rounded text-center' >Width<br/>(%)</th>
@@ -195,16 +200,6 @@ const ReportCustomizeDocument = () => {
       />
     </td>
     <td>
-      <select
-        className="form-control btn-danger rounded my-1 text-center w-100"
-        value={column.position}
-        onChange={(e) => handleChange(index, 'position', e.target.value)}
-      >
-        <option value="Row">Header</option>
-        <option value="Column">Body</option>
-      </select>
-    </td>
-    <td>
       <input
         className="form-control btn-danger rounded my-1 text-center w-100"
         type="text"
@@ -221,12 +216,14 @@ const ReportCustomizeDocument = () => {
       />
     </td>
     <td>
-      <input
+      <select
         className="form-control btn-danger rounded my-1 text-center w-100"
-        type="text"
         value={column.width}
         onChange={(e) => handleChange(index, 'width', e.target.value)}
-      />
+      >
+        <option value="50%">50%</option>
+        <option value="100%">100%</option>
+      </select>
     </td>
     <td>
       <select
@@ -238,7 +235,7 @@ const ReportCustomizeDocument = () => {
         <option value="number">Number</option>
         <option value="date">Date</option>
         <option value="time">Time</option>
-        <option value="textarea">Text Area</option>
+        <option value="textarea">Long Text</option>
         <option value="photo">Photo Upload</option>
       </select>
     </td>
@@ -248,8 +245,8 @@ const ReportCustomizeDocument = () => {
         value={column.border}
         onChange={(e) => handleChange(index, 'border', e.target.value)}
       >
-        <option value="Row">Yes</option>
-        <option value="Column">No</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
       </select>
     </td>
     <td>

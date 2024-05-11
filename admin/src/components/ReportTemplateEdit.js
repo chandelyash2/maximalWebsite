@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ref, get, remove } from 'firebase/database'; 
+import { ref, get, remove, push, set } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
 
@@ -51,6 +51,35 @@ function ReportTemplateEdit() {
       });
   };
 
+  const handleReplicate = async (templateId) => {
+    const reportTempRef = push(ref(database, 'reportTemplates'));
+    const newReportTempId = reportTempRef.key;
+    const templateRef = ref(database, `reportTemplates/${templateId}`);
+    try {
+        // Retrieve the data from the source location
+        const snapshot = await get(templateRef);
+        
+        if (snapshot.exists()) {
+            // Data exists, get the value
+            const data = snapshot.val();
+            const newName = data.name + " copy";
+            data.name = newName;
+            // Reference to the destination location where you want to copy the data
+            const newTemplateRef = ref(database, `reportTemplates/${newReportTempId}`);
+            
+            // Set the data to the destination location
+            await set(newTemplateRef, data);
+            setReportTemplates([...reportTemplates, { id: newReportTempId, ...data }]);
+            // alert("Template Copies Succeffully ! ");
+        } else {
+            alert("Record does not exist!");
+        }
+    } catch (error) {
+      alert("Error copying record:", error.message);
+    }
+
+  };
+
   // Filtered report templates based on selected options
   const filteredTemplates = reportTemplates.filter(template =>
     (!selectedReportName || template.name === selectedReportName) &&
@@ -100,7 +129,7 @@ function ReportTemplateEdit() {
             <table className='w-100 table-bordered'>
               <thead>
                 <tr>
-                  <th className='btn-danger rounded text-center'>ID</th>
+                  {/* <th className='btn-danger rounded text-center'>ID</th> */}
                   <th className='btn-danger rounded text-center'>Type</th>
                   <th className='btn-danger rounded text-center'>Report Name</th>
                   <th className='btn-danger rounded text-center'>Company Name</th>
@@ -112,21 +141,21 @@ function ReportTemplateEdit() {
               <tbody>
                 {filteredTemplates.map(template => (
                   <tr key={template.id} className=''>
-                    <td className='text-center'><small>{template.id}</small></td>
+                    {/* <td className='text-center'><small>{template.id}</small></td> */}
                     <td className='text-center'>{template.type}</td>
                     <td className='text-center'>{template.name}</td>
                     <td className='text-center'>{template.companyName}</td>
                     <td className='text-center'>{template.companyLocation}</td>
-                    <td className='text-center d-flex flex-columns'> 
-                      <Link to={template.type === "Tabular Report" ? `/ReportCustomizeTabular/${template.id}` : `/ReportCustomizeDocument/${template.id}`} className="btn btn-danger rounded-pill text-center"><i className="bi bi-pencil-square"></i></Link>
-                      <button className="btn btn-warning rounded-pill text-center" onClick={() => handleDelete(template.id)}><i className="bi bi-trash3"></i></button>
+                    <td className='text-center d-flex flex-columns justify-content-center'> 
+                      <Link to={template.type === "Tabular Report" ? `/ReportCustomizeTabular/${template.id}` : `/ReportCustomizeDocument/${template.id}`} className="btn btn-danger rounded-pill text-center" title='Edit'><i className="bi bi-pencil-square"></i></Link>
+                      <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(template.id)}><i className="bi bi-trash3"></i></button>
+                      <button className="btn btn-danger rounded-pill text-center" title='Replicate' onClick={() => handleReplicate(template.id)}><i class="bi bi-copy"></i></button>
                     </td>
                     {/* Add additional table cells as needed */}
                   </tr>
                 ))}
               </tbody>
             </table>
-            <p className='mt-3'><small>Note:- The ID is Report Template Database ID, helpful for identify during development phase, later we can hide it.</small></p>
           </div>
 
           {/* Display error message if any */}

@@ -65,8 +65,8 @@ const ReportCustomizeTabular = () => {
       customerUserId: customerUserId,
       companyName: companyName,
       companyLocation: companyLocation,
-      startDate: startDate,
-      endDate: endDate,
+      // startDate: startDate,
+      // endDate: endDate,
     };
 
     set(reportTemplateRef, updatedReportTemplate)
@@ -178,14 +178,14 @@ const ReportCustomizeTabular = () => {
             </div>
             <div className="col-md-6">
             <button className='btn btn-danger rounded-pill w-75 my-2 text-start'>Start Date...</button>
-              <button className='btn btn-danger rounded-pill w-75 my-2  text-start'>End Date...</button>
+            <button className='btn btn-danger rounded-pill w-75 my-2  text-start'>End Date...</button>
 
             </div>
 
             <div className="col-md-6">
 
             <button className='btn btn-danger rounded-pill w-75 my-2 text-start'>Start Time...</button>
-              <button className='btn btn-danger rounded-pill w-75 my-2  text-start'>End Time...</button>
+            <button className='btn btn-danger rounded-pill w-75 my-2  text-start'>End Time...</button>
             </div>
 
 
@@ -255,7 +255,7 @@ const ReportCustomizeTabular = () => {
         <option value="number">Number</option>
         <option value="date">Date</option>
         <option value="time">Time</option>
-        <option value="textarea">Text Area</option>
+        <option value="textarea">Long Text</option>
         <option value="photo">Photo Upload</option>
       </select>
     </td>

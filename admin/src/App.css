@@ -100,3 +100,35 @@ body
 .btn-danger::-ms-input-placeholder { /* Edge 12 -18 */
   color: rgb(183, 178, 170) !important;
 }
+
+/* SelectComponent.css */
+
+.custom-select {
+  border: 1px solid #735744 !important; /* Border color */
+  background-color: #fff !important; /* Background color */
+  padding: 5px !important; /* Padding */
+  width: 200px !important; /* Width */
+  outline: none !important; /* Remove default focus outline */
+}
+
+.custom-select:focus {
+  border-color: #735744 !important; /* Border color when focused */
+}
+
+.custom-select option {
+  background-color: #fff; /* Background color of options */
+}
+
+.custom-select option:checked {
+  background-color: #735744 !important; /* Background color of selected option */
+  color: #fff !important;  /* Text color of selected option */
+}
+
+/* Hiding the scrollbar */
+.custom-select::-webkit-scrollbar {
+  display: none !important; /* Hide scrollbar for Chrome/Safari */
+}
+
+.custom-select::-moz-scrollbar {
+  display: none !important; /* Hide scrollbar for Firefox */
+}

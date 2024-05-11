@@ -41,6 +41,7 @@ const HomePage = () => {
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Attendance</button>
       <button className='btn btn-danger rounded-pill  my-2 w-100'>Community Watch</button>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Payroll</button>
+      <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Invoicing</button>
       <button onClick={handleSignOut} className='btn btn-danger rounded-pill px-5 my-2 w-100 text-warning'><i class="bi bi-box-arrow-left"></i> Sign Out</button>
         </div>
       </div>

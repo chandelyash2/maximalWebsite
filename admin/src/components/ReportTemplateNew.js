@@ -42,7 +42,9 @@ const ReportTemplateNew = () => {
           type: reportType,
           columns: [],
           employeeUserId: employeeUserId,
-          customerUserId: customerUserId
+          customerUserId: customerUserId,
+          companyName: '',
+          companyLocation: '',
         });
         // alert(newReportTempId);
         // Navigate to ReportTemplateSave immediately after saving report template
@@ -80,7 +82,8 @@ const ReportTemplateNew = () => {
           <div className='row fixed-width d-flex flex-column align-items-center'>
             {/* <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mb-3'>Select Report Type</button> */}
             <div class="fixed-width">
-              <select className="form-control" id="reportType" value={reportType} onChange={(e) => setReportType(e.target.value)} size="2">
+
+              <select className="custom-select" id="reportType" value={reportType} onChange={(e) => setReportType(e.target.value)} size="2">
                 <option value="Tabular Report">Tabular Report</option>
                 <option value="Document Report">Document Report</option>
               </select>
