@@ -5,8 +5,10 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'; // Corrected imp
 
 function Register() {
   const [name, setName] = useState('');
+  const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cpassword, setcPassword] = useState('');
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(''); // Added state for success message
   const navigate = useNavigate();
@@ -30,8 +32,10 @@ function Register() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       // Handle additional logic for name or other info here
+      auth.signOut();
       setSuccessMessage('Registration successful! Redirecting to login...'); // Set success message
       setTimeout(() => { // Redirect after a short delay
+        
         navigate('/login');
       }, 3000); // Redirect after 3 seconds
     } catch (error) {
@@ -68,9 +72,20 @@ function Register() {
           type="text" 
           className="form-control" 
           id="name" 
-          placeholder="Name"
+          placeholder="First Name"
           value={name} // Added value attribute
           onChange={(e) => setName(e.target.value)} // Added onChange event
+          required 
+        />
+      </div>
+      <div className="mb-3">
+        <input 
+          type="text" 
+          className="form-control" 
+          id="lname" 
+          placeholder="Last Name"
+          value={lname} // Added value attribute
+          onChange={(e) => setLname(e.target.value)} // Added onChange event
           required 
         />
       </div>
@@ -93,6 +108,17 @@ function Register() {
         placeholder="Password" 
         value={password} // Added value attribute
         onChange={(e) => setPassword(e.target.value)} // Added onChange event
+        required 
+      />
+  </div>
+  <div className="mb-3">
+    <input 
+        type="password" 
+        className="form-control" 
+        id="password" 
+        placeholder="Confirm Password" 
+        value={cpassword} // Added value attribute
+        onChange={(e) => setcPassword(e.target.value)} // Added onChange event
         required 
       />
   </div>

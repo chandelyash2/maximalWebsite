@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate for redire
 
 import '../css/style.css';
 
-const HomePage = () => {
+const HomePage = () =>  {
+  
   const navigate = useNavigate();
   const { addAlert } = useContext(AlertContext);
-
-  // Function to show an alert
+  
   const showWelcomeMessage = () => {
     addAlert('Welcome to the HomePage!');
 
