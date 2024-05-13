@@ -119,6 +119,8 @@ const ReportPreview = () => {
           }
         };
 
+        
+
         // * * * * * * * * * * * * * * * * * * * *
         //
         // GENERATE EXCEL FILES

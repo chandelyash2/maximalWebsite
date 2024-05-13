@@ -3,7 +3,7 @@ import { ref, get, remove, push, set } from 'firebase/database';
 import { database } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
 
-function Userlist() {
+function UserList() {
   const [users, setusers] = useState([]);
   const [selectedName, setSelectedName] = useState('');
   const [selectedCompanyName, setSelectedCompanyName] = useState('');
@@ -37,8 +37,8 @@ function Userlist() {
   // Filtered report templates based on selected options
   const filteredUsers = users.filter(template =>
     (!selectedName || template.name === selectedName) &&
-    (!selectedCompanyName || template.companyName === selectedCompanyName) &&
-    (!selectedCompanyLocation || template.companyLocation === selectedCompanyLocation)
+    (!selectedCompanyName || template.company === selectedCompanyName) &&
+    (!selectedCompanyLocation || template.companyAdress === selectedCompanyLocation)
   );
 
   return (
@@ -49,6 +49,10 @@ function Userlist() {
             <Link to="/home">
               <button className="btn btn-danger mb-4 rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>
             </Link>
+         
+          </div>
+          <div className="text-center">
+          <h3 className="btn btn-danger mb-4 rounded-pill px-5">User List</h3>
           </div>
           {/* Display select options for reportName, companyName, and companyLocation */}
           <div className="mb-3">
@@ -63,8 +67,8 @@ function Userlist() {
           <div className="mb-3">
             <select id="companyName" className="form-select btn-danger rounded-pill my-1 text-center w-25" value={selectedCompanyName} onChange={(e) => setSelectedCompanyName(e.target.value)}>
               <option value="">Choose Company Name...</option>
-              {[...new Set(users.map(template => template.companyName))].map((companyName, index) => (
-                <option key={index} value={companyName}>{companyName}</option>
+              {[...new Set(users.map(template => template.company))].map((company, index) => (
+                <option key={index} value={company}>{company}</option>
               ))}
             </select>
           </div>
@@ -72,8 +76,8 @@ function Userlist() {
           <div className="mb-3">
             <select id="companyLocation" className="form-select btn-danger rounded-pill my-1 text-center w-25" value={selectedCompanyLocation} onChange={(e) => setSelectedCompanyLocation(e.target.value)}>
               <option value="">Choose Location...</option>
-              {[...new Set(users.map(template => template.companyLocation))].map((companyLocation, index) => (
-                <option key={index} value={companyLocation}>{companyLocation}</option>
+              {[...new Set(users.map(template => template.companyAdress))].map((companyAdress, index) => (
+                <option key={index} value={companyAdress}>{companyAdress}</option>
               ))}
             </select>
           </div>
@@ -123,4 +127,4 @@ function Userlist() {
   );
 }
 
-export default Userlist;
+export default UserList;
