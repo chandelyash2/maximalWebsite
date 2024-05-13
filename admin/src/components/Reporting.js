@@ -26,11 +26,12 @@ const Reporting = () => {
         <Link to="/ReportTemplateEdit"><button className='btn btn-danger rounded-pill my-2 w-100'>Edit Existing Report</button></Link>
         {/* <button className='btn btn-danger rounded-pill  my-2 w-100'>Replicate Existing Report</button> */}
      
-   
-     
-      <Link to="/MakeAdmin">
-      <button className='btn btn-danger rounded-pill  my-2 w-100'>Assign/Edit User Access</button>
+      <Link to="/UserList">
+      <button className='btn btn-danger rounded-pill  my-2 w-100'>User Access</button>
       </Link>
+      {/* <Link to="/MakeAdmin">
+      <button className='btn btn-danger rounded-pill  my-2 w-100'>Assign/Edit User Access</button>
+      </Link> */}
         </div>
       </div>
 

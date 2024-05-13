@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { auth } from '../firebaseconfig';
+import { auth, database } from '../firebaseconfig';
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Corrected import
+import { getDatabase, ref, set } from 'firebase/database';
 
 function Register() {
   const [name, setName] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setcPassword] = useState('');
   const [error, setError] = useState(null);
@@ -30,8 +32,19 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // Handle additional logic for name or other info here
+      const user = userCredential.user;
+      // Save additional user information to Firebase Realtime Database
+      const reportTemplateRef = ref(database, 'users/' + user.uid); // Use the selected report name
+
+      await set(reportTemplateRef, {
+        name: name,
+        lname: lname,
+        company: company,
+        email: email
+      });
+
       auth.signOut();
       setSuccessMessage('Registration successful! Redirecting to login...'); // Set success message
       setTimeout(() => { // Redirect after a short delay
@@ -86,6 +99,17 @@ function Register() {
           placeholder="Last Name"
           value={lname} // Added value attribute
           onChange={(e) => setLname(e.target.value)} // Added onChange event
+          required 
+        />
+      </div>
+      <div className="mb-3">
+        <input 
+          type="text" 
+          className="form-control" 
+          id="company" 
+          placeholder="Company Name"
+          value={company} // Added value attribute
+          onChange={(e) => setCompany(e.target.value)} // Added onChange event
           required 
         />
       </div>
