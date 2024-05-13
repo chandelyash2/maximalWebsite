@@ -27,7 +27,7 @@ const Reporting = () => {
         {/* <button className='btn btn-danger rounded-pill  my-2 w-100'>Replicate Existing Report</button> */}
      
       <Link to="/UserList">
-      <button className='btn btn-danger rounded-pill  my-2 w-100'>User Access</button>
+      <button className='btn btn-danger rounded-pill  my-2 w-100'>Assign/Edit User Access</button>
       </Link>
       {/* <Link to="/MakeAdmin">
       <button className='btn btn-danger rounded-pill  my-2 w-100'>Assign/Edit User Access</button>

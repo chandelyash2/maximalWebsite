@@ -7,7 +7,8 @@ import Register from './components/Register';
 import Home from './components/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from './components/UserProfile';
-import Userlist from './components/UserList';
+import UserList from './components/UserList';
+import UserAccess from './components/UserAccess';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
@@ -65,6 +66,7 @@ function App() {
             {/* PROTECTED ROUTES */}
             <Route path="/UserProfile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} /> 
             <Route path="/UserList" element={<ProtectedRoute><UserList /></ProtectedRoute>} /> 
+            <Route path="/UserAccess/:userId" element={<ProtectedRoute><UserAccess /></ProtectedRoute>} /> 
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
             <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
