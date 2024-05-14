@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
+import ToggleButton from './ToggleButton';
 
 const UserAccess = () => {
   const { userId } = useParams();
-  let navigate = useNavigate();
-
+  let navigate = useNavigate();  
   const [userData, setUserData] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const applicationtypes = ['Community Watch', 'Report', 'Checkpoint Tour','Payroll','Attendance'];
+  const [reportTemplates, setReportTemplates] = useState([]);
 
+  
   useEffect(() => {
     if (userId) {
       const reportTemplateRef = ref(database, `users/${userId}`);
@@ -27,6 +30,27 @@ const UserAccess = () => {
         });
     }
   }, [userId]);
+
+  const reportTemplatesRef = ref(database, 'reportTemplates');
+
+  // Fetch data from Firebase Realtime Database
+  get(reportTemplatesRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        // Convert the object of objects into an array of objects
+        const reportTemplateArray = Object.keys(data).map(key => ({
+          id: key,
+          name: data[key].name,
+        }));
+        setReportTemplates(reportTemplateArray);
+      } else {
+        setErrorMessage('No report templates found');
+      }
+    })
+    .catch((error) => {
+      setErrorMessage(`Error fetching report templates: ${error.message}`);
+    });
 
   const handleChange = (field, value) => {
     userData[field]= value;
@@ -74,9 +98,32 @@ const UserAccess = () => {
                 </tr>
             </table>
           </div>
-
+        <div>
+            <h6>Click <b>Report Name</b> to provide access to user {userData.email} :</h6>
+            <div className="d-flex flex-wrap">
+          {reportTemplates.map((reportTemplate) => (
+            <div key={reportTemplate.id} className="m-2">
+              <ToggleButton permission="Report" name={reportTemplate.name} reportid={reportTemplate.id} userId= {userId}/>
+            </div>
+          ))}
+          </div>
+          <hr/>
         </div>
+
+        <div>
+            <h6>Click <b>Application Type </b> to provide access to user {userData.email} :</h6>
+            <div className="d-flex flex-wrap">
+          {applicationtypes.map((applicationtype) => (
+            <div key={applicationtype} className="m-2">
+              <ToggleButton permission="ApplicationType" name={applicationtype} reportid={applicationtype} userId= {userId}/>
+            </div>
+          ))}
+          </div>
+          <hr/>
+        </div>
+
       </div>
+    </div>
     </div>
   );
 }
