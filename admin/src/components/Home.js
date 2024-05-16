@@ -38,10 +38,12 @@ const HomePage = () =>  {
         <div className='fixed-width'>
         <Link to="/Reporting"><button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Reporting</button></Link>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Checkpoint Tour</button>
-      <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Attendance</button>
       <button className='btn btn-danger rounded-pill  my-2 w-100'>Community Watch</button>
-      <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Payroll</button>
+      <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Payroll/Geolocation</button>
       <button className='btn btn-danger rounded-pill px-5 my-2 w-100'>Invoicing</button>
+      <Link to="/UserList">
+      <button className='btn btn-danger rounded-pill  my-2 w-100'>User List</button>
+      </Link>
       <button onClick={handleSignOut} className='btn btn-danger rounded-pill px-5 my-2 w-100 text-warning'><i class="bi bi-box-arrow-left"></i> Sign Out</button>
         </div>
       </div>
