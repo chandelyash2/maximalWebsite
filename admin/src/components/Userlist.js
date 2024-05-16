@@ -1,10 +1,8 @@
-// UserList.js
 import React, { useState, useEffect, useMemo } from 'react';
 import { ref, get } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
-import CustomFilter from './CustomFilter';
-import { useTable, useFilters } from 'react-table';
+import FilterButton from './FilterButton';
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -16,12 +14,10 @@ function UserList() {
   useEffect(() => {
     const usersRef = ref(database, 'users');
 
-    // Fetch data from Firebase Realtime Database
     get(usersRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          // Convert the object of objects into an array of objects
           const templatesArray = Object.keys(data).map(key => ({
             id: key,
             ...data[key]
@@ -34,7 +30,7 @@ function UserList() {
       .catch((error) => {
         setErrorMessage(`Error fetching User Profiles: ${error.message}`);
       });
-  }, []); // Empty dependency array ensures that the effect runs only once on component mount
+  }, []);
 
   const nameOptions = useMemo(() => {
     const options = new Set();
@@ -61,9 +57,9 @@ function UserList() {
   }, [users]);
 
   const filteredUsers = users.filter(user =>
-    (!selectedNames.length || selectedNames.some(option => option.value === user.name)) &&
-    (!selectedCompanyNames.length || selectedCompanyNames.some(option => option.value === user.company)) &&
-    (!selectedCompanyLocations.length || selectedCompanyLocations.some(option => option.value === user.companyAdress))
+    (!selectedNames.length || selectedNames.includes(user.name)) &&
+    (!selectedCompanyNames.length || selectedCompanyNames.includes(user.company)) &&
+    (!selectedCompanyLocations.length || selectedCompanyLocations.includes(user.companyAdress))
   );
 
   return (
@@ -79,38 +75,37 @@ function UserList() {
             <h3 className="btn btn-danger mb-4 rounded-pill px-5">User List</h3>
           </div>
 
-          <div className="mb-4">
-            <CustomFilter
-              options={nameOptions}
-              value={selectedNames}
-              onChange={setSelectedNames}
-              searchPlaceholder="Search by name..."
-            />
-            <CustomFilter
-              options={companyNameOptions}
-              value={selectedCompanyNames}
-              onChange={setSelectedCompanyNames}
-              searchPlaceholder="Search by company name..."
-            />
-            <CustomFilter
-              options={companyLocationOptions}
-              value={selectedCompanyLocations}
-              onChange={setSelectedCompanyLocations}
-              searchPlaceholder="Search by company address..."
-            />
-          </div>
-
-          {/* Display filtered report templates in a Bootstrap table */}
           <div className="table-responsive">
             <table className='w-100 table-bordered'>
               <thead>
                 <tr>
                   <th className='btn-danger rounded text-center'>User Type</th>
-                  <th className='btn-danger rounded text-center'>First Name</th>
+                  <th className='btn-danger rounded text-center'>
+                    First Name
+                    <FilterButton
+                      options={nameOptions}
+                      value={selectedNames}
+                      onChange={setSelectedNames}
+                    />
+                  </th>
                   <th className='btn-danger rounded text-center'>Last Name</th>
                   <th className='btn-danger rounded text-center'>Email</th>
-                  <th className='btn-danger rounded text-center'>Company Name</th>
-                  <th className='btn-danger rounded text-center'>Company Address</th>
+                  <th className='btn-danger rounded text-center'>
+                    Company Name
+                    <FilterButton
+                      options={companyNameOptions}
+                      value={selectedCompanyNames}
+                      onChange={setSelectedCompanyNames}
+                    />
+                  </th>
+                  <th className='btn-danger rounded text-center'>
+                    Company Address
+                    <FilterButton
+                      options={companyLocationOptions}
+                      value={selectedCompanyLocations}
+                      onChange={setSelectedCompanyLocations}
+                    />
+                  </th>
                   <th className='btn-danger rounded text-center'>Action</th>
                 </tr>
               </thead>
@@ -134,7 +129,6 @@ function UserList() {
             </table>
           </div>
 
-          {/* Display error message if any */}
           {errorMessage && <p className="text-danger">{errorMessage}</p>}
         </div>
       </div>

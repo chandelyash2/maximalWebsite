@@ -1,53 +1,37 @@
-// CustomFilter.js
-import React, { useMemo, useState } from 'react';
-import Select, { components } from 'react-select';
-import TextField from '@mui/material/TextField';
+import React from 'react';
 import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
-const CheckboxOption = ({ children, ...props }) => {
-  return (
-    <components.Option {...props}>
-      <Checkbox
-        checked={props.isSelected}
-        onChange={() => null}
-        style={{ marginRight: 8 }}
-      />
-      {children}
-    </components.Option>
-  );
-};
-
-const CustomFilter = ({ options, value, onChange, searchPlaceholder }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredOptions = useMemo(() => {
-    return options.filter(option => 
-      option.label.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [options, searchTerm]);
+const CustomFilter = ({ options, value, onChange }) => {
+  const handleChange = (event) => {
+    const newValue = [...value];
+    const index = newValue.indexOf(event.target.name);
+    if (index === -1) {
+      newValue.push(event.target.name);
+    } else {
+      newValue.splice(index, 1);
+    }
+    onChange(newValue);
+  };
 
   return (
-    <>
-      <TextField
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
-        placeholder={searchPlaceholder || 'Search...'}
-        variant="outlined"
-        size="small"
-        fullWidth
-        margin="dense"
-      />
-      <Select
-        isMulti
-        closeMenuOnSelect={false}
-        hideSelectedOptions={false}
-        components={{ Option: CheckboxOption }}
-        value={value}
-        onChange={onChange}
-        options={filteredOptions}
-        placeholder="Select values..."
-      />
-    </>
+    <FormGroup>
+      {options.map((option) => (
+        <FormControlLabel
+          key={option.value}
+          control={
+            <Checkbox
+              checked={value.includes(option.value)}
+              onChange={handleChange}
+              name={option.value}
+            />
+          }
+          label={option.label}
+          style={{ margin: 0, padding: '4px 0' }} // Reduce padding
+        />
+      ))}
+    </FormGroup>
   );
 };
 
