@@ -150,4 +150,6 @@ th {
     background-color: transparent !important;
   }
 
-  
+  option:active, option:hover,option:visited, option:focus {
+    background-color: #8e0202 !important;
+  }
