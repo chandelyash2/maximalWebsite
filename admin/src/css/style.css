@@ -3,12 +3,6 @@
   src: url('../../public/CatchyMager.ttf') format('truetype');
 }
 
-body {
-  /* font-family: 'CatchyMager', sans-serif !important; */
-  
-}
-
-
 /* styles.css */
 .btn-danger {
   background-color: #593521 !important;
@@ -22,13 +16,13 @@ body {
   border: 1px solid #ede8e2 !important;
 }
 .fixed-width {
-  width: 250px !important;
-  /* border: 1px solid red !important; */
+  max-width: 250px !important;
+  border: 1px solid red !important;
 }
 
 .fixed-width-container {
-  width: 390px !important;
-  /* border: 1px solid green !important; */
+  max-width: 390px !important;
+  border: 1px solid green !important;
 }
 
 th {

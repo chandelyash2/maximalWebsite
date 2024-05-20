@@ -6,7 +6,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver';
-
+import 'jspdf-autotable';
 
 const ReportPreview = () => {
   const { reportTempId } = useParams();
@@ -81,6 +81,7 @@ const ReportPreview = () => {
                 }
               }
               setColumns(sortedColumns);
+
             }
           } else {
             setErrorMessage('Report template not found');
@@ -119,7 +120,142 @@ const ReportPreview = () => {
           }
         };
 
+        const generatePDF = () => {
+          
+          const doc = new jsPDF(orientation);//'landscape'
+      
+          // Add title with background
+          const styles = {
+            headStyles: {
+              fillColor: [142, 2, 2],
+              textColor: 255,
+              fontSize: 10,
+              fontStyle: 'bold',
+            },
+            bodyStyles: {
+              textColor: 0,
+              fontSize: 10,
+            },
+            columnStyles: {
+              0: { cellWidth: '20%' },
+              1: { cellWidth: '80%' },
+            },
+            didParseCell: (data) => {
+              // Apply custom styles to the first column in the body section
+              if (data.section === 'body' && data.column.index === 0) {
+                data.cell.styles.fillColor = [142, 2, 2];
+                data.cell.styles.textColor = [255, 255, 255];
+              }
+            },
+            drawRow: (row, data) => {
+              // Draw a white line at the bottom of each cell in the body section
+              doc.setDrawColor(255, 255, 255); // White color
+              doc.setLineWidth(0.5); // Line width for the bottom border
+              const startY = row.y + row.height;
+              const endY = startY;
+              doc.line(row.x, startY, row.x + row.width, endY);
+            },
+          };
+
+          if (reportType === "Tabular Report") {
+          const headerData = [
+            ['Company Name', companyName],
+            ['Company Location', companyLocation],
+            ['Start Date', startDate],
+            ['End Date', endDate],
+            ['Start Time', '06:00 AM'],
+            ['End Time', '06:00 PM']
+          ];
+
+          doc.autoTable({
+            // head: [['Field', 'Value']],
+            body: headerData,
+            ...styles,
+            theme: 'plain',
+          });
+      
+          const styles1 = {
+            headStyles: {
+              fillColor: [89, 53, 33], // Background color for header cells
+              textColor: [255, 255, 255], // Text color for header cells
+              fontSize: 10,
+              fontStyle: 'bold', // Make text bold for header cells
+            },
+            bodyStyles: {
+              textColor: 0, // Default text color for body cells
+              fontSize: 10,
+            },
+            columnStyles: columns.reduce((acc, column, index) => {
+              acc[index] = { cellWidth: column.width };
+              return acc;
+            }, {}),
+          };
+      
+          // Draw the first table
+          doc.autoTable({
+            head: [columns.map(column => column.title)],
+            // body: tableData1,
+            ...styles1,
+          });
+
+       
+          }
+          else if (reportType === "Document Report") {
+            const headerData = [
+              ['Company Name', companyName],
+              ['Company Location', companyLocation],
+              ['Date', 'mm/dd/yyyyy'],
+              ['Time', '06:00 AM']
+            ];
+            
+            doc.autoTable({
+              // head: [['Field', 'Value']],
+              body: headerData,
+              ...styles,
+              theme: 'plain',
+            });
+
+            let lastSpecialCaseHandled = false;
+            let rowIndex = 5;
+
+            // const sortedColumns = columns.sort((a, b) => a.sequence - b.sequence);
+
+            columns.forEach((column) => {
+              if (column.title === 'blank') {
+                lastSpecialCaseHandled = !lastSpecialCaseHandled;
+                return;
+              }
+          
+              rowIndex++;
+          
+              let xCoordinate;
+              if (column.width === '100%') {
+                xCoordinate = 10;
+              } else {
+                xCoordinate = lastSpecialCaseHandled ? 100 : 10;
+              }
+          
+              const columnWidth = column.width === '100%' ? 190 : 45;
+          
+              doc.setFillColor(142, 2, 2); // Red background fill
+              doc.rect(xCoordinate, rowIndex * 10 - 7, columnWidth, 10, 'F'); // Adjust as needed for title
+              doc.setTextColor(255, 255, 255); // White text color
+              doc.text(column.title, xCoordinate, rowIndex * 10); // Adjust as needed for title
+              doc.setTextColor(0, 0, 0); // Reset text color
+          
+              if (column.width !== '100%') {
+                doc.text('..value..', xCoordinate + 50, rowIndex * 10); // Adjust as needed for value
+                lastSpecialCaseHandled = !lastSpecialCaseHandled;
+              }
+            });
+
+
+          };
         
+             // Save the PDF
+             doc.save('custom.pdf');
+
+        };
 
         // * * * * * * * * * * * * * * * * * * * *
         //
@@ -310,7 +446,7 @@ const ReportPreview = () => {
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center">
-        <div className="col-md-8 py-4" style={{ color: '#735744', height: '680px' }}>
+        <div className="col-md-8 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
           <div className="text-center">
             <Link to="/home">
               <button className="btn btn-danger mb-4 rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>
@@ -323,7 +459,7 @@ const ReportPreview = () => {
       <option value="portrait">Portrait</option>
       <option value="landscape">Landscape</option>
     </select>
-    <input
+    {/* <input
       type="number"
       title='Scale 0.80 to 1.20'
       id="scale"
@@ -333,8 +469,8 @@ const ReportPreview = () => {
       className='btn btn-danger rounded-pill'
       step={0.01} // Optional: Set step for finer control (adjust as needed)
       onChange={handleScaleChange}
-    />
-           <button className="btn btn-warning text-center m-auto rounded-pill me-1" onClick={generatePdf}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
+    /> */}
+           <button className="btn btn-warning text-center m-auto rounded-pill me-1" onClick={generatePDF}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
            <button className="btn btn-success text-center m-auto rounded-pill" onClick={generateExcel}>Export Excel <i class="bi bi-filetype-xls"></i></button>
           </div>
   

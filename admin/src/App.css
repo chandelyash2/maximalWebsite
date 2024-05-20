@@ -58,22 +58,6 @@ body {
   height: 65px;
 }
 
-.nav-link 
-{
-  font-family: 'Montserrat', sans-serif !important;
-
-}
-
-.nav-link
-{
-  border: 1px solid transparent !important;
-}
-
-.nav-link:hover
-{
-  border: 1px solid blue;
-}
-
 label
 {
   margin-bottom: 5px;

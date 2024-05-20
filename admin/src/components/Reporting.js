@@ -15,7 +15,7 @@ const Reporting = () => {
   return (
 <div className="container-fluid">
   <div className='row justify-content-center'>
-    <div className='fixed-width-container d-flex flex-column align-items-center'>
+    <div className='d-flex flex-column align-items-center fixed-width-container '>
       <Link to="/home">
       <button className="btn btn-danger my-2 rounded-pill w-100 mb-4 align-items-center"><h3>ADMINISTRATOR PORTAL</h3></button>
       </Link>
