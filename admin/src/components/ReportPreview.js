@@ -122,7 +122,9 @@ const ReportPreview = () => {
 
         const generatePDF = () => {
           
-          const doc = new jsPDF(orientation);//'landscape'
+          const doc = new jsPDF(orientation);
+
+          const tw = orientation === 'portrait' ? '60%' : '40%';
       
           // Add title with background
           const styles = {
@@ -136,14 +138,10 @@ const ReportPreview = () => {
               textColor: 0,
               fontSize: 10,
             },
-            columnStyles: {
-              0: { cellWidth: '20%' },
-              1: { cellWidth: '80%' },
-            },
             didParseCell: (data) => {
               // Apply custom styles to the first column in the body section
-              if (data.section === 'body' && data.column.index === 0) {
-                data.cell.styles.fillColor = [142, 2, 2];
+              if (data.section === 'body' && data.column.index === 0 || data.section === 'body' && data.column.index === 2 && data.cell.raw != ' ' ) {
+                data.cell.styles.fillColor = [89, 53, 33];
                 data.cell.styles.textColor = [255, 255, 255];
               }
             },
@@ -157,21 +155,36 @@ const ReportPreview = () => {
             },
           };
 
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const textWidth = doc.getStringUnitWidth(reportName) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+          const xPosition = (pageWidth - textWidth) / 2;
+          const columnStyles = {
+            0: { cellWidth: 50 }, // 40% of table width
+            1: { cellWidth: 50 }, // 60% of table width
+            2: { cellWidth: 50 }, // 40% of table width
+            3: { cellWidth: 50 }, // 60% of table width
+          };
+          // Add centered heading
+          doc.setFontSize(18);
+          doc.text(reportName, xPosition, 20);
+
           if (reportType === "Tabular Report") {
           const headerData = [
-            ['Company Name', companyName],
-            ['Company Location', companyLocation],
-            ['Start Date', startDate],
-            ['End Date', endDate],
-            ['Start Time', '06:00 AM'],
-            ['End Time', '06:00 PM']
+            ['Company Name', companyName,' ',' '],
+            ['Company Location', companyLocation,' ',' '],
+            ['Start Date', startDate,'End Date', endDate],
+            ['Start Time', '06:00 AM','End Time', '06:00 PM'],
           ];
 
           doc.autoTable({
             // head: [['Field', 'Value']],
             body: headerData,
-            ...styles,
+            startY: 30, 
+            tableWidth: tw,
             theme: 'plain',
+            ...styles,
+            columnStyles: columnStyles,
+            
           });
       
           const styles1 = {
@@ -197,7 +210,6 @@ const ReportPreview = () => {
             // body: tableData1,
             ...styles1,
           });
-
        
           }
           else if (reportType === "Document Report") {
@@ -208,17 +220,24 @@ const ReportPreview = () => {
               ['Time', '06:00 AM']
             ];
             
+            const columnStyles = {
+              0: { cellWidth: 50 }, // 40% of table width
+              1: { cellWidth: 50 }, // 60% of table width
+            };
+
             doc.autoTable({
               // head: [['Field', 'Value']],
               body: headerData,
+              startY: 30, 
               ...styles,
               theme: 'plain',
+              columnStyles: columnStyles,
             });
 
             let lastSpecialCaseHandled = false;
-            let rowIndex = 5;
+            let rowIndex = 7;
 
-            // const sortedColumns = columns.sort((a, b) => a.sequence - b.sequence);
+            doc.setFontSize(10);
 
             columns.forEach((column) => {
               if (column.title === 'blank') {
@@ -234,13 +253,13 @@ const ReportPreview = () => {
               } else {
                 xCoordinate = lastSpecialCaseHandled ? 100 : 10;
               }
-          
+              
               const columnWidth = column.width === '100%' ? 190 : 45;
           
-              doc.setFillColor(142, 2, 2); // Red background fill
+              doc.setFillColor(89, 53, 33); // Red background fill
               doc.rect(xCoordinate, rowIndex * 10 - 7, columnWidth, 10, 'F'); // Adjust as needed for title
               doc.setTextColor(255, 255, 255); // White text color
-              doc.text(column.title, xCoordinate, rowIndex * 10); // Adjust as needed for title
+              doc.text(' '+column.title, xCoordinate, rowIndex * 10); // Adjust as needed for title
               doc.setTextColor(0, 0, 0); // Reset text color
           
               if (column.width !== '100%') {
@@ -297,6 +316,15 @@ const ReportPreview = () => {
               ['End Time', '06:00 PM']
             ];
         
+            // worksheet.addRow([]);
+            const titleRow = worksheet.addRow([reportName]);
+            titleRow.font = { size: 18, bold: true };
+            worksheet.mergeCells(`A${titleRow.number}:${String.fromCharCode(64 + columns.length)}${titleRow.number}`);
+            titleRow.alignment = { horizontal: 'center', vertical: 'center' };
+          
+            // Skip a row after the title
+            worksheet.addRow([]);
+
             // Add headers
             for (let i = 0; i < headerData.length; i++) {
               worksheet.addRow(headerData[i]);
@@ -319,7 +347,7 @@ const ReportPreview = () => {
 
             let columnIndex = 1;
             columns.forEach((column, index) => {
-              const headerCell = worksheet.getCell(`${String.fromCharCode(64 + columnIndex)}${8}`); // Use ASCII code for column letter
+              const headerCell = worksheet.getCell(`${String.fromCharCode(64 + columnIndex)}${10}`); // Use ASCII code for column letter
               worksheet.getColumn(columnIndex).width = column.width;
               headerCell.value = column.title;
               headerCell.border = {top: borderStyle, left: borderStyle, bottom: borderStyle, right: borderStyle,};
@@ -337,6 +365,25 @@ const ReportPreview = () => {
             //  
             // * * * * * * * * * * * * * * * * * * * * * * * * * * * 
            else if (reportType === "Document Report") {
+
+            // worksheet.addRow([]);
+            const titleRow = worksheet.addRow([reportName]);
+            titleRow.font = { size: 18, bold: true };
+            worksheet.mergeCells(`A${titleRow.number}:D${titleRow.number}`);
+            titleRow.alignment = { horizontal: 'center', vertical: 'center' };
+
+            worksheet.getCell('A1').font = {
+              name: 'Comic Sans MS',
+              family: 4,
+              size: 18,
+              underline: true,
+              bold: true
+            };
+    
+          
+            // Skip a row after the title
+            worksheet.addRow([]);
+
             const headerData = [
               ['Company Name', companyName],
               ['Company Location', companyLocation],
@@ -365,7 +412,7 @@ const ReportPreview = () => {
 
         
             // Handle special cases in "Document Report" (assuming "columns" data is available)
-            let last,lr=0,i=5; // Keep track of last special case handled
+            let last,lr=0,i=7; // Keep track of last special case handled
             
      
 

@@ -56,6 +56,10 @@ const ReportTemplateNew = () => {
         {
           navigate(`/ReportCustomizeDocument/${newReportTempId}`);
         }
+        if(reportType=="Hybrid Report")
+          {
+            navigate(`/ReportCustomizeHybrid/${newReportTempId}`);
+          }
       } catch (error) {
         alert('Error saving report Template:' + error);
       }
@@ -83,9 +87,10 @@ const ReportTemplateNew = () => {
             {/* <button className='btn btn-danger rounded-pill px-5 my-2 w-100 mb-3'>Select Report Type</button> */}
             <div class="fixed-width">
 
-              <select className="custom-select" id="reportType" value={reportType} onChange={(e) => setReportType(e.target.value)} size="2">
+              <select className="custom-select" id="reportType" value={reportType} onChange={(e) => setReportType(e.target.value)} size="3">
                 <option value="Tabular Report">Tabular Report</option>
                 <option value="Document Report">Document Report</option>
+                <option value="Hybrid Report">Hybrid Report</option>
               </select>
             </div>
             <button className='btn btn-danger rounded-pill my-2 w-100 mt-3' onClick={handleCreateReport}>Submit</button>
