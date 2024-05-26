@@ -14,7 +14,7 @@ import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
 import ReportCustomizeTabular from './components/ReportCustomizeTabular.js';
-import ReportCustomizeHybrid from './components/ReportCustomizeHybrid.js'
+import ReportCustomizeHybrid from './components/ReportCustomizeHybrid/ReportCustomizeHybrid.js'
 import ReportSelector from './components/ReportSelector.js';
 import Reporting from './components/Reporting.js';
 import ReportTemplateNew from './components/ReportTemplateNew.js';

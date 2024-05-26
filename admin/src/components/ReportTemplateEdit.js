@@ -147,7 +147,9 @@ function ReportTemplateEdit() {
                     <td className='text-center'>{template.companyName}</td>
                     <td className='text-center'>{template.companyLocation}</td>
                     <td className='text-center d-flex flex-columns justify-content-center'> 
-                      <Link to={template.type === "Tabular Report" ? `/ReportCustomizeTabular/${template.id}` : `/ReportCustomizeDocument/${template.id}`} className="btn btn-danger rounded-pill text-center" title='Edit'><i className="bi bi-pencil-square"></i></Link>
+                      <Link to={template.type === "Tabular Report" ? `/ReportCustomizeTabular/${template.id}` : 
+                                template.type === "Hybrid Report" ? `/ReportCustomizeHybrid/${template.id}` : `/ReportCustomizeDocument/${template.id}`} 
+                                className="btn btn-danger rounded-pill text-center" title='Edit'><i className="bi bi-pencil-square"></i></Link>
                       <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(template.id)}><i className="bi bi-trash3"></i></button>
                       <button className="btn btn-danger rounded-pill text-center me-1" title='Replicate' onClick={() => handleReplicate(template.id)}><i class="bi bi-copy"></i></button>
                       
