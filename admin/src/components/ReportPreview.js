@@ -100,26 +100,6 @@ const ReportPreview = () => {
         //
         // * * * * * * * * * * * * * * * * * * * *
 
-        const generatePdf = async () => {
-          const element = htmlRef.current;
-
-          try {
-            const canvas = await html2canvas(element,  {
-              scale, // Optional: Try a slight scaling factor
-              logging: true, // Enable logging for debugging
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-        
-            const doc = new jsPDF(orientation);//'landscape'
-            doc.addImage(imgData, 'PNG', 10, 10);
-            doc.save('report.pdf');
-            setPdfData(doc.output()); // Optional for displaying PDF data
-          } catch (error) {
-            console.error('Error generating PDF:', error);
-          }
-        };
-
         const generatePDF = () => {
           
           const doc = new jsPDF(orientation);

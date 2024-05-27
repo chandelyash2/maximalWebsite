@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ComboBox = ({ options, value, onChange, onAddOption }) => {
+const ComboBox = ({ tableIndex, columnIndex, options = [], value = '', onChange = () => {}, onAddOption = () => {} }) => {
   const [newOption, setNewOption] = useState('');
   const [editIndex, setEditIndex] = useState(null);
 
@@ -18,22 +18,23 @@ const ComboBox = ({ options, value, onChange, onAddOption }) => {
 
   const handleUpdateOption = () => {
     if (editIndex !== null && newOption && !options.includes(newOption)) {
-      options[editIndex] = newOption;
+      const updatedOptions = [...options];
+      updatedOptions[editIndex] = newOption;
+      onChange(newOption); // Update the value to the new option
       setNewOption(''); // Clear the input field
       setEditIndex(null);
     }
   };
 
-
   return (
     <div>
       <select
         className="form-control btn-danger rounded my-1 text-center w-100"
-        value={value} size="5"
+        value={value}
+        size="5"
         onChange={(e) => {
           onChange(e.target.value);
           handleEditOption(e.target.selectedIndex); // Pass the index of the selected option to handleEditOption
-          
         }}
         onBlur={() => setEditIndex(null)}
       >
@@ -43,7 +44,7 @@ const ComboBox = ({ options, value, onChange, onAddOption }) => {
           </option>
         ))}
       </select>
-      
+
       {/* Input and buttons for adding and editing options */}
       <div className="input-group mb-3">
         <input
@@ -54,13 +55,15 @@ const ComboBox = ({ options, value, onChange, onAddOption }) => {
           placeholder={editIndex !== null ? 'Edit option' : 'Add new option'}
         />
         {editIndex !== null ? (
-          <button className="btn btn-outline-secondary w-25" type="button" onClick={handleUpdateOption}>Update</button>
+          <button className="btn btn-outline-secondary w-25" type="button" onClick={handleUpdateOption}>
+            Update
+          </button>
         ) : (
-          <button className="btn btn-outline-secondary w-25" type="button" onClick={handleAddOption}>&nbsp; Add &nbsp;</button>
+          <button className="btn btn-outline-secondary w-25" type="button" onClick={handleAddOption}>
+            Add
+          </button>
         )}
-        
       </div>
-      
     </div>
   );
 };
