@@ -1,7 +1,7 @@
-// src/components/ReportCustomizeHybrid/ColumnRow.js
+// src/components/ReportCustomizeHybrid/Tabular.js
 import React from 'react';
 
-const ColumnRow = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRow }) => (
+const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRow }) => (
   <tr>
     <td>
       <input
@@ -71,4 +71,4 @@ const ColumnRow = ({ tableIndex, columnIndex, column, handleChange, handleDelete
   </tr>
 );
 
-export default ColumnRow;
+export default Tabular;

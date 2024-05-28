@@ -36,7 +36,6 @@ const ComboBox = ({ tableIndex, columnIndex, options = [], value = '', onChange 
           onChange(e.target.value);
           handleEditOption(e.target.selectedIndex); // Pass the index of the selected option to handleEditOption
         }}
-        onBlur={() => setEditIndex(null)}
       >
         {options.map((option, idx) => (
           <option key={idx} value={option}>

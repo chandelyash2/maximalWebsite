@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DocumentColumnRow = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow }) => {
+const Document = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow }) => {
   return (
     <tr>
       <td><input type="text" className="form-control btn-danger rounded my-1 text-center" value={column.sequence} onChange={(e) => handleChange(tableIndex, columnIndex, 'sequence', e.target.value)} /></td>
@@ -18,4 +18,4 @@ const DocumentColumnRow = ({ tableIndex, column, columnIndex, handleChange, hand
   );
 };
 
-export default DocumentColumnRow;
+export default Document;

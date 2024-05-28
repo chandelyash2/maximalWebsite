@@ -1,7 +1,7 @@
 import React from 'react';
 import ComboBox from './ComboBox';
 
-const BoolColumnRow = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow, handleAddOption }) => (
+const Toogle = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow, handleAddOption }) => (
   <tr>
     <td>
       <input
@@ -53,4 +53,4 @@ const BoolColumnRow = ({ tableIndex, column, columnIndex, handleChange, handleDe
   </tr>
 );
 
-export default BoolColumnRow;
+export default Toogle;

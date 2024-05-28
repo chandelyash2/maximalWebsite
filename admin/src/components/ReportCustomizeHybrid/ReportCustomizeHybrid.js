@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database';
 import { database } from '../../firebaseconfig';
-import ColumnRow from './ColumnRow';
-import BoolColumnRow from './BoolColumnRow';
-import DocumentColumnRow from './DocumentColumnRow';
+import Tabular from './Tabular';
+import Toogle from './Toogle';
+import Document from './Document';
 
 const ReportCustomizeHybrid = () => {
   const { reportTempId } = useParams();
@@ -286,7 +286,7 @@ const ReportCustomizeHybrid = () => {
                   {table.columns.map((column, columnIndex) => {
                     if (table.type === 'Document') {
                       return (
-                        <DocumentColumnRow
+                        <Document
                           tableIndex={tableIndex}
                           columnIndex={columnIndex}
                           column={column}
@@ -297,7 +297,7 @@ const ReportCustomizeHybrid = () => {
                       );
                     } else if (table.type === 'Toggle') {
                       return (
-                        <BoolColumnRow
+                        <Toogle
                           key={columnIndex}
                           tableIndex={tableIndex}
                           column={column}
@@ -309,7 +309,7 @@ const ReportCustomizeHybrid = () => {
                       );
                     } else {
                       return (
-                        <ColumnRow
+                        <Tabular
                           tableIndex={tableIndex}
                           columnIndex={columnIndex}
                           column={column}
