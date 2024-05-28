@@ -54,47 +54,51 @@ const ReportCustomizeHybrid = () => {
     setShowAddTableModal(false);
   };
 
-  const handleTableChange = (index, field, value) => {
-    setTables((prevTables) => {
-      const updatedTables = [...prevTables];
-      updatedTables[index][field] = value;
-      return updatedTables;
-    });
+  const handleDeleteTable = (tableIndex) => {
+    const updatedTables = [...tables];
+    updatedTables.splice(tableIndex, 1);
+    setTables(updatedTables);
   };
+
+  const handleTableNameChange = (tableIndex, value) => {
+    const updatedTables = [...tables];
+    updatedTables[tableIndex].name = value;
+    setTables(updatedTables);
+  };
+
 
   const handleAddColumn = (tableIndex) => {
     const updatedTables = [...tables];
     const newColumn = {};
-
-    switch (updatedTables[tableIndex].tabletype) {
+  
+    switch (updatedTables[tableIndex].type) { // Assuming table type is stored in `type`
       case 'Document':
-        newColumn={sequence: '', position: 'Header', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' };
+        Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' });
         break;
       case 'Toggle':
-        newColumn= { sequence: '', title: 'Title', item: '', description: 'No', options: ['test'] };
+        Object.assign(newColumn, { sequence: '', title: 'Title', item: '', description: 'No', options: ['test'] });
         break;
       case 'Tabular':
-        newColumn={ sequence: '', position: 'Header', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' };
+        Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' });
         break;
       default:
-        break;
+        return; // Do nothing if type is not recognized
     }
+  
     updatedTables[tableIndex].columns.push(newColumn);
-    setTables(updatedTables);
-
-  };
-
-  const handleChange = (index, fieldName, value) => {
-    const updatedTables = [...tables];
-    updatedTables[index].columns = updatedTables[index].columns.map((column, idx) => {
-      if (idx === index) {
-        return { ...column, [fieldName]: value };
-      }
-      return column;
-    });
     setTables(updatedTables);
   };
   
+
+  const handleChange = (tableIndex, columnIndex, fieldName, value) => {
+
+    if (value === undefined) return; // Avoid updating with undefined value
+
+    const updatedTables = [...tables];
+    // alert(tableIndex+", "+columnIndex+", "+fieldName+", VALUE ("+value+"), FIELDNAME:- "+updatedTables[tableIndex].columns[columnIndex][fieldName]);
+    updatedTables[tableIndex].columns[columnIndex][fieldName] = value;
+    setTables(updatedTables);
+  };
   
   const handleDeleteRow = (tableIndex, columnIndex) => {
     const updatedTables = [...tables];
@@ -153,14 +157,7 @@ const ReportCustomizeHybrid = () => {
     navigate(`/previewReport/${reportTempId}`, { state: reportData });
   };
 
-  const handleTableNameChange = (tableIndex, newName) => {
-    setTables((prevTables) => {
-      const updatedTables = [...prevTables];
-      updatedTables[tableIndex].name = newName;
-      return updatedTables;
-    });
-  };
-  
+
 
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
@@ -223,8 +220,22 @@ const ReportCustomizeHybrid = () => {
           </form>
           {tables.map((table, tableIndex) => (
             <div key={table.id}>
-              <h5>{`Table ${tableIndex + 1}: ${table.name} (${table.type})`}</h5>
-              <hr />
+              <div className="d-flex justify-content-start align-items-center rounded-pill border border-light border-2 p-2 mb-3">
+                
+              <h5>{`Table ${tableIndex + 1}: (${table.type})`}</h5>
+              <input
+                    type="text"
+                    className="form-control btn-danger rounded-pill my-1 w-25 mx-5"
+                    value={table.name}
+                    onChange={(e) => handleTableNameChange(tableIndex, e.target.value)}
+                    placeholder="Table Name"
+                    title='Table Name'
+                  />
+                 
+                   <button className="btn btn-dark rounded-pill" onClick={() => handleDeleteTable(tableIndex)} title={`Delete Table ${table.name}`}>
+                  <i className="bi bi-trash"></i>
+                </button>
+                </div>
               <table className="mb-5" width="100%">
                 <thead className="thead-dark">
                   {table.type === 'Document' && (
@@ -276,10 +287,11 @@ const ReportCustomizeHybrid = () => {
                     if (table.type === 'Document') {
                       return (
                         <DocumentColumnRow
-                          key={columnIndex}
+                          tableIndex={tableIndex}
+                          columnIndex={columnIndex}
                           column={column}
                           index={columnIndex}
-                          handleChange={(field, value) => handleChange(tableIndex, columnIndex, field, value)}
+                          handleChange={handleChange}
                           handleDeleteRow={() => handleDeleteRow(tableIndex, columnIndex)}
                         />
                       );
@@ -298,10 +310,10 @@ const ReportCustomizeHybrid = () => {
                     } else {
                       return (
                         <ColumnRow
-                          key={columnIndex}
+                          tableIndex={tableIndex}
+                          columnIndex={columnIndex}
                           column={column}
-                          index={columnIndex}
-                          handleChange={(field, value) => handleChange(tableIndex, columnIndex, field, value)}
+                          handleChange={handleChange}
                           handleDeleteRow={() => handleDeleteRow(tableIndex, columnIndex)}
                         />
                       );
