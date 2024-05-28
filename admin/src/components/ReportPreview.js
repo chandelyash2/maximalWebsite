@@ -14,8 +14,6 @@ const ReportPreview = () => {
   const [reportName, setReportName] = useState('');
   const [reportType, setReportType] = useState('Document Report');
   const [columns, setColumns] = useState([]);
-  const [employeeUserId, setEmployeeUserId] = useState('');
-  const [customerUserId, setCustomerUserId] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -23,23 +21,13 @@ const ReportPreview = () => {
   const [endDate, setEndDate] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [pdfData, setPdfData] = useState(null);
   const htmlRef = useRef(null);
   const [orientation, setOrientation] = useState('portrait');
-  const [scale, setScale] = useState(0.85); // Default scale
 
   const handleOrientationChange = (event) => {
     setOrientation(event.target.value);
   };
 
-  const handleScaleChange = (event) => {
-    const newScale = parseFloat(event.target.value);
-    if (newScale >= 0.8 && newScale <= 1.2) { // Validate scale between 80% and 120%
-      setScale(newScale);
-    } else {
-      console.warn('Invalid scale value. Please enter a value between 0.8 and 1.2.');
-    }
-  };
 
   useEffect(() => {
     if (reportTempId) {
@@ -55,8 +43,6 @@ const ReportPreview = () => {
             setColumns(data.columns || []); // Ensure columns is always initialized as an array
             setCompanyName(data.companyName);
             setCompanyLocation(data.companyLocation);
-            setEmployeeUserId(data.employeeUserId);
-            setCustomerUserId(data.customerUserId);
             setStartDate(data.startDate);
             setEndDate(data.endDate);
             }
@@ -67,8 +53,6 @@ const ReportPreview = () => {
               // setColumns(data.columns || []); // Ensure columns is always initialized as an array
               setCompanyName(data.companyName);
               setCompanyLocation(data.companyLocation);
-              setEmployeeUserId(data.employeeUserId);
-              setCustomerUserId(data.customerUserId);
               setDate(data.date);
 
               const columnsData = data.columns || [];
@@ -486,24 +470,10 @@ const ReportPreview = () => {
       <option value="portrait">Portrait</option>
       <option value="landscape">Landscape</option>
     </select>
-    {/* <input
-      type="number"
-      title='Scale 0.80 to 1.20'
-      id="scale"
-      value={scale}
-      min={0.8}
-      max={1.2}
-      className='btn btn-danger rounded-pill'
-      step={0.01} // Optional: Set step for finer control (adjust as needed)
-      onChange={handleScaleChange}
-    /> */}
            <button className="btn btn-warning text-center m-auto rounded-pill me-1" onClick={generatePDF}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
            <button className="btn btn-success text-center m-auto rounded-pill" onClick={generateExcel}>Export Excel <i class="bi bi-filetype-xls"></i></button>
           </div>
-  
-          {/* Form inputs 
-          'Company Name','','','','','','',
-          */}
+
           <div ref={htmlRef}>
           {/* Report Name and Type inputs */}
           {reportType === "Tabular Report" && (

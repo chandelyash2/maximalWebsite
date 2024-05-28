@@ -154,7 +154,7 @@ const ReportCustomizeHybrid = () => {
 
   const handlePreview = () => {
     const reportData = { tables };
-    navigate(`/previewReport/${reportTempId}`, { state: reportData });
+    navigate(`/ReportPreviewHybrid/${reportTempId}`, { state: reportData });
   };
 
 
