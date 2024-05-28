@@ -107,7 +107,7 @@ const ReportCustomizeHybrid = () => {
   };
 
   const handleUpdateReportTemplate = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const reportTemplateRef = ref(database, `reportTemplates/${reportTempId}`);
     const updatedReportTemplate = {
       name: reportName,
@@ -153,6 +153,7 @@ const ReportCustomizeHybrid = () => {
   
 
   const handlePreview = () => {
+    handleUpdateReportTemplate();
     const reportData = { tables };
     navigate(`/ReportPreviewHybrid/${reportTempId}`, { state: reportData });
   };
@@ -179,6 +180,8 @@ const ReportCustomizeHybrid = () => {
               onChange={(e) => setReportName(e.target.value)}
               placeholder='Report Name....'
             />
+            <button className="btn btn-success px-5 m-auto my-2 mx-5" onClick={handlePreview}><i class='bi bi-printer'></i></button>
+                   
           </div>
           <form className="mb-4">
             <div className="form-group row">
