@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get } from 'firebase/database';
 import { database } from '../../firebaseconfig';
+import ToggleTable from './ToggleTable'; 
+import DocumentTable from './DocumentTable';
 
 const ReportPreviewHybrid = () => {
   const { reportTempId } = useParams();
@@ -114,23 +116,8 @@ const ReportPreviewHybrid = () => {
                 </div>
               )}
 
-              {table.type === "Document" && (
-                <div>    
-                  {table.columns && table.columns
-                    .sort((a, b) => a.sequence - b.sequence)
-                    .map((column, index) => (
-                      column.title === 'blank' ? (
-                        <div key={index} className="w-50" style={{ display: 'inline-block', minHeight: column.height + "px" }}>
-                        </div>
-                      ) : (
-                        <div key={index} style={{ display: column.width === '100%' ? 'block' : 'inline-block', width: column.width === '100%' ? '100%' : '45%' }}>
-                          <button className="btn my-1 btn-danger text-center rounded" style={{ width: column.width === '100%' ? '24%' : '49%' }}>{column.title}</button>
-                          <p className={`my-1 pt-3 text-start overflow-auto ps-5 ${column.border === "Yes" ? 'border border-1 border-dark' : ''}`} style={{ display: column.width === '100%' ? 'block' : 'inline-block', width: column.width === '100%' ? '100%' : '48%', minHeight: column.height + "px" }}>.....data.....</p>
-                        </div>
-                      )
-                    ))}
-                </div>
-              )}
+              {table.type === "Document" && table.columns && <DocumentTable columns={table.columns} />}
+              {table.type === "Toggle" && (<ToggleTable key={tableIndex} table={table} />)}
             </div>
           ))}
 

@@ -76,7 +76,7 @@ const ReportCustomizeHybrid = () => {
         Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' });
         break;
       case 'Toggle':
-        Object.assign(newColumn, { sequence: '', title: 'Title', item: '', description: 'No', options: ['test'] });
+        Object.assign(newColumn, { sequence: '', title: 'Title', item: '', description: 'No', options: [] });
         break;
       case 'Tabular':
         Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' });
@@ -243,10 +243,10 @@ const ReportCustomizeHybrid = () => {
                 <thead className="thead-dark">
                   {table.type === 'Document' && (
                     <tr>
-                      <th scope="col" className="btn-danger rounded text-center">Sequence</th>
-                      <th scope="col" className="btn-danger rounded text-center">Title</th>
-                      <th scope="col" className="btn-danger rounded text-center">Height</th>
-                      <th scope="col" className="btn-danger rounded text-center">Width</th>
+                         <th scope="col" className="btn-danger rounded text-center" width="12%">Sequence</th>
+                      <th scope="col" className="btn-danger rounded text-center" width="30%">Title</th>
+                      <th scope="col" className="btn-danger rounded text-center">Height<br />(px)</th>
+                      <th scope="col" className="btn-danger rounded text-center" width="10%">Width<br />(%)</th>
                       <th scope="col" className="btn-danger rounded text-center">Specific Format</th>
                       <th scope="col" className="btn-danger rounded text-center">Border</th>
                       <th scope="col" className="rounded text-center">
