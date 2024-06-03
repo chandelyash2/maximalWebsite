@@ -9,7 +9,6 @@ import Document from './Document';
 const ReportCustomizeHybrid = () => {
   const { reportTempId } = useParams();
   const navigate = useNavigate();
-
   const [reportName, setReportName] = useState('');
   const [reportType, setReportType] = useState('Hybrid Report');
   const [tables, setTables] = useState([]);
@@ -151,14 +150,11 @@ const ReportCustomizeHybrid = () => {
     });
   };
   
-
   const handlePreview = () => {
     handleUpdateReportTemplate();
     const reportData = { tables };
     navigate(`/ReportPreviewHybrid/${reportTempId}`, { state: reportData });
   };
-
-
 
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
@@ -225,7 +221,7 @@ const ReportCustomizeHybrid = () => {
             <div key={table.id}>
               <div className="d-flex justify-content-start align-items-center rounded-pill border border-light border-2 p-2 mb-3">
                 
-              <h5>{`Table ${tableIndex + 1}: (${table.type})`}</h5>
+              <h5 className='w-25 text-center'>{`Table ${tableIndex + 1}: (${table.type})`}</h5>
               <input
                     type="text"
                     className="form-control btn-danger rounded-pill my-1 w-25 mx-5"
@@ -235,7 +231,7 @@ const ReportCustomizeHybrid = () => {
                     title='Table Name'
                   />
                  
-                   <button className="btn btn-dark rounded-pill" onClick={() => handleDeleteTable(tableIndex)} title={`Delete Table ${table.name}`}>
+                   <button className="btn btn-warning rounded-pill" onClick={() => handleDeleteTable(tableIndex)} title={`Delete Table ${table.name}`}>
                   <i className="bi bi-trash"></i>
                 </button>
                 </div>

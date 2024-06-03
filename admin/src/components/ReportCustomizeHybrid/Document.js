@@ -37,7 +37,7 @@ const Document = ({ tableIndex, column, columnIndex, handleChange, handleDeleteR
       </select>
        </td>
       <td className="text-center">
-        <button className="btn btn-danger rounded-pill" onClick={() => handleDeleteRow(tableIndex, columnIndex)}>
+        <button className="btn btn-warning text-dark rounded-pill" onClick={() => handleDeleteRow(tableIndex, columnIndex)}>
           <i className="bi bi-trash"></i>
         </button>
       </td>

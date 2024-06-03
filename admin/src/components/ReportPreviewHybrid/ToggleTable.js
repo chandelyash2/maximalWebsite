@@ -6,7 +6,7 @@ const ToggleTable = ({ table }) => {
 
   return (
     <div>
-      <table className=" table-bordered" width="100%">
+      <table className="table-bordered" width="100%">
         <thead className="thead-dark">
           <tr>
             {table.columns && table.columns
@@ -15,14 +15,14 @@ const ToggleTable = ({ table }) => {
                 <React.Fragment key={index}>
                   <th 
                     scope="col" 
-                    className='btn-danger rounded text-center' 
+                    className='text-center py-1' 
                     width={column.width + "%"}
                   >
                     {column.title}
                   </th>
                   <th 
                     scope="col" 
-                    className='btn-danger rounded text-center' 
+                    className='text-center py-1' 
                     width={column.width + "%"}
                   >
                     Yes/No
@@ -30,7 +30,7 @@ const ToggleTable = ({ table }) => {
                   {column.description === 'Yes' && (
                     <th 
                       scope="col" 
-                      className='btn-danger rounded text-center' 
+                      className='text-center py-1' 
                       width="30%"
                     >
                       Description
@@ -49,20 +49,20 @@ const ToggleTable = ({ table }) => {
                 .map((column, colIndex) => (
                   <React.Fragment key={colIndex}>
                     <td 
-                      className="text-center" 
+                      className="text-start ps-3 py-1" 
                       width={column.width + "%"}
                     >
                       {column.options[rowIndex] || ""}
                     </td>
                     <td 
-                      className="text-center" 
+                      className="text-center py-1" 
                       width={column.width + "%"}
                     >
                       {/* Add your Yes/No logic here if applicable */}
                     </td>
                     {column.description === 'Yes' && (
                       <td 
-                        className="text-center" 
+                        className="text-center py-1" 
                         width={column.width + "%"}
                       >
                         {/* Add your Description logic here if applicable */}
@@ -74,7 +74,7 @@ const ToggleTable = ({ table }) => {
           ))}
         </tbody>
       </table>
-      <hr />
+      {/* <hr /> */}
     </div>
   );
 }
