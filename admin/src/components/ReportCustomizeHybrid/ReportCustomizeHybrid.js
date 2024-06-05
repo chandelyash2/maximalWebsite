@@ -97,6 +97,12 @@ const ReportCustomizeHybrid = () => {
     // alert(tableIndex+", "+columnIndex+", "+fieldName+", VALUE ("+value+"), FIELDNAME:- "+updatedTables[tableIndex].columns[columnIndex][fieldName]);
     updatedTables[tableIndex].columns[columnIndex][fieldName] = value;
     setTables(updatedTables);
+
+    if(fieldName=="format" && value=="fixed value")
+      {
+        alert('fixed value..');
+      }
+
   };
   
   const handleDeleteRow = (tableIndex, columnIndex) => {

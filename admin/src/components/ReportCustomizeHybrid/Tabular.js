@@ -47,6 +47,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
         <option value="date">Date</option>
         <option value="time">Time</option>
         <option value="textarea">Long Text</option>
+        <option value="fixed value">Fixed Value</option>
         <option value="photo">Photo Upload</option>
       </select>
     </td>
