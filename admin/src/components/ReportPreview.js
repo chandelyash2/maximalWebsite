@@ -1,3 +1,8 @@
+// AUTHOR : PANKAJ OJHA
+// this page is removed from link, due to removal of tabular and document report creation
+// because after Hybrid Report, The only hybrid will also cover these two typesof reports.
+// So It's just lying as in-active page (for code backup)
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database'; 

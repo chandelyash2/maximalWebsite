@@ -48,14 +48,20 @@ const ReportPreviewHybrid = () => {
     const PDFTabular = (columns,doc) => {
       const styles1 = {
           headStyles: {
-            fillColor: [89, 53, 33],
-            textColor: [255, 255, 255],
+            fillColor: [255, 255, 255],
+            textColor: [0, 0, 0],
             fontSize: 10,
             fontStyle: 'bold',
+            border: '1px solid black',
+            tableLineColor: [0, 0, 0],
+              tableLineWidth: 10,
           },
           bodyStyles: {
             textColor: 0,
             fontSize: 10,
+            border: '1px solid black',
+            tableLineColor: [0, 0, 0],
+              tableLineWidth: 10,
           },
           columnStyles: columns.reduce((acc, column, index) => {
             acc[index] = { cellWidth: column.width };
@@ -109,15 +115,24 @@ const ReportPreviewHybrid = () => {
       const PDFToggle = (columns,doc) => 
         {
           const styles1 = {
+            table: { // Add a class name for the table
+              borderCollapse: 'collapse', // Ensure borders don't overlap (optional)
+            },
             headStyles: {
-              fillColor: [89, 53, 33],
-              textColor: [255, 255, 255],
+              fillColor: [255, 255, 255],
+              textColor: [0, 0, 0],
               fontSize: 10,
               fontStyle: 'bold',
+              border: '1px solid black',
+              tableLineColor: [0, 0, 0],
+              tableLineWidth: 10,
             },
             bodyStyles: {
               textColor: 0,
               fontSize: 10,
+              border: '1px solid black',
+              tableLineColor: [0, 0, 0],
+              tableLineWidth: 10,
             },
             columnStyles: columns.reduce((acc, column, index) => {
               acc[index] = { cellWidth: column.width };
@@ -190,20 +205,27 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
     // Add title with background
     const styles = {
       headStyles: {
-        fillColor: [142, 2, 2],
-        textColor: 255,
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
         fontSize: 10,
         fontStyle: 'bold',
+        border: '1px solid black',
+        tableLineColor: [0, 0, 0],
+              tableLineWidth: 10,
       },
       bodyStyles: {
         textColor: 0,
         fontSize: 10,
+        border: '1px solid black',
+        tableLineColor: [0, 0, 0],
+              tableLineWidth: 10,
       },
       didParseCell: (data) => {
         if ((data.section === 'body' && data.column.index === 0) ||
             (data.section === 'body' && data.column.index === 2 && data.cell.raw !== ' ')) {
-          data.cell.styles.fillColor = [89, 53, 33];
-          data.cell.styles.textColor = [255, 255, 255];
+          data.cell.styles.fillColor = [255, 255, 255];
+          data.cell.styles.textColor = [0, 0, 0];
+          data.cell.styles.fontStyle = 'bold';
         }
       },
       drawRow: (row, data) => {
@@ -289,29 +311,29 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
         <div className="col-md-8 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
           <div className="text-center">
             <Link to="/home">
-              <button className="btn btn-danger mb-4 rounded-pill px-5">
+              <button className="btn btn-danger mb-4  px-5">
                 <h3>ADMINISTRATOR PORTAL</h3>
               </button>
             </Link>
           </div>
           <div className="text-center">
-            <button className="btn w-25 btn-danger text-center m-auto rounded-pill mb-3">{reportName}</button>
-            <Link className="btn btn-danger text-center m-auto rounded-pill mb-3 ms-2"
+            <button className="btn w-25 btn-danger text-center m-auto mb-3">{reportName}</button>
+            <Link className="btn btn-danger text-center m-auto  mb-3 ms-2"
                   to={`/ReportCustomizeHybrid/${reportTempId}`}
                    title='Edit'><i className="bi bi-pencil-square"></i></Link>
             <br />
-            <select className='btn rounded-pill btn-danger' value={orientation} onChange={handleOrientationChange} title='Orientation'>
+            <select className='btn btn-danger' value={orientation} onChange={handleOrientationChange} title='Orientation'>
               <option value="portrait">Portrait</option>
               <option value="landscape">Landscape</option>
             </select>
-            <button className="btn btn-warning text-center m-auto rounded-pill me-1" onClick={generatePDF}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
-            <button className="btn btn-success text-center m-auto rounded-pill" onClick={generateExcel}>Export Excel <i className="bi bi-filetype-xls"></i></button>
+            <button className="btn btn-warning text-center m-auto me-1" onClick={generatePDF}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
+            <button className="btn btn-success text-center m-auto " onClick={generateExcel}>Export Excel <i className="bi bi-filetype-xls"></i></button>
           </div>
           <div>
-            <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Company Name</button>
-            <button className="btn w-75 my-1 m-auto rounded-pill text-start ps-5">{companyName}</button>
-            <button className="btn w-25 my-1 btn-danger text-center m-auto rounded-pill">Company Location</button>
-            <button className="btn w-75 my-1 m-auto rounded-pill text-start ps-5">{companyLocation}</button>
+            <button className="btn w-25 my-1 btn-danger text-center m-auto ">Company Name</button>
+            <button className="btn w-75 my-1 m-auto text-start ps-5">{companyName}</button>
+            <button className="btn w-25 my-1 btn-danger text-center m-auto ">Company Location</button>
+            <button className="btn w-75 my-1 m-auto text-start ps-5">{companyLocation}</button>
           </div>
 
           {tables.map((table, tableIndex) => (

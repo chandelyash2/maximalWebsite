@@ -19,8 +19,8 @@ const ExportPDF = (
   // Add title with background
   const styles = {
     headStyles: {
-      fillColor: [142, 2, 2],
-      textColor: 255,
+      // fillColor: [142, 2, 2],
+      textColor: 0,
       fontSize: 10,
       fontStyle: 'bold',
     },
@@ -31,8 +31,8 @@ const ExportPDF = (
     didParseCell: (data) => {
       if ((data.section === 'body' && data.column.index === 0) ||
           (data.section === 'body' && data.column.index === 2 && data.cell.raw !== ' ')) {
-        data.cell.styles.fillColor = [89, 53, 33];
-        data.cell.styles.textColor = [255, 255, 255];
+        // data.cell.styles.fillColor = [89, 53, 33];
+        // data.cell.styles.textColor = [255, 255, 255];
       }
     },
     drawRow: (row, data) => {
@@ -96,8 +96,8 @@ const ExportPDF = (
   const PDFTabular = (columns,doc) => {
     const styles1 = {
         headStyles: {
-          fillColor: [89, 53, 33],
-          textColor: [255, 255, 255],
+          // fillColor: [89, 53, 33],
+          // textColor: [255, 255, 255],
           fontSize: 10,
           fontStyle: 'bold',
         },
@@ -142,9 +142,9 @@ const ExportPDF = (
 
       const columnWidth = column.width === '100%' ? 190 : 45;
 
-      doc.setFillColor(89, 53, 33);
+      // doc.setFillColor(89, 53, 33);
       doc.rect(xCoordinate, rowIndex * 10 - 7, columnWidth, 10, 'F');
-      doc.setTextColor(255, 255, 255);
+      // doc.setTextColor(255, 255, 255);
       doc.text(' ' + column.title, xCoordinate, rowIndex * 10);
       doc.setTextColor(0, 0, 0);
 

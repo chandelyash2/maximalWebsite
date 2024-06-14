@@ -93,12 +93,12 @@ function ReportTemplateEdit() {
         <div className="col-md-8 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto'}}>
           <div className="text-center">
             <Link to="/home">
-              <button className="btn btn-danger mb-4 rounded-pill px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>
+              <button className="btn btn-danger mb-4  px-5 "><h3>ADMINISTRATOR PORTAL</h3></button>
             </Link>
           </div>
           {/* Display select options for reportName, companyName, and companyLocation */}
           <div className="mb-3">
-            <select id="reportName" className="form-select btn-danger rounded-pill my-1 text-center w-25" value={selectedReportName} onChange={(e) => setSelectedReportName(e.target.value)}>
+            <select id="reportName" className="form-select btn-danger  my-1 text-center w-25" value={selectedReportName} onChange={(e) => setSelectedReportName(e.target.value)}>
               <option value="">Choose Report Name...</option>
               {[...new Set(reportTemplates.map(template => template.name))].map((name, index) => (
                 <option key={index} value={name}>{name}</option>
@@ -107,7 +107,7 @@ function ReportTemplateEdit() {
           </div>
 
           <div className="mb-3">
-            <select id="companyName" className="form-select btn-danger rounded-pill my-1 text-center w-25" value={selectedCompanyName} onChange={(e) => setSelectedCompanyName(e.target.value)}>
+            <select id="companyName" className="form-select btn-danger  my-1 text-center w-25" value={selectedCompanyName} onChange={(e) => setSelectedCompanyName(e.target.value)}>
               <option value="">Choose Company Name...</option>
               {[...new Set(reportTemplates.map(template => template.companyName))].map((companyName, index) => (
                 <option key={index} value={companyName}>{companyName}</option>
@@ -116,7 +116,7 @@ function ReportTemplateEdit() {
           </div>
 
           <div className="mb-3">
-            <select id="companyLocation" className="form-select btn-danger rounded-pill my-1 text-center w-25" value={selectedCompanyLocation} onChange={(e) => setSelectedCompanyLocation(e.target.value)}>
+            <select id="companyLocation" className="form-select btn-danger  my-1 text-center w-25" value={selectedCompanyLocation} onChange={(e) => setSelectedCompanyLocation(e.target.value)}>
               <option value="">Choose Location...</option>
               {[...new Set(reportTemplates.map(template => template.companyLocation))].map((companyLocation, index) => (
                 <option key={index} value={companyLocation}>{companyLocation}</option>
@@ -130,11 +130,11 @@ function ReportTemplateEdit() {
               <thead>
                 <tr>
                   {/* <th className='btn-danger rounded text-center'>ID</th> */}
-                  <th className='btn-danger rounded text-center'>Type</th>
-                  <th className='btn-danger rounded text-center'>Report Name</th>
-                  <th className='btn-danger rounded text-center'>Company Name</th>
-                  <th className='btn-danger rounded text-center'>Location</th>
-                  <th className='btn-danger rounded text-center'>Action</th>
+                  <th className='btn-danger  text-center'>Type</th>
+                  <th className='btn-danger  text-center'>Report Name</th>
+                  <th className='btn-danger  text-center'>Company Name</th>
+                  <th className='btn-danger  text-center'>Location</th>
+                  <th className='btn-danger  text-center'>Action</th>
                   {/* Add additional table headers as needed */}
                 </tr>
               </thead>

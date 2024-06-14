@@ -5,7 +5,7 @@ const Toogle = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow
   <tr>
     <td>
       <input
-        className="form-control btn-danger rounded my-1 text-center"
+        className="form-control btn-danger  my-1 text-center"
         type="number"
         value={column.sequence}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'sequence', e.target.value)}
@@ -14,7 +14,7 @@ const Toogle = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         type="text"
         value={column.title}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'title', e.target.value)}
@@ -34,7 +34,7 @@ const Toogle = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         value={column.description}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'description', e.target.value)}
       >
@@ -44,7 +44,7 @@ const Toogle = ({ tableIndex, column, columnIndex, handleChange, handleDeleteRow
     </td>
     <td>
       <button
-        className="form-control btn btn-warning rounded my-1 text-center"
+        className="form-control btn btn-warning  my-1 text-center"
         onClick={() => handleDeleteRow(tableIndex, columnIndex)}
       >
         <i className="bi bi-trash3"></i>

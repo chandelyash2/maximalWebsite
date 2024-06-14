@@ -15,7 +15,7 @@ const DocumentTable = ({ columns }) => {
             while (expectedSequence < column.sequence) {
               elements.push(
                 <div key={`blank-${expectedSequence}`} className="col-6 my-1 pt-2">
-                  <div className="d-flex align-items-center justify-content-center border rounded">
+                  <div className="d-flex align-items-center justify-content-center border ">
                     &nbsp;
                   </div>
                 </div>
@@ -31,14 +31,14 @@ const DocumentTable = ({ columns }) => {
               >
                 <div className={`d-flex ${column.width === '100%' ? 'flex-column' : 'flex-wrap'} align-items-start`}>
                   <button
-                    className="btn btn-danger text-center rounded mb-1"
+                    className="btn btn-danger text-center  mb-1"
                     style={{ width: column.width === '100%' ? '25%' : '50%' }}
                   >
                     {column.title}
                   </button>
                   <p
                     className={`text-start overflow-auto float-left ps-3 py-1 ${
-                      column.border === 'Yes' ? 'border border-1 border-dark rounded-pill' : ''
+                      column.border === 'Yes' ? 'border border-1 border-dark ' : ''
                     }`}
                     style={{
                       width: column.width === '100%' ? '100%' : '50%',

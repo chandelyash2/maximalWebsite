@@ -5,7 +5,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
   <tr>
     <td>
       <input
-        className="form-control btn-danger rounded my-1 text-center"
+        className="form-control btn-danger  my-1 text-center"
         type="number"
         value={column.sequence}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'sequence', e.target.value)}
@@ -14,7 +14,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         type="text"
         value={column.title}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'title', e.target.value)}
@@ -22,7 +22,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
     </td>
     <td>
       <input
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         type="text"
         value={column.height}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'height', e.target.value)}
@@ -30,7 +30,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
     </td>
     <td>
     <input
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         type="number"
         value={column.width}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'width', e.target.value)}
@@ -38,7 +38,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         value={column.format}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'format', e.target.value)}
       >
@@ -53,7 +53,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
     </td>
     <td>
       <select
-        className="form-control btn-danger rounded my-1 text-center w-100"
+        className="form-control btn-danger  my-1 text-center w-100"
         value={column.border}
         onChange={(e) => handleChange(tableIndex, columnIndex, 'border', e.target.value)}
       >
@@ -63,7 +63,7 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
     </td>
     <td>
       <button
-        className="form-control btn btn-warning rounded my-1 text-center"
+        className="form-control btn btn-warning  my-1 text-center"
         onClick={() => handleDeleteRow(columnIndex)}
       >
         <i className="bi bi-trash3"></i>

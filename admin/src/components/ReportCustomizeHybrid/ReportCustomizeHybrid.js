@@ -168,7 +168,7 @@ const ReportCustomizeHybrid = () => {
         <div className="col-md-8 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
           <div className="text-center">
             <Link to="/home">
-              <button className="btn btn-danger mb-4 rounded-pill px-5">
+              <button className="btn btn-danger mb-4  px-5">
                 <h3>ADMINISTRATOR PORTAL</h3>
               </button>
             </Link>
@@ -176,7 +176,7 @@ const ReportCustomizeHybrid = () => {
           <div className="text-center">
             <input
               type="text"
-              className="form-control w-25 btn-danger text-center m-auto rounded-pill"
+              className="form-control w-25 btn-danger text-center m-auto "
               id="reportName"
               value={reportName}
               onChange={(e) => setReportName(e.target.value)}
@@ -190,7 +190,7 @@ const ReportCustomizeHybrid = () => {
               <div className="col-md-6">
                 <input
                   type="text"
-                  className="form-control btn-danger rounded-pill w-75 my-2"
+                  className="form-control btn-danger  w-75 my-2"
                   id="companyNameID"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
@@ -198,14 +198,14 @@ const ReportCustomizeHybrid = () => {
                 />
                 <input
                   type="text"
-                  className="form-control btn-danger rounded-pill w-75 my-2"
+                  className="form-control btn-danger  w-75 my-2"
                   id="companyLocationID"
                   value={companyLocation}
                   onChange={(e) => setCompanyLocation(e.target.value)}
                   placeholder="Company Location..."
                 />
-                <p className='btn-danger rounded-pill w-75 py-1 ps-3 my-2'><span className='text-warning'>Date of Incident..</span></p>
-                <p className='btn-danger rounded-pill w-75 py-1 ps-3 my-2'><span className='text-warning'>Time of Incident..</span></p>
+                <p className='btn-danger  w-75 py-1 ps-3 my-2'><span className='text-warning'>Date of Incident..</span></p>
+                <p className='btn-danger  w-75 py-1 ps-3 my-2'><span className='text-warning'>Time of Incident..</span></p>
               </div>
               <div className="col-md-6">
                 {successMessage && (
@@ -225,19 +225,19 @@ const ReportCustomizeHybrid = () => {
           </form>
           {tables.map((table, tableIndex) => (
             <div key={table.id}>
-              <div className="d-flex justify-content-start align-items-center rounded-pill border border-light border-2 p-2 mb-3">
+              <div className="d-flex justify-content-start align-items-center   border border-light border-2 p-2 mb-3">
                 
               <h5 className='w-25 text-center'>{`Table ${tableIndex + 1}: (${table.type})`}</h5>
               <input
                     type="text"
-                    className="form-control btn-danger rounded-pill my-1 w-25 mx-5"
+                    className="form-control btn-danger  my-1 w-25 mx-5"
                     value={table.name}
                     onChange={(e) => handleTableNameChange(tableIndex, e.target.value)}
                     placeholder="Table Name"
                     title='Table Name'
                   />
                  
-                   <button className="btn btn-warning rounded-pill" onClick={() => handleDeleteTable(tableIndex)} title={`Delete Table ${table.name}`}>
+                   <button className="btn btn-warning  " onClick={() => handleDeleteTable(tableIndex)} title={`Delete Table ${table.name}`}>
                   <i className="bi bi-trash"></i>
                 </button>
                 </div>
@@ -245,14 +245,14 @@ const ReportCustomizeHybrid = () => {
                 <thead className="thead-dark">
                   {table.type === 'Document' && (
                     <tr>
-                         <th scope="col" className="btn-danger rounded text-center" width="12%">Sequence</th>
-                      <th scope="col" className="btn-danger rounded text-center" width="30%">Title</th>
-                      <th scope="col" className="btn-danger rounded text-center">Height<br />(px)</th>
-                      <th scope="col" className="btn-danger rounded text-center" width="10%">Width<br />(%)</th>
-                      <th scope="col" className="btn-danger rounded text-center">Specific Format</th>
-                      <th scope="col" className="btn-danger rounded text-center">Border</th>
-                      <th scope="col" className="rounded text-center">
-                        <button className="btn btn-success rounded-pill text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
+                         <th scope="col" className="btn-danger   text-center" width="12%">Sequence</th>
+                      <th scope="col" className="btn-danger   text-center" width="30%">Title</th>
+                      <th scope="col" className="btn-danger   text-center">Height<br />(px)</th>
+                      <th scope="col" className="btn-danger   text-center" width="10%">Width<br />(%)</th>
+                      <th scope="col" className="btn-danger   text-center">Specific Format</th>
+                      <th scope="col" className="btn-danger   text-center">Border</th>
+                      <th scope="col" className="  text-center">
+                        <button className="btn btn-success   text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
                           <i className="bi bi-plus-circle"></i>
                         </button>
                       </th>
@@ -260,12 +260,12 @@ const ReportCustomizeHybrid = () => {
                   )}
                   {table.type === 'Toggle' && (
                     <tr>
-                      <th scope="col" className="btn-danger rounded text-center" width="12%">Sequence</th>
-                      <th scope="col" className="btn-danger rounded text-center" width="30%">Title</th>
-                      <th scope="col" className="btn-danger rounded text-center">Item</th>
-                      <th scope="col" className="btn-danger rounded text-center">Description</th>
-                      <th scope="col" className="rounded text-center">
-                        <button className="btn btn-success rounded-pill text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
+                      <th scope="col" className="btn-danger   text-center" width="12%">Sequence</th>
+                      <th scope="col" className="btn-danger   text-center" width="30%">Title</th>
+                      <th scope="col" className="btn-danger   text-center">Item</th>
+                      <th scope="col" className="btn-danger   text-center">Description</th>
+                      <th scope="col" className="  text-center">
+                        <button className="btn btn-success text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
                           <i className="bi bi-plus-circle"></i>
                         </button>
                       </th>
@@ -273,14 +273,14 @@ const ReportCustomizeHybrid = () => {
                   )}
                   {table.type === 'Tabular' && (
                     <tr>
-                      <th scope="col" className="btn-danger rounded text-center" width="12%">Sequence</th>
-                      <th scope="col" className="btn-danger rounded text-center" width="30%">Title</th>
-                      <th scope="col" className="btn-danger rounded text-center">Height<br />(px)</th>
-                      <th scope="col" className="btn-danger rounded text-center">Width<br />(%)</th>
-                      <th scope="col" className="btn-danger rounded text-center">Specific Format</th>
-                      <th scope="col" className="btn-danger rounded text-center">Border</th>
+                      <th scope="col" className="btn-danger  text-center" width="12%">Sequence</th>
+                      <th scope="col" className="btn-danger  text-center" width="30%">Title</th>
+                      <th scope="col" className="btn-danger  text-center">Height<br />(px)</th>
+                      <th scope="col" className="btn-danger  text-center">Width<br />(%)</th>
+                      <th scope="col" className="btn-danger  text-center">Specific Format</th>
+                      <th scope="col" className="btn-danger  text-center">Border</th>
                       <th scope="col" className="text-center">
-                        <button className="btn btn-success rounded-pill text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
+                        <button className="btn btn-success  text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
                           <i className="bi bi-plus-circle"></i>
                         </button>
                       </th>
