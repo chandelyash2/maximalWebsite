@@ -78,7 +78,7 @@ const Reporting = () => {
         <button className='btn btn-danger  my-2 w-100' onClick={handleCreateReport}>Create New Report</button>
         <Link to="/ReportTemplateEdit"><button className='btn btn-danger my-2 w-100'>Edit Existing Report</button></Link>
         {/* <button className='btn btn-danger rounded-pill  my-2 w-100'>Replicate Existing Report</button> */}
-        <Link to="/ReportUserList"><button className='btn btn-danger my-2 w-100'>User Access/Permission</button></Link> 
+        <Link to="/ReportAssignUserPermissions"><button className='btn btn-danger my-2 w-100'>Assign User Permissions</button></Link> 
     
       {/* <Link to="/MakeAdmin">
       <button className='btn btn-danger rounded-pill  my-2 w-100'>Assign/Edit User Access</button>

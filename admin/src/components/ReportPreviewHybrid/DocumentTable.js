@@ -26,16 +26,18 @@ const DocumentTable = ({ columns }) => {
             // Add the actual column
             elements.push(
               <div
-                className={`col-${column.width === '100%' ? '12' : '6'} my-1`}
+                className={`p-0 m-0 col-${column.width === '100%' ? '12' : '6'} my-1`}
+              
                 key={index}
               >
                 <div className={`d-flex ${column.width === '100%' ? 'flex-column' : 'flex-wrap'} align-items-start`}>
-                  <button
-                    className="btn btn-danger text-center  mb-1"
+                  <div
+                    className={`py-1 btn-danger text-center  mb-1 `}
+
                     style={{ width: column.width === '100%' ? '25%' : '50%' }}
                   >
                     {column.title}
-                  </button>
+                  </div>
                   <p
                     className={`text-start overflow-auto float-left ps-3 py-1 ${
                       column.border === 'Yes' ? 'border border-1 border-dark ' : ''

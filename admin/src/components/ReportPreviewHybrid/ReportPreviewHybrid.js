@@ -52,16 +52,17 @@ const ReportPreviewHybrid = () => {
             textColor: [0, 0, 0],
             fontSize: 10,
             fontStyle: 'bold',
-            border: '1px solid black',
-            tableLineColor: [0, 0, 0],
-              tableLineWidth: 10,
+            lineWidth: 0.3,
+            lineColor: [0, 0, 0],
+            backgroundColor: 'transparent',
+           
           },
           bodyStyles: {
+            fillColor: [255, 255, 255],
             textColor: 0,
             fontSize: 10,
-            border: '1px solid black',
-            tableLineColor: [0, 0, 0],
-              tableLineWidth: 10,
+            lineWidth: 0.3,
+            lineColor: [0, 0, 0],
           },
           columnStyles: columns.reduce((acc, column, index) => {
             acc[index] = { cellWidth: column.width };
@@ -75,42 +76,79 @@ const ReportPreviewHybrid = () => {
           ...styles1,
         });
     }
-    const PDFDocument = (columns,doc) => 
-      {
-        let lastSpecialCaseHandled = false;
-        let rowIndex = 7;
+
+    const PDFDocument = (columns, doc) => {
+      const styles1 = {
+        headStyles: {
+          fillColor: [255, 255, 255],
+          textColor: [0, 0, 0],
+          fontSize: 10,
+          fontStyle: 'bold',
+          lineWidth: 0.3,
+          lineColor: [0, 0, 0],
+          backgroundColor: 'transparent',
+        },
+        bodyStyles: {
+          fillColor: [255, 255, 255],
+          textColor: 0,
+          fontSize: 10,
+          lineWidth: 0.3,
+          lineColor: [0, 0, 0],
+        },
+        columnStyles: columns.reduce((acc, column, index) => {
+          acc[index] = { cellWidth: column.width };
+          return acc;
+        }, {}),
+      };
     
-        doc.setFontSize(10);
+      const bodyData = [];
     
-        columns.forEach((column) => {
-          if (column.title === 'blank') {
-            lastSpecialCaseHandled = !lastSpecialCaseHandled;
-            return;
-          }
+      columns.sort((a, b) => a.sequence - b.sequence).forEach((column, index, columns) => {
+        let elements = [];
+        let round = 0;
+        let p1 = '';
+        const prevSequence = index > 0 ? parseInt(columns[index - 1].sequence, 10) : null;
+        let expectedSequence = prevSequence !== null ? prevSequence + 1 : parseInt(column.sequence, 10);
     
-          rowIndex++;
+        // Add blank divs for missing sequences
+        while (expectedSequence < column.sequence) {
+          elements.push({ content: '..blank..', colspan: 1 }); // Example of colspan for a blank cell
+          expectedSequence++;
+        }
     
-          let xCoordinate;
-          if (column.width === '100%') {
-            xCoordinate = 10;
+        // Add the actual column
+        if (column.width === '100%') {
+          elements.push({ content: column.title, colspan: 4 }); // Example of colspan for a header cell
+          bodyData.push(elements);
+          elements = []; // Clear elements array for the next row
+          elements.push({ content: '..value...', colspan: 4 }); // Example of colspan for a value cell
+          round = 0;
+        } else {
+          if (round === 0) {
+            p1 = column.title;
+            round = 1;
           } else {
-            xCoordinate = lastSpecialCaseHandled ? 100 : 10;
+            elements.push({ content: p1, colspan: 1 }, { content: '..value...', colspan: 1 }, { content: column.title, colspan: 1 }, { content: '..value...', colspan: 1 });
+            round = 0;
           }
+        }
+        if (round === 1) {
+          elements.push({ content: p1, colspan: 1 }, { content: '..value...', colspan: 1 }, { content: '', colspan: 1 }, { content: '', colspan: 1 });
+        }
+        bodyData.push(elements);
+      });
     
-          const columnWidth = column.width === '100%' ? 190 : 45;
+      // Example of using autoTable with bodyData and styles
+      doc.autoTable({
+        body: bodyData,
+        ...styles1,
+      });
     
-          doc.setFillColor(89, 53, 33);
-          doc.rect(xCoordinate, rowIndex * 10 - 7, columnWidth, 10, 'F');
-          doc.setTextColor(255, 255, 255);
-          doc.text(' ' + column.title, xCoordinate, rowIndex * 10);
-          doc.setTextColor(0, 0, 0);
+      // Save the document
+      doc.save('table.pdf');
+    };
     
-          if (column.width !== '100%') {
-            doc.text('..value..', xCoordinate + 50, rowIndex * 10);
-            lastSpecialCaseHandled = !lastSpecialCaseHandled;
-          }
-        });
-      }
+
     
       const PDFToggle = (columns,doc) => 
         {
@@ -123,14 +161,16 @@ const ReportPreviewHybrid = () => {
               textColor: [0, 0, 0],
               fontSize: 10,
               fontStyle: 'bold',
-              border: '1px solid black',
+              lineWidth: 0.3,
+              lineColor: [0, 0, 0],
               tableLineColor: [0, 0, 0],
               tableLineWidth: 10,
             },
             bodyStyles: {
               textColor: 0,
               fontSize: 10,
-              border: '1px solid black',
+              lineWidth: 0.3,
+              lineColor: [0, 0, 0],
               tableLineColor: [0, 0, 0],
               tableLineWidth: 10,
             },
@@ -153,44 +193,25 @@ const ReportPreviewHybrid = () => {
             });
              headData.push(headData1);
 
-          //    const maxRows = Math.max(...columns.map(column => column.options.length));
-          //    const bodyData = [];
-          //    let bodyData1 = [];
-          //    Array.from({ length: maxRows }).map((_, rowIndex) => {
-          //    columns
-          //       .sort((a, b) => a.sequence - b.sequence)
-          //       .map((column, rowIndex) => {
-          //             bodyData1.push(column.options[rowIndex] || "");
-          //             bodyData1.push(" ");
-          //             if (column.description === 'Yes') {
-          //               bodyData1.push(" ");
-          //             } 
-          //           });
-          //           bodyData.push(bodyData1);
-          //           bodyData1 = [];
-                
-          // });
-
-
           const maxRows = Math.max(...columns.map(column => column.options.length));
-const bodyData = [];
+          const bodyData = [];
 
-Array.from({ length: maxRows }).forEach((_, rowIndex) => {
-  const bodyRow = []; // Create an empty row array for each iteration
+            Array.from({ length: maxRows }).forEach((_, rowIndex) => {
+              const bodyRow = []; // Create an empty row array for each iteration
 
-  columns
-    .sort((a, b) => a.sequence - b.sequence)
-    .forEach((column, colIndex) => {
-      bodyRow.push(column.options[rowIndex] || "", " "); // Cell value & placeholder for "Yes/No"
-      if (column.description === 'Yes') {
-        bodyRow.push(" "); // Placeholder for "Description"
-      }
-    });
+              columns
+                .sort((a, b) => a.sequence - b.sequence)
+                .forEach((column, colIndex) => {
+                  bodyRow.push(column.options[rowIndex] || "", " "); // Cell value & placeholder for "Yes/No"
+                  if (column.description === 'Yes') {
+                    bodyRow.push(" "); // Placeholder for "Description"
+                  }
+                });
 
-  bodyData.push(bodyRow); // Add the populated row to bodyData
-});
+              bodyData.push(bodyRow); // Add the populated row to bodyData
+            });
           
-          // Generate the table with jsPDF-autoTable
+          // Generate the table of DocumentPDF
           doc.autoTable({
             head: headData,
             body: bodyData,
@@ -198,7 +219,10 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
           });
 
         }
-
+    
+        //
+    // * **** * * * * * * *  main function start from here ** * * * * ************
+    //
     const doc = new jsPDF(orientation);
     const tw = orientation === 'portrait' ? '60%' : '40%';
   
@@ -242,9 +266,7 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
     const xPosition = (pageWidth - textWidth) / 2;
     const columnStyles = {
       0: { cellWidth: 50 },
-      1: { cellWidth: 50 },
-      2: { cellWidth: 50 },
-      3: { cellWidth: 50 },
+      1: { cellWidth: 120 },
     };
   
     // Add centered heading
@@ -253,8 +275,8 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
    
   
     const headerData = [
-      ['Company Name', companyName, ' ', ' '],
-      ['Company Location', companyLocation, ' ', ' ']
+      ['Company Name', companyName, ],
+      ['Company Location', companyLocation, ]
     ];
   
     doc.autoTable({
@@ -268,16 +290,15 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
   
     tables.map(table => {
 
-
       const headerData = [
-        [table.name, ' ', ' '],
-      ];
+        [table.name, ' '],
+        ];
     
       doc.autoTable({
         body: headerData,
         tableWidth: tw,
         theme: 'plain',
-        // ...styles,
+        ...styles,
         columnStyles: columnStyles,
       });
 
@@ -286,8 +307,8 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
           return PDFTabular(table.columns,doc); // Pass additional data
         case 'Toggle':
           return PDFToggle(table.columns,doc);
-        // case 'Document':
-        //   return PDFDocument(table.columns,doc); // Use 'content' for Document type
+        case 'Document':
+          return PDFDocument(table.columns,doc); // Use 'content' for Document type
         default:
           console.warn(`Unknown table type: ${table.type}`);
           return null; // Handle unknown types gracefully
@@ -295,7 +316,7 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
     });
   
     // Save the PDF
-    doc.save('custom.pdf');
+    doc.save('Report.pdf');
   
 
  
@@ -329,11 +350,11 @@ Array.from({ length: maxRows }).forEach((_, rowIndex) => {
             <button className="btn btn-warning text-center m-auto me-1" onClick={generatePDF}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
             <button className="btn btn-success text-center m-auto " onClick={generateExcel}>Export Excel <i className="bi bi-filetype-xls"></i></button>
           </div>
-          <div>
-            <button className="btn w-25 my-1 btn-danger text-center m-auto ">Company Name</button>
-            <button className="btn w-75 my-1 m-auto text-start ps-5">{companyName}</button>
-            <button className="btn w-25 my-1 btn-danger text-center m-auto ">Company Location</button>
-            <button className="btn w-75 my-1 m-auto text-start ps-5">{companyLocation}</button>
+          <div className='py-1 overflow-auto'>
+            <div className="py-1 w-25 float-start my-1 btn-danger text-center m-auto ">Company Name</div>
+            <div className="py-1 w-75 float-start my-1 m-auto text-start ps-5">{companyName}</div>
+            <div className="py-1 w-25 float-start my-1 btn-danger text-center m-auto ">Company Location</div>
+            <div className="py-1 w-75 float-start my-1 m-auto text-start ps-5">{companyLocation}</div>
           </div>
 
           {tables.map((table, tableIndex) => (

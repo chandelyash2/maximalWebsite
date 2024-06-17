@@ -99,14 +99,14 @@ function UserList() {
                     />
                   </th>
                   <th className='btn-danger rounded text-center'>
-                    Company Address
+                    Address
                     <FilterButton
                       options={companyLocationOptions}
                       value={selectedCompanyLocations}
                       onChange={setSelectedCompanyLocations}
                     />
                   </th>
-                  <th className='btn-danger rounded text-center'>Action</th>
+                  {/* <th className='btn-danger rounded text-center'>Action</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -118,11 +118,11 @@ function UserList() {
                     <td className='text-start ps-2'>{user.email}</td>
                     <td className='text-center'>{user.company}</td>
                     <td className='text-center'>{user.companyAdress}</td>
-                    <td className='text-center d-flex flex-columns justify-content-center p-2'>
+                    {/* <td className='text-center d-flex flex-columns justify-content-center p-2'>
                       <Link to={`/UserAccess/${user.id}`} className="btn btn-danger rounded-pill text-center" title='User Permission'>
                         User Permission
                       </Link>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

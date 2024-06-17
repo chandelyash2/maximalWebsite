@@ -5,6 +5,7 @@ import { database } from '../../firebaseconfig';
 import Tabular from './Tabular';
 import Toogle from './Toogle';
 import Document from './Document';
+import FixedValue from './FixedValue';
 
 const ReportCustomizeHybrid = () => {
   const { reportTempId } = useParams();
@@ -17,6 +18,9 @@ const ReportCustomizeHybrid = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showAddTableModal, setShowAddTableModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   useEffect(() => {
     if (reportTempId) {
@@ -245,7 +249,7 @@ const ReportCustomizeHybrid = () => {
                 <thead className="thead-dark">
                   {table.type === 'Document' && (
                     <tr>
-                         <th scope="col" className="btn-danger   text-center" width="12%">Sequence</th>
+                      <th scope="col" className="btn-danger   text-center" width="12%">Sequence</th>
                       <th scope="col" className="btn-danger   text-center" width="30%">Title</th>
                       <th scope="col" className="btn-danger   text-center">Height<br />(px)</th>
                       <th scope="col" className="btn-danger   text-center" width="10%">Width<br />(%)</th>
@@ -357,7 +361,12 @@ const ReportCustomizeHybrid = () => {
           </div>
         </div>
       )}
+      {shouldShowFixedValue && <FixedValue 
+                modal={showModal}
+                 
+                />}
     </div>
+
   );
 };
 
