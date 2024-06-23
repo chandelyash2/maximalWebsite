@@ -5,7 +5,7 @@ import { database } from '../../firebaseconfig';
 import Tabular from './Tabular';
 import Toogle from './Toogle';
 import Document from './Document';
-import FixedValue from './FixedValue';
+import { Modal } from 'react-bootstrap';
 
 const ReportCustomizeHybrid = () => {
   const { reportTempId } = useParams();
@@ -18,9 +18,9 @@ const ReportCustomizeHybrid = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showAddTableModal, setShowAddTableModal] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const [showModal, setShowModal] = useState(false); // Initially hidden
+  const [tableIndex, setTableIndex] = useState('');
+  const [columnIndex, setColumnIndex] = useState('');
 
   useEffect(() => {
     if (reportTempId) {
@@ -82,7 +82,7 @@ const ReportCustomizeHybrid = () => {
         Object.assign(newColumn, { sequence: '', title: 'Title', item: '', description: 'No', options: [] });
         break;
       case 'Tabular':
-        Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' });
+        Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No', fixed: [] });
         break;
       default:
         return; // Do nothing if type is not recognized
@@ -92,6 +92,13 @@ const ReportCustomizeHybrid = () => {
     setTables(updatedTables);
   };
   
+  const handleAddfixedColumn =  (tableIndex, columnIndex) => {
+    const updatedTables = [...tables];
+    // const newColumn = {};
+    // Object.assign(newColumn, { item: '' , image: '', time: '', managementNotified: ''}); 
+    updatedTables[tableIndex].columns[columnIndex].fixed.push('');
+    setTables(updatedTables);
+  }
 
   const handleChange = (tableIndex, columnIndex, fieldName, value) => {
 
@@ -104,14 +111,39 @@ const ReportCustomizeHybrid = () => {
 
     if(fieldName=="format" && value=="fixed value")
       {
-        alert('fixed value..');
+        // if(tables[tableIndex].columns[columnIndex].fixed==[])
+        //   {
+        //     const newColumn = {};
+        //     Object.assign(newColumn, { item: ''}); 
+        //     updatedTables[tableIndex].columns[columnIndex].fixed.push(newColumn);
+        //     setTables(updatedTables);
+        //   }
+
+        setTableIndex(tableIndex);
+        setColumnIndex(columnIndex);
+        setShowModal(true);
       }
 
   };
   
+  const handleChangefix = (tableIndex, columnIndex, value, fixedIndex) => {
+
+    if (value === undefined) return; // Avoid updating with undefined value
+
+    const updatedTables = [...tables];
+    updatedTables[tableIndex].columns[columnIndex].fixed[fixedIndex] = value;
+    setTables(updatedTables);
+  };
+
   const handleDeleteRow = (tableIndex, columnIndex) => {
     const updatedTables = [...tables];
     updatedTables[tableIndex].columns.splice(columnIndex, 1);
+    setTables(updatedTables);
+  };
+
+  const handleDeleteFixedRow = (tableIndex, columnIndex, fixedIndex) => {
+    const updatedTables = [...tables];
+    updatedTables[tableIndex].columns[columnIndex].fixed.splice(fixedIndex, 1);
     setTables(updatedTables);
   };
 
@@ -164,6 +196,11 @@ const ReportCustomizeHybrid = () => {
     handleUpdateReportTemplate();
     const reportData = { tables };
     navigate(`/ReportPreviewHybrid/${reportTempId}`, { state: reportData });
+  };
+
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -249,12 +286,12 @@ const ReportCustomizeHybrid = () => {
                 <thead className="thead-dark">
                   {table.type === 'Document' && (
                     <tr>
-                      <th scope="col" className="btn-danger   text-center" width="12%">Sequence</th>
-                      <th scope="col" className="btn-danger   text-center" width="30%">Title</th>
-                      <th scope="col" className="btn-danger   text-center">Height<br />(px)</th>
-                      <th scope="col" className="btn-danger   text-center" width="10%">Width<br />(%)</th>
-                      <th scope="col" className="btn-danger   text-center">Specific Format</th>
-                      <th scope="col" className="btn-danger   text-center">Border</th>
+                      <th scope="col" className="btn-danger text-center" width="12%">Sequence</th>
+                      <th scope="col" className="btn-danger text-center" width="30%">Title</th>
+                      <th scope="col" className="btn-danger text-center">Height<br />(px)</th>
+                      <th scope="col" className="btn-danger text-center" width="10%">Width<br />(%)</th>
+                      <th scope="col" className="btn-danger text-center">Specific Format</th>
+                      <th scope="col" className="btn-danger text-center">Border</th>
                       <th scope="col" className="  text-center">
                         <button className="btn btn-success   text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
                           <i className="bi bi-plus-circle"></i>
@@ -330,6 +367,7 @@ const ReportCustomizeHybrid = () => {
                   })}
                 </tbody>
               </table>
+  
             </div>
           ))}
           <hr />
@@ -361,12 +399,60 @@ const ReportCustomizeHybrid = () => {
           </div>
         </div>
       )}
-      {shouldShowFixedValue && <FixedValue 
-                modal={showModal}
-                 
-                />}
-    </div>
 
+{showModal && (
+  <Modal show={showModal} onHide={handleCloseModal} dialogClassName="modal-md">
+    <Modal.Header closeButton>
+      <Modal.Title>Fixed Value: {tables[tableIndex]?.name} :: {tables[tableIndex]?.columns[columnIndex]?.title}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <table className='table table-borderless'>
+        <thead>
+          <tr>
+            <th className='text-center'>Items</th>
+            <th scope="col" className="text-center">
+            <button className="btn btn-success w-100" onClick={() => handleAddfixedColumn(tableIndex, columnIndex)}>
+              <i className="bi bi-plus-circle"></i>
+            </button>
+          </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {tables[tableIndex]?.columns[columnIndex]?.fixed?.map((fix, fixedIndex) => (
+            <tr key={fixedIndex}>
+              <td>
+                <input
+                  className="form-control btn-danger text-center w-100"
+                  type="text"
+                  value={fix} //fix.item
+                  onChange={(e) => handleChangefix(tableIndex, columnIndex, e.target.value, fixedIndex)}
+                  size="20"
+                />
+              </td>
+              <td className='text-center'>
+                <button
+                  className="btn btn-warning text-center w-100"
+                  onClick={() => handleDeleteFixedRow(tableIndex, columnIndex, fixedIndex)}
+                >
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Modal.Body>
+    <Modal.Footer>
+      <button className="btn btn-secondary" onClick={handleCloseModal}>
+        Close
+      </button>
+    </Modal.Footer>
+  </Modal>
+)};
+
+
+</div>
   );
 };
 

@@ -13,7 +13,6 @@ import ReportAssignUserPermissions from './components/ReportAssignUserPermission
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
 import ReportGenerate from './components/ReportGenerate.js'
-import ReportCustomizeTabular from './components/ReportCustomizeTabular.js';
 import ReportCustomizeHybrid from './components/ReportCustomizeHybrid/ReportCustomizeHybrid.js'
 import ReportPreviewHybrid from './components/ReportPreviewHybrid/ReportPreviewHybrid.js'
 import ReportSelector from './components/ReportSelector.js';
@@ -74,7 +73,6 @@ function App() {
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
             <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
-            <Route path="/ReportCustomizeTabular/:reportTempId" element={<ProtectedRoute><ReportCustomizeTabular /></ProtectedRoute>} />
             <Route path="/ReportCustomizeHybrid/:reportTempId" element={<ProtectedRoute><ReportCustomizeHybrid /></ProtectedRoute>} />
             <Route path="/ReportPreviewHybrid/:reportTempId" element={<ProtectedRoute><ReportPreviewHybrid /></ProtectedRoute>} />
             

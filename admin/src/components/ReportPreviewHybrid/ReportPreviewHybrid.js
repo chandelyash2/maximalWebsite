@@ -360,6 +360,7 @@ const ReportPreviewHybrid = () => {
           {tables.map((table, tableIndex) => (
             <div key={tableIndex} className='my-2'>
               <h4 className='mt-4 text-dark'>{table.name}</h4>
+              
               {table.type === "Tabular" && (
                 <div>
                   <table class="table-bordered" style={{ width: '100%' }}>

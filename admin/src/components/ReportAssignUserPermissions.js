@@ -97,7 +97,8 @@ function ReportAssignUserPermissions() {
       userId: userId,
       reportTemplateName: selectedTemplate.name, // Replace with appropriate property from your template object
       reportTemplateId: reportTemplateId,
-      accessType: accessType
+      accessType: accessType,
+      userType: selectedUser.type
     };
   
     // Update state with new permission
@@ -184,7 +185,7 @@ function ReportAssignUserPermissions() {
                     </select>
                   </div>              
             </div>
-
+                        
             <div className='col-md-3'>
                 {/* Add Button */}
                 <label>Action:</label><br/>
