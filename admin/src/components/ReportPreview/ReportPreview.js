@@ -5,6 +5,7 @@ import { database } from '../../firebaseconfig';
 import TabularTable from './TabularTable'; 
 import DocumentTable from './DocumentTable';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const ReportPreviewHybrid = () => {
   const { reportTempId } = useParams();
