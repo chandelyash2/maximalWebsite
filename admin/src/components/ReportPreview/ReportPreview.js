@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ref, get } from 'firebase/database';
 import { database } from '../../firebaseconfig';
-import ToggleTable from './ToggleTable'; 
+import TabularTable from './TabularTable'; 
 import DocumentTable from './DocumentTable';
-// import ExportPDF from './ExportPDF';
 import jsPDF from 'jspdf';
 
 const ReportPreviewHybrid = () => {
   const { reportTempId } = useParams();
   const [reportName, setReportName] = useState('');
-  const [reportType, setReportType] = useState('Hybrid Report');
   const [tables, setTables] = useState([]);
   const [companyName, setCompanyName] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
@@ -24,7 +22,6 @@ const ReportPreviewHybrid = () => {
           if (snapshot.exists()) {
             const data = snapshot.val();
             setReportName(data.name);
-            setReportType(data.type);
             setTables(data.tables || []);
             setCompanyName(data.companyName || '..data..' );
             setCompanyLocation(data.companyLocation || '..data..');
@@ -43,10 +40,14 @@ const ReportPreviewHybrid = () => {
   };
   
   const generatePDF = () => { 
-  
 
-    const PDFTabular = (columns,doc) => {
-      const styles1 = {
+
+    const PDFTabular = (columns,doc) => 
+      {
+        const styles1 = {
+          table: { // Add a class name for the table
+            borderCollapse: 'collapse', // Ensure borders don't overlap (optional)
+          },
           headStyles: {
             fillColor: [255, 255, 255],
             textColor: [0, 0, 0],
@@ -54,28 +55,68 @@ const ReportPreviewHybrid = () => {
             fontStyle: 'bold',
             lineWidth: 0.3,
             lineColor: [0, 0, 0],
-            backgroundColor: 'transparent',
-           
+            tableLineColor: [0, 0, 0],
+            tableLineWidth: 10,
           },
           bodyStyles: {
-            fillColor: [255, 255, 255],
             textColor: 0,
             fontSize: 10,
             lineWidth: 0.3,
             lineColor: [0, 0, 0],
+            tableLineColor: [0, 0, 0],
+            tableLineWidth: 10,
           },
           columnStyles: columns.reduce((acc, column, index) => {
             acc[index] = { cellWidth: column.width };
             return acc;
           }, {}),
         };
-    
+
+        const headData = [];
+        const headData1 = [];
+        columns
+          .sort((a, b) => a.sequence - b.sequence)
+          .map((column, index) => {
+            headData1.push(column.title);
+          });
+           headData.push(headData1);
+
+          let maxRows = Math.max(
+            ...columns
+              .filter(column => column.fixed) // Filter to only include columns with `fixed` property
+              .map(column => column.fixed.length)
+          );
+        
+          const allFixedEmpty = columns.every(column => !column.fixed || column.fixed.length === 0);
+          // Ensure maxRows is at least 1 if there are no columns with `fixed` or all `fixed` arrays have length 0
+          
+          if (maxRows === 0 || allFixedEmpty) {
+            maxRows = 1;
+          }
+
+        const bodyData = [];
+
+          Array.from({ length: maxRows }).forEach((_, rowIndex) => {
+            const bodyRow = []; // Create an empty row array for each iteration
+
+            columns
+              .sort((a, b) => a.sequence - b.sequence)
+              .forEach((column, colIndex) => {
+                bodyRow.push(!allFixedEmpty && column.fixed && column.fixed.length > 0 && column.fixed[rowIndex] ? column.fixed[rowIndex] : ' '); 
+              
+              });
+
+            bodyData.push(bodyRow); // Add the populated row to bodyData
+          });
+        
+        // Generate the table of DocumentPDF
         doc.autoTable({
-          head: [columns.map(column => column.title)],
-          body: [columns.map(column => '..data..')], // Replace with actual data if available
-          ...styles1,
+          head: headData,
+          body: bodyData,
+          ...styles1
         });
-    }
+
+      }
 
     const PDFDocument = (columns, doc) => {
       const styles1 = {
@@ -147,80 +188,8 @@ const ReportPreviewHybrid = () => {
       // Save the document
       doc.save('table.pdf');
     };
-    
 
-    
-      const PDFToggle = (columns,doc) => 
-        {
-          const styles1 = {
-            table: { // Add a class name for the table
-              borderCollapse: 'collapse', // Ensure borders don't overlap (optional)
-            },
-            headStyles: {
-              fillColor: [255, 255, 255],
-              textColor: [0, 0, 0],
-              fontSize: 10,
-              fontStyle: 'bold',
-              lineWidth: 0.3,
-              lineColor: [0, 0, 0],
-              tableLineColor: [0, 0, 0],
-              tableLineWidth: 10,
-            },
-            bodyStyles: {
-              textColor: 0,
-              fontSize: 10,
-              lineWidth: 0.3,
-              lineColor: [0, 0, 0],
-              tableLineColor: [0, 0, 0],
-              tableLineWidth: 10,
-            },
-            columnStyles: columns.reduce((acc, column, index) => {
-              acc[index] = { cellWidth: column.width };
-              return acc;
-            }, {}),
-          };
-
-          const headData = [];
-          const headData1 = [];
-          columns
-            .sort((a, b) => a.sequence - b.sequence)
-            .map((column, index) => {
-              headData1.push(column.title);
-              headData1.push('Yes/No');
-              if (column.description === 'Yes') {
-                headData1.push('Description');
-              }
-            });
-             headData.push(headData1);
-
-          const maxRows = Math.max(...columns.map(column => column.options.length));
-          const bodyData = [];
-
-            Array.from({ length: maxRows }).forEach((_, rowIndex) => {
-              const bodyRow = []; // Create an empty row array for each iteration
-
-              columns
-                .sort((a, b) => a.sequence - b.sequence)
-                .forEach((column, colIndex) => {
-                  bodyRow.push(column.options[rowIndex] || "", " "); // Cell value & placeholder for "Yes/No"
-                  if (column.description === 'Yes') {
-                    bodyRow.push(" "); // Placeholder for "Description"
-                  }
-                });
-
-              bodyData.push(bodyRow); // Add the populated row to bodyData
-            });
-          
-          // Generate the table of DocumentPDF
-          doc.autoTable({
-            head: headData,
-            body: bodyData,
-            ...styles1
-          });
-
-        }
-    
-        //
+    //
     // * **** * * * * * * *  main function start from here ** * * * * ************
     //
     const doc = new jsPDF(orientation);
@@ -305,8 +274,6 @@ const ReportPreviewHybrid = () => {
       switch (table.type) {
         case 'Tabular':
           return PDFTabular(table.columns,doc); // Pass additional data
-        case 'Toggle':
-          return PDFToggle(table.columns,doc);
         case 'Document':
           return PDFDocument(table.columns,doc); // Use 'content' for Document type
         default:
@@ -361,39 +328,9 @@ const ReportPreviewHybrid = () => {
             <div key={tableIndex} className='my-2'>
               <h4 className='mt-4 text-dark'>{table.name}</h4>
               
-              {table.type === "Tabular" && (
-                <div>
-                  <table class="table-bordered" style={{ width: '100%' }}>
-                    <thead className="thead-dark">
-                    {/* className="w-100 d-flex justify-content-start" */}
-                      <tr >
-                        {table.columns && table.columns
-                          .sort((a, b) => a.sequence - b.sequence)
-                          .map((column, index) => (
-                            <th scope="col" className='text-center py-1' width={column.width + "%"} key={index}>
-                              {column.title}
-                            </th>
-                          ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                    {table.columns && table.columns
-                          .sort((a, b) => a.sequence - b.sequence)
-                          .map((column, index) => (
-                            <td className='text-center py-1' width={column.width + "%"} key={index}>
-                              ..data..
-                            </td>
-                          ))}
-                          </tr>
-                    </tbody>
-                  </table>
-                  {/* <hr /> */}
-                </div>
-              )}
-
+           
+              {table.type === "Tabular" && table.columns && <TabularTable table={table} />}
               {table.type === "Document" && table.columns && <DocumentTable columns={table.columns} />}
-              {table.type === "Toggle" && (<ToggleTable key={tableIndex} table={table} />)}
             </div>
           ))}
 

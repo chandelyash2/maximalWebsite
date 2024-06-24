@@ -12,14 +12,9 @@ import UserAccess from './components/UserAccess';
 import ReportAssignUserPermissions from './components/ReportAssignUserPermissions';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
-import ReportGenerate from './components/ReportGenerate.js'
-import ReportCustomizeHybrid from './components/ReportCustomizeHybrid/ReportCustomizeHybrid.js'
-import ReportPreviewHybrid from './components/ReportPreviewHybrid/ReportPreviewHybrid.js'
-import ReportSelector from './components/ReportSelector.js';
+import ReportCustomize from './components/ReportCustomize/ReportCustomize.js'
+import ReportPreview from './components/ReportPreview/ReportPreview.js'
 import Reporting from './components/Reporting.js';
-import ReportTemplateNew from './components/ReportTemplateNew.js';
-import ReportPreview from './components/ReportPreview.js';
-import ReportCustomizeDocument from './components/ReportCustomizeDocument.js';
 import ReportTemplateEdit from './components/ReportTemplateEdit.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
 import { auth } from './firebaseconfig';
@@ -72,20 +67,12 @@ function App() {
             <Route path="/UserAccess/:userId" element={<ProtectedRoute><UserAccess /></ProtectedRoute>} /> 
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
-            <Route path="/ReportTemplateNew" element={<ProtectedRoute><ReportTemplateNew /></ProtectedRoute>} />
-            <Route path="/ReportCustomizeHybrid/:reportTempId" element={<ProtectedRoute><ReportCustomizeHybrid /></ProtectedRoute>} />
-            <Route path="/ReportPreviewHybrid/:reportTempId" element={<ProtectedRoute><ReportPreviewHybrid /></ProtectedRoute>} />
-            
-            <Route path="/ReportCustomizeDocument/:reportTempId" element={<ProtectedRoute><ReportCustomizeDocument /></ProtectedRoute>} />
-            
+            <Route path="/ReportCustomize/:reportTempId" element={<ProtectedRoute><ReportCustomize /></ProtectedRoute>} />
             <Route path="/ReportPreview/:reportTempId" element={<ProtectedRoute><ReportPreview /></ProtectedRoute>} />
+            
             <Route path="/ReportTemplateEdit" element={<ProtectedRoute><ReportTemplateEdit /></ProtectedRoute>} />
 
-            
-
             <Route path="/makeadmin" element={<ProtectedRoute><MakeAdmin /></ProtectedRoute>} /> 
-            <Route path="/ReportGenerate/:reportName" element={<ProtectedRoute><ReportGenerate /></ProtectedRoute>} /> 
-            <Route path="/ReportSelector" element={<ProtectedRoute><ReportSelector /></ProtectedRoute>} /> 
                         
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorised" element={<Unauthorised />} />

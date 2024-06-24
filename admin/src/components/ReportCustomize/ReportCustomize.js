@@ -3,15 +3,13 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ref, get, set } from 'firebase/database';
 import { database } from '../../firebaseconfig';
 import Tabular from './Tabular';
-import Toogle from './Toogle';
 import Document from './Document';
 import { Modal } from 'react-bootstrap';
 
-const ReportCustomizeHybrid = () => {
+const ReportCustomize = () => {
   const { reportTempId } = useParams();
   const navigate = useNavigate();
   const [reportName, setReportName] = useState('');
-  const [reportType, setReportType] = useState('Hybrid Report');
   const [tables, setTables] = useState([]);
   const [companyName, setCompanyName] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
@@ -30,7 +28,6 @@ const ReportCustomizeHybrid = () => {
           if (snapshot.exists()) {
             const data = snapshot.val();
             setReportName(data.name);
-            setReportType(data.type);
             setTables(data.tables || []);
             setCompanyName(data.companyName);
             setCompanyLocation(data.companyLocation);
@@ -78,9 +75,6 @@ const ReportCustomizeHybrid = () => {
       case 'Document':
         Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No' });
         break;
-      case 'Toggle':
-        Object.assign(newColumn, { sequence: '', title: 'Title', item: '', description: 'No', options: [] });
-        break;
       case 'Tabular':
         Object.assign(newColumn, { sequence: '', title: 'Title', height: '15', width: '10', format: 'Text', border: 'No', fixed: [] });
         break;
@@ -94,30 +88,21 @@ const ReportCustomizeHybrid = () => {
   
   const handleAddfixedColumn =  (tableIndex, columnIndex) => {
     const updatedTables = [...tables];
-    // const newColumn = {};
-    // Object.assign(newColumn, { item: '' , image: '', time: '', managementNotified: ''}); 
     updatedTables[tableIndex].columns[columnIndex].fixed.push('');
     setTables(updatedTables);
   }
 
   const handleChange = (tableIndex, columnIndex, fieldName, value) => {
 
-    if (value === undefined) return; // Avoid updating with undefined value
+    if (value === undefined) return; 
 
     const updatedTables = [...tables];
-    // alert(tableIndex+", "+columnIndex+", "+fieldName+", VALUE ("+value+"), FIELDNAME:- "+updatedTables[tableIndex].columns[columnIndex][fieldName]);
     updatedTables[tableIndex].columns[columnIndex][fieldName] = value;
     setTables(updatedTables);
 
     if(fieldName=="format" && value=="fixed value")
       {
-        // if(tables[tableIndex].columns[columnIndex].fixed==[])
-        //   {
-        //     const newColumn = {};
-        //     Object.assign(newColumn, { item: ''}); 
-        //     updatedTables[tableIndex].columns[columnIndex].fixed.push(newColumn);
-        //     setTables(updatedTables);
-        //   }
+
 
         setTableIndex(tableIndex);
         setColumnIndex(columnIndex);
@@ -152,7 +137,6 @@ const ReportCustomizeHybrid = () => {
     const reportTemplateRef = ref(database, `reportTemplates/${reportTempId}`);
     const updatedReportTemplate = {
       name: reportName,
-      type: reportType,
       tables: tables,
       companyName: companyName,
       companyLocation: companyLocation,
@@ -195,7 +179,7 @@ const ReportCustomizeHybrid = () => {
   const handlePreview = () => {
     handleUpdateReportTemplate();
     const reportData = { tables };
-    navigate(`/ReportPreviewHybrid/${reportTempId}`, { state: reportData });
+    navigate(`/ReportPreview/${reportTempId}`, { state: reportData });
   };
 
 
@@ -245,8 +229,6 @@ const ReportCustomizeHybrid = () => {
                   onChange={(e) => setCompanyLocation(e.target.value)}
                   placeholder="Company Location..."
                 />
-                <p className='btn-danger  w-75 py-1 ps-3 my-2'><span className='text-warning'>Date of Incident..</span></p>
-                <p className='btn-danger  w-75 py-1 ps-3 my-2'><span className='text-warning'>Time of Incident..</span></p>
               </div>
               <div className="col-md-6">
                 {successMessage && (
@@ -299,19 +281,6 @@ const ReportCustomizeHybrid = () => {
                       </th>
                     </tr>
                   )}
-                  {table.type === 'Toggle' && (
-                    <tr>
-                      <th scope="col" className="btn-danger   text-center" width="12%">Sequence</th>
-                      <th scope="col" className="btn-danger   text-center" width="30%">Title</th>
-                      <th scope="col" className="btn-danger   text-center">Item</th>
-                      <th scope="col" className="btn-danger   text-center">Description</th>
-                      <th scope="col" className="  text-center">
-                        <button className="btn btn-success text-center w-100" onClick={() => handleAddColumn(tableIndex)}>
-                          <i className="bi bi-plus-circle"></i>
-                        </button>
-                      </th>
-                    </tr>
-                  )}
                   {table.type === 'Tabular' && (
                     <tr>
                       <th scope="col" className="btn-danger  text-center" width="12%">Sequence</th>
@@ -339,18 +308,6 @@ const ReportCustomizeHybrid = () => {
                           index={columnIndex}
                           handleChange={handleChange}
                           handleDeleteRow={() => handleDeleteRow(tableIndex, columnIndex)}
-                        />
-                      );
-                    } else if (table.type === 'Toggle') {
-                      return (
-                        <Toogle
-                          key={columnIndex}
-                          tableIndex={tableIndex}
-                          column={column}
-                          columnIndex={columnIndex}
-                          handleChange={handleChange}
-                          handleDeleteRow={handleDeleteRow}
-                          handleAddOption={handleAddOption}
                         />
                       );
                     } else {
@@ -389,7 +346,6 @@ const ReportCustomizeHybrid = () => {
               </div>
               <div className="modal-body">
                 <button className="btn btn-danger w-100 mb-2" onClick={() => handleAddTable('Document')}>Document Table</button>
-                <button className="btn btn-danger w-100 mb-2" onClick={() => handleAddTable('Toggle')}>Toggle Table</button>
                 <button className="btn btn-danger w-100 mb-2" onClick={() => handleAddTable('Tabular')}>Tabular Table</button>
               </div>
               <div className="modal-footer">
@@ -456,4 +412,4 @@ const ReportCustomizeHybrid = () => {
   );
 };
 
-export default ReportCustomizeHybrid;
+export default ReportCustomize;

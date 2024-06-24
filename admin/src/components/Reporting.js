@@ -10,10 +10,7 @@ const Reporting = () => {
   const { addAlert } = useContext(AlertContext);
   let navigate = useNavigate();
   const [reportName, setReportName] = useState('');
-  const [reportType, setReportType] = useState('Hybrid Report');
   const [columns, setColumns] = useState([]);
-  const [employeeUserId, setEmployeeUserId] = useState('');
-  const [customerUserId, setCustomerUserId] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -27,9 +24,9 @@ const Reporting = () => {
     get(TemplateRef).then((snapshot) => {
       if (snapshot.exists()) {
         const numChildren = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
-        setReportName(reportType+" "+ numChildren);
+        setReportName('Report'+" "+ numChildren);
       } else {
-        setReportName(reportType+" 0");
+        setReportName('Report'+" 0");
       }
     }).catch((error) => {
       alert("Error getting data: " + error.message);
@@ -42,15 +39,12 @@ const Reporting = () => {
     try {
       await set(ref(database, `reportTemplates/${newReportTempId}`), {
         name: reportName,
-        type: reportType,
         columns: [],
-        employeeUserId: employeeUserId,
-        customerUserId: customerUserId,
         companyName: '',
         companyLocation: '',
       });
       
-      navigate(`/ReportCustomizeHybrid/${newReportTempId}`);
+      navigate(`/ReportCustomize/${newReportTempId}`);
     } catch (error) {
       alert('Error saving report Template:' + error);
     }
