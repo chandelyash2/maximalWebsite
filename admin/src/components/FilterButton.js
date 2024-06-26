@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CustomFilter from './CustomFilter';
 
-const FilterButton = ({ options, value, onChange }) => {
+const FilterButton = ({ options, value, onChange, users, setUsers }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -17,6 +17,21 @@ const FilterButton = ({ options, value, onChange }) => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+
+  const handleSort = (type) => {
+    const sortedUsers = [...users]; // Copy users array
+    sortedUsers.sort((a, b) => {
+      const labelA = a.name || ''; // Adjust based on your sorting criteria
+      const labelB = b.name || ''; // Adjust based on your sorting criteria
+      if (type === 'asc') {
+        return labelA.localeCompare(labelB);
+      } else if (type === 'desc') {
+        return labelB.localeCompare(labelA);
+      }
+      return 0;
+    });
+    setUsers(sortedUsers); // Update users state with sorted users
+  };
 
   return (
     <div>
@@ -41,7 +56,12 @@ const FilterButton = ({ options, value, onChange }) => {
         }}
       >
         <div style={{ padding: '1rem' }}>
-          <CustomFilter options={options} value={value} onChange={onChange} />
+        <CustomFilter
+      options={options}
+      value={value}
+      onChange={onChange}
+      sortCallback={handleSort} // Pass the sorting callback here
+    />
         </div>
       </Popover>
     </div>

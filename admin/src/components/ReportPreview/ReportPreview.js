@@ -297,7 +297,7 @@ const ReportPreviewHybrid = () => {
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center">
-        <div className="col-md-8 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
+        <div className="col-md-8 p-0 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
           <div className="text-center">
             <Link to="/home">
               <button className="btn btn-danger mb-4  px-5">
@@ -318,7 +318,7 @@ const ReportPreviewHybrid = () => {
             <button className="btn btn-warning text-center m-auto me-1" onClick={generatePDF}>Export PDF <i className="bi bi-filetype-pdf"></i></button>
             <button className="btn btn-success text-center m-auto " onClick={generateExcel}>Export Excel <i className="bi bi-filetype-xls"></i></button>
           </div>
-          <div className='py-1 overflow-auto'>
+          <div className='p-0 m-0 py-1 overflow-auto'>
             <div className="py-1 w-25 float-start my-1 btn-danger text-center m-auto ">Company Name</div>
             <div className="py-1 w-75 float-start my-1 m-auto text-start ps-5">{companyName}</div>
             <div className="py-1 w-25 float-start my-1 btn-danger text-center m-auto ">Company Location</div>

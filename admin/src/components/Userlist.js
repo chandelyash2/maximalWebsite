@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ref, get } from 'firebase/database'; 
+import { ref, get, remove } from 'firebase/database'; 
 import { database } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
 import FilterButton from './FilterButton';
@@ -62,6 +62,24 @@ function UserList() {
     (!selectedCompanyLocations.length || selectedCompanyLocations.includes(user.companyAdress))
   );
 
+  const handleDelete = (templateId) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this User?");
+    if (!isConfirmed) {
+      return; // If user cancels, do nothing
+    }
+    const templateRef = ref(database, `users/${templateId}`);
+    // Remove the report template from Firebase Realtime Database
+    remove(templateRef)
+      .then(() => {
+        // Filter out the deleted template from the state
+        setUsers(users.filter(template => template.id !== templateId));
+      })
+      .catch((error) => {
+        setErrorMessage(`Error deleting User: ${error.message}`);
+      });
+  };
+  
+
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center">
@@ -86,6 +104,8 @@ function UserList() {
                       options={nameOptions}
                       value={selectedNames}
                       onChange={setSelectedNames}
+                      users={users} // Pass users state to FilterButton
+                      setUsers={setUsers} // Pass setUsers function to FilterButton
                     />
                   </th>
                   <th className='btn-danger rounded text-center'>Last Name</th>
@@ -96,6 +116,8 @@ function UserList() {
                       options={companyNameOptions}
                       value={selectedCompanyNames}
                       onChange={setSelectedCompanyNames}
+                      users={users} // Pass users state to FilterButton
+                      setUsers={setUsers} // Pass setUsers function to FilterButton
                     />
                   </th>
                   <th className='btn-danger rounded text-center'>
@@ -104,9 +126,11 @@ function UserList() {
                       options={companyLocationOptions}
                       value={selectedCompanyLocations}
                       onChange={setSelectedCompanyLocations}
+                      users={users} // Pass users state to FilterButton
+                      setUsers={setUsers} // Pass setUsers function to FilterButton
                     />
                   </th>
-                  {/* <th className='btn-danger rounded text-center'>Action</th> */}
+                  <th className='btn-danger rounded text-center'>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,11 +142,8 @@ function UserList() {
                     <td className='text-start ps-2'>{user.email}</td>
                     <td className='text-center'>{user.company}</td>
                     <td className='text-center'>{user.companyAdress}</td>
-                    {/* <td className='text-center d-flex flex-columns justify-content-center p-2'>
-                      <Link to={`/UserAccess/${user.id}`} className="btn btn-danger rounded-pill text-center" title='User Permission'>
-                        User Permission
-                      </Link>
-                    </td> */}
+                    {/* <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(user.id)}><i className="bi bi-trash3"></i></button> */}
+                  
                   </tr>
                 ))}
               </tbody>

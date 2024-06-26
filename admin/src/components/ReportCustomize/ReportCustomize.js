@@ -19,6 +19,7 @@ const ReportCustomize = () => {
   const [showModal, setShowModal] = useState(false); // Initially hidden
   const [tableIndex, setTableIndex] = useState('');
   const [columnIndex, setColumnIndex] = useState('');
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     if (reportTempId) {
@@ -39,7 +40,30 @@ const ReportCustomize = () => {
           setErrorMessage(`Error fetching report template: ${error.message}`);
         });
     }
+
+    const usersRef = ref(database, 'users');
+    get(usersRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const templatesArray = Object.keys(data)
+        .filter(key => data[key].type === 'Client')
+        .map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        setUsers(templatesArray);
+      } else {
+        setErrorMessage('No User Profiles found');
+      }
+    })
+    .catch((error) => {
+      setErrorMessage(`Error fetching User Profiles: ${error.message}`);
+    });
+
+
   }, [reportTempId]);
+
 
   const handleAddTable = (type) => {
     setTables((prevTables) => [
@@ -102,8 +126,6 @@ const ReportCustomize = () => {
 
     if(fieldName=="format" && value=="fixed value")
       {
-
-
         setTableIndex(tableIndex);
         setColumnIndex(columnIndex);
         setShowModal(true);
@@ -213,22 +235,32 @@ const ReportCustomize = () => {
           <form className="mb-4">
             <div className="form-group row">
               <div className="col-md-6">
-                <input
-                  type="text"
+                <select 
                   className="form-control btn-danger  w-75 my-2"
                   id="companyNameID"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   placeholder="Company Name..."
-                />
-                <input
-                  type="text"
+                >
+                 <option value="">Select a company</option>
+                    {users.map((user, index) => (
+                      <option key={index} value={user.company}>{user.company}</option>
+                    ))}
+                </select>
+                <select 
                   className="form-control btn-danger  w-75 my-2"
                   id="companyLocationID"
                   value={companyLocation}
                   onChange={(e) => setCompanyLocation(e.target.value)}
                   placeholder="Company Location..."
-                />
+                >
+                    <option value="">Select a Location</option>
+                    {users.map((user, index) => (
+                      <option key={index} value={user.
+                        streetAddress}>{user.
+                          streetAddress}</option>
+                    ))}
+                </select>
               </div>
               <div className="col-md-6">
                 {successMessage && (

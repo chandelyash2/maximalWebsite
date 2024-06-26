@@ -194,12 +194,6 @@ function ReportAssignUserPermissions() {
             </div>
           </div>
 
-   
-
-
- 
-
-
           {/* Display Existing Permissions */}
           <div>
             <h4>Existing Permissions</h4>
@@ -207,6 +201,7 @@ function ReportAssignUserPermissions() {
               <thead>
                 <tr>
                   <th>User Name</th>
+                  <th>User Type</th>
                   <th>Report Template</th>
                   <th>Access Type</th>
                   <th>Action</th>
@@ -216,6 +211,7 @@ function ReportAssignUserPermissions() {
                 {reportUserAccessPermissions.map((permission, index) => (
                   <tr key={index}>
                     <td>{permission.email}</td>
+                    <td>{permission.userType}</td>
                     <td>{permission.reportTemplateName}</td>
                     <td>{permission.accessType}</td>
                     <td>
