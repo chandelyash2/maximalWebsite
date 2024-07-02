@@ -7,6 +7,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from './components/UserProfile';
+import AddLocation from './components/AddLocation.js';
 import UserList from './components/UserList';
 import UserAccess from './components/UserAccess';
 import ReportAssignUserPermissions from './components/ReportAssignUserPermissions';
@@ -67,6 +68,7 @@ function App() {
             <Route path="/UserAccess/:userId" element={<ProtectedRoute><UserAccess /></ProtectedRoute>} /> 
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} /> 
             <Route path="/Reporting" element={<ProtectedRoute><Reporting /></ProtectedRoute>} />
+            <Route path="/AddLocation" element={<ProtectedRoute><AddLocation /></ProtectedRoute>} />
             <Route path="/ReportCustomize/:reportTempId" element={<ProtectedRoute><ReportCustomize /></ProtectedRoute>} />
             <Route path="/ReportPreview/:reportTempId" element={<ProtectedRoute><ReportPreview /></ProtectedRoute>} />
             
