@@ -212,7 +212,7 @@ const ReportCustomize = () => {
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center">
-        <div className="col-md-8 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
+        <div className="col-xl-10 col-lg-12 py-4" style={{ color: '#735744', maxHeight: '680px', overflowY: 'auto' }}>
           <div className="text-center">
             <Link to="/home">
               <button className="btn btn-danger mb-4  px-5">

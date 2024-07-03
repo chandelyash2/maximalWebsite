@@ -59,6 +59,8 @@ const Reporting = () => {
   });
   };
  
+  handleCreateReport();
+
   return (
 <div className="container-fluid">
   <div className='row justify-content-center'>
@@ -66,25 +68,10 @@ const Reporting = () => {
       <Link to="/home">
       <button className="btn btn-danger my-2  w-100 mb-4 align-items-center"><h3>ADMINISTRATOR PORTAL</h3></button>
       </Link>
-      <p className='mb-4 text-center'><h4> Reporting</h4></p>
-      <div className='row d-flex flex-column align-items-center'>
-        <div className='fixed-width'>
-        <button className='btn btn-danger  my-2 w-100' onClick={handleCreateReport}>Create New Report</button>
-        <Link to="/ReportTemplateEdit"><button className='btn btn-danger my-2 w-100'>Edit Existing Report</button></Link>
-        {/* <button className='btn btn-danger rounded-pill  my-2 w-100'>Replicate Existing Report</button> */}
-        <Link to="/ReportAssignUserPermissions"><button className='btn btn-danger my-2 w-100'>Assign User Permissions</button></Link> 
-        <Link to="/addLocation"><button className='btn btn-danger my-2 w-100'>Add Location</button></Link> 
-    
-      {/* <Link to="/MakeAdmin">
-      <button className='btn btn-danger rounded-pill  my-2 w-100'>Assign/Edit User Access</button>
-      </Link> */}
-        </div>
-      </div>
-
-    </div>
+      <p className='mb-4 text-center'><h4>Creating Reporting...</h4></p>
   </div>
 </div>
-
+</div>
   );
 }
 

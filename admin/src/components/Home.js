@@ -34,7 +34,7 @@ const HomePage = () =>  {
     
       <h3 class="text-center mb-4 my-2">ADMINISTRATOR PORTAL</h3>
 
-      <div className='row d-flex flex-column align-items-center'>
+      {/* <div className='row d-flex flex-column align-items-center'>
         <div className='fixed-width'>
         <Link to="/Reporting"><button className='btn btn-danger px-5 my-2 w-100'>Reporting</button></Link>
       <button className='btn btn-danger px-5 my-2 w-100'>Checkpoint Tour</button>
@@ -46,7 +46,7 @@ const HomePage = () =>  {
       </Link>
       <button onClick={handleSignOut} className='btn btn-danger px-5 my-2 w-100 text-warning'><i class="bi bi-box-arrow-left"></i> Sign Out</button>
         </div>
-      </div>
+      </div> */}
 
     </div>
   </div>

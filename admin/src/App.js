@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AlertProvider } from './components/AlertContext';
-import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
@@ -13,6 +12,7 @@ import UserAccess from './components/UserAccess';
 import ReportAssignUserPermissions from './components/ReportAssignUserPermissions';
 import Unauthorised from './components/Unauthorised.js'
 import MakeAdmin from './components/MakeAdmin.js'
+import Sidebar from './components/Sidebar.js'
 import ReportCustomize from './components/ReportCustomize/ReportCustomize.js'
 import ReportPreview from './components/ReportPreview/ReportPreview.js'
 import Reporting from './components/Reporting.js';
@@ -54,8 +54,13 @@ function App() {
   return (
     <Router>
       <VideoBackground /> 
-      {currentUser && <Navbar />} {/* Render Navbar only if currentUser exists */}
-      <div className="content">
+      {/* {currentUser && <Navbar />} Render Navbar only if currentUser exists */}
+      <div class="row justify-content-center pt-5">
+      <div className="col-md-2">
+          <Sidebar />
+        </div>
+      
+      <div className="col-md-9">
         <AlertProvider>
           <Routes>
             <Route path="/" element={currentUser ? <Navigate to="/home" /> : <Login />} />
@@ -80,6 +85,7 @@ function App() {
             <Route path="/unauthorised" element={<Unauthorised />} />
           </Routes>
         </AlertProvider>
+      </div>
       </div>
     </Router>
   );
