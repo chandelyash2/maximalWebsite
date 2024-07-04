@@ -247,20 +247,14 @@ const ReportCustomize = () => {
                       <option key={index} value={user.company}>{user.company}</option>
                     ))}
                 </select>
-                <select 
+                <input
+                  type='text' 
                   className="form-control btn-danger  w-75 my-2"
                   id="companyLocationID"
                   value={companyLocation}
                   onChange={(e) => setCompanyLocation(e.target.value)}
                   placeholder="Company Location..."
-                >
-                    <option value="">Select a Location</option>
-                    {users.map((user, index) => (
-                      <option key={index} value={user.
-                        streetAddress}>{user.
-                          streetAddress}</option>
-                    ))}
-                </select>
+                />
               </div>
               <div className="col-md-6">
                 {successMessage && (

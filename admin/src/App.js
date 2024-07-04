@@ -55,12 +55,12 @@ function App() {
     <Router>
       <VideoBackground /> 
       {/* {currentUser && <Navbar />} Render Navbar only if currentUser exists */}
-      <div class="row justify-content-center pt-5">
-      <div className="col-md-2">
+      <div class="d-flex">
+      <div style={{ width: '220px' }}>
           <Sidebar />
         </div>
       
-      <div className="col-md-9">
+      <div style={{ width: 'intrinsic', marginLeft: '220px' }}>
         <AlertProvider>
           <Routes>
             <Route path="/" element={currentUser ? <Navigate to="/home" /> : <Login />} />
