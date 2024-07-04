@@ -6,7 +6,7 @@ import { auth } from '../firebaseconfig'; // Import the auth module
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection after sign out
 
 const Sidebar = () => {
-  
+
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -40,7 +40,7 @@ const Sidebar = () => {
               aria-expanded="true" aria-controls="collapseOnestar">Reporting</a>
             {/* <button className="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnestar"
               aria-expanded="true" aria-controls="collapseOnestar"></button> */}
-              
+
           </div>
           <div id="collapseOnestar" className="accordion-collapse collapse py-0" aria-labelledby="headingOnestar"
             data-bs-parent="#accordionmenu">
@@ -55,7 +55,7 @@ const Sidebar = () => {
         <div className="accordion-item accordion-item1">
         <div className="accordion-header d-flex" id="headingTwotar">
              <a className="ps-4 btn-danger btn w-100" data-bs-toggle="collapse" data-bs-target="#collapseTwostar"
-              aria-expanded="true" aria-controls="collapseTwostar">Schedule & Guard Management</a>              
+              aria-expanded="true" aria-controls="collapseTwostar">Schedule & Guard Management</a>
           </div>
           <div id="collapseTwostar" className="accordion-collapse collapse py-0" aria-labelledby="headingTwostar"
             data-bs-parent="#accordionmenu">
@@ -70,7 +70,7 @@ const Sidebar = () => {
         <div className="accordion-item accordion-item1">
         <div className="accordion-header d-flex" id="headingTwotar">
              <a className="ps-4 btn-danger btn w-100" data-bs-toggle="collapse" data-bs-target="#collapseTwostar"
-              aria-expanded="true" aria-controls="collapseTwostar">Invoicing</a>              
+              aria-expanded="true" aria-controls="collapseTwostar">Invoicing</a>
           </div>
           <div id="collapseTwostar" className="accordion-collapse collapse py-0" aria-labelledby="headingTwostar"
             data-bs-parent="#accordionmenu">
@@ -92,7 +92,7 @@ const Sidebar = () => {
           <a className="ps-4 btn-danger btn w-100" href="/UserList">User List</a>
         </div>
         <div className="accordion-item accordion-item1">
-          <a className="ps-4 btn-danger btn w-100" href="#">Client List</a>
+          <a className="ps-4 btn-danger btn w-100" href="/ClientList">Client List</a>
         </div>
         <div className="accordion-item accordion-item1">
           <a className="ps-4 btn-danger btn w-100" href="#">Client Hours</a>
@@ -103,7 +103,7 @@ const Sidebar = () => {
 
         </div>
 
-    
+
     </div>
   );
 };
