@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {database} from "../firebaseconfig";
-import {ref, get, set, push, update} from 'firebase/database';
+import {get, push, ref, set, update} from 'firebase/database';
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import {Modal} from "react-bootstrap";
 import AddClient from "./AddClient";
+import MapComponent from "../Map";
 
 const filter = createFilterOptions();
 
@@ -16,34 +17,38 @@ const usersRef = ref(database, 'users');
 function ClientList() {
     const [users, setUsers] = useState([]);
     const [clients, setClients] = useState([]);
+    const [selectedClientIndex, setSelectedClientIndex] = useState(-1);
+    const [marker, setMarker] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [openMap, setOpenMap] = useState(false);
     const initialized = useRef(false)
 
-    useEffect(() => {
-        async function getClientLocations() {
-            get(clientLocationRef)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        let templatesArray = Object.keys(data).map(key => ({
-                            id: key,
-                            ...data[key]
-                        }));
-                        templatesArray = templatesArray.map(user => {
-                            const data = users.filter((item) => item.id === user.clientId)[0]
-                            user.clientType = "view"
-                            user.clientName = data.company
-                            return user;
-                        });
-                        setClients(templatesArray);
-                    }
-                })
-                .catch((error) => {
-                    setErrorMessage(`Error fetching User Profiles: ${error.message}`);
-                });
-        }
+    async function getClientLocations() {
+        get(clientLocationRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    let templatesArray = Object.keys(data).map(key => ({
+                        id: key,
+                        ...data[key]
+                    }));
+                    templatesArray = templatesArray.map(user => {
+                        const data = users.filter((item) => item.id === user.clientId)[0]
+                        user.clientType = "view"
+                        user.clientName = data.company
+                        user.lng = user.lang
+                        return user;
+                    });
+                    setClients(templatesArray);
+                }
+            })
+            .catch((error) => {
+                setErrorMessage(`Error fetching User Profiles: ${error.message}`);
+            });
+    }
 
+    useEffect(() => {
         if (users.length > 0) {
             getClientLocations()
         }
@@ -90,7 +95,8 @@ function ClientList() {
             address: "",
             city: "",
             state: "",
-            zipCode: ""
+            zipCode: "",
+            lat: null, lng: null,
         })
         setClients(tempClients)
     }
@@ -98,21 +104,29 @@ function ClientList() {
     const _createOrUpdate = async (clientLocation, index) => {
         console.log("client => ", clientLocation)
         const clientType = clientLocation.clientType
+        /*if (!clientLocation.clientId) {
+            alert("Please select valid client")
+            return
+        }*/
 
         const location = {
             address: clientLocation.address,
             city: clientLocation.city,
             state: clientLocation.state,
             zipCode: clientLocation.zipCode,
+            lat: clientLocation.lat,
+            lang: clientLocation.lng,
         }
         if (clientType === 'new') {
             console.log("new client location")
             location.clientId = clientLocation.id
             const key = push(clientLocationRef).key;
             await set(ref(database, `${clientLocationCollectionName}/${key}`), location)
+            getClientLocations()
         } else if (clientType === 'update') {
             console.log("update client location")
             await update(ref(database, `${clientLocationCollectionName}/${clientLocation.id}`), location)
+            getClientLocations()
         } else if (clientType === 'view') {
             console.log("show save button here")
             const allLocations = [...clients]
@@ -138,7 +152,7 @@ function ClientList() {
     });
 
     const handleChange = (event, newValue, reason, user) => {
-        console.log("handle called => ",reason)
+        console.log("handle called => ", reason)
         if (typeof newValue === 'string') {
             setShowModal(true)
             console.log("if")
@@ -196,6 +210,9 @@ function ClientList() {
                                 </th>
                                 <th className='btn-danger rounded text-center'>
                                     Zip Code
+                                </th>
+                                <th className='btn-danger rounded text-center'>
+                                    Location
                                 </th>
                                 <th className='btn-danger rounded text-center '>
                                     Action
@@ -274,6 +291,18 @@ function ClientList() {
                                                          onChange={event => user.zipCode = event.target.value}/>}</td>
                                     <td className='text-center'>
                                         <button
+                                            disabled={!isInEditMode(user)}
+                                            className="btn-danger rounded-pill"
+                                            onClick={() => {
+                                                setSelectedClientIndex(index)
+                                                setOpenMap(true)
+                                            }}>
+                                            Set
+                                        </button>
+                                        {(user.lat && user.lng) && `${Number(user.lat).toFixed(2)},${Number(user.lng).toFixed(2)}`}
+                                    </td>
+                                    <td className='text-center'>
+                                        <button
                                             className="btn-danger rounded-pill"
                                             onClick={() => _createOrUpdate(user, index)}>
                                             {isInEditMode(user) ? "Save" : "Edit"}
@@ -311,6 +340,48 @@ function ClientList() {
                         className="btn btn-primary"
                         onClick={() => setShowModal(false)}>
                         Create
+                    </button>
+                </Modal.Footer>
+            </Modal>}
+
+            {openMap && <Modal
+                show={openMap}
+                onHide={() => {
+                    setSelectedClientIndex(-1)
+                    setOpenMap(false)
+                }}
+                dialogClassName="modal-md">
+                <Modal.Body>
+                    <MapComponent onSubmit={(marker) => setMarker(marker)}/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => {
+                            const allClients = [...clients];
+                            const selectedClient = allClients[selectedClientIndex];
+                            selectedClient.lat = null
+                            selectedClient.lng = null
+                            setClients(allClients)
+                            setSelectedClientIndex(-1)
+                            setOpenMap(false)
+                        }}>
+                        Cancel
+                    </button>
+                    <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                            if (selectedClientIndex > -1) {
+                                const allClients = [...clients];
+                                const selectedClient = allClients[selectedClientIndex];
+                                selectedClient.lat = marker.lat
+                                selectedClient.lng = marker.lng
+                                setClients(allClients)
+
+                            }
+                            setOpenMap(false)
+                        }}>
+                        Set
                     </button>
                 </Modal.Footer>
             </Modal>}
