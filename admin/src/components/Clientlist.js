@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {database} from "../firebaseconfig";
-import {ref, get, remove} from 'firebase/database';
+import {ref, get, set, push, update} from 'firebase/database';
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import {Modal} from "react-bootstrap";
@@ -9,42 +9,83 @@ import AddClient from "./AddClient";
 
 const filter = createFilterOptions();
 
+const clientLocationCollectionName = 'clientLocations'
+const clientLocationRef = ref(database, clientLocationCollectionName)
+const usersRef = ref(database, 'users');
 
 function ClientList() {
     const [users, setUsers] = useState([]);
     const [clients, setClients] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const initialized = useRef(false)
 
     useEffect(() => {
-        const usersRef = ref(database, 'users');
+        async function getClientLocations() {
+            get(clientLocationRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        let templatesArray = Object.keys(data).map(key => ({
+                            id: key,
+                            ...data[key]
+                        }));
+                        templatesArray = templatesArray.map(user => {
+                            const data = users.filter((item) => item.id === user.clientId)[0]
+                            user.clientType = "view"
+                            user.clientName = data.company
+                            return user;
+                        });
+                        setClients(templatesArray);
+                    }
+                })
+                .catch((error) => {
+                    setErrorMessage(`Error fetching User Profiles: ${error.message}`);
+                });
+        }
 
-        get(usersRef)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    let templatesArray = Object.keys(data).map(key => ({
-                        id: key,
-                        ...data[key]
-                    }));
-                    templatesArray = templatesArray.filter(user =>
-                        user.type === 'Client' && user.company
-                    );
-                    setUsers(templatesArray);
-                } else {
-                    setErrorMessage('No User Profiles found');
-                }
-            })
-            .catch((error) => {
-                setErrorMessage(`Error fetching User Profiles: ${error.message}`);
-            });
+        if (users.length > 0) {
+            getClientLocations()
+        }
+
+    }, [users])
+
+    useEffect(() => {
+        async function getAllClients() {
+            get(usersRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        let templatesArray = Object.keys(data).map(key => ({
+                            id: key,
+                            ...data[key]
+                        }));
+                        templatesArray = templatesArray.filter(user =>
+                            user.type === 'Client' && user.company
+                        );
+                        setUsers(templatesArray);
+                    } else {
+                        setErrorMessage('No User Profiles found');
+                    }
+                })
+                .catch((error) => {
+                    setErrorMessage(`Error fetching User Profiles: ${error.message}`);
+                });
+        }
+
+
+        if (!initialized.current) {
+            initialized.current = true
+            getAllClients();
+        }
+
     }, []);
 
     const _addClient = () => {
         const tempClients = [...clients]
         tempClients.push({
             id: new Date().getTime(),
-            isNew: true,
+            clientType: "new",
             clientName: "",
             address: "",
             city: "",
@@ -54,9 +95,31 @@ function ClientList() {
         setClients(tempClients)
     }
 
-    const _createOrUpdate = (client, index) => {
-        console.log("client => ", client)
-        console.log("index => ", index)
+    const _createOrUpdate = async (clientLocation, index) => {
+        console.log("client => ", clientLocation)
+        const clientType = clientLocation.clientType
+
+        const location = {
+            address: clientLocation.address,
+            city: clientLocation.city,
+            state: clientLocation.state,
+            zipCode: clientLocation.zipCode,
+        }
+        if (clientType === 'new') {
+            console.log("new client location")
+            location.clientId = clientLocation.id
+            const key = push(clientLocationRef).key;
+            await set(ref(database, `${clientLocationCollectionName}/${key}`), location)
+        } else if (clientType === 'update') {
+            console.log("update client location")
+            await update(ref(database, `${clientLocationCollectionName}/${clientLocation.id}`), location)
+        } else if (clientType === 'view') {
+            console.log("show save button here")
+            const allLocations = [...clients]
+            clientLocation.clientType = 'update'
+            allLocations[index] = clientLocation
+            setClients(allLocations)
+        }
     }
 
     const _deleteClient = (client, index) => {
@@ -74,7 +137,8 @@ function ClientList() {
         width: 150
     });
 
-    const handleChange = (event, newValue, user) => {
+    const handleChange = (event, newValue, reason, user) => {
+        console.log("handle called => ",reason)
         if (typeof newValue === 'string') {
             setShowModal(true)
             console.log("if")
@@ -89,6 +153,13 @@ function ClientList() {
             console.log("user => ", user)
 
         }
+    };
+
+    const isInEditMode = (user) => user.clientType === 'new' || user.clientType === 'update';
+
+    const handleClose = (event, reason) => {
+        console.log('Autocomplete closed ==>', reason);
+        // Handle close event here
     };
 
     return (
@@ -135,13 +206,15 @@ function ClientList() {
                             <tbody>
                             {clients.map((user, index) => (
                                 <tr key={user.id}>
-                                    <td className='text-center'>{user.clientName ?
+                                    <td className='text-center'>{!isInEditMode(user) ?
                                         user.clientName :
                                         <Autocomplete
                                             options={users}
                                             disableClearable
                                             freeSolo
-                                            filterSelectedOptions={true}
+                                            // filterSelectedOptions={true}
+                                            // onClose={handleClose}
+                                            defaultValue={user.clientName}
                                             getOptionLabel={(option) => {
                                                 // option.company
                                                 if (typeof option === 'string') {
@@ -154,7 +227,7 @@ function ClientList() {
                                                 // Regular option
                                                 return option.company;
                                             }}
-                                            onChange={(event, newValue) => handleChange(event, newValue, user)}
+                                            onChange={(event, newValue, reason) => handleChange(event, newValue, reason, user)}
                                             filterOptions={(options, params) => {
                                                 const filtered = filter(options, params);
 
@@ -185,19 +258,25 @@ function ClientList() {
                                         </Autocomplete>
                                     }
                                     </td>
-                                    <td className='text-center'>{user.address ? user.address :
-                                        <CustomTextField onChange={event => user.address = event.target.value}/>}</td>
-                                    <td className='text-center'>{user.city ? user.city :
-                                        <CustomTextField onChange={event => user.city = event.target.value}/>}</td>
-                                    <td className='text-center'>{user.state ? user.state :
-                                        <CustomTextField onChange={event => user.state = event.target.value}/>}</td>
-                                    <td className='text-center'>{user.zipCode ? user.zipCode :
-                                        <CustomTextField onChange={event => user.zipCode = event.target.value}/>}</td>
+                                    <td className='text-center'>{!isInEditMode(user) ? user.address :
+                                        <CustomTextField
+                                            defaultValue={user.address}
+                                            onChange={event => user.address = event.target.value}/>}
+                                    </td>
+                                    <td className='text-center'>{!isInEditMode(user) ? user.city :
+                                        <CustomTextField defaultValue={user.city}
+                                                         onChange={event => user.city = event.target.value}/>}</td>
+                                    <td className='text-center'>{!isInEditMode(user) ? user.state :
+                                        <CustomTextField defaultValue={user.state}
+                                                         onChange={event => user.state = event.target.value}/>}</td>
+                                    <td className='text-center'>{!isInEditMode(user) ? user.zipCode :
+                                        <CustomTextField defaultValue={user.zipCode}
+                                                         onChange={event => user.zipCode = event.target.value}/>}</td>
                                     <td className='text-center'>
                                         <button
                                             className="btn-danger rounded-pill"
                                             onClick={() => _createOrUpdate(user, index)}>
-                                            {user.isNew ? "Save" : "Edit"}
+                                            {isInEditMode(user) ? "Save" : "Edit"}
                                         </button>
                                         <button className="btn-danger rounded-pill"
                                                 onClick={() => _deleteClient(user, index)}>Delete
