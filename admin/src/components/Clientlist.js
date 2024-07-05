@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {database} from "../firebaseconfig";
-import {get, push, ref, set, update} from 'firebase/database';
+import {get, push, ref, set, update,query,equalTo} from 'firebase/database';
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import {Modal} from "react-bootstrap";
@@ -29,11 +29,12 @@ function ClientList() {
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
+                    console.log(data)
                     let templatesArray = Object.keys(data).map(key => ({
                         id: key,
                         ...data[key]
                     }));
-                    templatesArray = templatesArray.map(user => {
+                    templatesArray = templatesArray.filter(item => !item.isDeleted).map(user => {
                         const data = users.filter((item) => item.id === user.clientId)[0]
                         user.clientType = "view"
                         user.clientName = data.company
@@ -136,7 +137,10 @@ function ClientList() {
         }
     }
 
-    const _deleteClient = (client, index) => {
+    const _deleteClient = async (client, index) => {
+        await update(ref(database, `${clientLocationCollectionName}/${client.id}`), {
+            isDeleted: true,
+        })
         const tempClients = [...clients]
         tempClients.splice(index, 1)
         setClients(tempClients)
