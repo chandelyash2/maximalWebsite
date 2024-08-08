@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ref, get, remove } from 'firebase/database'; 
+import { ref, get, remove } from 'firebase/database';
 import { database } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
 import FilterButton from './FilterButton';
@@ -18,10 +18,11 @@ function UserList() {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const templatesArray = Object.keys(data).map(key => ({
+          let templatesArray = Object.keys(data).map(key => ({
             id: key,
             ...data[key]
           }));
+          templatesArray = templatesArray.filter(item => (!item.isDeleted && item.type !== "Client"));
           setUsers(templatesArray);
         } else {
           setErrorMessage('No User Profiles found');
@@ -78,7 +79,7 @@ function UserList() {
         setErrorMessage(`Error deleting User: ${error.message}`);
       });
   };
-  
+
 
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
@@ -143,7 +144,7 @@ function UserList() {
                     <td className='text-center'>{user.company}</td>
                     <td className='text-center'>{user.companyAdress}</td>
                     {/* <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(user.id)}><i className="bi bi-trash3"></i></button> */}
-                  
+
                   </tr>
                 ))}
               </tbody>
