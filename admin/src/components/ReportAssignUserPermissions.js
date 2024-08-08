@@ -134,6 +134,9 @@ function ReportAssignUserPermissions() {
     setAccessType('');
   };
 
+  const handleEdit = (permmissionId) => {
+
+  }
   const handleDelete = (templateId) => {
     const isConfirmed = window.confirm("Are you sure you want to delete this report template?");
     if (!isConfirmed) {
@@ -150,26 +153,7 @@ function ReportAssignUserPermissions() {
         setErrorMessage(`Error deleting report template: ${error.message}`);
       });
   };
-
-  // const handleSearchChange = (e) => {
-  //   const term = e.target.value.toLowerCase();
-  //   setSearchTerm(term);
-  //   if (term.length === 0) {
-  //     setFilteredUsers([]);
-  //   } else {
-  //     const filtered = users.filter(user =>
-  //       (user.firstName && user.firstName.toLowerCase().includes(term)) ||
-  //       (user.lastName && user.lastName.toLowerCase().includes(term)) ||
-  //       (user.company && user.company.toLowerCase().includes(term)) ||
-  //       (user.address && user.address.toLowerCase().includes(term))
-  //     );
-  //     setFilteredUsers(filtered);
-  //   }
-  // };
-
  
-
-
   
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
@@ -189,25 +173,7 @@ function ReportAssignUserPermissions() {
             <div className='col-md-3'>
               <div className="form-group">
                 <label htmlFor="userSearch">Search for User:</label>
-                {/* <input
-                  type="text"
-                  className="form-control"
-                  id="userSearch"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                  placeholder="Type to search..."
-                  list="userResults"
-                />
-                {searchTerm.length > 0 && (
-                  <datalist id="userResults">
-                    {filteredUsers.map((user) => (
-                      <React.Fragment key={user.id}>
-                        <option value={`${user.firstName} ${user.lastName}`} />
-                        <option value={user.company || user.address} />
-                      </React.Fragment>
-                    ))}
-                  </datalist>
-                )} */}
+
                 <select className="form-control btn-danger" onChange={(e) => setUserId(e.target.value)}>
                   <option value="">Select User:</option>
                   {users.map(user => (
@@ -283,9 +249,12 @@ function ReportAssignUserPermissions() {
                     </td>
                     <td>{permission.accessType}</td>
                     <td>
+                      <div className='text-center d-flex flex-columns justify-content-center'>
+                      <button className="btn btn-danger rounded-pill mx-1 text-center" title='Delete' onClick={() => handleEdit(permission.id)}><i className="bi bi-pencil-square"></i></button>                   
                       <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(permission.id)}>
                         <i className="bi bi-trash3"></i>
                       </button>
+                      </div>
                     </td>
                   </tr>
                  )

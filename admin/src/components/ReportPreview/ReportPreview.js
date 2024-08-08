@@ -308,7 +308,7 @@ const ReportPreviewHybrid = () => {
           <div className="text-center">
             <button className="btn w-25 btn-danger text-center m-auto mb-3">{reportName}</button>
             <Link className="btn btn-danger text-center m-auto  mb-3 ms-2"
-                  to={`/ReportCustomizeHybrid/${reportTempId}`}
+                  to={`/ReportCustomize/${reportTempId}`}
                    title='Edit'><i className="bi bi-pencil-square"></i></Link>
             <br />
             <select className='btn btn-danger' value={orientation} onChange={handleOrientationChange} title='Orientation'>
