@@ -12,7 +12,9 @@ const ReportCustomize = () => {
     const [reportName, setReportName] = useState('');
     const [tables, setTables] = useState([]);
     const [companyName, setCompanyName] = useState('');
+    const [companyId, setCompanyId] = useState('');
     const [companyLocation, setCompanyLocation] = useState('');
+    const [companyLocationId, setCompanyLocationId] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [showAddTableModal, setShowAddTableModal] = useState(false);
@@ -21,7 +23,7 @@ const ReportCustomize = () => {
     const [columnIndex, setColumnIndex] = useState('');
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {
+    const fetchReportTemplate = async (reportTempId,updatedTemplatesArray) => {
         if (reportTempId) {
             const reportTemplateRef = ref(database, `reportTemplates/${reportTempId}`);
             get(reportTemplateRef)
@@ -30,8 +32,13 @@ const ReportCustomize = () => {
                         const data = snapshot.val();
                         setReportName(data.name);
                         setTables(data.tables || []);
-                        setCompanyName(data.companyName);
-                        setCompanyLocation(data.companyLocation);
+                        const filteredUser = updatedTemplatesArray.find(user => data.companyName === user.company);
+                        if (filteredUser) {
+                            setCompanyName(data.companyName);
+                            setCompanyId(data.companyId)
+                            setCompanyLocation(data.companyLocation);
+                            setCompanyLocationId(data.companyLocationId);
+                        }
                     } else {
                         setErrorMessage('Report template not found');
                     }
@@ -40,7 +47,9 @@ const ReportCustomize = () => {
                     setErrorMessage(`Error fetching report template: ${error.message}`);
                 });
         }
+    }
 
+    useEffect(() => {
         const usersRef = ref(database, 'users');
         get(usersRef)
             .then(async (snapshot) => {
@@ -71,8 +80,9 @@ const ReportCustomize = () => {
                         return template;
                     }));
 
-                    console.log('updatedTemplatesArray => ',updatedTemplatesArray);
                     setUsers(updatedTemplatesArray);
+
+                    await fetchReportTemplate(reportTempId,updatedTemplatesArray);
                 } else {
                     setErrorMessage('No User Profiles found');
                 }
@@ -196,7 +206,10 @@ const ReportCustomize = () => {
             tables: tables,
             companyName: companyName,
             companyLocation: companyLocation,
+            companyId,
+            companyLocationId
         };
+        console.log(updatedReportTemplate)
 
         set(reportTemplateRef, updatedReportTemplate)
             .then(() => {
@@ -274,19 +287,26 @@ const ReportCustomize = () => {
                                 <select
                                     className="form-control btn-danger  w-75 my-2"
                                     id="companyNameID"
-                                    value={companyName}
-                                    onChange={(e) => setCompanyName(e.target.value)}
+                                    value={companyId}
+                                    onChange={(e) => {
+                                        setCompanyId(e.target.value)
+                                        setCompanyName(users.find(user => user.id === e.target.value).company)
+                                    }}
                                     placeholder="Company Name...">
                                     <option value="">Select a company</option>
                                     {users.map((user, index) => (
-                                        <option key={index} value={user.company}>{user.company}</option>
+                                        <option key={index} value={user.id}>{user.company}</option>
                                     ))}
                                 </select>
                                 <select
                                     className="form-control btn-danger  w-75 my-2"
                                     id="companyLocationID"
-                                    value={companyLocation}
-                                    onChange={(e) => setCompanyLocation(e.target.value)}
+                                    value={companyLocationId}
+                                    onChange={(e) => {
+                                        setCompanyLocationId(e.target.value)
+                                        setCompanyLocation(users.find(user => user.id === companyId)
+                                            .clientLocations.find(location => location.id === e.target.value).address)
+                                    }}
                                     placeholder="Company Location...">
                                     <option value="">Select a Location</option>
                                     {companyName && users.find(user => user.company === companyName)

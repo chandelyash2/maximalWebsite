@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {database} from "../firebaseconfig";
-import {get, push, ref, set, update,query,equalTo} from 'firebase/database';
+import {get, push, ref, set, update, query, equalTo} from 'firebase/database';
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import {Modal} from "react-bootstrap";
@@ -119,13 +119,13 @@ function ClientList() {
             lang: clientLocation.lng,
         }
         if (clientType === 'new') {
-            console.log("new client location")
             location.clientId = clientLocation.id
+            console.log("new client location =",location)
             const key = push(clientLocationRef).key;
             await set(ref(database, `${clientLocationCollectionName}/${key}`), location)
             getClientLocations()
         } else if (clientType === 'update') {
-            console.log("update client location")
+            console.log("update client location ",location)
             await update(ref(database, `${clientLocationCollectionName}/${clientLocation.id}`), location)
             getClientLocations()
         } else if (clientType === 'view') {
@@ -229,7 +229,23 @@ function ClientList() {
                                 <tr key={user.id}>
                                     <td className='text-center'>{!isInEditMode(user) ?
                                         user.clientName :
-                                        <Autocomplete
+                                        <select
+                                            className={'bg-transparent border-0'}
+                                            id="companyNameID"
+                                            value={user.id}
+                                            onChange={(e) => {
+                                                user.id = e.target.value
+                                                user.clientName = e.target.options[e.target.selectedIndex].text
+                                                const allClients = [...clients];
+                                                allClients[index] = user
+                                                setClients(allClients)
+                                            }}>
+                                            <option value="">Select a company</option>
+                                            {users.map((user, index) => (
+                                                <option key={index} value={user.id}>{user.company}</option>
+                                            ))}
+                                        </select>
+                                        /*<Autocomplete
                                             options={users}
                                             disableClearable
                                             freeSolo
@@ -276,7 +292,7 @@ function ClientList() {
                                                     type: 'search',
                                                 }}/>
                                             }>
-                                        </Autocomplete>
+                                        </Autocomplete>*/
                                     }
                                     </td>
                                     <td className='text-center'>{!isInEditMode(user) ? user.address :
