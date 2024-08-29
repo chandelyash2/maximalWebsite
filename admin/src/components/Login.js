@@ -45,14 +45,14 @@ function Login() {
       <img src="../images/logo.png" className='logo' title="Visit Website"/>
       </Link>
       <div className="row justify-content-center">
-        <div className="col-lg-4 mt-5 col-md-5 px-5 justify-content-center text-center">
+        <div className="col-lg-8 mt-5 col-md-8 px-5 justify-content-center text-center">
               <button class="btn btn-danger mb-4 rounded-pill px-5">ADMINISTRATOR PORTAL</button>
               {error && (
                 <div className="alert alert-danger" role="alert">
                   {error}
                 </div>
               )}
-              <form onSubmit={handleLogin}>
+              <form className="col-lg-12" onSubmit={handleLogin}>
                 <div className="mb-3">
                   <input
                     type="email"

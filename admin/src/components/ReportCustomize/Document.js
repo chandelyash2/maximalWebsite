@@ -24,6 +24,8 @@ const Document = ({ tableIndex, column, columnIndex, handleChange, handleDeleteR
         <option value="time">Time</option>
         <option value="textarea">Long Text</option>
         <option value="photo">Photo Upload</option>
+        <option value="photo">Photo Capture</option>
+        <option value="photo">F&C</option>
       </select>
       </td>
       <td>
