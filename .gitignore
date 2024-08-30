@@ -68,3 +68,9 @@ node_modules/
 
 *.mov
 *.zip
+admin/package-lock.json
+admin/node_modules
+.idea
+admin/.idea
+functions/.idea
+
