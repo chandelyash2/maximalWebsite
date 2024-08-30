@@ -4,10 +4,14 @@ const multer = require('multer');
 const admin = require('firebase-admin');
 const serviceAccount = require('./maximal-security-services-firebase-adminsdk.json');
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: 'maximal-security-services.appspot.com',
-});
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        storageBucket: 'maximal-security-services.appspot.com',
+    });
+} else {
+    admin.app(); // Use the already initialized app
+}
 
 const storage = new Storage();
 const bucket = storage.bucket(admin.storage().bucket().name);
