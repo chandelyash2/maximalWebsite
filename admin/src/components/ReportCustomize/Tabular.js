@@ -50,6 +50,8 @@ const Tabular = ({ tableIndex, columnIndex, column, handleChange, handleDeleteRo
         <option value="fixed value">Fixed Value</option>
         <option value="Yes/No">Yes/No</option>
         <option value="photo">Photo Upload</option>
+        <option value="photo">Photo Capture</option>
+        <option value="photo">F&C</option>
       </select>
     </td>
     <td>
