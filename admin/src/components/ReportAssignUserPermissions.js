@@ -21,7 +21,7 @@ function ReportAssignUserPermissions() {
     const usersRef = ref(database, 'users');
     const reportTemplatesRef = ref(database, 'reportTemplates');
     const reportUserAccessPermissionsRef = ref(database, 'reportUserAccessPermissions');
-    
+
     const compareBy = (key) => {
       return function(a, b) {
         if (a[key] < b[key]) return -1;
@@ -29,11 +29,11 @@ function ReportAssignUserPermissions() {
         return 0;
       };
     }
-  
-    const sortList = (key) => {
-      let arrayCopy = [...this.state.users];
-      arrayCopy.sort(this.compareBy(key));
-      this.setState({ users: arrayCopy });
+
+    const sortList = (usersArray,key) => {
+      let arrayCopy = [...usersArray];
+      arrayCopy.sort(compareBy(key));
+      setUsers(arrayCopy)
     }
 
     // Fetch users
@@ -45,8 +45,8 @@ function ReportAssignUserPermissions() {
             id: key,
             ...data[key]
           }));
-          setUsers(usersArray);
-          sortList(users.firstName)
+          // setUsers(usersArray);
+          sortList(usersArray,"firstName")
         } else {
           setErrorMessage('No User Profiles found');
         }
@@ -106,13 +106,13 @@ function ReportAssignUserPermissions() {
     // Find selected user and report template
     const selectedUser = users.find(user => user.id === userId);
     const selectedTemplate = reportTemplates.find(template => template.id === reportTemplateId);
-  
+
     // Check if selected user and template exist
     if (!selectedUser || !selectedTemplate) {
       alert('Selected User or Report Template does not exist.');
       return;
     }
-  
+
     // Create new permission object
     const newPermission = {
       email: selectedUser.email, // Replace with appropriate property from your user object
@@ -122,14 +122,14 @@ function ReportAssignUserPermissions() {
       accessType: accessType,
       userType: selectedUser.type
     };
-  
+
     // Update state with new permission
     setReportUserAccessPermissions([...reportUserAccessPermissions, newPermission]);
-  
+
     // Save to database (assuming 'reportUserAccessPermissions' is your database table)
     const newPermissionRef = push(ref(database, 'reportUserAccessPermissions'));
     set(newPermissionRef, newPermission);
-  
+
     // Clear selection after adding
     setAccessType('');
   };
@@ -153,8 +153,8 @@ function ReportAssignUserPermissions() {
         setErrorMessage(`Error deleting report template: ${error.message}`);
       });
   };
- 
-  
+
+
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
       <div className="row justify-content-center">
@@ -232,7 +232,7 @@ function ReportAssignUserPermissions() {
                 </tr>
               </thead>
               <tbody>
-                {reportUserAccessPermissions.map((permission, index) => 
+                {reportUserAccessPermissions.map((permission, index) =>
                  (
                   <tr key={index}>
                     <td><b>{users.find(user => user.id === permission.userId)?.firstName+ " "+users.find(user => user.id === permission.userId)?.lastName}</b>
@@ -250,7 +250,7 @@ function ReportAssignUserPermissions() {
                     <td>{permission.accessType}</td>
                     <td>
                       <div className='text-center d-flex flex-columns justify-content-center'>
-                      <button className="btn btn-danger rounded-pill mx-1 text-center" title='Delete' onClick={() => handleEdit(permission.id)}><i className="bi bi-pencil-square"></i></button>                   
+                      <button className="btn btn-danger rounded-pill mx-1 text-center" title='Delete' onClick={() => handleEdit(permission.id)}><i className="bi bi-pencil-square"></i></button>
                       <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(permission.id)}>
                         <i className="bi bi-trash3"></i>
                       </button>
