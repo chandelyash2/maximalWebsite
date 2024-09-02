@@ -9,6 +9,7 @@ const parseRequest = (req) => {
 
         const files = [] // create an empty array to hold the processed files
         const buffers = {} // create an empty object to contain the buffers
+        const fields = {};
 
         busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
             buffers[fieldname] = [] // add a new key to the buffers object
@@ -23,11 +24,14 @@ const parseRequest = (req) => {
                 })
             })
         });
+        busboy.on('field', (fieldname, val) => {
+            fields[fieldname] = val;
+        });
         busboy.on('error', err => {
             reject(err)
         })
         busboy.on('finish', () => {
-            resolve(files)
+            resolve({files, fields});
         })
         busboy.end(req.rawBody)
     });
@@ -38,18 +42,20 @@ async function generatePdf(req, res) {
     if (req.method !== 'POST') {
         return res.status(400).send({error: 'Invalid request method'});
     }
-    const files = await parseRequest(req)
+    const {files, fields} = await parseRequest(req)
 
     const headerJson = files.find(file => file.fieldname === "headerJson");
     const dataJson = files.find(file => file.fieldname === "dataJson");
-    const {orientation = 'portrait'} = req.body;
+    const {orientation = 'portrait', blackAndWhite} = fields;
 
     if (!headerJson || !dataJson) {
         return res.status(400).json({error: 'Invalid JSON files'});
     }
 
-
     try {
+        const blackAndWhiteBool = stringToBoolean(blackAndWhite)
+        console.log("fdsfdsfdsfdsfdsf ", typeof blackAndWhite);
+
         const headerData = JSON.parse(headerJson.buffer.toString());
         const rowData = JSON.parse(dataJson.buffer.toString());
         // Log the parsed data
@@ -66,75 +72,75 @@ async function generatePdf(req, res) {
                     padding: 0;
                     font-family: Arial, sans-serif;
                 }
-            
+
                 .document-wrapper {
                     margin-bottom: 20px;
                 }
-            
+
                 .document-row {
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 8px;
                     align-items: center;
                 }
-            
+
                 .document-row.full-width {
                     flex-direction: column;
                     align-items: flex-start;
                 }
-            
+
                 .document-row span {
                     margin: 0;
                     display: inline-block;
                     width: 45%; /* Adjust width to leave some space between columns */
                 }
-            
+
                 .document-row .full-width span {
                     width: 100%; /* Full width for single-column rows */
                 }
-            
+
                 .document-row span strong {
                     display: inline-block;
                     width: 50%; /* Adjust width to make titles and data aligned */
-                    background-color: #613b11; /* Background color for headers */
-                    color: #fff; /* Text color for headers */
+                    ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
                     padding: 5px; /* Padding for headers */
                     margin-right: 10px; /* Adds space between titles and data */
                 }
-            
+
                 .document-row span:first-child {
                     margin-right: 10px; /* Adds space between pairs of columns */
                 }
-            
+
                 .document-title {
                     margin-top: 0;
                     margin-bottom: 10px;
                     font-weight: bold;
                     font-size: 16px;
                 }
-            
+
                 .document-wrapper h3 {
                     margin: 0 0 15px 0;
                     font-size: 18px;
-                    color: #613b11;
-                    border-bottom: 2px solid #613b11;
+                    ${blackAndWhiteBool ? 'color: #00000000;' : 'color: #613b11;'}
+                    border-bottom: 2px solid ${blackAndWhiteBool ? '#000;' : '#613b11;'};
                     padding-bottom: 5px;
                 }
-            
+
                 .document-row img {
                     max-width: 200px;
                     height: auto;
                     margin-right: 10px;
                     margin-top: 10px;
+                    ${blackAndWhiteBool ? 'filter: grayscale(100%);' : ''}
                 }
-            
+
                 .table-wrapper {
-                    
+
                     page-break-inside: auto;
                     margin-bottom: 20px;
                     padding: 0;
                 }
-            
+
                 table {
                     width: 100%;
                     border-collapse: collapse;
@@ -145,7 +151,7 @@ async function generatePdf(req, res) {
                     overflow: hidden;
                     table-layout: auto;
                 }
-            
+
                 th, td {
                     padding: 8px 12px;
                     border: 1px solid #000;
@@ -153,38 +159,38 @@ async function generatePdf(req, res) {
                     vertical-align: top;
                     word-wrap: break-word;
                 }
-            
+
                 th {
-                    background-color: #613b11;
-                    color: #fff;
+                    ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
                 }
-            
+
                 td {
-                    background-color: #f5f5f5;
+                    background-color: ${blackAndWhiteBool ? '#fff;' : '#f5f5f5;'}
                 }
-            
+
                 thead {
                     display: table-header-group;
                 }
-            
+
                 tbody {
                     display: table-row-group;
                 }
-            
+
                 h3 {
                     margin-top: 0;
                     margin-bottom: 10px;
                     page-break-after: avoid;
                 }
-            
+
                 img {
                     max-width: 100px;
                     height: auto;
                     display: block;
                     margin-bottom: 5px;
+                    ${blackAndWhiteBool ? 'filter: grayscale(100%);' : ''}
                 }
             </style>
-            
+
             </head>
             <body>
             <div class="header">
@@ -195,74 +201,76 @@ async function generatePdf(req, res) {
                 </div>
             </div>
             ${headerData.tables.map((table, tableIndex) => {
-            const matchingDataTable = rowData.tables[tableIndex];
-            if (!matchingDataTable) return '';  // Skip if no matching data table
+                        const matchingDataTable = rowData.tables[tableIndex];
+                        if (!matchingDataTable) return '';  // Skip if no matching data table
 
-            if (table.type === 'Document') {
-                // Generate document-style layout
-                return `
+                        if (table.type === 'Document') {
+                            // Generate document-style layout
+                            return `
                     <div class="document-wrapper">
                         <h3>${table.name || 'Unnamed Table'}</h3>
                         ${matchingDataTable.table.map(row => {
-                    let rowHtml = ''; // Initialize an empty string for the row HTML
-                    let columnGroup = []; // Array to store columns that will be displayed side by side
+                                let rowHtml = ''; // Initialize an empty string for the row HTML
+                                let columnGroup = []; // Array to store columns that will be displayed side by side
 
-                    row.row.forEach((cell, cellIndex) => {
-                        const column = table.columns[cellIndex];
+                                row.row.forEach((cell, cellIndex) => {
+                                    const column = table.columns[cellIndex];
 
-                        if (cell && cell.format === 'photo' && Array.isArray(cell.value)) {
-                            // Render photos if the cell format is 'photo'
-                            rowHtml += `
+                                    if (cell && cell.format === 'photo' && Array.isArray(cell.value)) {
+                                        // Render photos if the cell format is 'photo'
+                                        rowHtml += `
                                         <div class="document-row full-width">
                                             <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
                                             ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo">`).join('')}
                                         </div>
                                     `;
-                        } else {
-                            if (column.width === '100%') {
-                                // If column width is 100%, display it in full width
-                                if (columnGroup.length > 0) {
-                                    // If there is data in the column group, add them side by side first
-                                    rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                    columnGroup = []; // Reset the column group
-                                }
+                                    } else {
+                                        if (column.width === '100%') {
+                                            // If column width is 100%, display it in full width
+                                            if (columnGroup.length > 0) {
+                                                // If there is data in the column group, add them side by side first
+                                                rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                                                columnGroup = []; // Reset the column group
+                                            }
 
-                                // Add full-width column
-                                rowHtml += `
+                                            // Add full-width column
+                                            rowHtml += `
                                             <div class="document-row full-width">
                                                 <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
                                                 <span>${formatValue(cell.value)}</span>
                                             </div>
                                         `;
-                            } else {
-                                // If column width is not 100%, prepare data to display side by side
-                                columnGroup.push(`
+                                        } else {
+                                            // If column width is not 100%, prepare data to display side by side
+                                            columnGroup.push(`
                                             <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
                                         `);
 
-                                // If there are two items in the group, display them side by side
-                                if (columnGroup.length === 2) {
+                                            // If there are two items in the group, display them side by side
+                                            if (columnGroup.length === 2) {
+                                                rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                                                columnGroup = []; // Reset the column group after displaying
+                                            }
+                                        }
+                                    }
+                                });
+
+                                // If there is remaining data in the column group (odd number of columns), display it
+                                if (columnGroup.length > 0) {
                                     rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                    columnGroup = []; // Reset the column group after displaying
                                 }
-                            }
-                        }
-                    });
 
-                    // If there is remaining data in the column group (odd number of columns), display it
-                    if (columnGroup.length > 0) {
-                        rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                    }
-
-                    return rowHtml; // Return the constructed row HTML
-                }).join('')}
+                                return rowHtml; // Return the constructed row HTML
+                            }).join('')}
                     </div>
                 `;
-            } else if (table.type === 'Tabular') {
-                // Generate tabular-style layout
-                return `
+                        }
+
+                        else if (table.type === 'Tabular') {
+                            // Generate tabular-style layout
+                            return `
                         <div class="table-wrapper">
-                            <h3 style="color: #613b11;">${table.name || 'Unnamed Table'}</h3>
+                            <h3 style="color: ${blackAndWhite ? '#000;' : '#613b11;'}">${table.name || 'Unnamed Table'}</h3>
                             <table>
                                 <thead>
                                     <tr>
@@ -273,32 +281,32 @@ async function generatePdf(req, res) {
                                     ${matchingDataTable.table.map((rowGroup, rowIndex) => `
                                         <tr>
                                             ${rowGroup.row.map((cell, cellIndex) => {
-                    const column = table.columns[cellIndex];
-                    if (column.format === 'fixed value' && column.fixed) {
-                        // If column has fixed values, use them
-                        return `<td>${column.fixed[rowIndex] || '-'}</td>`;
-                    } else {
-                        // Regular cell rendering
-                        return `
+                                const column = table.columns[cellIndex];
+                                if (column.format === 'fixed value' && column.fixed) {
+                                    // If column has fixed values, use them
+                                    return `<td>${column.fixed[rowIndex] || '-'}</td>`;
+                                } else {
+                                    // Regular cell rendering
+                                    return `
                                                         <td>
                                                             ${cell && cell.format === 'photo' && Array.isArray(cell.value)
-                            ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo">`).join('')
-                            : formatValue(cell && cell.value) || '-'}
+                                        ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo">`).join('')
+                                        : formatValue(cell && cell.value) || '-'}
                                                         </td>
                                                     `;
-                    }
-                }).join('')}
+                                }
+                            }).join('')}
                                         </tr>
                                     `).join('')}
                                 </tbody>
                             </table>
                         </div>
                     `;
-            }
-        }).join('')}
-            
+                        }
+                    }).join('')}
+
             ${orientation === 'landscape' ? "Landscape Mode" : "Portrait Mode"}
-            
+
             </body>
             </html>`;
 
@@ -310,19 +318,25 @@ async function generatePdf(req, res) {
             } else {
                 return value || '-';
             }
-
         }
 
         function capitalizeFirstLetter(string) {
+            if (!string) return '';
             return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function stringToBoolean(str) {
+            if(!str) return false;
+            return str.toLowerCase() === "true";
         }
 
         console.log('HTML content generated');
 
         // Generate PDF using Puppeteer
         chromium.setHeadlessMode = true;
+        console.log("process.env.NODE_ENV = ",process.env.NODE_ENV)
         let browser;
-        if (process.env.NODE_ENV) {
+        if (process.env.NODE_ENV === 'local') {
             console.log("local mode");
             browser = await puppeteer.launch();
         } else {
