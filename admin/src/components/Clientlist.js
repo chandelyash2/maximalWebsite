@@ -138,7 +138,8 @@ function ClientList() {
     }
 
     const _deleteClient = async (client, index) => {
-        await update(ref(database, `${clientLocationCollectionName}/${client.id}`), {
+        await set(ref(database, `${clientLocationCollectionName}/${client.id}`), {
+            ...client,
             isDeleted: true,
         })
         const tempClients = [...clients]
