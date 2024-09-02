@@ -16,6 +16,6 @@ exports.submitForm = onRequest(submitForm);
 exports.submitData = onRequest(submitData);
 exports.makeAdmin = onRequest(makeAdmin);
 exports.listUser = onRequest(listUser);
-exports.generatePdf = functions.runWith({ memory: '1GB', timeoutSeconds: 120 }).https.onRequest(generatePdf);
+exports.generatePdf = functions.runWith({ memory: '1GB', timeoutSeconds: 60 }).https.onRequest(generatePdf);
 
 // Export common config for other modules to use

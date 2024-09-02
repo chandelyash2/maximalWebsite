@@ -322,7 +322,10 @@ async function generatePdf(req, res) {
         // Generate PDF using Puppeteer
         chromium.setHeadlessMode = true;
         let browser;
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV) {
+            console.log("local mode");
+            browser = await puppeteer.launch();
+        } else {
             console.log("Production mode");
             browser = await puppeteerCore.launch({
                 executablePath: await chromium.executablePath(),
@@ -330,10 +333,6 @@ async function generatePdf(req, res) {
                 headless: chromium.headless,
                 defaultViewport: chromium.defaultViewport,
             });
-
-        } else {
-            console.log("local mode");
-            browser = await puppeteer.launch();
         }
 
         const page = await browser.newPage();
