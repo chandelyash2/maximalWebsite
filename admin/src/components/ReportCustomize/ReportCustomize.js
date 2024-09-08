@@ -309,7 +309,7 @@ const ReportCustomize = () => {
                                     }}
                                     placeholder="Company Location...">
                                     <option value="">Select a Location</option>
-                                    {companyName && users.find(user => user.company === companyName)
+                                    {companyId && users.find(user => user.id === companyId)
                                         .clientLocations.map((location, index) =>
                                             <option key={index} value={location.id}>{location.address}</option>)}
                                 </select>

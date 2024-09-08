@@ -72,33 +72,37 @@ async function generatePdf(req, res) {
                     padding: 0;
                     font-family: Arial, sans-serif;
                 }
-
+            
                 .document-wrapper {
                     margin-bottom: 20px;
                 }
-
+            
                 .document-row {
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 8px;
                     align-items: center;
+                    flex-wrap: wrap;
                 }
-
+            
                 .document-row.full-width {
                     flex-direction: column;
                     align-items: flex-start;
+                    width: 100%;
                 }
-
+            
                 .document-row span {
                     margin: 0;
                     display: inline-block;
                     width: 45%; /* Adjust width to leave some space between columns */
+                    word-wrap: break-word;
                 }
-
+            
                 .document-row .full-width span {
                     width: 100%; /* Full width for single-column rows */
+                    word-wrap: break-word;
                 }
-
+            
                 .document-row span strong {
                     display: inline-block;
                     width: 50%; /* Adjust width to make titles and data aligned */
@@ -106,18 +110,18 @@ async function generatePdf(req, res) {
                     padding: 5px; /* Padding for headers */
                     margin-right: 10px; /* Adds space between titles and data */
                 }
-
+            
                 .document-row span:first-child {
                     margin-right: 10px; /* Adds space between pairs of columns */
                 }
-
+            
                 .document-title {
                     margin-top: 0;
                     margin-bottom: 10px;
                     font-weight: bold;
                     font-size: 16px;
                 }
-
+            
                 .document-wrapper h3 {
                     margin: 0 0 15px 0;
                     font-size: 18px;
@@ -125,22 +129,21 @@ async function generatePdf(req, res) {
                     border-bottom: 2px solid ${blackAndWhiteBool ? '#000;' : '#613b11;'};
                     padding-bottom: 5px;
                 }
-
+            
                 .document-row img {
-                    max-width: 200px;
+                    max-width: 100px;
                     height: auto;
                     margin-right: 10px;
                     margin-top: 10px;
                     ${blackAndWhiteBool ? 'filter: grayscale(100%);' : ''}
                 }
-
+            
                 .table-wrapper {
-
                     page-break-inside: auto;
                     margin-bottom: 20px;
                     padding: 0;
                 }
-
+            
                 table {
                     width: 100%;
                     border-collapse: collapse;
@@ -149,9 +152,10 @@ async function generatePdf(req, res) {
                     page-break-before: auto;
                     page-break-after: auto;
                     overflow: hidden;
-                    table-layout: auto;
+                    table-layout: fixed; /* Use fixed layout to maintain column width */
+                    word-wrap: break-word;
                 }
-
+            
                 th, td {
                     padding: 8px 12px;
                     border: 1px solid #000;
@@ -159,38 +163,71 @@ async function generatePdf(req, res) {
                     vertical-align: top;
                     word-wrap: break-word;
                 }
-
+            
+                
+            
                 th {
                     ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
                 }
-
+            
                 td {
                     background-color: ${blackAndWhiteBool ? '#fff;' : '#f5f5f5;'}
                 }
-
+            
                 thead {
                     display: table-header-group;
                 }
-
+            
                 tbody {
                     display: table-row-group;
                 }
-
+            
                 h3 {
                     margin-top: 0;
                     margin-bottom: 10px;
                     page-break-after: avoid;
                 }
-
+            
                 img {
                     max-width: 100px;
                     height: auto;
                     display: block;
+                    align:center;
                     margin-bottom: 5px;
                     ${blackAndWhiteBool ? 'filter: grayscale(100%);' : ''}
                 }
-            </style>
-
+            
+                .inline-image {
+                    max-width: 200px;
+                    height: auto;
+                    margin-right: 10px;
+                    margin-top: 10px;
+                    display: inline-block;
+                }
+            
+                .photo-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    width: 100%;
+                    margin-bottom: 8px;
+                }
+            
+                .photo-container span.title {
+                    font-weight: bold;
+                    color: ${blackAndWhiteBool ? '#000' : '#fff'};
+                    padding: 5px;
+                    margin-bottom: 5px;
+                    background-color: ${blackAndWhiteBool ? '#00000000' : '#613b11'};
+                }
+            
+                .photo-container span.images {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+            
+                </style>
             </head>
             <body>
             <div class="header">
@@ -203,7 +240,7 @@ async function generatePdf(req, res) {
             ${headerData.tables.map((table, tableIndex) => {
                         const matchingDataTable = rowData.tables[tableIndex];
                         if (!matchingDataTable) return '';  // Skip if no matching data table
-
+            
                         if (table.type === 'Document') {
                             // Generate document-style layout
                             return `
@@ -212,19 +249,22 @@ async function generatePdf(req, res) {
                         ${matchingDataTable.table.map(row => {
                                 let rowHtml = ''; // Initialize an empty string for the row HTML
                                 let columnGroup = []; // Array to store columns that will be displayed side by side
-
+            
                                 row.row.forEach((cell, cellIndex) => {
                                     const column = table.columns[cellIndex];
-
+            
                                     if (cell && cell.format === 'photo' && Array.isArray(cell.value)) {
                                         // Render photos if the cell format is 'photo'
                                         rowHtml += `
-                                        <div class="document-row full-width">
-                                            <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
-                                            ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo">`).join('')}
-                                        </div>
+                                    <div class="photo-container">
+                                        <span class="title">${capitalizeFirstLetter(cell.title)}:</span>
+                                        <span class="images">
+                                            ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')}
+                                        </span>
+                                    </div>
                                     `;
                                     } else {
+                                        console.log('full width ', column.width);
                                         if (column.width === '100%') {
                                             // If column width is 100%, display it in full width
                                             if (columnGroup.length > 0) {
@@ -232,20 +272,20 @@ async function generatePdf(req, res) {
                                                 rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
                                                 columnGroup = []; // Reset the column group
                                             }
-
+            
                                             // Add full-width column
                                             rowHtml += `
-                                            <div class="document-row full-width">
-                                                <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
-                                                <span>${formatValue(cell.value)}</span>
-                                            </div>
+                                        <div class="document-row full-width">
+                                            <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
+                                            <span>${formatValue(cell.value)}</span>
+                                        </div>
                                         `;
                                         } else {
                                             // If column width is not 100%, prepare data to display side by side
                                             columnGroup.push(`
-                                            <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
+                                        <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
                                         `);
-
+            
                                             // If there are two items in the group, display them side by side
                                             if (columnGroup.length === 2) {
                                                 rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
@@ -254,33 +294,33 @@ async function generatePdf(req, res) {
                                         }
                                     }
                                 });
-
+            
                                 // If there is remaining data in the column group (odd number of columns), display it
                                 if (columnGroup.length > 0) {
                                     rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
                                 }
-
+            
                                 return rowHtml; // Return the constructed row HTML
                             }).join('')}
                     </div>
-                `;
+                    `;
                         }
-
+            
                         else if (table.type === 'Tabular') {
                             // Generate tabular-style layout
                             return `
-                        <div class="table-wrapper">
-                            <h3 style="color: ${blackAndWhite ? '#000;' : '#613b11;'}">${table.name || 'Unnamed Table'}</h3>
-                            <table>
-                                <thead>
+                    <div class="table-wrapper">
+                        <h3 style="color: ${blackAndWhite ? '#000;' : '#613b11;'}">${table.name || 'Unnamed Table'}</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    ${table.columns.map(column => `<th style="width: ${column.width}%">${capitalizeFirstLetter(column.title)}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${matchingDataTable.table.map((rowGroup, rowIndex) => `
                                     <tr>
-                                        ${table.columns.map(column => `<th>${capitalizeFirstLetter(column.title)}</th>`).join('')}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${matchingDataTable.table.map((rowGroup, rowIndex) => `
-                                        <tr>
-                                            ${rowGroup.row.map((cell, cellIndex) => {
+                                        ${rowGroup.row.map((cell, cellIndex) => {
                                 const column = table.columns[cellIndex];
                                 if (column.format === 'fixed value' && column.fixed) {
                                     // If column has fixed values, use them
@@ -288,27 +328,28 @@ async function generatePdf(req, res) {
                                 } else {
                                     // Regular cell rendering
                                     return `
-                                                        <td>
-                                                            ${cell && cell.format === 'photo' && Array.isArray(cell.value)
+                                                <td>
+                                                    ${cell && cell.format === 'photo' && Array.isArray(cell.value)
                                         ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo">`).join('')
                                         : formatValue(cell && cell.value) || '-'}
-                                                        </td>
-                                                    `;
+                                                </td>
+                                                `;
                                 }
                             }).join('')}
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
                     `;
                         }
                     }).join('')}
-
+            
             ${orientation === 'landscape' ? "Landscape Mode" : "Portrait Mode"}
-
+            
             </body>
-            </html>`;
+            </html>
+            `;
 
         function formatValue(value) {
             if (value === 'true') {
