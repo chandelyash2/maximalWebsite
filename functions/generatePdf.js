@@ -58,9 +58,10 @@ async function generatePdf(req, res) {
 
         const headerData = JSON.parse(headerJson.buffer.toString());
         const rowData = JSON.parse(dataJson.buffer.toString());
+        const sortedTables = headerData.tables.sort((a, b) => a.sequence - b.sequence);
         // Log the parsed data
-        console.log('Header Data:', headerData);
-        console.log('Row Data:', rowData);
+        // console.log('Header Data:', headerData);
+        // console.log('Row Data:', rowData);
 
         const htmlContent = `
             <!DOCTYPE html>
@@ -98,6 +99,13 @@ async function generatePdf(req, res) {
                     word-wrap: break-word;
                 }
             
+                 .document-row100 {
+                    margin: 0;
+                    display: inline-block;
+                    width: 100%; /* Adjust width to leave some space between columns */
+                    word-wrap: break-word;
+                }
+            
                 .document-row .full-width span {
                     width: 100%; /* Full width for single-column rows */
                     word-wrap: break-word;
@@ -122,10 +130,10 @@ async function generatePdf(req, res) {
                     font-size: 16px;
                 }
             
-                .document-wrapper h3 {
+                 h3 {
                     margin: 0 0 15px 0;
                     font-size: 18px;
-                    ${blackAndWhiteBool ? 'color: #00000000;' : 'color: #613b11;'}
+                    ${blackAndWhiteBool ? 'color: #000;' : 'color: #613b11;'}
                     border-bottom: 2px solid ${blackAndWhiteBool ? '#000;' : '#613b11;'};
                     padding-bottom: 5px;
                 }
@@ -135,7 +143,7 @@ async function generatePdf(req, res) {
                     height: auto;
                     margin-right: 10px;
                     margin-top: 10px;
-                    ${blackAndWhiteBool ? 'filter: grayscale(100%);' : ''}
+                    
                 }
             
                 .table-wrapper {
@@ -159,12 +167,12 @@ async function generatePdf(req, res) {
                 th, td {
                     padding: 8px 12px;
                     border: 1px solid #000;
-                    text-align: left;
+                    text-align: center;
+                    align: center;
                     vertical-align: top;
                     word-wrap: break-word;
+                    overflow: hidden;
                 }
-            
-                
             
                 th {
                     ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
@@ -189,12 +197,12 @@ async function generatePdf(req, res) {
                 }
             
                 img {
-                    max-width: 100px;
-                    height: auto;
+                    max-width: 100%;
+                    height:  100%;
+                    object-fit: cover; 
                     display: block;
                     align:center;
                     margin-bottom: 5px;
-                    ${blackAndWhiteBool ? 'filter: grayscale(100%);' : ''}
                 }
             
                 .inline-image {
@@ -237,9 +245,13 @@ async function generatePdf(req, res) {
                     <p><strong>Report Name:</strong> ${headerData.name || '-'}</p>
                 </div>
             </div>
-            ${headerData.tables.map((table, tableIndex) => {
+            
+            ${sortedTables.map((table, tableIndex) => {
                         const matchingDataTable = rowData.tables[tableIndex];
                         if (!matchingDataTable) return '';  // Skip if no matching data table
+            
+                        // Sort the columns by sequence before rendering
+                        const sortedColumns = table.columns.sort((a, b) => a.sequence - b.sequence);
             
                         if (table.type === 'Document') {
                             // Generate document-style layout
@@ -251,88 +263,83 @@ async function generatePdf(req, res) {
                                 let columnGroup = []; // Array to store columns that will be displayed side by side
             
                                 row.row.forEach((cell, cellIndex) => {
-                                    const column = table.columns[cellIndex];
+                                    const column = sortedColumns[cellIndex];
             
                                     if (cell && cell.format === 'photo' && Array.isArray(cell.value)) {
                                         // Render photos if the cell format is 'photo'
                                         rowHtml += `
-                                    <div class="photo-container">
-                                        <span class="title">${capitalizeFirstLetter(cell.title)}:</span>
-                                        <span class="images">
-                                            ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')}
-                                        </span>
-                                    </div>
+                                        <div class="photo-container">
+                                            <span class="title">${capitalizeFirstLetter(cell.title)}:</span>
+                                            <span class="images">
+                                                ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')}
+                                            </span>
+                                        </div>
                                     `;
                                     } else {
-                                        console.log('full width ', column.width);
                                         if (column.width === '100%') {
-                                            // If column width is 100%, display it in full width
                                             if (columnGroup.length > 0) {
-                                                // If there is data in the column group, add them side by side first
                                                 rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                                columnGroup = []; // Reset the column group
+                                                columnGroup = [];
                                             }
             
-                                            // Add full-width column
                                             rowHtml += `
-                                        <div class="document-row full-width">
-                                            <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
-                                            <span>${formatValue(cell.value)}</span>
-                                        </div>
+                                            <div class="document-row full-width">
+                                                <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
+                                                <div style="border: ${column.border === 'Yes' ? (blackAndWhite ? '2px solid black' : '2px solid #613b11') : 'none'};
+                                                            padding: ${column.border === 'Yes' ? '10px' : 'none'}; 
+                                                            margin: ${column.border === 'Yes' ? '10px 10px 10px 0' : '10px 10px 10px 0'}; 
+                                                            box-sizing: border-box;">
+                                                    ${formatValue(cell.value)}
+                                                </div>
+                                            </div>
                                         `;
                                         } else {
-                                            // If column width is not 100%, prepare data to display side by side
                                             columnGroup.push(`
-                                        <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
+                                            <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
                                         `);
             
-                                            // If there are two items in the group, display them side by side
                                             if (columnGroup.length === 2) {
                                                 rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                                columnGroup = []; // Reset the column group after displaying
+                                                columnGroup = [];
                                             }
                                         }
                                     }
                                 });
             
-                                // If there is remaining data in the column group (odd number of columns), display it
                                 if (columnGroup.length > 0) {
                                     rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
                                 }
             
-                                return rowHtml; // Return the constructed row HTML
+                                return rowHtml;
                             }).join('')}
                     </div>
                     `;
-                        }
-            
-                        else if (table.type === 'Tabular') {
-                            // Generate tabular-style layout
+                        } else if (table.type === 'Tabular') {
                             return `
                     <div class="table-wrapper">
-                        <h3 style="color: ${blackAndWhite ? '#000;' : '#613b11;'}">${table.name || 'Unnamed Table'}</h3>
+                        <h3>${table.name || 'Unnamed Table'}</h3>
                         <table>
                             <thead>
                                 <tr>
-                                    ${table.columns.map(column => `<th style="width: ${column.width}%">${capitalizeFirstLetter(column.title)}</th>`).join('')}
+                                    ${sortedColumns.map(column => `
+                                        <th style="width: ${column.width}%">${capitalizeFirstLetter(column.title)}</th>
+                                    `).join('')}
                                 </tr>
                             </thead>
                             <tbody>
                                 ${matchingDataTable.table.map((rowGroup, rowIndex) => `
                                     <tr>
                                         ${rowGroup.row.map((cell, cellIndex) => {
-                                const column = table.columns[cellIndex];
+                                const column = sortedColumns[cellIndex];
                                 if (column.format === 'fixed value' && column.fixed) {
-                                    // If column has fixed values, use them
                                     return `<td>${column.fixed[rowIndex] || '-'}</td>`;
                                 } else {
-                                    // Regular cell rendering
                                     return `
-                                                <td>
-                                                    ${cell && cell.format === 'photo' && Array.isArray(cell.value)
-                                        ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo">`).join('')
+                                                    <td>
+                                                        ${cell && cell.format === 'photo' && Array.isArray(cell.value)
+                                        ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')
                                         : formatValue(cell && cell.value) || '-'}
-                                                </td>
+                                                    </td>
                                                 `;
                                 }
                             }).join('')}
@@ -344,8 +351,6 @@ async function generatePdf(req, res) {
                     `;
                         }
                     }).join('')}
-            
-            ${orientation === 'landscape' ? "Landscape Mode" : "Portrait Mode"}
             
             </body>
             </html>
