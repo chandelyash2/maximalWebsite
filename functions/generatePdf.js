@@ -286,7 +286,7 @@ async function generatePdf(req, res) {
                                             <div class="document-row full-width">
                                                 <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
                                                 <div style="border: ${column.border === 'Yes' ? (blackAndWhite ? '2px solid black' : '2px solid #613b11') : 'none'};
-                                                            padding: ${column.border === 'Yes' ? '10px' : 'none'}; 
+                                                            padding: ${column.border === 'Yes' ? '10px' : '0px 0px 0px 5px'}; 
                                                             margin: ${column.border === 'Yes' ? '10px 10px 10px 0' : '10px 10px 10px 0'}; 
                                                             box-sizing: border-box;">
                                                     ${formatValue(cell.value)}
