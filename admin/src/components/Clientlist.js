@@ -35,12 +35,15 @@ function ClientList() {
                         ...data[key]
                     }));
                     templatesArray = templatesArray.filter(item => !item.isDeleted).map(user => {
-                        const data = users.filter((item) => item.id === user.clientId)[0]
-                        user.clientType = "view"
-                        user.clientName = data.company
-                        user.lng = user.lang
+                        const data = users.filter((item) => user.clientId && item.id === user.clientId)[0]
+                        if (data) {
+                            user.clientType = "view"
+                            user.clientName = data.company
+                            user.lng = user.lang
+                        }
                         return user;
-                    });
+                    }).filter(user => user.clientId && user.clientName);
+
                     setClients(templatesArray);
                 }
             })
@@ -120,12 +123,12 @@ function ClientList() {
         }
         if (clientType === 'new') {
             location.clientId = clientLocation.id
-            console.log("new client location =",location)
+            console.log("new client location =", location)
             const key = push(clientLocationRef).key;
             await set(ref(database, `${clientLocationCollectionName}/${key}`), location)
             getClientLocations()
         } else if (clientType === 'update') {
-            console.log("update client location ",location)
+            console.log("update client location ", location)
             await update(ref(database, `${clientLocationCollectionName}/${clientLocation.id}`), location)
             getClientLocations()
         } else if (clientType === 'view') {
