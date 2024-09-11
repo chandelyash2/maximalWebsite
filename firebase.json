@@ -1,5 +1,14 @@
 {
-  "hosting": [{
+  "hosting": [
+    {
+      "headers": [
+        {
+          "source": "/.well-known/apple-app-site-association",
+          "headers": [{"key": "Content-Type", "value": "application/json"}]
+        }
+      ]
+    },
+    {
     "site": "maximal-security-services",
     "public": "website",
     "ignore": [
