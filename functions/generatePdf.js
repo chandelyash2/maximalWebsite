@@ -64,297 +64,297 @@ async function generatePdf(req, res) {
         // console.log('Row Data:', rowData);
 
         const htmlContent = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                body {
-                    margin: 0;
-                    padding: 0;
-                    font-family: Arial, sans-serif;
-                }
-            
-                .document-wrapper {
-                    margin-bottom: 20px;
-                }
-            
-                .document-row {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 8px;
-                    align-items: center;
-                    flex-wrap: wrap;
-                }
-            
-                .document-row.full-width {
-                    flex-direction: column;
-                    align-items: flex-start;
-                    width: 100%;
-                }
-            
-                .document-row span {
-                    margin: 0;
-                    display: inline-block;
-                    width: 45%; /* Adjust width to leave some space between columns */
-                    word-wrap: break-word;
-                }
-            
-                 .document-row100 {
-                    margin: 0;
-                    display: inline-block;
-                    width: 100%; /* Adjust width to leave some space between columns */
-                    word-wrap: break-word;
-                }
-            
-                .document-row .full-width span {
-                    width: 100%; /* Full width for single-column rows */
-                    word-wrap: break-word;
-                }
-            
-                .document-row span strong {
-                    display: inline-block;
-                    width: 50%; /* Adjust width to make titles and data aligned */
-                    ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
-                    padding: 5px; /* Padding for headers */
-                    margin-right: 10px; /* Adds space between titles and data */
-                }
-            
-                .document-row span:first-child {
-                    margin-right: 10px; /* Adds space between pairs of columns */
-                }
-            
-                .document-title {
-                    margin-top: 0;
-                    margin-bottom: 10px;
-                    font-weight: bold;
-                    font-size: 16px;
-                }
-            
-                 h3 {
-                    margin: 0 0 15px 0;
-                    font-size: 18px;
-                    ${blackAndWhiteBool ? 'color: #000;' : 'color: #613b11;'}
-                    border-bottom: 2px solid ${blackAndWhiteBool ? '#000;' : '#613b11;'};
-                    padding-bottom: 5px;
-                }
-            
-                .document-row img {
-                    max-width: 100px;
-                    height: auto;
-                    margin-right: 10px;
-                    margin-top: 10px;
-                    
-                }
-            
-                .table-wrapper {
-                    page-break-inside: auto;
-                    margin-bottom: 20px;
-                    padding: 0;
-                }
-            
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    border-spacing: 0;
-                    page-break-inside: auto;
-                    page-break-before: auto;
-                    page-break-after: auto;
-                    overflow: hidden;
-                    table-layout: fixed; /* Use fixed layout to maintain column width */
-                    word-wrap: break-word;
-                }
-            
-                th, td {
-                    padding: 8px 12px;
-                    border: 1px solid #000;
-                    text-align: center;
-                    align: center;
-                    vertical-align: top;
-                    word-wrap: break-word;
-                    overflow: hidden;
-                }
-            
-                th {
-                    ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
-                }
-            
-                td {
-                    background-color: ${blackAndWhiteBool ? '#fff;' : '#f5f5f5;'}
-                }
-            
-                thead {
-                    display: table-header-group;
-                }
-            
-                tbody {
-                    display: table-row-group;
-                }
-            
-                h3 {
-                    margin-top: 0;
-                    margin-bottom: 10px;
-                    page-break-after: avoid;
-                }
-            
-                img {
-                    max-width: 100%;
-                    height:  100%;
-                    object-fit: cover; 
-                    display: block;
-                    align:center;
-                    margin-bottom: 5px;
-                }
-            
-                .inline-image {
-                    max-width: 200px;
-                    height: auto;
-                    margin-right: 10px;
-                    margin-top: 10px;
-                    display: inline-block;
-                }
-            
-                .photo-container {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    width: 100%;
-                    margin-bottom: 8px;
-                }
-            
-                .photo-container span.title {
-                    font-weight: bold;
-                    color: ${blackAndWhiteBool ? '#000' : '#fff'};
-                    padding: 5px;
-                    margin-bottom: 5px;
-                    background-color: ${blackAndWhiteBool ? '#00000000' : '#613b11'};
-                }
-            
-                .photo-container span.images {
-                    width: 100%;
-                    display: flex;
-                    flex-wrap: wrap;
-                }
-            
-                </style>
-            </head>
-            <body>
-            <div class="header">
-                <div class="info">
-                    <p><strong>Company Name:</strong> ${headerData.companyName || '-'}</p>
-                    <p><strong>Location:</strong> ${headerData.companyLocation || '-'}</p>
-                    <p><strong>Report Name:</strong> ${headerData.name || '-'}</p>
-                </div>
-            </div>
-            
-            ${sortedTables.map((table, tableIndex) => {
-                        const matchingDataTable = rowData.tables[tableIndex];
-                        if (!matchingDataTable) return '';  // Skip if no matching data table
-            
-                        // Sort the columns by sequence before rendering
-                        const sortedColumns = table.columns.sort((a, b) => a.sequence - b.sequence);
-            
-                        if (table.type === 'Document') {
-                            // Generate document-style layout
-                            return `
-                    <div class="document-wrapper">
-                        <h3>${table.name || 'Unnamed Table'}</h3>
-                        ${matchingDataTable.table.map(row => {
-                                let rowHtml = ''; // Initialize an empty string for the row HTML
-                                let columnGroup = []; // Array to store columns that will be displayed side by side
-            
-                                row.row.forEach((cell, cellIndex) => {
-                                    const column = sortedColumns[cellIndex];
-            
-                                    if (cell && cell.format === 'photo' && Array.isArray(cell.value)) {
-                                        // Render photos if the cell format is 'photo'
-                                        rowHtml += `
-                                        <div class="photo-container">
-                                            <span class="title">${capitalizeFirstLetter(cell.title)}:</span>
-                                            <span class="images">
-                                                ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')}
-                                            </span>
-                                        </div>
-                                    `;
-                                    } else {
-                                        if (column.width === '100%') {
-                                            if (columnGroup.length > 0) {
-                                                rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                                columnGroup = [];
-                                            }
-            
-                                            rowHtml += `
-                                            <div class="document-row full-width">
-                                                <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
-                                                <div style="border: ${column.border === 'Yes' ? (blackAndWhite ? '2px solid black' : '2px solid #613b11') : 'none'};
-                                                            padding: ${column.border === 'Yes' ? '10px' : '0px 0px 0px 5px'}; 
-                                                            margin: ${column.border === 'Yes' ? '10px 10px 10px 0' : '10px 10px 10px 0'}; 
-                                                            box-sizing: border-box;">
-                                                    ${formatValue(cell.value)}
-                                                </div>
-                                            </div>
-                                        `;
-                                        } else {
-                                            columnGroup.push(`
-                                            <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
-                                        `);
-            
-                                            if (columnGroup.length === 2) {
-                                                rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                                columnGroup = [];
-                                            }
-                                        }
-                                    }
-                                });
-            
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .document-wrapper {
+        margin-bottom: 20px;
+    }
+
+    .document-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .document-row.full-width {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .document-row span {
+        margin: 0;
+        display: inline-block;
+        width: 45%; /* Adjust width to leave some space between columns */
+        word-wrap: break-word;
+    }
+
+     .document-row100 {
+        margin: 0;
+        display: inline-block;
+        width: 100%; /* Adjust width to leave some space between columns */
+        word-wrap: break-word;
+    }
+
+    .document-row .full-width span {
+        width: 100%; /* Full width for single-column rows */
+        word-wrap: break-word;
+    }
+
+    .document-row span strong {
+        display: inline-block;
+        width: 50%; /* Adjust width to make titles and data aligned */
+        ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
+        padding: 5px; /* Padding for headers */
+        margin-right: 10px; /* Adds space between titles and data */
+    }
+
+    .document-row span:first-child {
+        margin-right: 10px; /* Adds space between pairs of columns */
+    }
+
+    .document-title {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+     h3 {
+        margin: 0 0 15px 0;
+        font-size: 18px;
+        ${blackAndWhiteBool ? 'color: #000;' : 'color: #613b11;'}
+        border-bottom: 2px solid ${blackAndWhiteBool ? '#000;' : '#613b11;'};
+        padding-bottom: 5px;
+    }
+
+    .document-row img {
+        max-width: 100px;
+        height: auto;
+        margin-right: 10px;
+        margin-top: 10px;
+        
+    }
+
+    .table-wrapper {
+        page-break-inside: auto;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        page-break-inside: auto;
+        page-break-before: auto;
+        page-break-after: auto;
+        overflow: hidden;
+        table-layout: fixed; /* Use fixed layout to maintain column width */
+        word-wrap: break-word;
+    }
+
+    th, td {
+        padding: 8px 12px;
+        border: 1px solid #000;
+        text-align: center;
+        align: center;
+        vertical-align: top;
+        word-wrap: break-word;
+        overflow: hidden;
+    }
+
+    th {
+        ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
+    }
+
+    td {
+        background-color: ${blackAndWhiteBool ? '#fff;' : '#f5f5f5;'}
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tbody {
+        display: table-row-group;
+    }
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        page-break-after: avoid;
+    }
+
+    img {
+        max-width: 100%;
+        height:  100%;
+        object-fit: cover; 
+        display: block;
+        align:center;
+        margin-bottom: 5px;
+    }
+
+    .inline-image {
+        max-width: 200px;
+        height: auto;
+        margin-right: 10px;
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    .photo-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .photo-container span.title {
+        font-weight: bold;
+        color: ${blackAndWhiteBool ? '#000' : '#fff'};
+        padding: 5px;
+        margin-bottom: 5px;
+        background-color: ${blackAndWhiteBool ? '#00000000' : '#613b11'};
+    }
+
+    .photo-container span.images {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="info">
+        <p><strong>Company Name:</strong> ${headerData.companyName || '-'}</p>
+        <p><strong>Location:</strong> ${headerData.companyLocation || '-'}</p>
+        <p><strong>Report Name:</strong> ${headerData.name || '-'}</p>
+    </div>
+</div>
+
+${sortedTables.map((table, tableIndex) => {
+            const matchingDataTable = rowData.tables[tableIndex];
+            if (!matchingDataTable) return '';  // Skip if no matching data table
+
+            // Sort the columns by sequence before rendering
+            const sortedColumns = table.columns.sort((a, b) => a.sequence - b.sequence);
+
+            if (table.type === 'Document') {
+                // Generate document-style layout
+                return `
+        <div class="document-wrapper">
+            <h3>${table.name || 'Unnamed Table'}</h3>
+            ${matchingDataTable.table.map(row => {
+                    let rowHtml = ''; // Initialize an empty string for the row HTML
+                    let columnGroup = []; // Array to store columns that will be displayed side by side
+
+                    row.row.forEach((cell, cellIndex) => {
+                        const column = sortedColumns[cellIndex];
+
+                        if (cell && cell.format.includes('photo') && Array.isArray(cell.value)) {
+                            // Render photos if the cell format is 'photo'
+                            rowHtml += `
+                            <div class="photo-container">
+                                <span class="title">${capitalizeFirstLetter(cell.title)}:</span>
+                                <span class="images">
+                                    ${cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')}
+                                </span>
+                            </div>
+                        `;
+                        } else {
+                            if (column.width === '100%') {
                                 if (columnGroup.length > 0) {
                                     rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                                    columnGroup = [];
                                 }
-            
-                                return rowHtml;
-                            }).join('')}
-                    </div>
-                    `;
-                        } else if (table.type === 'Tabular') {
-                            return `
-                    <div class="table-wrapper">
-                        <h3>${table.name || 'Unnamed Table'}</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    ${sortedColumns.map(column => `
-                                        <th style="width: ${column.width}%">${capitalizeFirstLetter(column.title)}</th>
-                                    `).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${matchingDataTable.table.map((rowGroup, rowIndex) => `
-                                    <tr>
-                                        ${rowGroup.row.map((cell, cellIndex) => {
-                                const column = sortedColumns[cellIndex];
-                                if (column.format === 'fixed value' && column.fixed) {
-                                    return `<td>${column.fixed[rowIndex] || '-'}</td>`;
-                                } else {
-                                    return `
-                                                    <td>
-                                                        ${cell && cell.format === 'photo' && Array.isArray(cell.value)
-                                        ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')
-                                        : formatValue(cell && cell.value) || '-'}
-                                                    </td>
-                                                `;
+
+                                rowHtml += `
+                                <div class="document-row full-width">
+                                    <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
+                                    <div style="border: ${column.border === 'Yes' ? (blackAndWhite ? '2px solid black' : '2px solid #613b11') : 'none'};
+                                                padding: ${column.border === 'Yes' ? '10px' : '0px 0px 0px 5px'}; 
+                                                margin: ${column.border === 'Yes' ? '10px 10px 10px 0' : '10px 10px 10px 0'}; 
+                                                box-sizing: border-box;">
+                                        ${formatValue(cell.value)}
+                                    </div>
+                                </div>
+                            `;
+                            } else {
+                                columnGroup.push(`
+                                <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
+                            `);
+
+                                if (columnGroup.length === 2) {
+                                    rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                                    columnGroup = [];
                                 }
-                            }).join('')}
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                    `;
+                            }
                         }
-                    }).join('')}
-            
-            </body>
-            </html>
-            `;
+                    });
+
+                    if (columnGroup.length > 0) {
+                        rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                    }
+
+                    return rowHtml;
+                }).join('')}
+        </div>
+        `;
+            } else if (table.type === 'Tabular') {
+                return `
+        <div class="table-wrapper">
+            <h3>${table.name || 'Unnamed Table'}</h3>
+            <table>
+                <thead>
+                    <tr>
+                        ${sortedColumns.map(column => `
+                            <th style="width: ${column.width}%">${capitalizeFirstLetter(column.title)}</th>
+                        `).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${matchingDataTable.table.map((rowGroup, rowIndex) => `
+                        <tr>
+                            ${rowGroup.row.map((cell, cellIndex) => {
+                    const column = sortedColumns[cellIndex];
+                    if (column.format === 'fixed value' && column.fixed) {
+                        return `<td>${column.fixed[rowIndex] || '-'}</td>`;
+                    } else {
+                        return `
+                                        <td>
+                                            ${cell && cell.format.includes('photo') && Array.isArray(cell.value)
+                            ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')
+                            : formatValue(cell && cell.value) || '-'}
+                                        </td>
+                                    `;
+                    }
+                }).join('')}
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+        `;
+            }
+        }).join('')}
+
+</body>
+</html>
+`;
 
         function formatValue(value) {
             if (value === 'true') {
