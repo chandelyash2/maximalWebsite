@@ -22,6 +22,7 @@ import VideoBackground from './components/VideoBackground'; // Import VideoBackg
 import { auth } from './firebaseconfig';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import AddEditClient from "./components/AddEditClient";
 
 AOS.init({
   duration: 1000, // Animation duration (in milliseconds)
@@ -71,6 +72,7 @@ function App() {
             <Route path="/UserProfile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
             <Route path="/UserList" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
             <Route path="/ClientList" element={<ProtectedRoute><ClientList /></ProtectedRoute>} />
+            <Route path="/Client/:clientId?" element={<ProtectedRoute><AddEditClient /></ProtectedRoute>} />
             <Route path="/ReportAssignUserPermissions" element={<ProtectedRoute><ReportAssignUserPermissions /></ProtectedRoute>} />
             <Route path="/UserAccess/:userId" element={<ProtectedRoute><UserAccess /></ProtectedRoute>} />
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
