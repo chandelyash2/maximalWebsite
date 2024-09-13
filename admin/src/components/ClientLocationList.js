@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {database} from "../firebaseconfig";
-import {get, push, ref, set, update, query, equalTo} from 'firebase/database';
-import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
+import {get, push, ref, set, update, isEqual} from 'firebase/database';
+import {createFilterOptions, TextField} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import {Modal} from "react-bootstrap";
 import AddEditClient from "./AddEditClient";
@@ -14,7 +14,7 @@ const clientLocationCollectionName = 'clientLocations'
 const clientLocationRef = ref(database, clientLocationCollectionName)
 const usersRef = ref(database, 'users');
 
-function ClientLocationList() {
+function ClientLocationList({clientId}) {
     const [users, setUsers] = useState([]);
     const [clients, setClients] = useState([]);
     const [selectedClientIndex, setSelectedClientIndex] = useState(-1);
@@ -29,38 +29,29 @@ function ClientLocationList() {
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    console.log(data)
                     let templatesArray = Object.keys(data).map(key => ({
                         id: key,
                         ...data[key]
                     }));
-                    templatesArray = templatesArray.filter(item => !item.isDeleted).map(user => {
-                        const data = users.filter((item) => user.clientId && item.id === user.clientId)[0]
-                        if (data) {
-                            user.clientType = "view"
-                            user.clientName = data.company
-                            user.lng = user.lang
-                        }
-                        return user;
-                    }).filter(user => user.clientId && user.clientName);
-
+                    templatesArray = templatesArray
+                        .filter(item => !item.isDeleted && item.clientId === clientId)
+                        .map(value => {
+                            value.clientType = "view"
+                            value.lng = value.lang
+                            return value
+                        });
+                    console.log("templatesArray => ", templatesArray)
                     setClients(templatesArray);
                 }
             })
             .catch((error) => {
                 setErrorMessage(`Error fetching User Profiles: ${error.message}`);
             });
+
     }
 
     useEffect(() => {
-        if (users.length > 0) {
-            getClientLocations()
-        }
-
-    }, [users])
-
-    useEffect(() => {
-        async function getAllClients() {
+        /*async function getAllClients() {
             get(usersRef)
                 .then((snapshot) => {
                     if (snapshot.exists()) {
@@ -86,7 +77,9 @@ function ClientLocationList() {
         if (!initialized.current) {
             initialized.current = true
             getAllClients();
-        }
+        }*/
+
+        getClientLocations()
 
     }, []);
 
@@ -122,7 +115,7 @@ function ClientLocationList() {
             lang: clientLocation.lng,
         }
         if (clientType === 'new') {
-            location.clientId = clientLocation.id
+            location.clientId = clientId
             console.log("new client location =", location)
             const key = push(clientLocationRef).key;
             await set(ref(database, `${clientLocationCollectionName}/${key}`), location)
@@ -190,13 +183,7 @@ function ClientLocationList() {
                 <div className="ol-xl-10 col-lg-12 py-4"
                      style={{color: '#735744', maxHeight: '680px', overflowY: 'auto'}}>
                     <div className="text-center">
-                        <Link to="/home">
-                            <button className="btn btn-danger mb-4 rounded-pill px-5"><h3>ADMINISTRATOR PORTAL</h3>
-                            </button>
-                        </Link>
-                    </div>
-                    <div className="text-center">
-                        <h3 className="btn btn-danger mb-4 rounded-pill px-5">Client List</h3>
+                        <h3 className="mb-4 rounded-pill px-5">Locations</h3>
                     </div>
 
                     <button className="btn-danger rounded-pill" onClick={_addClientLocation}>Add</button>
@@ -204,9 +191,6 @@ function ClientLocationList() {
                         <table className='w-100 table-bordered'>
                             <thead>
                             <tr>
-                                <th className='btn-danger rounded text-center'>
-                                    Client Name
-                                </th>
                                 <th className='btn-danger rounded text-center'>
                                     Street Address
                                 </th>
@@ -231,74 +215,6 @@ function ClientLocationList() {
                             <tbody>
                             {clients.map((user, index) => (
                                 <tr key={user.id}>
-                                    <td className='text-center'>{!isInEditMode(user) ?
-                                        user.clientName :
-                                        <select
-                                            className={'bg-transparent border-0'}
-                                            id="companyNameID"
-                                            value={user.id}
-                                            onChange={(e) => {
-                                                user.id = e.target.value
-                                                user.clientName = e.target.options[e.target.selectedIndex].text
-                                                const allClients = [...clients];
-                                                allClients[index] = user
-                                                setClients(allClients)
-                                            }}>
-                                            <option value="">Select a company</option>
-                                            {users.map((user, index) => (
-                                                <option key={index} value={user.id}>{user.company}</option>
-                                            ))}
-                                        </select>
-                                        /*<Autocomplete
-                                            options={users}
-                                            disableClearable
-                                            freeSolo
-                                            // filterSelectedOptions={true}
-                                            // onClose={handleClose}
-                                            defaultValue={user.clientName}
-                                            getOptionLabel={(option) => {
-                                                // option.company
-                                                if (typeof option === 'string') {
-                                                    return option;
-                                                }
-                                                // Add "xxx" option created dynamically
-                                                if (option.inputValue) {
-                                                    return option.inputValue;
-                                                }
-                                                // Regular option
-                                                return option.company;
-                                            }}
-                                            onChange={(event, newValue, reason) => handleChange(event, newValue, reason, user)}
-                                            filterOptions={(options, params) => {
-                                                const filtered = filter(options, params);
-
-                                                if (params.inputValue !== '') {
-                                                    filtered.push({
-                                                        inputValue: params.inputValue,
-                                                        company: `Add "${params.inputValue}"`,
-                                                    });
-                                                }
-
-                                                return filtered;
-                                            }}
-                                            renderOption={(props, option) => {
-                                                const {key, ...optionProps} = props;
-                                                return (
-                                                    <li key={key} {...optionProps}>
-                                                        {option.company}
-                                                    </li>
-                                                );
-                                            }}
-                                            renderInput={(params) => <CustomTextField
-                                                {...params}
-                                                InputProps={{
-                                                    ...params.InputProps,
-                                                    type: 'search',
-                                                }}/>
-                                            }>
-                                        </Autocomplete>*/
-                                    }
-                                    </td>
                                     <td className='text-center'>{!isInEditMode(user) ? user.address :
                                         <CustomTextField
                                             defaultValue={user.address}
@@ -337,6 +253,9 @@ function ClientLocationList() {
                                     </td>
                                 </tr>
                             ))}
+                            {!clients.length && <div className="d-flex w-100 mt-4 justify-content-center">
+                                <p className="text-warning">No location available</p>
+                            </div>}
                             </tbody>
                         </table>
                     </div>

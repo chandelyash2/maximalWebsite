@@ -111,11 +111,11 @@ function ClientList() {
                             <tbody>
                             {users.map(user => (
                                 <tr key={user.id} className=''>
-                                    <td className='text-center'>{user.name}</td>
-                                    <td className='text-center'>{user.lname}</td>
+                                    <td className='text-center'>{user.firstName}</td>
+                                    <td className='text-center'>{user.lastName}</td>
                                     <td className='text-start ps-2'>{user.email}</td>
                                     <td className='text-center'>{user.company}</td>
-                                    <td className='text-center'>{user.companyAdress}</td>
+                                    <td className='text-center'>{user.streetAddress}</td>
                                     <td className='text-center'>
                                         <button className="btn btn-warning rounded-pill mx-1 text-center"
                                                 title='Edit' onClick={() => _editClient(user.id)}>
