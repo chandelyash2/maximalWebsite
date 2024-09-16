@@ -185,8 +185,9 @@ function ClientLocationList({clientId}) {
                     <div className="text-center">
                         <h3 className="mb-4 rounded-pill px-5">Locations</h3>
                     </div>
-
-                    <button className="btn-danger rounded-pill" onClick={_addClientLocation}>Add</button>
+                    <div className="d-flex flex-row justify-content-end mb-2">
+                        <button className="btn-danger rounded-pill" onClick={_addClientLocation}>Add</button>
+                    </div>
                     <div className="table-responsive">
                         <table className='w-100 table-bordered'>
                             <thead>

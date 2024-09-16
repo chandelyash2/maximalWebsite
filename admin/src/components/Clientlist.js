@@ -1,16 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {database} from "../firebaseconfig";
-import {get, push, ref, set, update, query, equalTo} from 'firebase/database';
-import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
-import {styled} from '@mui/material/styles';
-import {Modal} from "react-bootstrap";
-import AddEditClient from "./AddEditClient";
-import MapComponent from "../Map";
-import FilterButton from "./FilterButton";
+import {get, ref, set} from 'firebase/database';
 
 
-const usersRef = ref(database, 'users');
+const userCollectionName = 'users';
+const usersRef = ref(database, userCollectionName);
 
 function ClientList() {
     const [users, setUsers] = useState([]);
@@ -44,8 +39,14 @@ function ClientList() {
         navigate('/Client');
     }
 
-    const _deleteClient = (id) => {
-
+    const _deleteClient = async (user, index) => {
+        await set(ref(database, `${userCollectionName}/${user.id}`), {
+            ...user,
+            isDeleted: true,
+        })
+        const tempClients = [...users]
+        tempClients.splice(index, 1)
+        setUsers(tempClients)
     }
 
     const _editClient = (id) => {
@@ -67,7 +68,11 @@ function ClientList() {
                         <h3 className="btn btn-danger mb-4 rounded-pill px-5">Client List</h3>
                     </div>
 
-                    <button className="btn-danger rounded-pill" onClick={_addClient}>Add Client</button>
+                    <div className="d-flex flex-row justify-content-end mb-2">
+                        <button className="btn-danger rounded-pill p-2 d-flex align-self-end" onClick={_addClient}>Add
+                            Client
+                        </button>
+                    </div>
 
                     <div className="table-responsive">
                         <table className='w-100 table-bordered'>
@@ -109,7 +114,7 @@ function ClientList() {
                             </tr>
                             </thead>
                             <tbody>
-                            {users.map(user => (
+                            {users.map((user, index) => (
                                 <tr key={user.id} className=''>
                                     <td className='text-center'>{user.firstName}</td>
                                     <td className='text-center'>{user.lastName}</td>
@@ -122,7 +127,7 @@ function ClientList() {
                                             <i className="bi bi-pencil"></i>
                                         </button>
                                         <button className="btn btn-warning rounded-pill mx-1 text-center"
-                                                title='Delete' onClick={() => _deleteClient(user.id)}>
+                                                title='Delete' onClick={() => _deleteClient(user, index)}>
                                             <i className="bi bi-trash3"></i>
                                         </button>
                                     </td>

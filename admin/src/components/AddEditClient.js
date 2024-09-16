@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import {GetCity, GetCountries, GetState,} from "react-country-state-city";
@@ -16,6 +16,7 @@ const AddEditClient = (props) => {
     const [stateList, setStateList] = useState([]);
     const [cityList, setCityList] = useState([]);
     const [countryId, setCountryId] = useState(0);
+    const navigate = useNavigate();
 
     const _validateSchema = Yup.object({
         firstName: Yup.string().required('First Name is required'),
@@ -27,10 +28,17 @@ const AddEditClient = (props) => {
         state: Yup.number().required('State is required').moreThan(0, 'State is required'),
         zipCode: Yup.string().required('Zip Code is required'),
         company: Yup.string().required('Company Name is required'),
-        /*password: Yup.string().required('Password is required'),*/
-        /*confirmPassword: Yup.string()
-            .required('Confirm Password is required')
-            .oneOf([Yup.ref('password'), null], 'Passwords must match'),*/
+        password: Yup.string().when('$clientId', {
+            is: (clientId) => !clientId,
+            then: (schema) => schema.required('Password is required'),
+            otherwise: (schema) => schema.notRequired()
+        }),
+        confirmPassword: Yup.string().when('$clientId', {
+            is: (clientId) => !clientId,
+            then: (schema) => schema.required('Confirm Password is required')
+                .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+            otherwise: (schema) => schema.notRequired()
+        }),
     })
 
     const formik = useFormik({
@@ -50,6 +58,8 @@ const AddEditClient = (props) => {
             status: true,
         },
         validationSchema: _validateSchema,
+        validateOnMount: true,
+        context: { clientId },
         onSubmit: values => {
             const stateName = stateList[values.state].name;
             const cityName = cityList[values.city].name;
@@ -69,19 +79,30 @@ const AddEditClient = (props) => {
     const _updateClient = async (values) => {
         console.log('Update Client => ', values)
         await update(ref(database, `${usersCollectionName}/${clientId}`), values)
+        navigate(`/ClientList`);
     }
 
     const _createClient = async (values) => {
         console.log('Create Client => ', values)
-        const createdUser = await createUserWithEmailAndPassword(auth, values.email, values.password);
-        console.log('createdUser => ', createdUser)
-        if (!createdUser) {
-            console.log('Error creating user')
-            return
+        try {
+            const createdUser = await createUserWithEmailAndPassword(auth, values.email, values.password);
+            console.log('createdUser => ', createdUser)
+            if (!createdUser) {
+                console.log('Error creating user')
+                return
+            }
+            const userId = createdUser.user.uid
+            values.uid = userId
+            await set(ref(database, `${usersCollectionName}/${userId}`), values)
+            navigate(`/ClientList`);
+        } catch (error) {
+            if (error.code === 'auth/email-already-in-use') {
+                alert('Entered email is already in use.');
+            } else {
+                alert('An error occurred while creating client. Please try again later.');
+            }
         }
-        const userId = createdUser.user.uid
-        values.uid = userId
-        await set(ref(database, `${usersCollectionName}/${userId}`), values)
+
     }
 
     useEffect(() => {
@@ -102,7 +123,7 @@ const AddEditClient = (props) => {
                 formik.setValues(client)
                 setClient(client)
             })
-        }else{
+        } else {
             _validateSchema.fields.password = Yup.string().required('Password is required')
             _validateSchema.fields.confirmPassword = Yup.string()
                 .required('Confirm Password is required')
