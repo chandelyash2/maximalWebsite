@@ -265,7 +265,7 @@ ${sortedTables.map((table, tableIndex) => {
                     row.row.forEach((cell, cellIndex) => {
                         const column = sortedColumns[cellIndex];
 
-                        if (cell && cell.format.includes('photo') && Array.isArray(cell.value)) {
+                        if (cell && cell.format.toLowerCase().includes('photo') && Array.isArray(cell.value)) {
                             // Render photos if the cell format is 'photo'
                             rowHtml += `
                             <div class="photo-container">
