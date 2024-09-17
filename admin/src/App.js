@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { AlertProvider } from './components/AlertContext';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
+import {AlertProvider} from './components/AlertContext';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
@@ -8,7 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from './components/UserProfile';
 import AddLocation from './components/AddLocation.js';
 import UserList from './components/Userlist';
-import ClientList from './components/Clientlist';
 import UserAccess from './components/UserAccess';
 import ReportAssignUserPermissions from './components/ReportAssignUserPermissions';
 import Unauthorised from './components/Unauthorised.js'
@@ -19,10 +18,11 @@ import ReportPreview from './components/ReportPreview/ReportPreview.js'
 import Reporting from './components/Reporting.js';
 import ReportTemplateEdit from './components/ReportTemplateEdit.js';
 import VideoBackground from './components/VideoBackground'; // Import VideoBackground
-import { auth } from './firebaseconfig';
+import {auth} from './firebaseconfig';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import AddEditClient from "./components/AddEditClient";
+import ClientsList from "./components/ClientsList";
 
 AOS.init({
   duration: 1000, // Animation duration (in milliseconds)
@@ -71,7 +71,7 @@ function App() {
             {/* PROTECTED ROUTES */}
             <Route path="/UserProfile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
             <Route path="/UserList" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
-            <Route path="/ClientList" element={<ProtectedRoute><ClientList /></ProtectedRoute>} />
+            <Route path="/ClientList" element={<ProtectedRoute><ClientsList /></ProtectedRoute>} />
             <Route path="/Client/:clientId?" element={<ProtectedRoute><AddEditClient /></ProtectedRoute>} />
             <Route path="/ReportAssignUserPermissions" element={<ProtectedRoute><ReportAssignUserPermissions /></ProtectedRoute>} />
             <Route path="/UserAccess/:userId" element={<ProtectedRoute><UserAccess /></ProtectedRoute>} />
