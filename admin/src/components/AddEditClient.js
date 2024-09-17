@@ -1,7 +1,7 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useFormik} from "formik";
-import {GetCity, GetCountries, GetState,} from "react-country-state-city";
+import {GetCountries, GetState,} from "react-country-state-city";
 import * as Yup from 'yup';
 import {auth, database} from '../firebaseconfig';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
@@ -10,11 +10,10 @@ import ClientLocationList from "./ClientLocationList";
 
 const usersCollectionName = 'users';
 
-const AddEditClient = (props) => {
+const AddEditClient = () => {
     const {clientId} = useParams();
     const [client, setClient] = useState(null);
     const [stateList, setStateList] = useState([]);
-    const [cityList, setCityList] = useState([]);
     const [countryId, setCountryId] = useState(0);
     const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ const AddEditClient = (props) => {
         email: Yup.string().required('Email is required'),
         phone: Yup.string().required('Phone Number is required'),
         streetAddress: Yup.string().required('Street Address is required'),
-        city: Yup.number().required('City is required').moreThan(0, 'City is required'),
+        city: Yup.string().required( 'City is required'),
         state: Yup.number().required('State is required').moreThan(0, 'State is required'),
         zipCode: Yup.string().required('Zip Code is required'),
         company: Yup.string().required('Company Name is required'),
@@ -48,7 +47,7 @@ const AddEditClient = (props) => {
             email: '',
             phone: '',
             streetAddress: '',
-            city: 0,
+            city: "",
             state: 0,
             zipCode: '',
             company: '',
@@ -61,11 +60,7 @@ const AddEditClient = (props) => {
         validateOnMount: true,
         context: { clientId },
         onSubmit: values => {
-            const stateName = stateList[values.state].name;
-            const cityName = cityList[values.city].name;
-
-            values.state = stateName
-            values.city = cityName
+            values.state = stateList[values.state].name
             if (clientId) {
                 // Update Client
                 _updateClient(values)
@@ -114,7 +109,6 @@ const AddEditClient = (props) => {
                 setStateList(result);
             });
         });
-        setCityList([{name: 'Select City', id: 0}]);
 
         if (clientId) {
             // Fetch Client
@@ -137,11 +131,6 @@ const AddEditClient = (props) => {
             const state = stateList.find((state) => state.name === client.state)
             if (state) {
                 client.state = stateList.findIndex((state) => state.name === client.state)
-                GetCity(countryId, state.id).then((result) => {
-                    result.splice(0, 0, {name: 'Select City', id: 0});
-                    setCityList(result);
-                    client.city = result.findIndex((city) => city.name === client.city)
-                })
             }
         }
     }, [client, countryId, stateList])
@@ -301,16 +290,7 @@ const AddEditClient = (props) => {
                                         id="state"
                                         name="state"
                                         className="form-control w-100 btn-danger text-center rounded-pill mt-2"
-                                        onChange={(e) => {
-                                            const state = stateList[e.target.value]
-                                            setCityList([{name: 'Select City', id: 0}]);
-                                            formik.values.city = 0;
-                                            GetCity(countryId, state.id).then((result) => {
-                                                result.splice(0, 0, {name: 'Select City', id: 0});
-                                                setCityList(result);
-                                            })
-                                            formik.handleChange(e);
-                                        }}
+                                        onChange={formik.handleChange}
                                         value={formik.values.state}
                                     >
                                         {stateList.map((item, index) => (
@@ -325,19 +305,15 @@ const AddEditClient = (props) => {
                                 </label>
                                 <label htmlFor="city" style={{width: '200px'}}>
                                     City
-                                    <select
+                                    <input
+                                        type="text"
+                                        className="form-control w-100 btn-danger text-center m-auto rounded-pill mt-2"
                                         id="city"
                                         name="city"
-                                        className="form-control w-100 btn-danger text-center rounded-pill mt-2"
                                         onChange={formik.handleChange}
                                         value={formik.values.city}
-                                    >
-                                        {cityList.map((item, index) => (
-                                            <option key={index} value={index}>
-                                                {item.name}
-                                            </option>
-                                        ))}
-                                    </select>
+                                        placeholder="Enter City"
+                                    />
                                     {formik.errors.city && formik.touched.city && (
                                         <div className="text-danger">{formik.errors.city}</div>
                                     )}
