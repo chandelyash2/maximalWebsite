@@ -71,16 +71,14 @@ const ReportCustomize = () => {
                 }
             });
             uniqueClientNames = Array.from(uniqueClientNames)
-            console.log(clientData)
             const clientLocationsMap = {};
 
             clientData.forEach(item => {
                 if (!clientLocationsMap[item.clientName]) {
                     clientLocationsMap[item.clientName] = [];
                 }
-                clientLocationsMap[item.clientName].push({address:item.address, id: item.id});
+                clientLocationsMap[item.clientName].push({...item,formattedAddress:`${item.address}, ${item.city}, ${item.state} ${item.zipCode}`});
             });
-            console.log(clientLocationsMap)
             const clientDataArray = Object.keys(clientLocationsMap).map(clientName => ({
                 id: clientName,
                 company: clientName,
@@ -214,13 +212,13 @@ const ReportCustomize = () => {
         };
         console.log('updatedReportTemplate => ',updatedReportTemplate)
 
-        /*set(reportTemplateRef, updatedReportTemplate)
+        set(reportTemplateRef, updatedReportTemplate)
             .then(() => {
                 setSuccessMessage('Report template updated successfully');
             })
             .catch((error) => {
                 setErrorMessage(`Error updating report template: ${error.message}`);
-            });*/
+            });
     };
 
     const handleAddOption = (tableIndex, columnIndex, newOption) => {
@@ -308,13 +306,13 @@ const ReportCustomize = () => {
                                     onChange={(e) => {
                                         setCompanyLocationId(e.target.value)
                                         setCompanyLocation(users.find(user => user.id === companyId)
-                                            .clientLocations.find(location => location.id === e.target.value).address)
+                                            .clientLocations.find(location => location.id === e.target.value).formattedAddress)
                                     }}
                                     placeholder="Company Location...">
                                     <option value="">Select a Location</option>
                                     {companyId && users.find(user => user.id === companyId)
                                         .clientLocations.map((location, index) =>
-                                            <option key={index} value={location.id}>{location.address}</option>)}
+                                            <option key={index} value={location.id}>{location.formattedAddress}</option>)}
                                 </select>
                                 {/*<input
                                     type='text'

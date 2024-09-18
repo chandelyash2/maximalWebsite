@@ -116,13 +116,13 @@ function ClientsList() {
 
         if (clientType === 'new') {
             console.log("new client location =", location)
-            /*const key = push(clientLocationsRef).key;
+            const key = push(clientLocationsRef).key;
             await set(ref(database, `${clientLocations}/${key}`), location)
-            await getClientLocations()*/
+            await getClientLocations()
         } else if (clientType === 'update') {
             console.log("update client location ", location)
-            /*await update(ref(database, `${clientLocations}/${clientLocation.id}`), location)
-            await getClientLocations()*/
+            await update(ref(database, `${clientLocations}/${clientLocation.id}`), location)
+            await getClientLocations()
         } else if (clientType === 'view') {
             console.log("show save button here")
             const allLocations = [...clients]
