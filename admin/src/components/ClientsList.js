@@ -102,8 +102,24 @@ function ClientsList() {
     });
 
     const _createOrUpdateLocation = async (clientLocation, index) => {
-        const clientType = clientLocation.clientType
+        const requiredFields = ['clientName', 'address', 'city', 'state', 'zipCode'];
+        const errors = [];
 
+        // Validate each required field
+        requiredFields.forEach(field => {
+            if (!clientLocation[field]) {
+                errors.push(`${field} is required`);
+            }
+        });
+
+        // If there are validation errors, set the error message and return early
+        if (errors.length > 0) {
+            setErrorMessage(errors.join(', '));
+            return;
+        }
+
+        setErrorMessage('');
+        const clientType = clientLocation.clientType
         const location = {
             address: clientLocation.address,
             city: clientLocation.city,

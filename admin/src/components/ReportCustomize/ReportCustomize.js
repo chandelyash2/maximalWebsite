@@ -32,13 +32,13 @@ const ReportCustomize = () => {
                         const data = snapshot.val();
                         setReportName(data.name);
                         setTables(data.tables || []);
-                        /*const filteredUser = updatedTemplatesArray.find(user => data.companyName === user.company);
+                        const filteredUser = users.find(user => data.companyName === user.company);
                         if (filteredUser) {
                             setCompanyName(data.companyName);
                             setCompanyId(data.companyId)
                             setCompanyLocation(data.companyLocation);
                             setCompanyLocationId(data.companyLocationId);
-                        }*/
+                        }
                     } else {
                         setErrorMessage('Report template not found');
                     }
@@ -86,14 +86,17 @@ const ReportCustomize = () => {
             }));
             setUsers(clientDataArray);
         }
-
-        await fetchReportTemplate(reportTempId);
     }
 
     useEffect(() => {
         fetchCompanyAndLocation();
 
-    }, [reportTempId]);
+    }, []);
+
+    useEffect(() => {
+        fetchReportTemplate(reportTempId);
+
+    }, [users]);
 
 
     const handleAddTable = (type) => {
