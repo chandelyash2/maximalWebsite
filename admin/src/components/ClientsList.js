@@ -85,7 +85,6 @@ function ClientsList() {
             city: "",
             state: "",
             zipCode: "",
-            lat: null, lng: null,
         })
         setClients(tempClients)
     }
@@ -125,8 +124,6 @@ function ClientsList() {
             city: clientLocation.city,
             state: clientLocation.state,
             zipCode: clientLocation.zipCode,
-            lat: clientLocation.lat,
-            lang: clientLocation.lng,
             clientName: clientLocation.clientName
         }
 
@@ -149,6 +146,27 @@ function ClientsList() {
     }
 
     const _deleteClientLocation = async (client, index) => {
+        const storedClient = await get(ref(database, `${clientLocations}/${client.id}`))
+
+        const requiredFields = ['clientName', 'address', 'city', 'state', 'zipCode'];
+        const errors = [];
+
+        // Validate each required field
+        requiredFields.forEach(field => {
+            if (!client[field]) {
+                errors.push(`${field} is required`);
+            }
+        });
+
+        if(!storedClient.val() || errors.length > 0){
+            const tempClients = [...clients]
+            tempClients.splice(index, 1)
+            setClients(tempClients)
+            return
+        }
+
+        delete client.lat
+        delete client.lng
         await set(ref(database, `${clientLocations}/${client.id}`), {
             ...client,
             isDeleted: true,
