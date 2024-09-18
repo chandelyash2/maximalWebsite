@@ -23,7 +23,7 @@ const ReportCustomize = () => {
     const [columnIndex, setColumnIndex] = useState('');
     const [users, setUsers] = useState([]);
 
-    const fetchReportTemplate = async (reportTempId,updatedTemplatesArray) => {
+    const fetchReportTemplate = async (reportTempId) => {
         if (reportTempId) {
             const reportTemplateRef = ref(database, `reportTemplates/${reportTempId}`);
             get(reportTemplateRef)
@@ -32,13 +32,13 @@ const ReportCustomize = () => {
                         const data = snapshot.val();
                         setReportName(data.name);
                         setTables(data.tables || []);
-                        const filteredUser = updatedTemplatesArray.find(user => data.companyName === user.company);
+                        /*const filteredUser = updatedTemplatesArray.find(user => data.companyName === user.company);
                         if (filteredUser) {
                             setCompanyName(data.companyName);
                             setCompanyId(data.companyId)
                             setCompanyLocation(data.companyLocation);
                             setCompanyLocationId(data.companyLocationId);
-                        }
+                        }*/
                     } else {
                         setErrorMessage('Report template not found');
                     }
@@ -49,48 +49,51 @@ const ReportCustomize = () => {
         }
     }
 
-    useEffect(() => {
-        const usersRef = ref(database, 'users');
-        get(usersRef)
-            .then(async (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    const templatesArray = Object.keys(data)
-                        .filter(key => data[key].type === 'Client' && data[key].company)
-                        .map(key => ({
-                            id: key,
-                            ...data[key]
-                        }));
-                    const updatedTemplatesArray = await Promise.all(templatesArray.map(async template => {
-                        const additionalDataRef = ref(database, `clientLocations`);
-                        const snapshot = await get(additionalDataRef);
-                        if (snapshot.exists()) {
-                            const additionalData = snapshot.val();
-                            const clientData = Object.keys(additionalData)
-                                .filter(key => additionalData[key].clientId === template.id)
-                                .map(key => ({
-                                    id: key,
-                                    ...additionalData[key]
-                                }));
-                            return {
-                                ...template,
-                                clientLocations: clientData
-                            };
-                        }
-                        return template;
-                    }));
+    const fetchCompanyAndLocation = async () => {
+        const additionalDataRef = ref(database, `clientLocations`);
+        const snapshot = await get(additionalDataRef);
+        if (snapshot.exists()) {
+            const additionalData = snapshot.val();
+            let clientData = Object.keys(additionalData)
+                .map(key => ({
+                    id: key,
+                    ...additionalData[key]
+                }))
+                .filter(item => !item.isDeleted && item.clientName);
 
-                    setUsers(updatedTemplatesArray);
-
-                    await fetchReportTemplate(reportTempId,updatedTemplatesArray);
+            let uniqueClientNames = new Set();
+            clientData.filter(item => {
+                if (uniqueClientNames.has(item.clientName)) {
+                    return false;
                 } else {
-                    setErrorMessage('No User Profiles found');
+                    uniqueClientNames.add(item.clientName);
+                    return true;
                 }
-            })
-            .catch((error) => {
-                setErrorMessage(`Error fetching User Profiles: ${error.message}`);
             });
+            uniqueClientNames = Array.from(uniqueClientNames)
+            console.log(clientData)
+            const clientLocationsMap = {};
 
+            clientData.forEach(item => {
+                if (!clientLocationsMap[item.clientName]) {
+                    clientLocationsMap[item.clientName] = [];
+                }
+                clientLocationsMap[item.clientName].push({address:item.address, id: item.id});
+            });
+            console.log(clientLocationsMap)
+            const clientDataArray = Object.keys(clientLocationsMap).map(clientName => ({
+                id: clientName,
+                company: clientName,
+                clientLocations: clientLocationsMap[clientName]
+            }));
+            setUsers(clientDataArray);
+        }
+
+        await fetchReportTemplate(reportTempId);
+    }
+
+    useEffect(() => {
+        fetchCompanyAndLocation();
 
     }, [reportTempId]);
 
@@ -209,15 +212,15 @@ const ReportCustomize = () => {
             companyId,
             companyLocationId
         };
-        console.log(updatedReportTemplate)
+        console.log('updatedReportTemplate => ',updatedReportTemplate)
 
-        set(reportTemplateRef, updatedReportTemplate)
+        /*set(reportTemplateRef, updatedReportTemplate)
             .then(() => {
                 setSuccessMessage('Report template updated successfully');
             })
             .catch((error) => {
                 setErrorMessage(`Error updating report template: ${error.message}`);
-            });
+            });*/
     };
 
     const handleAddOption = (tableIndex, columnIndex, newOption) => {
