@@ -37,6 +37,26 @@ const parseRequest = (req) => {
     });
 }
 
+const formatValue = (value) => {
+    if (value === 'true') {
+        return "Yes";
+    } else if (value === 'false') {
+        return "No";
+    } else {
+        return value || '-';
+    }
+}
+
+const capitalizeFirstLetter = (string) => {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const stringToBoolean = (str) => {
+    if (!str) return false;
+    return str.toLowerCase() === "true";
+}
+
 async function generatePdf(req, res) {
 
     if (req.method !== 'POST') {
@@ -167,7 +187,7 @@ async function generatePdf(req, res) {
     th, td {
         padding: 8px 12px;
         border: 1px solid #000;
-        text-align: center;
+        text-align: left;
         align: center;
         vertical-align: top;
         word-wrap: break-word;
@@ -176,7 +196,8 @@ async function generatePdf(req, res) {
 
     th {
         ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
-    }
+        text-align: center;
+        }
 
     td {
         background-color: ${blackAndWhiteBool ? '#fff;' : '#f5f5f5;'}
@@ -332,7 +353,16 @@ ${sortedTables.map((table, tableIndex) => {
                             ${rowGroup.row.map((cell, cellIndex) => {
                     const column = sortedColumns[cellIndex];
                     if (column.format === 'fixed value' && column.fixed) {
+
                         return `<td>${column.fixed[rowIndex] || '-'}</td>`;
+                    } else if (column.format === 'Yes/No') {
+                        return ` <td style="text-align: center; vertical-align: middle;">
+                                ${formatValue(cell && cell.value) || '-'}
+                            </td>`
+                    } else if (column.format === 'f/c') {
+                        return ` <td style="text-align: center; vertical-align: middle;">
+                                ${formatValue(cell && cell.value) || '-'}
+                            </td>`
                     } else {
                         return `
                                         <td>
@@ -356,31 +386,11 @@ ${sortedTables.map((table, tableIndex) => {
 </html>
 `;
 
-        function formatValue(value) {
-            if (value === 'true') {
-                return "Yes";
-            } else if (value === 'false') {
-                return "No";
-            } else {
-                return value || '-';
-            }
-        }
-
-        function capitalizeFirstLetter(string) {
-            if (!string) return '';
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        function stringToBoolean(str) {
-            if(!str) return false;
-            return str.toLowerCase() === "true";
-        }
-
         console.log('HTML content generated');
 
         // Generate PDF using Puppeteer
         chromium.setHeadlessMode = true;
-        console.log("process.env.NODE_ENV = ",process.env.NODE_ENV)
+        console.log("process.env.NODE_ENV = ", process.env.NODE_ENV)
         let browser;
         if (process.env.NODE_ENV === 'local') {
             console.log("local mode");
