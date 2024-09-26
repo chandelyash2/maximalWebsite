@@ -146,7 +146,7 @@ function ReportTemplateEdit() {
           <div className="mb-3">
             <select id="companyName" className="form-select btn-danger  my-1 text-center w-25" value={selectedCompanyName} onChange={(e) => setSelectedCompanyName(e.target.value)}>
               <option value="">Choose Company Name...</option>
-              {[...new Set(reportTemplates.map(template => template.companyName))].map((companyName, index) => (
+              {[...new Set(reportTemplates.filter(template => template.companyName).map(template => template.companyName))].map((companyName, index) => (
                 <option key={index} value={companyName}>{companyName}</option>
               ))}
             </select>
@@ -155,7 +155,7 @@ function ReportTemplateEdit() {
           <div className="mb-3">
             <select id="companyLocation" className="form-select btn-danger  my-1 text-center w-25" value={selectedCompanyLocation} onChange={(e) => setSelectedCompanyLocation(e.target.value)}>
               <option value="">Choose Location...</option>
-              {[...new Set(reportTemplates.map(template => template.companyLocation))].map((companyLocation, index) => (
+              {[...new Set(reportTemplates.filter(template => template.companyLocation).map(template => template.companyLocation))].map((companyLocation, index) => (
                 <option key={index} value={companyLocation}>{companyLocation}</option>
               ))}
             </select>
