@@ -1,6 +1,8 @@
 const puppeteerCore = require('puppeteer-core');
 const chromium = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer');
+const ExcelJS = require('exceljs');
+const axios = require('axios');
 
 const parseRequest = (req) => {
     return new Promise((resolve, reject) => {
@@ -37,33 +39,150 @@ const parseRequest = (req) => {
     });
 }
 
-async function generatePdf(req, res) {
-
-    if (req.method !== 'POST') {
-        return res.status(400).send({error: 'Invalid request method'});
+const formatValue = (value) => {
+    if (value === 'true') {
+        return "Yes";
+    } else if (value === 'false') {
+        return "No";
+    } else {
+        return value || '-';
     }
-    const {files, fields} = await parseRequest(req)
+}
 
-    const headerJson = files.find(file => file.fieldname === "headerJson");
-    const dataJson = files.find(file => file.fieldname === "dataJson");
-    const {orientation = 'portrait', blackAndWhite} = fields;
+const capitalizeFirstLetter = (string) => {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
-    if (!headerJson || !dataJson) {
-        return res.status(400).json({error: 'Invalid JSON files'});
-    }
+const stringToBoolean = (str) => {
+    if (!str) return false;
+    return str.toLowerCase() === "true";
+}
 
+const downloadAndConvertImageToBase64 = async (url) => {
     try {
-        const blackAndWhiteBool = stringToBoolean(blackAndWhite)
-        console.log("fdsfdsfdsfdsfdsf ", typeof blackAndWhite);
+        const response = await axios.get(url, {responseType: 'arraybuffer'});
+        const base64Image = Buffer.from(response.data, 'binary').toString('base64');
+        return `data:image/png;base64,${base64Image}`;
+    } catch (error) {
+        console.error(`Error downloading image: ${url}`, error);
+        return null;
+    }
+}
 
-        const headerData = JSON.parse(headerJson.buffer.toString());
-        const rowData = JSON.parse(dataJson.buffer.toString());
-        const sortedTables = headerData.tables.sort((a, b) => a.sequence - b.sequence);
-        // Log the parsed data
-        // console.log('Header Data:', headerData);
-        // console.log('Row Data:', rowData);
+const createAndSendExcel = async (headerData, rowData, blackAndWhiteBool, res) => {
+    // Create workbook and worksheet
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Report');
 
-        const htmlContent = `
+    // Add header information
+    const headerTitle = headerData.name || 'Report';
+    worksheet.addRow([headerTitle]).font = {bold: true, size: 16};
+    worksheet.addRow(['Company Name:', headerData.companyName || '-']);
+    worksheet.addRow(['Location:', headerData.companyLocation || '-']);
+    worksheet.addRow([]); // Empty row for spacing
+
+    // Process each table
+    for (const [tableIndex, table] of headerData.tables.entries()) {
+        const matchingDataTable = rowData.tables[tableIndex];
+        if (!matchingDataTable) continue;
+
+        // Add table title
+        const tableTitle = table.name || `Table ${tableIndex + 1}`;
+        worksheet.addRow([]); // Space before the table
+        worksheet.addRow([tableTitle]).font = {bold: true, size: 12};
+
+        // Process columns
+        const sortedColumns = table.columns.sort((a, b) => a.sequence - b.sequence);
+        worksheet.columns = sortedColumns.map(column => ({
+            key: column.title.toLowerCase().replace(/\s+/g, '_'),
+            width: Math.max(parseInt(column.width * 2) || 10, 20), // Minimum width for better visibility
+        }));
+
+        // Add column headers
+        const columnHeaders = sortedColumns.map(column => column.title || '');
+        worksheet.addRow(columnHeaders).font = {bold: true};
+
+        // Process rows
+        for (const [rowIndex, rowGroup] of matchingDataTable.table.entries()) {
+            const rowValues = rowGroup.row.map((cell, cellIndex) => {
+                const column = sortedColumns[cellIndex];
+                if (column.format === 'fixed value' && column.fixed) {
+                    return column.fixed[rowIndex] || '-';
+                } else if (cell.format.toLowerCase().includes('photo') && Array.isArray(cell.value)) {
+                    return ''; // Placeholder for image
+                } else {
+                    return cell.value || '-';
+                }
+            });
+
+            const addedRow = worksheet.addRow(rowValues);
+
+            // Embed images
+            for (const [cellIndex, cell] of rowGroup.row.entries()) {
+                if (cell.format.toLowerCase().includes('photo') && Array.isArray(cell.value)) {
+                    const startRow = addedRow.number;
+                    const startCol = cellIndex + 1;
+
+                    for (const [imgIndex, imageUrl] of cell.value.entries()) {
+                        try {
+                            const base64Image = await downloadAndConvertImageToBase64(imageUrl);
+                            if (base64Image) {
+                                const image = workbook.addImage({
+                                    base64: base64Image,
+                                    extension: 'png',
+                                });
+
+                                // Determine image dimensions and position
+                                const imgWidth = 100; // Adjust as needed
+                                const imgHeight = 100; // Adjust as needed
+                                const imgPositionRow = startRow + imgIndex; // Increment row for each image
+
+                                // Adjust the column width and row height
+                                worksheet.getColumn(startCol).width = Math.max(imgWidth / 8, 20); // Adjust column width
+                                worksheet.getRow(imgPositionRow).height = Math.max(imgHeight, 20); // Adjust row height
+
+                                // Add image at unique position
+                                worksheet.addImage(image, {
+                                    tl: {col: startCol - 1, row: imgPositionRow - 1}, // Unique row for each image
+                                    ext: {width: imgWidth, height: imgHeight}, // Adjust image size
+                                });
+                            }
+                        } catch (error) {
+                            console.error(`Failed to process image:`, error);
+                        }
+                    }
+                }
+            }
+        }
+
+        worksheet.addRow([]); // Blank row between tables
+    }
+
+    // Apply styling if requested
+    if (blackAndWhiteBool) {
+        worksheet.eachRow({includeEmpty: true}, row => {
+            row.eachCell(cell => {
+                cell.font = {color: {argb: 'FF000000'}};
+                cell.fill = {type: 'pattern', pattern: 'solid', fgColor: {argb: '000000'}};
+            });
+        });
+    }
+
+    /*await workbook.xlsx.write(res);*/
+    const buffer = await workbook.xlsx.writeBuffer();
+    // Set response headers and write the Excel file
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="${headerData.name.replace(/\s+/g, '_')}.xlsx"`);
+    res.end(buffer, 'binary');
+}
+
+const createAndSendPdf = async (headerData, rowData, orientation, blackAndWhiteBool, res) => {
+    // Log the parsed data
+    // console.log('Header Data:', headerData);
+    // console.log('Row Data:', rowData);
+    const sortedTables = headerData.tables.sort((a, b) => a.sequence - b.sequence);
+    const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -167,7 +286,7 @@ async function generatePdf(req, res) {
     th, td {
         padding: 8px 12px;
         border: 1px solid #000;
-        text-align: center;
+        text-align: left;
         align: center;
         vertical-align: top;
         word-wrap: break-word;
@@ -176,7 +295,8 @@ async function generatePdf(req, res) {
 
     th {
         ${blackAndWhiteBool ? 'background-color: #00000000; color: #000;' : 'background-color: #613b11; color: #fff;'}
-    }
+        text-align: center;
+        }
 
     td {
         background-color: ${blackAndWhiteBool ? '#fff;' : '#f5f5f5;'}
@@ -247,27 +367,27 @@ async function generatePdf(req, res) {
 </div>
 
 ${sortedTables.map((table, tableIndex) => {
-            const matchingDataTable = rowData.tables[tableIndex];
-            if (!matchingDataTable) return '';  // Skip if no matching data table
+        const matchingDataTable = rowData.tables[tableIndex];
+        if (!matchingDataTable) return '';  // Skip if no matching data table
 
-            // Sort the columns by sequence before rendering
-            const sortedColumns = table.columns.sort((a, b) => a.sequence - b.sequence);
+        // Sort the columns by sequence before rendering
+        const sortedColumns = table.columns.sort((a, b) => a.sequence - b.sequence);
 
-            if (table.type === 'Document') {
-                // Generate document-style layout
-                return `
+        if (table.type === 'Document') {
+            // Generate document-style layout
+            return `
         <div class="document-wrapper">
             <h3>${table.name || 'Unnamed Table'}</h3>
             ${matchingDataTable.table.map(row => {
-                    let rowHtml = ''; // Initialize an empty string for the row HTML
-                    let columnGroup = []; // Array to store columns that will be displayed side by side
+                let rowHtml = ''; // Initialize an empty string for the row HTML
+                let columnGroup = []; // Array to store columns that will be displayed side by side
 
-                    row.row.forEach((cell, cellIndex) => {
-                        const column = sortedColumns[cellIndex];
+                row.row.forEach((cell, cellIndex) => {
+                    const column = sortedColumns[cellIndex];
 
-                        if (cell && cell.format.toLowerCase().includes('photo') && Array.isArray(cell.value)) {
-                            // Render photos if the cell format is 'photo'
-                            rowHtml += `
+                    if (cell && cell.format.toLowerCase().includes('photo') && Array.isArray(cell.value)) {
+                        // Render photos if the cell format is 'photo'
+                        rowHtml += `
                             <div class="photo-container">
                                 <span class="title">${capitalizeFirstLetter(cell.title)}:</span>
                                 <span class="images">
@@ -275,14 +395,14 @@ ${sortedTables.map((table, tableIndex) => {
                                 </span>
                             </div>
                         `;
-                        } else {
-                            if (column.width === '100%') {
-                                if (columnGroup.length > 0) {
-                                    rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                    columnGroup = [];
-                                }
+                    } else {
+                        if (column.width === '100%') {
+                            if (columnGroup.length > 0) {
+                                rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                                columnGroup = [];
+                            }
 
-                                rowHtml += `
+                            rowHtml += `
                                 <div class="document-row full-width">
                                     <span><strong>${capitalizeFirstLetter(cell.title)}:</strong></span>
                                     <div style="border: ${column.border === 'Yes' ? (blackAndWhite ? '2px solid black' : '2px solid #613b11') : 'none'};
@@ -293,29 +413,29 @@ ${sortedTables.map((table, tableIndex) => {
                                     </div>
                                 </div>
                             `;
-                            } else {
-                                columnGroup.push(`
+                        } else {
+                            columnGroup.push(`
                                 <span><strong>${capitalizeFirstLetter(cell.title)}:</strong> ${cell.value || '-'}</span>
                             `);
 
-                                if (columnGroup.length === 2) {
-                                    rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
-                                    columnGroup = [];
-                                }
+                            if (columnGroup.length === 2) {
+                                rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                                columnGroup = [];
                             }
                         }
-                    });
-
-                    if (columnGroup.length > 0) {
-                        rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
                     }
+                });
 
-                    return rowHtml;
-                }).join('')}
+                if (columnGroup.length > 0) {
+                    rowHtml += `<div class="document-row">${columnGroup.join('')}</div>`;
+                }
+
+                return rowHtml;
+            }).join('')}
         </div>
         `;
-            } else if (table.type === 'Tabular') {
-                return `
+        } else if (table.type === 'Tabular') {
+            return `
         <div class="table-wrapper">
             <h3>${table.name || 'Unnamed Table'}</h3>
             <table>
@@ -330,101 +450,124 @@ ${sortedTables.map((table, tableIndex) => {
                     ${matchingDataTable.table.map((rowGroup, rowIndex) => `
                         <tr>
                             ${rowGroup.row.map((cell, cellIndex) => {
-                    const column = sortedColumns[cellIndex];
-                    if (column.format === 'fixed value' && column.fixed) {
-                        return `<td>${column.fixed[rowIndex] || '-'}</td>`;
-                    } else {
-                        return `
+                const column = sortedColumns[cellIndex];
+                if (column.format === 'fixed value' && column.fixed) {
+
+                    return `<td>${column.fixed[rowIndex] || '-'}</td>`;
+                } else if (column.format === 'Yes/No') {
+                    return ` <td style="text-align: center; vertical-align: middle;">
+                                ${formatValue(cell && cell.value) || '-'}
+                            </td>`
+                } else if (column.format === 'f/c') {
+                    return ` <td style="text-align: center; vertical-align: middle;">
+                                ${formatValue(cell && cell.value) || '-'}
+                            </td>`
+                } else {
+                    return `
                                         <td>
                                             ${cell && cell.format.includes('photo') && Array.isArray(cell.value)
-                            ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')
-                            : formatValue(cell && cell.value) || '-'}
+                        ? cell.value.map(imageUrl => `<img src="${imageUrl}" alt="photo" class="inline-image">`).join('')
+                        : formatValue(cell && cell.value) || '-'}
                                         </td>
                                     `;
-                    }
-                }).join('')}
+                }
+            }).join('')}
                         </tr>
                     `).join('')}
                 </tbody>
             </table>
         </div>
         `;
-            }
-        }).join('')}
+        }
+    }).join('')}
 
 </body>
 </html>
 `;
 
-        function formatValue(value) {
-            if (value === 'true') {
-                return "Yes";
-            } else if (value === 'false') {
-                return "No";
-            } else {
-                return value || '-';
-            }
-        }
+    console.log('HTML content generated');
 
-        function capitalizeFirstLetter(string) {
-            if (!string) return '';
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        function stringToBoolean(str) {
-            if(!str) return false;
-            return str.toLowerCase() === "true";
-        }
-
-        console.log('HTML content generated');
-
-        // Generate PDF using Puppeteer
-        chromium.setHeadlessMode = true;
-        console.log("process.env.NODE_ENV = ",process.env.NODE_ENV)
-        let browser;
-        if (process.env.NODE_ENV === 'local') {
-            console.log("local mode");
-            browser = await puppeteer.launch();
-        } else {
-            console.log("Production mode");
-            browser = await puppeteerCore.launch({
-                executablePath: await chromium.executablePath(),
-                args: chromium.args,
-                headless: chromium.headless,
-                defaultViewport: chromium.defaultViewport,
-            });
-        }
-
-        const page = await browser.newPage();
-        console.log('Puppeteer launched');
-        await page.setContent(htmlContent, {waitUntil: 'networkidle0'});
-        console.log('Content set on Puppeteer page');
-
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            landscape: orientation === 'landscape',
-            printBackground: true,
-            margin: {
-                top: '5mm',
-                right: '5mm',
-                bottom: '5mm',
-                left: '5mm'
-            },
-            scale: 0.8
+    // Generate PDF using Puppeteer
+    chromium.setHeadlessMode = true;
+    console.log("process.env.NODE_ENV = ", process.env.NODE_ENV)
+    let browser;
+    if (process.env.NODE_ENV === 'local') {
+        console.log("local mode");
+        browser = await puppeteer.launch();
+    } else {
+        console.log("Production mode");
+        browser = await puppeteerCore.launch({
+            executablePath: await chromium.executablePath(),
+            args: chromium.args,
+            headless: chromium.headless,
+            defaultViewport: chromium.defaultViewport,
         });
-        await page.close();
-        await browser.close();
+    }
 
-        console.log('PDF generated');
+    const page = await browser.newPage();
+    console.log('Puppeteer launched');
+    await page.setContent(htmlContent, {waitUntil: 'networkidle0'});
+    console.log('Content set on Puppeteer page');
 
-        // Send PDF as response
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('content-transfer-encoding', 'binary');
-        res.setHeader('Content-Disposition', `attachment; filename="${headerData.name.replace(/\s+/g, '_')}.pdf"`);
-        res.end(pdfBuffer, 'binary');
+    const pdfBuffer = await page.pdf({
+        format: 'A4',
+        landscape: orientation === 'landscape',
+        printBackground: true,
+        margin: {
+            top: '5mm',
+            right: '5mm',
+            bottom: '5mm',
+            left: '5mm'
+        },
+        scale: 0.8
+    });
+    await page.close();
+    await browser.close();
+
+    console.log('PDF generated');
+
+    // Send PDF as response
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('content-transfer-encoding', 'binary');
+    res.setHeader('Content-Disposition', `attachment; filename="${headerData.name.replace(/\s+/g, '_')}.pdf"`);
+    res.end(pdfBuffer, 'binary');
+}
+
+async function generatePdf(req, res) {
+
+    if (req.method !== 'POST') {
+        return res.status(400).send({error: 'Invalid request method'});
+    }
+    const {files, fields} = await parseRequest(req)
+
+    const headerJson = files.find(file => file.fieldname === "headerJson");
+    const dataJson = files.find(file => file.fieldname === "dataJson");
+    const {orientation = 'portrait', blackAndWhite, generateType} = fields;
+
+    if (!headerJson || !dataJson) {
+        return res.status(400).json({error: 'Invalid JSON files'});
+    }
+
+    try {
+        const blackAndWhiteBool = stringToBoolean(blackAndWhite)
+        const headerData = JSON.parse(headerJson.buffer.toString());
+        const rowData = JSON.parse(dataJson.buffer.toString());
+
+        console.log("generateType = ", generateType)
+        if (generateType === 'pdf') {
+            console.log("pdf generate")
+            await createAndSendPdf(headerData, rowData, orientation, blackAndWhiteBool, res);
+        } else if (generateType === 'excel') {
+            console.log("excel generate")
+            await createAndSendExcel(headerData, rowData, blackAndWhiteBool, res);
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({error: 'provide generate type'});
+        }
 
     } catch (e) {
         console.error('Error generating PDF:', e);
+        res.setHeader('Content-Type', 'application/json');
         res.status(500).json({error: 'Failed to generate PDF'});
     }
 }
