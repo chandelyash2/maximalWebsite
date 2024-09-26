@@ -138,11 +138,11 @@ function UserList() {
                 {filteredUsers.map(user => (
                   <tr key={user.id} className=''>
                     <td className='text-center'>{user.type}</td>
-                    <td className='text-center'>{user.name}</td>
-                    <td className='text-center'>{user.lname}</td>
+                    <td className='text-center'>{user.firstName}</td>
+                    <td className='text-center'>{user.lastName}</td>
                     <td className='text-start ps-2'>{user.email}</td>
                     <td className='text-center'>{user.company}</td>
-                    <td className='text-center'>{user.companyAdress}</td>
+                    <td className='text-center'>{user.streetAddress}</td>
                     {/* <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(user.id)}><i className="bi bi-trash3"></i></button> */}
 
                   </tr>
