@@ -118,6 +118,7 @@ function ReportAssignUserPermissions() {
       email: selectedUser.email, // Replace with appropriate property from your user object
       userId: userId,
       reportTemplateName: selectedTemplate.name, // Replace with appropriate property from your template object
+      companyLocationId: selectedTemplate.companyLocationId,
       reportTemplateId: reportTemplateId,
       accessType: accessType,
       userType: selectedUser.type
@@ -128,7 +129,7 @@ function ReportAssignUserPermissions() {
 
     // Save to database (assuming 'reportUserAccessPermissions' is your database table)
     const newPermissionRef = push(ref(database, 'reportUserAccessPermissions'));
-    set(newPermissionRef, newPermission);
+    set(newPermissionRef, newPermission).then();
 
     // Clear selection after adding
     setAccessType('');
