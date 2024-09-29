@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ref, get, remove } from 'firebase/database';
-import { database } from '../firebaseconfig';
+import { database,auth } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
 import FilterButton from './FilterButton';
 
@@ -68,18 +68,21 @@ function UserList() {
     if (!isConfirmed) {
       return; // If user cancels, do nothing
     }
+    console.log("templateId", templateId);
     const templateRef = ref(database, `users/${templateId}`);
     // Remove the report template from Firebase Realtime Database
     remove(templateRef)
-      .then(() => {
-        // Filter out the deleted template from the state
-        setUsers(users.filter(template => template.id !== templateId));
-      })
-      .catch((error) => {
-        setErrorMessage(`Error deleting User: ${error.message}`);
-      });
-  };
+        .then(async () => {
+          // Remove the user from Firebase Authentication
+          await auth.deleteUser(templateId)
 
+          // Filter out the deleted template from the state
+          setUsers(users.filter(template => template.id !== templateId));
+        })
+        .catch((error) => {
+          setErrorMessage(`Error deleting User: ${error.message}`);
+        });
+  };
 
   return (
     <div className='container-fluid' style={{ overflowY: 'auto' }}>
@@ -135,17 +138,22 @@ function UserList() {
                 </tr>
               </thead>
               <tbody>
-                {filteredUsers.map(user => (
-                  <tr key={user.id} className=''>
-                    <td className='text-center'>{user.type}</td>
-                    <td className='text-center'>{user.firstName}</td>
-                    <td className='text-center'>{user.lastName}</td>
-                    <td className='text-start ps-2'>{user.email}</td>
-                    <td className='text-center'>{user.company}</td>
-                    <td className='text-center'>{user.streetAddress}</td>
-                    {/* <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(user.id)}><i className="bi bi-trash3"></i></button> */}
-
-                  </tr>
+                {filteredUsers.map((user, index) => (
+                    <tr key={user.id} className=''>
+                      <td className='text-center'>{user.type}</td>
+                      <td className='text-center'>{user.firstName}</td>
+                      <td className='text-center'>{user.lastName}</td>
+                      <td className='text-start ps-2'>{user.email}</td>
+                      <td className='text-center'>{user.company}</td>
+                      <td className='text-center'>{user.streetAddress}</td>
+                      {/* <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(user.id)}><i className="bi bi-trash3"></i></button> */}
+                      <td className='text-center'>
+                        <button className="btn-danger rounded-pill"
+                                onClick={() => handleDelete(user.id)}>
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
                 ))}
               </tbody>
             </table>
