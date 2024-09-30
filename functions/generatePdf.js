@@ -454,15 +454,19 @@ ${sortedTables.map((table, tableIndex) => {
                 if (column.format === 'fixed value' && column.fixed) {
 
                     return `<td>${column.fixed[rowIndex] || '-'}</td>`;
-                } else if (column.format === 'Yes/No') {
+                }
+                else if (column.format === 'Yes/No') {
                     return ` <td style="text-align: center; vertical-align: middle;">
                                 ${formatValue(cell && cell.value) || '-'}
                             </td>`
-                } else if (column.format === 'f/c') {
+                }
+                else if (column.format === 'F&C') {
                     return ` <td style="text-align: center; vertical-align: middle;">
                                 ${formatValue(cell && cell.value) || '-'}
                             </td>`
-                } else {
+                }
+
+                else {
                     return `
                                         <td>
                                             ${cell && cell.format.includes('photo') && Array.isArray(cell.value)
