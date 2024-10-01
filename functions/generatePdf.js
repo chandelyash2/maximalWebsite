@@ -456,12 +456,12 @@ ${sortedTables.map((table, tableIndex) => {
                     return `<td>${column.fixed[rowIndex] || '-'}</td>`;
                 }
                 else if (column.format === 'Yes/No') {
-                    return ` <td style="text-align: center; vertical-align: middle;">
+                    return ` <td style="text-align: center; vertical-align: top;">
                                 ${formatValue(cell && cell.value) || '-'}
                             </td>`
                 }
                 else if (column.format === 'F&C') {
-                    return ` <td style="text-align: center; vertical-align: middle;">
+                    return ` <td style="text-align: center; vertical-align: top;">
                                 ${formatValue(cell && cell.value) || '-'}
                             </td>`
                 }
