@@ -377,7 +377,7 @@ ${sortedTables.map((table, tableIndex) => {
             // Generate document-style layout
             return `
         <div class="document-wrapper">
-            <h3>${table.name || 'Unnamed Table'}</h3>
+            <h3>${table.name || ''}</h3>
             ${matchingDataTable.table.map(row => {
                 let rowHtml = ''; // Initialize an empty string for the row HTML
                 let columnGroup = []; // Array to store columns that will be displayed side by side
@@ -437,7 +437,7 @@ ${sortedTables.map((table, tableIndex) => {
         } else if (table.type === 'Tabular') {
             return `
         <div class="table-wrapper">
-            <h3>${table.name || 'Unnamed Table'}</h3>
+            <h3>${table.name || ''}</h3>
             <table>
                 <thead>
                     <tr>
@@ -668,7 +668,7 @@ app.post('/', async (req, res) => {
 
             return `
                 <div class="table-wrapper">
-                    <h3>${table.name || 'Unnamed Table'}</h3>
+                    <h3>${table.name || ''}</h3>
                     <table>
                         <thead>
                             <tr>
