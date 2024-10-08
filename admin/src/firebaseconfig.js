@@ -1,21 +1,15 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getDatabase, ref } from 'firebase/database'; // Import the getDatabase function
+import {initializeApp} from 'firebase/app';
+import {getAuth} from 'firebase/auth';
+import {getDatabase} from 'firebase/database';
+import {getFunctions} from "firebase/functions";
 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCR-soGi4VvGPwNq-1NWLthPZXwwcoGZo8",
-  authDomain: "maximal-security-services.firebaseapp.com",
-  projectId: "maximal-security-services",
-  storageBucket: "maximal-security-services.appspot.com",
-  messagingSenderId: "599144898107",
-  appId: "1:599144898107:web:f7fa697561f057edab861e",
-  measurementId: "G-DWS4XY8NEM"
-};
+import {firebaseCredential} from "./firebase-credential";
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseCredential);
 const auth = getAuth(firebaseApp);
 const database = getDatabase(firebaseApp); // Use getDatabase to initialize the database
+const functions = getFunctions(firebaseApp);
 
-export { auth, firebaseApp, database };
+
+export {auth, firebaseApp, database, functions};

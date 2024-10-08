@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ref, get, remove, push, set } from 'firebase/database'; 
+import { ref, get, remove, push, set } from 'firebase/database';
 import { database } from '../firebaseconfig';
 import { Link } from 'react-router-dom';
 
@@ -34,21 +34,58 @@ function ReportTemplateEdit() {
 
   }, []); // Empty dependency array ensures that the effect runs only once on component mount
 
-  const handleDelete = (templateId) => {
+  const handleDelete = async (templateId) => {
     const isConfirmed = window.confirm("Are you sure you want to delete this report template?");
     if (!isConfirmed) {
       return; // If user cancels, do nothing
     }
+
+    console.log("templateId", templateId);
+
     const templateRef = ref(database, `reportTemplates/${templateId}`);
-    // Remove the report template from Firebase Realtime Database
-    remove(templateRef)
+    const reportUserAccessPermissionsRef = ref(database, 'reportUserAccessPermissions');
+    const generatedReportRef = ref(database, 'generatedReport');
+
+    try {
+      // Remove the report template from Firebase Realtime Database
+      await remove(templateRef);
+
+      // Query and remove documents from reportUserAccessPermissions
+      const reportUserAccessPermissionsSnapshot = await get(reportUserAccessPermissionsRef);
+      if (reportUserAccessPermissionsSnapshot.exists()) {
+        const reportUserAccessPermissionsData = reportUserAccessPermissionsSnapshot.val();
+        for (const key in reportUserAccessPermissionsData) {
+          if (reportUserAccessPermissionsData[key].reportTemplateId === templateId) {
+            await remove(ref(database, `reportUserAccessPermissions/${key}`));
+          }
+        }
+      }
+
+      // Query and remove documents from generatedReport
+      const generatedReportSnapshot = await get(generatedReportRef);
+      if (generatedReportSnapshot.exists()) {
+        const generatedReportData = generatedReportSnapshot.val();
+        for (const key in generatedReportData) {
+          if (generatedReportData[key].reportTemplatesId === templateId) {
+            await remove(ref(database, `generatedReport/${key}`));
+          }
+        }
+      }
+
+      // Filter out the deleted template from the state
+      setReportTemplates(reportTemplates.filter(template => template.id !== templateId));
+    } catch (error) {
+      setErrorMessage(`Error deleting report template: ${error.message}`);
+    }
+
+    /*remove(templateRef)
       .then(() => {
         // Filter out the deleted template from the state
         setReportTemplates(reportTemplates.filter(template => template.id !== templateId));
       })
       .catch((error) => {
         setErrorMessage(`Error deleting report template: ${error.message}`);
-      });
+      });*/
   };
 
   const handleReplicate = async (templateId) => {
@@ -58,7 +95,7 @@ function ReportTemplateEdit() {
     try {
         // Retrieve the data from the source location
         const snapshot = await get(templateRef);
-        
+
         if (snapshot.exists()) {
             // Data exists, get the value
             const data = snapshot.val();
@@ -66,7 +103,7 @@ function ReportTemplateEdit() {
             data.name = newName;
             // Reference to the destination location where you want to copy the data
             const newTemplateRef = ref(database, `reportTemplates/${newReportTempId}`);
-            
+
             // Set the data to the destination location
             await set(newTemplateRef, data);
             setReportTemplates([...reportTemplates, { id: newReportTempId, ...data }]);
@@ -109,7 +146,7 @@ function ReportTemplateEdit() {
           <div className="mb-3">
             <select id="companyName" className="form-select btn-danger  my-1 text-center w-25" value={selectedCompanyName} onChange={(e) => setSelectedCompanyName(e.target.value)}>
               <option value="">Choose Company Name...</option>
-              {[...new Set(reportTemplates.map(template => template.companyName))].map((companyName, index) => (
+              {[...new Set(reportTemplates.filter(template => template.companyName).map(template => template.companyName))].map((companyName, index) => (
                 <option key={index} value={companyName}>{companyName}</option>
               ))}
             </select>
@@ -118,7 +155,7 @@ function ReportTemplateEdit() {
           <div className="mb-3">
             <select id="companyLocation" className="form-select btn-danger  my-1 text-center w-25" value={selectedCompanyLocation} onChange={(e) => setSelectedCompanyLocation(e.target.value)}>
               <option value="">Choose Location...</option>
-              {[...new Set(reportTemplates.map(template => template.companyLocation))].map((companyLocation, index) => (
+              {[...new Set(reportTemplates.filter(template => template.companyLocation).map(template => template.companyLocation))].map((companyLocation, index) => (
                 <option key={index} value={companyLocation}>{companyLocation}</option>
               ))}
             </select>
@@ -143,12 +180,12 @@ function ReportTemplateEdit() {
                     <td className='text-center'>{template.name}</td>
                     <td className='text-center'>{template.companyName}</td>
                     <td className='text-center'>{template.companyLocation}</td>
-                    <td className='text-center d-flex flex-columns justify-content-center'> 
-                      <Link to={`/ReportCustomize/${template.id}`} 
+                    <td className='text-center d-flex flex-columns justify-content-center'>
+                      <Link to={`/ReportCustomize/${template.id}`}
                                 className="btn btn-danger rounded-pill text-center" title='Edit'><i className="bi bi-pencil-square"></i></Link>
                       <button className="btn btn-warning rounded-pill mx-1 text-center" title='Delete' onClick={() => handleDelete(template.id)}><i className="bi bi-trash3"></i></button>
                       <button className="btn btn-danger rounded-pill text-center me-1" title='Replicate' onClick={() => handleReplicate(template.id)}><i class="bi bi-copy"></i></button>
-                      
+
                       <Link to={`/ReportPreview/${template.id}`} className="btn btn-success rounded-pill text-center" title='Preview'>
                       <i class="bi bi-printer"></i>
                       </Link>
