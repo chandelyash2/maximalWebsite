@@ -10,7 +10,19 @@
       "source": "functions"
   },
   "hosting": [
-      
+      {
+          "headers": [
+              {
+                  "headers": [
+                      {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                      }
+                  ],
+                  "source": "/.well-known/apple-app-site-association"
+              }
+          ]
+      },
       {
           "ignore": [
               "firebase.json",

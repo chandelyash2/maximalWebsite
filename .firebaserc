@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "maximal-security-services"
+    "default": "maximal-security-services",
+    "staging": "maximal-security-services"
   },
   "targets": {
     "maximal-security-services": {
