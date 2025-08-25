@@ -25,26 +25,223 @@
    </header>
     </div>
     <style>
-       @media screen and (max-width: 700px) 
-        {
-            .removegap 
-            {
-            transform: translateY(-100px);
-            }
+        .group-col-sec{
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            width: 100%;
         }
+        .group-col-sec .group_img{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            object-position: center;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+        .group-col-sec .group_img img{
+            width: 100%;
+            display: block;
+        }
+        .group-col-sec ul{
+            display: grid; 
+            grid-template-columns: repeat(2,1fr);
+            grid-gap: 184px 20px;
+            list-style: none;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .group-col-sec ul li a,
+        .groups-cols .group a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #593521;
+            color: #fff;
+            padding: 6px 16px;
+            text-decoration: none;
+            width: 200px;
+            max-width: 200px;
+            font-size: 16px;
+            position: relative;
+            z-index: 9;
+        }
+        .group-col-sec li {
+            padding: 0 10px 0 6px;
+        }
+        .groups-cols .group a{
+            margin: 5px auto;
+        }
+        .group-col-sec ul li:nth-child(even){
+            display: flex;
+            justify-content: flex-end;
+        }
+        .hr-text:after{
+            background: #fff !important;
+        }
+        .consultation {
+            padding: 60px 0;
+            clear: both;
+            margin: -150px 0 0;
+        }
+        .form-control, .form-select{
+  border-radius: 0 !important;
+}
+.btn{
+    border-radius: 0;
+}
+.consultation .btn{
+    min-height: 50px;
+}
+.form-floating>.form-select{
+    padding-top: 1.8rem;
+}
+.our_services{
+    display: block;
+    position: relative;
+}
+.groups-cols.second .group-col-sec {
+    min-height: 255px;
+}
+.groups-cols.second .group-col-sec ul{
+grid-gap: 80px 20px;
+}
+.groups-cols.second .group-col-sec li {
+    padding: 0 4px 0 4px;
+}
+.groups-cols.second .group-col-sec ul li a, 
+.groups-cols.second .groups-cols .group a{
+    width: 178px;
+}
+.groups-cols.second .group-col-sec ul li a, 
+.groups-cols.second .group a{
+    width: 180px;
+}
+.groups-cols.second .col-lg-6:first-child{
+    max-width: 528px;
+}
+@media (max-width: 767px){
+    .group-col-sec ul li a, .groups-cols .group a{
+        width: 110px;
+        max-width: 150px;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+    .groups-cols.second .row {
+    flex-direction: column-reverse;
+    gap: 20px;
+}
+a.footer-link:link, a.footer-link:hover, a.footer-link:active, a.footer-link:visited{
+    font-size: 14px;
+}
+.group-col-sec ul{
+    grid-gap: 108px 10px;
+}
+.groups-cols.second .group-col-sec ul {
+    grid-gap: 34px 20px;
+}
+.groups-cols.second .group-col-sec ul li a, .groups-cols.second .group a {
+    width: 118px;
+}
+.groups-cols.second .group-col-sec {
+    min-height: 165px;
+}
+}
     </style>
-    <div class="container t-brown removegap">
-        <div class="row pb-lg-5 pb-2">
-            <div class="col-lg-5 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
-                <img src="images/Security Offier Photo.png" class="w-100" alt="">
+    <div class="container-fluid consultation">
+
+        <div class="container">
+           
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>SCHEDULE A CONSULTATION</h2>
+                    <p class="banner-text">Get in touch with us to receive a professional consultation from one of our experts.
+                    </p>
+                    <p class="banner-text">At Maximal, we understand that each client has a unique risk profile. The security solutions needed to mitigate those risks are just as unique, and in response, we deliver tailored solutions precisely attuned to mitigate these individualized risks. Our commitment lies in providing customized security solutions that address the unique requirements of various industries.</p>
+                </div>
+                <div class="col-lg-6 px-lg-5">
+                    <include src="form1.html"></include>
+                </div>
             </div>
-            <div class="col-lg-7 text-center py-md-4">
+           
+        </div>
+    </div>
+    <div class="our_services">
+    <div class="container t-brown">
+        <div class="row pb-lg-5 pb-2 align-items-center">
+            <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+                <img src="images/securit.png" class="w-100" alt="">
+            </div>
+            <div class="col-lg-6 text-center py-md-4">
+                <h1 class="py-4 banner-header">OUR SERVICES</h1>
+                <p class="banner-text p-0">At Maximal Security Services, we deliver comprehensive security solutions by seamlessly integrating physical security services with cutting-edge, internally developed technology. This unique combination allows us to provide our clients with a higher level of protection, operational efficiency, and real-time transparency—ensuring that every aspect of their security is proactively managed and tailored to their specific needs.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container t-brown ">
+        <div class="row pb-lg-5 pb-2 align-items-center">
+            <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+                <img src="images/Vehicle.png" class="w-100" alt="">
+            </div>
+            <div class="col-lg-6 text-center py-md-4">
+                <div class="group-col-sec">
+                    <a href="services.html" class="group_img">
+                        <img src="images/physical-security.png" alt="">
+                    </a>
+                    <ul>
+                        <li><a href="services-unarmed.html">Unarmed Security</a></li>
+                        <li><a href="services-armed.html">Armed Security</a></li>
+                        <li><a href="services-mobilepatrol.html">Mobile Patrol</a></li>
+                        <li><a href="services-concierge.html">Concierge Services</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container t-brown  groups-cols second">
+        <div class="row pb-lg-5 pb-2 align-items-center">
+            <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+                <div class="group">
+                    <a href="services-proprietary-security.html">Visitor Management</a>
+                </div>
+                <div class="group-col-sec">
+                    <a href="services-proprietary-security.html" class="group_img">
+                        <img src="images/pts-tech.png" alt=""> 
+                    </a>
+                    <ul>
+                        <li><a href="services-proprietary-security.html">Guard Management</a></li>
+                        <li><a href="services-proprietary-security.html">Advanced Reporting</a></li>
+                        <li><a href="services-proprietary-security.html">Maximal Messenger</a></li>
+                        <li><a href="services-proprietary-security.html">Object Recognition</a></li>
+                    </ul>
+                </div>
+                <div class="group">
+                    <a href="services-proprietary-security.html">More</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center py-md-4">
+                <img src="images/access_img.png" class="w-100" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container t-brown">
+        <div class="row pb-lg-5 pb-2 align-items-center">
+            <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+                <img src="images/security.png" class="w-100" alt="">
+            </div>
+            <div class="col-lg-6 text-center py-md-4">
                 <h1 class="py-4 banner-header">HOW WE’RE<br>DIFFERENT</h1>
                 <p class="banner-text p-0">At Maximal, we are committed to providing top-notch security solutions tailored to your unique needs.
                     With a team of highly trained and experienced security guards, we make it our mission to safeguard
                     your peace of mind. Explore our comprehensive range of security services designed to protect you,
                     your assets, and your peace of mind.</p>
-                <p><a class="btn btn-danger alice rounded-pill py-md-2 my-3 px-4 fw-light" href="differentiators.html">Learn More </a></p>
+                <p><a class="btn btn-danger alice py-md-2 my-3 px-4 fw-light" href="differentiators.html">Learn More </a></p>
             </div>
         </div>
         <hr class="d-lg-none">
@@ -63,38 +260,11 @@
             </div>
         </div>
         <hr class="d-lg-none">
-        <div class="row pb-lg-5 pb-md-2">
-            <div class="col-lg-7 text-center pt-4 pt-lg-5 p-1">
-                <img src="images/Vehicle.png" class="w-100 mt-lg-5" alt="">
-            </div>
-            <div class="col-lg-5 text-center ">
-                <h1 class="py-4 banner-header">OUR <br>SERVICES</h1>
-                <div class="row">
-                    <div class="col-6">
-                        <p class="service-text text-decoration-underline">Unarmed  <br class="d-block d-md-none">Security</p>
-                        <p><a class="btn btn-danger alice rounded-pill py-0 px-3 fw-light" href="services-unarmed.html">Learn More </a></p>
-                    </div>
-                    <div class="col-6">
-                        <p class="service-text text-decoration-underline">Armed <br class="d-block d-md-none">Security</p>
-                        <p><a class="btn btn-danger alice rounded-pill py-0 px-3 fw-light" href="services-armed.html">Learn More </a></p>
-                    </div>
-                    <div class="col-6">
-                        <p class="service-text text-decoration-underline">Mobile Patrol</p>
-                        <p><a class="btn btn-danger alice rounded-pill py-0 px-3 fw-light" href="services-mobilepatrol.html">Learn More </a></p>
-                    </div>
-                    <div class="col-6">
-                        <p class="service-text text-decoration-underline">Concierge</p>
-                        <p><a class="btn btn-danger alice rounded-pill py-0 px-3 fw-light" href="services-concierge.html">Learn More </a></p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
-    <div class="container-fluid bg-lightbrown p-5 pt-md-0 text-center">
+    <div class="container-fluid bg-lightbrown p-5 pt-md-0 text-center" style="background-color: #fff !important;
+    padding-top: 60px !important;">
 
         <div class="container home-industries">
 
@@ -180,37 +350,14 @@
                 </div>
 
                 <div class="col-xl-3 col-lg-4 col-md-6 d-flex pb-4">
-                    <div class="bdr-brown rounded-20 pb-4 px-2">
+                    <div class="bdr-brown rounded-20 pb-4 px-2" style="background: #ede8e2;">
                     <h4 class="alice pb-lg-4 pt-2">Want to Know More</h4>
                     <p>Uncover the hidden gems within our industries, where skilled professionals address
                         your security needs.</p>
-                        <a class="btn btn-danger alice rounded-pill py-1 mt-lg-4 px-3 fw-light" href="industries.html">Learn More</a>
+                        <a class="btn btn-danger alice py-1 mt-lg-4 px-3 fw-light" href="industries.html">Learn More</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container-fluid pt-4 p-lg-5 ">
-
-        <div class="container px-lg-5">
-           
-            <div class="row">
-                
-                <hr class="line">
-                <div class="col-lg-6 pt-2">
-                    <h2>SCHEDULE A CONSULTATION</h2>
-                    <p class="banner-text">Get in touch with us to receive a professional consultation from one of our experts.
-                    </p>
-                    <p class="banner-text">At Maximal, we understand that each client has a unique risk profile. The security solutions needed to mitigate those risks are just as unique, and in response, we deliver tailored solutions precisely attuned to mitigate these individualized risks. Our commitment lies in providing customized security solutions that address the unique requirements of various industries.</p>
-                </div>
-                <div class="col-lg-6 px-lg-5">
-                    <include src="form1.html"></include>
-                </div>
-               
-                <hr class="line" >
-            </div>
-           
         </div>
     </div>
 
@@ -218,7 +365,7 @@
     <div class="container-fluid p-0 bg-brown text-light">
         <div class="row justify-content-center">
             <div class="col-lg-9 pt-5">
-                <h1 class="ps-4 ps-xl-5 ff-CatchyMager f-53" data-aos="fade-up" data-aos-once="true" data-aos-duration="1000">Contact Us</h1>
+                <h1 class="ps-4 ps-xl-5 ff-CatchyMager f-53" data-aos="fade-up" data-aos-once="true" data-aos-duration="1000">Headquarters</h1>
             </div>
         </div>
     </div>
@@ -235,9 +382,6 @@
                     </div>
                     <div class="swiper-slide">
                         <img src="images/Customer Logo/GreyStar_blue-removebg-preview.png" class="custoer-logo mx-5" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="images/Customer Logo/turner-logo-blue.png" class="custoer-logo mx-5" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="images/Customer Logo/Automann.png" class="custoer-logo mx-5" alt="">
@@ -257,6 +401,30 @@
                     </div>
                     <div class="swiper-slide">
                         <img src="images/Customer Logo/Creative Logistics.png" class="custoer-logo mx-5" alt=""> 
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/Logo-AshlyStewart_1.png" class="custoer-logo mx-5" alt=""> 
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/NOI.png" class="custoer-logo mx-5" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/iconnectiv-Logo-Photoroom.png" class="custoer-logo mx-5" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/House of Representatives.png" class="custoer-logo mx-5" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/Aurobindo_Pharma_logo.svg (1).png" class="custoer-logo mx-5" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/Barnes and Noble.png" class="custoer-logo mx-5" alt=""> 
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/Alston Logo_0.png" class="custoer-logo mx-5" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/driscoll.png" class="custoer-logo mx-5" alt="">
                     </div>
                     <!-- Add more slides with logos/images -->
                 </div>

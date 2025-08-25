@@ -97,6 +97,11 @@
     background-image: url('../images/Concierge.jpeg');
 }
 
+.bg-technology, .bg-pst
+{
+    background-image: url('../images/AdobeStock_1430823915.jpeg');
+}
+
 .bg-securityroom
 {
     background-image: url('../images/Security\ room.jpeg');
@@ -119,11 +124,6 @@
 .bg-contactus
 {
     background-image: url('../images/Contact\ Us.jpeg');
-}
-
-.bg-technology
-{
-    background-image: url('../images/Security Techonology.jpeg');
 }
 
 .bg-Customized
