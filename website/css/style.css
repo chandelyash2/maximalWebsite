@@ -312,7 +312,7 @@ header {
     position: relative;
     background-color: transparent;
     /* height: 100%; */
-    min-height: 105vh; 
+    min-height: calc(100vh + 180px); 
     height: 105vh;
     width: 100%;
     /* height: calc(100vw * 0.5625); */
@@ -966,8 +966,8 @@ a.footer-link:hover
       position: relative;
       background-color: transparent;
       /* height: 100%; */
-      min-height: 100vh; 
-      height: 100vh;
+      min-height: 114vh; 
+      height: 114vh;
       width: 100%;
     }
 

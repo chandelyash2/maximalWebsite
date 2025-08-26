@@ -46,62 +46,6 @@
       </header>
     </div>
     <style>
-      .group-col-sec {
-        position: relative;
-        min-height: 200px;
-        display: flex;
-        align-items: center;
-        width: 100%;
-      }
-      .group-col-sec .group_img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: contain;
-        object-position: center;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-      }
-      .group-col-sec .group_img img {
-        width: 100%;
-        display: block;
-      }
-      .group-col-sec ul {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 184px 20px;
-        list-style: none;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      .group-col-sec ul li a,
-      .groups-cols .group a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #593521;
-        color: #fff;
-        padding: 6px 16px;
-        text-decoration: none;
-        width: 200px;
-        max-width: 200px;
-        font-size: 16px;
-        position: relative;
-        z-index: 9;
-      }
-      .group-col-sec li {
-        padding: 0px 10px 0 6px;
-      }
-      .groups-cols .group a {
-        margin: 5px auto;
-      }
-      .group-col-sec ul li:nth-child(even) {
-        display: flex;
-        justify-content: flex-end;
-      }
       .hr-text:after {
         background: #fff !important;
       }
@@ -109,10 +53,6 @@
         padding: 60px 0;
         clear: both;
         margin: -150px 0 0;
-      }
-      .form-control,
-      .form-select {
-        border-radius: 0 !important;
       }
       .btn {
         border-radius: 0;
@@ -127,62 +67,16 @@
         display: block;
         position: relative;
       }
-      .groups-cols.second .group-col-sec {
-        min-height: 255px;
-      }
-      .groups-cols.second .group-col-sec ul {
-        grid-gap: 80px 20px;
-      }
-      .groups-cols.second .group-col-sec li {
-        padding: 0 4px 0 4px;
-      }
-      .groups-cols.second .group-col-sec ul li a,
-      .groups-cols.second .groups-cols .group a {
-        width: 178px;
-      }
-      .groups-cols.second .group-col-sec ul li a,
-      .groups-cols.second .group a {
-        width: 180px;
-      }
-      .groups-cols.second .col-lg-6:first-child {
-        max-width: 528px;
+      .image_mapping img{
+        width: 100%;
+        object-fit: contain; 
       }
       @media (max-width: 767px) {
-        .group-col-sec ul li a,
-        .groups-cols .group a {
-          width: 110px;
-          max-width: 150px;
-          white-space: nowrap;
-          font-size: 12px;
-        }
-        .groups-cols .group a {
-          margin: 10px auto;
-        }
-        .groups-cols.second .row {
-          flex-direction: column-reverse;
-          gap: 20px;
-        }
-          .group-col-sec li {
-        padding: 5px 10px 4px 6px;
-      }
         a.footer-link:link,
         a.footer-link:hover,
         a.footer-link:active,
         a.footer-link:visited {
           font-size: 14px;
-        }
-        .group-col-sec ul {
-          grid-gap: 108px 10px;
-        }
-        .groups-cols.second .group-col-sec ul {
-          grid-gap: 34px 20px;
-        }
-        .groups-cols.second .group-col-sec ul li a,
-        .groups-cols.second .group a {
-          width: 118px;
-        }
-        .groups-cols.second .group-col-sec {
-          min-height: 165px;
         }
       }
     </style>
@@ -216,7 +110,7 @@
           <div
             class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
           >
-            <img src="images/securit.png" class="w-100" alt="" />
+            <img src="images/gaurd.png" class="w-100" alt="" />
           </div>
           <div class="col-lg-6 text-center py-md-4">
             <h1 class="py-4 banner-header">OUR SERVICES</h1>
@@ -233,7 +127,7 @@
         </div>
       </div>
     </div>
-    <div class="container t-brown">
+    <div class="container groups-cols first t-brown">
       <div class="row pb-lg-5 pb-2 align-items-center">
         <div
           class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
@@ -241,16 +135,25 @@
           <img src="images/Vehicle.png" class="w-100" alt="" />
         </div>
         <div class="col-lg-6 text-center py-md-4">
-          <div class="group-col-sec">
-            <a href="services.html" class="group_img">
-              <img src="images/physical-security.png" alt="" />
-            </a>
-            <ul>
-              <li><a href="services-unarmed.html">Unarmed Security</a></li>
-              <li><a href="services-armed.html">Armed Security</a></li>
-              <li><a href="services-mobilepatrol.html">Mobile Patrol</a></li>
-              <li><a href="services-concierge.html">Concierge Services</a></li>
-            </ul>
+          <div class="image_mapping">
+            <img src="images/Screenshot_5.png" alt="Physical Security" usemap="#securitymap" width="512" height="225" />
+            
+            <map name="securitymap">
+              <!-- Unarmed Security -->
+              <area shape="rect" coords="20,20,200,65" href="services-unarmed.html" alt="Unarmed Security">
+
+              <!-- Armed Security -->
+              <area shape="rect" coords="315,20,500,65" href="services-armed.html" alt="Armed Security">
+
+              <!-- Mobile Patrol -->
+              <area shape="rect" coords="20,150,200,195" href="services-mobilepatrol.html" alt="Mobile Patrol">
+
+              <!-- Concierge Services -->
+              <area shape="rect" coords="315,150,500,195" href="services-concierge.html" alt="Concierge Services">
+
+              <!-- Physical Security (Center Circle) -->
+              <area shape="circle" coords="255,115,75" href="services.html" alt="Physical Security">
+            </map>
           </div>
         </div>
       </div>
@@ -260,42 +163,47 @@
         <div
           class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
         >
-          <div class="group">
-            <a href="services-proprietary-security.html">Visitor Management</a>
-          </div>
-          <div class="group-col-sec">
-            <a href="services-proprietary-security.html" class="group_img">
-              <img src="images/pts-tech.png" alt="" />
-            </a>
-            <ul>
-              <li>
-                <a href="services-proprietary-security.html"
-                  >Guard Management</a
-                >
-              </li>
-              <li>
-                <a href="services-proprietary-security.html"
-                  >Advanced Reporting</a
-                >
-              </li>
-              <li>
-                <a href="services-proprietary-security.html"
-                  >Maximal Messenger</a
-                >
-              </li>
-              <li>
-                <a href="services-proprietary-security.html"
-                  >Object Recognition</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="group">
-            <a href="services-proprietary-security.html">More</a>
-          </div>
+        <div class="image_mapping">
+  <img src="images/Screenshot_4.png" alt="Proprietary Security Technology" usemap="#techmap" width="947" height="625" style="max-width:100%;height:auto;" />
+  
+  <map name="techmap">
+    <!-- Visitor Management (Top) -->
+    <area shape="rect" coords="350,20,600,80" href="services-proprietary-security.html" alt="Visitor Management">
+
+    <!-- Guard Management (Left) -->
+    <area shape="rect" coords="20,240,300,310" href="services-proprietary-security.html" alt="Guard Management">
+
+    <!-- Maximal Messenger (Left Bottom) -->
+    <area shape="rect" coords="20,390,320,460" href="services-proprietary-security.html" alt="Maximal Messenger">
+
+    <!-- Advanced Reporting (Right) -->
+    <area shape="rect" coords="640,240,940,310" href="services-proprietary-security.html" alt="Advanced Reporting">
+
+    <!-- Object Recognition (Right Bottom) -->
+    <area shape="rect" coords="640,390,940,460" href="services-proprietary-security.html" alt="Object Recognition">
+
+    <!-- More (Bottom) -->
+    <area shape="rect" coords="370,540,580,610" href="services-proprietary-security.html" alt="More">
+
+    <!-- Proprietary Security Technology (Center Circle) -->
+    <area shape="circle" coords="470,310,135" href="services-proprietary-security.html" alt="Proprietary Security Technology">
+  </map>
+</div>
+
+<!-- Load Image Map Resizer -->
+<script src="https://cdn.jsdelivr.net/npm/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
+<script>
+  window.addEventListener('load', function() {
+    if (typeof imageMapResize === 'function') {
+      imageMapResize();
+    }
+  });
+</script>
+
+
         </div>
         <div class="col-lg-6 text-center py-md-4">
-          <img src="images/access_img.png" class="w-100" alt="" />
+          <img src="images/access-granted (2).png" class="w-100" alt="" />
         </div>
       </div>
     </div>
@@ -617,6 +525,9 @@
             </div>
             <div class="swiper-slide">
               <img src="images/driscoll.png" class="custoer-logo mx-5" alt="" />
+            </div>
+            <div class="swiper-slide">
+              <img src="images/Flexible contract terms.png" class="custoer-logo mx-5" alt="" />
             </div>
             <!-- Add more slides with logos/images -->
           </div>
