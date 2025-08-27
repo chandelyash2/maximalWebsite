@@ -57,11 +57,8 @@
       .btn {
         border-radius: 0;
       }
-      .consultation .btn {
-        min-height: 50px;
-      }
       .form-floating > .form-select {
-        padding-top: 1.8rem;
+        padding-top: 1.4rem;
       }
       .our_services {
         display: block;
@@ -71,12 +68,27 @@
         width: 100%;
         object-fit: contain; 
       }
+      .form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select{
+        height: 50px;
+        min-height: 50px;
+      }
+      .form-floating>label, .form-floating>.form-control, .form-floating>.form-control-plaintext{
+        padding: 0.75rem;
+      }
+      .form-floating label {
+          padding-top: 11px;
+          padding-bottom: 0;
+          height: auto;
+      }
       @media (max-width: 767px) {
         a.footer-link:link,
         a.footer-link:hover,
         a.footer-link:active,
         a.footer-link:visited {
           font-size: 14px;
+        }
+        .form-floating label{
+          padding-top: 18px;
         }
       }
     </style>
@@ -135,27 +147,142 @@
           <img src="images/Vehicle.png" class="w-100" alt="" />
         </div>
         <div class="col-lg-6 text-center py-md-8 mt-2">
-        <div class="image_mapping">
-  <img src="images/1.png" alt="Physical Security" usemap="#securitymap" width="512" height="300" />
-  
-  <map name="securitymap">
-    <!-- Unarmed Security -->
-    <area shape="rect" coords="20,25,200,65" href="services-unarmed.html" alt="Unarmed Security">
+          <style>
+            .groups-cols.first .diagram {
+    position: relative;
+    width: 100%;      
+    max-width: 500px;
+    margin: auto;
+  }
+  .groups-cols.first .diagram .circle_img, .groups-cols.first .diagram .circle_img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .groups-cols.first .dia_heading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 114px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+  }
+  .groups-cols.first .link-box {
+    position: absolute;
+    background: #4b2e1e;
+    color: #fff;
+    padding: 7px 22px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
 
-    <!-- Armed Security -->
-    <area shape="rect" coords="315,25,495,65" href="services-armed.html" alt="Armed Security">
+  .groups-cols.first .link-box:hover {
+    background: #633d29;
+  }
+  .groups-cols.first .unarmed {
+      top: -11%;
+      left: 4px;
+      transform: translateY(-50%);
+      width: 170px;
+      max-width: 170px;
+      text-align: center;
+  }
+  .groups-cols.first .armed {
+    top: -11%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 170px;
+    max-width: 170px;
+    text-align: center;
+  }
+  .groups-cols.first .mobile {
+    bottom: 18%;
+    left: 4px;
+    transform: translateY(50%);
+    width: 170px;
+    max-width: 170px;
+    text-align: center;
+  }
+  .groups-cols.first .concierge {
+    bottom: 18%;
+    right: 8px;
+    transform: translateY(50%);
+    width: 170px;
+    max-width: 170px;
+    text-align: center;
+    padding: 7px 10px;
+  }
+  @media (max-width: 567px){
+    .groups-cols.first .diagram {
+        max-width: 320px;
+    }
+    .groups-cols.first .link-box{
+      font-size: 10.5px;
+      padding: 8px 5px;
+    }
+    .groups-cols.first .dia_heading{
+      font-size: 11px;
+      max-width: 70px;
+    }
+    .groups-cols.first .unarmed {
+      top: -15%;
+      left: 3px;
+      width: 107px;
+      max-width: 107px;
+    }
+    .groups-cols.first .armed {
+      top: -15%;
+      right: 5px;
+      width: 107px;
+      max-width: 107px;
+    }
+    .groups-cols.first .mobile {
+      bottom: 22%;
+      left: 2px;
+      transform: translateY(50%);
+      width: 107px;
+      max-width: 107px;
+    }
+    .groups-cols.first .concierge {
+        bottom: 22%;
+        right: 4px;
+        transform: translateY(50%);
+        width: 107px;
+        max-width: 107px;
+    }
+  }
+  @media (max-width: 991px){
+    .groups-cols.first .col-lg-6:first-child{
+      margin-bottom: 3rem;
+    }
+  }
+    @media (min-width: 992px){
+      .groups-cols.first .row{
+        flex-wrap: nowrap;
+      }
+      .groups-cols.first .col-lg-6:last-child{
+        min-width: 550px;
+      }
+    }
+          </style>
+          <div class="diagram">
+            <span class="circle_img">
+              <img src="images/physical_security.png" alt="Physical Security Diagram"> 
+              <a href="services.html" class="dia_heading">Physical Security</a>
+            </span>
 
-    <!-- Mobile Patrol -->
-    <area shape="rect" coords="20,160,200,200" href="services-mobilepatrol.html" alt="Mobile Patrol">
-
-    <!-- Concierge Services -->
-    <area shape="rect" coords="315,160,495,200" href="services-concierge.html" alt="Concierge Services">
-
-    <!-- Physical Security (Center Circle) -->
-    <area shape="circle" coords="255,115,75" href="services.html" alt="Physical Security">
-  </map>
-</div>
-
+            <a href="services-unarmed.html" class="link-box unarmed">Unarmed Security</a>
+            <a href="services-armed.html" class="link-box armed">Armed Security</a>
+            <a href="services-mobilepatrol.html" class="link-box mobile">Mobile Patrol</a>
+            <a href="services-concierge.html" class="link-box concierge">Concierge Services</a>
+          </div>
         </div>
       </div>
     </div>
@@ -164,44 +291,172 @@
         <div
           class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center flex-reverse"
         >
-        <div class="image_mapping">
-  <img src="images/2.png" alt="Proprietary Security Technology" usemap="#techmap" width="947" height="625" style="max-width:100%;height:auto;" />
-  
-  <map name="techmap">
-    <!-- Visitor Management (Top) -->
-    <area shape="rect" coords="350,20,600,80" href="services-proprietary-security.html" alt="Visitor Management">
+        <style>
+            .groups-cols.second .diagram {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+  }
+  .groups-cols.second .diagram .circle_img, .groups-cols.second .diagram .circle_img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .groups-cols.second .dia_heading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 140px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.3em;
+    text-decoration: none;
+  }
+  .groups-cols.second .link-box {
+    position: absolute;
+    background: #4b2e1e;
+    color: #fff;
+    padding: 7px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
 
-    <!-- Guard Management (Left) -->
-    <area shape="rect" coords="20,240,300,310" href="services-proprietary-security.html" alt="Guard Management">
+  .groups-cols.second .link-box:hover {
+    background: #633d29;
+  }
+  .groups-cols.second .visitor {
+    top: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 172px;
+    text-align: center;
+    margin-left: 5px;
+  }
+  .groups-cols.second .guard {
+    top: 30%;
+    left: 2px;
+    transform: translateY(-50%);
+    width: 172px;
+    text-align: center;
+  }
+  .groups-cols.second .maximal {
+    bottom: 30%;
+    left: 3px;
+    transform: translateY(50%);
+    width: 169px;
+    text-align: center;
+  }
+  .groups-cols.second .reporting {
+    top: 30%;
+    right: 4px;
+    transform: translateY(-50%);
+    width: 173px;
+    text-align: center;
+  }
+  .groups-cols.second .object {
+    bottom: 30%;
+    right: 4px;
+    transform: translateY(50%);
+    width: 170px;
+    text-align: center;
+  }
+  .groups-cols.second .more {
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 172px;
+    text-align: center;
+    margin-left: -1px;
+  }
 
-    <!-- Maximal Messenger (Left Bottom) -->
-    <area shape="rect" coords="20,390,320,460" href="services-proprietary-security.html" alt="Maximal Messenger">
-
-    <!-- Advanced Reporting (Right) -->
-    <area shape="rect" coords="640,240,940,310" href="services-proprietary-security.html" alt="Advanced Reporting">
-
-    <!-- Object Recognition (Right Bottom) -->
-    <area shape="rect" coords="640,390,940,460" href="services-proprietary-security.html" alt="Object Recognition">
-
-    <!-- More (Bottom) -->
-    <area shape="rect" coords="370,540,580,610" href="services-proprietary-security.html" alt="More">
-
-    <!-- Proprietary Security Technology (Center Circle) -->
-    <area shape="circle" coords="470,310,135" href="services-proprietary-security.html" alt="Proprietary Security Technology">
-  </map>
-</div>
-
-<!-- Load Image Map Resizer -->
-<script src="https://cdn.jsdelivr.net/npm/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
-<script>
-  window.addEventListener('load', function() {
-    if (typeof imageMapResize === 'function') {
-      imageMapResize();
+  /* Responsive adjustments */
+  @media (max-width: 567px){
+    .groups-cols.second .diagram {
+        max-width: 320px;
     }
-  });
-</script>
+    .groups-cols.second .link-box{
+      font-size: 11px;
+      padding: 6px 2px;
+    }
+    .groups-cols.second .dia_heading{
+      font-size: 11px;
+      max-width: 90px;
+    }
+    .groups-cols.second .visitor {
+        top: -18%;
+        width: 110px;
+        max-width: 110px;
+        margin-left: 3px;
+    }
+    .groups-cols.second .more {
+        bottom: -18%;
+        width: 110px;
+        max-width: 110px;
+        margin-left: -1px;
+    }
+    .groups-cols.second .guard {
+        top: 31%;
+        left: 1px;
+        width: 110px;
+        max-width: 110px;
+    }
+    .groups-cols.second .reporting {
+        top: 31%;
+        right: 2px;
+        width: 110px;
+        max-width: 110px;
+    }
+    .groups-cols.second .maximal {
+        bottom: 31%;
+        width: 110px;
+        left: 1px;
+        max-width: 110px;
+    }
+    .groups-cols.second .object {
+        bottom: 31%;
+        width: 110px;
+        max-width: 110px;
+        right: 2px;
+    }
+  }
+  @media (max-width: 991px){
+    .groups-cols.second .row{
+      flex-direction: column-reverse;
+      margin-bottom: 40px;
+    }
+ .groups-cols.second .col-lg-6:last-child{
+      margin: 3rem auto;
+    }
+  }
+    @media (min-width: 992px){
+      .groups-cols.second .row{
+        flex-wrap: nowrap;
+      }
+       .groups-cols.second .col-lg-6:last-child{
+        min-width: 550px;
+       }
+    }
+        </style>
+        <div class="diagram">
+          <span class="circle_img">
+            <img src="images/pts_tech.png" alt="PTS Technology Diagram">
+            <a href="services-proprietary-security.html" class="dia_heading">Proprietary<br>Security<br>Technology</a>
+          </sapn>
 
-
+          <a href="services-proprietary-security.html" class="link-box visitor">Visitor Management</a>
+          <a href="services-proprietary-security.html" class="link-box guard">Guard Management</a>
+          <a href="services-proprietary-security.html" class="link-box maximal">Maximal Messenger</a>
+          <a href="services-proprietary-security.html" class="link-box reporting">Advanced Reporting</a>
+          <a href="services-proprietary-security.html" class="link-box object">Object Recognition</a>
+          <a href="services-proprietary-security.html" class="link-box more">More</a>
+        </div>
         </div>
         <div class="col-lg-6 text-center py-md-4">
           <img src="images/access-granted (2).png" class="w-100" alt="" />
@@ -213,10 +468,10 @@
         <div
           class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
         >
-          <img src="images/security.png" class="w-100" alt="" />
+          <img src="images/security_men.png" class="w-100" alt="" />
         </div>
         <div class="col-lg-6 text-center py-md-4">
-          <h1 class="py-4 banner-header">HOW WE’RE<br />DIFFERENT</h1>
+          <h1 class="py-4 banner-header">HOW WE’RE DIFFERENT</h1>
           <p class="banner-text p-0">
             At Maximal, we are committed to providing top-notch security
             solutions tailored to your unique needs. With a team of highly
@@ -225,11 +480,11 @@
             security services designed to protect you, your assets, and your
             peace of mind.
           </p>
-          <p>
+          <p style="margin: 0;">
             <a
               class="btn btn-danger alice py-md-2 my-3 px-4 fw-light"
               href="differentiators.html"
-              >Learn More
+              style="margin-bottom: 0 !important;">Learn More
             </a>
           </p>
         </div>
@@ -414,7 +669,12 @@
     </div>
     <include src="footer.html"></include>
 
-    <div class="container-fluid bg-lightbrown p-5 text-center">
+    <style>
+      .custoer-logo.small_logo{
+         transform: scale(1.5);
+      }
+    </style>
+    <div class="container-fluid bg-lightbrown p-5 text-center logos">
       <div class="container justify-content-center">
         <h2>
           Our national partnerships are a testament to the quality of our
@@ -453,7 +713,7 @@
             <div class="swiper-slide">
               <img
                 src="images/Customer Logo/Universal Internmodal.png"
-                class="custoer-logo mx-5"
+                class="custoer-logo sm_logo mx-5"
                 alt=""
               />
             </div>
@@ -482,32 +742,32 @@
             <div class="swiper-slide">
               <img
                 src="images/Logo-AshlyStewart_1.png"
-                class="custoer-logo mx-5"
+                class="custoer-logo small_logo mx-5"
            
                 alt=""
               />
             </div>
             <div class="swiper-slide">
-              <img src="images/NOI.png" class="custoer-logo mx-5" alt="" />
+              <img src="images/NOI.png" class="custoer-logo small_logo mx-5" alt="" />
             </div>
             <div class="swiper-slide">
               <img
                 src="images/iconnectiv-Logo-Photoroom.png"
-                class="custoer-logo mx-5"
+                class="custoer-logo small_logo mx-5"
                 alt=""
               />
             </div>
             <div class="swiper-slide">
               <img
                 src="images/House of Representatives.png"
-                class="custoer-logo mx-5"
+                class="custoer-logo xs_logo mx-5"
                 alt=""
               />
             </div>
             <div class="swiper-slide">
               <img
                 src="images/Aurobindo_Pharma_logo.svg (1).png"
-                class="custoer-logo mx-5"
+                class="custoer-logo small_logo mx-5"
                 alt=""
               />
             </div>
@@ -521,15 +781,15 @@
             <div class="swiper-slide">
               <img
                 src="images/Alston Logo_0.png"
-                class="custoer-logo mx-5"
+                class="custoer-logo small_logo mx-5"
                 alt=""
               />
             </div>
             <div class="swiper-slide">
-              <img src="images/driscoll.png" class="custoer-logo mx-5" alt="" />
+              <img src="images/driscoll.png" class="custoer-logo small_logo mx-5" alt="" />
             </div>
             <div class="swiper-slide">
-              <img src="images/Flexible contract terms.png" class="custoer-logo mx-5" alt="" />
+              <img src="images/freezpak.jpg" class="custoer-logo mx-5" alt="" />
             </div>
             <!-- Add more slides with logos/images -->
           </div>
