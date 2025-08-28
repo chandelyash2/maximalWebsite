@@ -1,880 +1,860 @@
 <html>
-  <head>
-    <meta
-      id="viewport"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>Maximal Security Services</title>
-    <link rel="icon" type="image/x-icon" href="images/logo-icon.png" />
-    <link
-      rel="stylesheet"
-      href="https://maximalsecurityservices.com/css/style.css"
-    />
-    <script
-      src="https://kit.fontawesome.com/be91a42f50.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
-    <script src="custom.js"></script>
-    <script src="music.js"></script>
-  </head>
-  <body
-    class="bg-white"
-    data-aos="fade-in"
-    data-aos-once="true"
-    data-aos-duration="2000"
-  >
-    <!-- NAVBAR -->
-    <include src="nav.html"></include>
 
-    <div class="container-fluid p-0">
-      <!-- Header Section -->
-      <header id="head1" class="bg-image">
-        <!-- bg-Main -->
-        <div class="overlay-home p-0 m-0"></div>
-        <!-- The HTML5 video element that will create the background video on the header -->
-        <video
-          playsinline="playsinline"
-          autoplay="autoplay"
-          muted="muted"
-          loop="loop"
-          id="v1"
-        >
-          <source src="images/video-new.mp4" type="video/mp4" />
-        </video>
-      </header>
-    </div>
-    <style>
-      .hr-text:after {
-        background: #fff !important;
+<head>
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maximal Security Services</title>
+  <link rel="icon" type="image/x-icon" href="images/logo-icon.png" />
+  <link rel="stylesheet" href="./css/style.css"/>
+  <script src="https://kit.fontawesome.com/be91a42f50.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+  <script src="custom.js"></script>
+  <script src="music.js"></script>
+</head>
+
+<body class="bg-white" data-aos="fade-in" data-aos-once="true" data-aos-duration="2000">
+  <!-- NAVBAR -->
+  <include src="nav.html"></include>
+
+  <div class="container-fluid p-0">
+    <!-- Header Section -->
+    <header id="head1" class="bg-image">
+      <!-- bg-Main -->
+      <div class="overlay-home p-0 m-0"></div>
+      <!-- The HTML5 video element that will create the background video on the header -->
+      <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" id="v1">
+        <source src="images/video-new.mp4" type="video/mp4" />
+      </video>
+    </header>
+  </div>
+  <style>
+    .hr-text:after {
+      background: #fff !important;
+    }
+
+    .consultation {
+      padding: 140px 0;
+      clear: both;
+      margin: -150px 0 0;
+    }
+
+    .btn {
+      border-radius: 0;
+    }
+
+    .form-floating>.form-select {
+      padding-top: 1.4rem;
+    }
+
+    .our_services {
+      display: block;
+      position: relative;
+    }
+
+    .image_mapping img {
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .form-floating>.form-control,
+    .form-floating>.form-control-plaintext,
+    .form-floating>.form-select {
+      height: 50px;
+      min-height: 50px;
+    }
+
+    .form-floating>label,
+    .form-floating>.form-control,
+    .form-floating>.form-control-plaintext {
+      padding: 0.75rem;
+    }
+
+    .form-floating label {
+      padding-top: 11px;
+      padding-bottom: 0;
+      height: auto;
+    }
+
+    @media (max-width: 767px) {
+
+      a.footer-link:link,
+      a.footer-link:hover,
+      a.footer-link:active,
+      a.footer-link:visited {
+        font-size: 14px;
       }
-      .consultation {
-        padding: 60px 0;
-        clear: both;
-        margin: -150px 0 0;
-      }
-      .btn {
-        border-radius: 0;
-      }
-      .form-floating > .form-select {
-        padding-top: 1.4rem;
-      }
-      .our_services {
-        display: block;
-        position: relative;
-      }
-      .image_mapping img{
-        width: 100%;
-        object-fit: contain; 
-      }
-      .form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select{
-        height: 50px;
-        min-height: 50px;
-      }
-      .form-floating>label, .form-floating>.form-control, .form-floating>.form-control-plaintext{
-        padding: 0.75rem;
-      }
+
       .form-floating label {
-          padding-top: 11px;
-          padding-bottom: 0;
-          height: auto;
+        padding-top: 18px;
       }
-      @media (max-width: 767px) {
-        a.footer-link:link,
-        a.footer-link:hover,
-        a.footer-link:active,
-        a.footer-link:visited {
-          font-size: 14px;
-        }
-        .form-floating label{
-          padding-top: 18px;
-        }
-      }
-    </style>
-    <div class="container-fluid consultation">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <h2>SCHEDULE A CONSULTATION</h2>
-            <p class="banner-text">
-              Get in touch with us to receive a professional consultation from
-              one of our experts.
-            </p>
-            <p class="banner-text">
-              At Maximal, we understand that each client has a unique risk
-              profile. The security solutions needed to mitigate those risks are
-              just as unique, and in response, we deliver tailored solutions
-              precisely attuned to mitigate these individualized risks. Our
-              commitment lies in providing customized security solutions that
-              address the unique requirements of various industries.
-            </p>
-          </div>
-          <div class="col-lg-6 px-lg-5">
-            <include src="form1.html"></include>
-          </div>
+    }
+  </style>
+  <div class="container-fluid consultation">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>SCHEDULE A CONSULTATION</h2>
+          <p class="banner-text">
+            Get in touch with us to receive a professional consultation from
+            one of our experts.
+          </p>
+          <p class="banner-text">
+            At Maximal, we understand that each client has a unique risk
+            profile. The security solutions needed to mitigate those risks are
+            just as unique, and in response, we deliver tailored solutions
+            precisely attuned to mitigate these individualized risks. Our
+            commitment lies in providing customized security solutions that
+            address the unique requirements of various industries.
+          </p>
+        </div>
+        <div class="col-lg-6 px-lg-5">
+          <include src="form1.html"></include>
         </div>
       </div>
     </div>
-    <div class="our_services">
-      <div class="container t-brown">
-        <div class="row pb-lg-5 pb-2 align-items-center">
-          <div
-            class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
-          >
-            <img src="images/guard5.png" class="w-100" alt="" />
-          </div>
-          <div class="col-lg-6 text-center py-md-4">
-            <h1 class="py-4 banner-header">OUR SERVICES</h1>
-            <p class="banner-text p-0">
-              At Maximal Security Services, we deliver comprehensive security
-              solutions by seamlessly integrating physical security services
-              with cutting-edge, internally developed technology. This unique
-              combination allows us to provide our clients with a higher level
-              of protection, operational efficiency, and real-time
-              transparency—ensuring that every aspect of their security is
-              proactively managed and tailored to their specific needs.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container groups-cols first t-brown">
+  </div>
+  <div class="our_services">
+    <div class="container t-brown">
       <div class="row pb-lg-5 pb-2 align-items-center">
-        <div
-          class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
-        >
-          <img src="images/Vehicle.png" class="w-100" alt="" />
+        <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+          <img src="images/guard5.png" class="w-100" alt="" />
         </div>
-        <div class="col-lg-6 text-center py-md-8 mt-2">
-          <style>
-            .groups-cols.first .diagram {
-    position: relative;
-    width: 100%;      
-    max-width: 500px;
-    margin: auto;
-  }
-  .groups-cols.first .diagram .circle_img, .groups-cols.first .diagram .circle_img img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .groups-cols.first .dia_heading{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 114px;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-  }
-  .groups-cols.first .link-box {
-    position: absolute;
-    background: #4b2e1e;
-    color: #fff;
-    padding: 7px 22px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: 0.3s;
-  }
-
-  .groups-cols.first .link-box:hover {
-    background: #633d29;
-  }
-  .groups-cols.first .unarmed {
-      top: -11%;
-      left: 4px;
-      transform: translateY(-50%);
-      width: 170px;
-      max-width: 170px;
-      text-align: center;
-  }
-  .groups-cols.first .armed {
-    top: -11%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 170px;
-    max-width: 170px;
-    text-align: center;
-  }
-  .groups-cols.first .mobile {
-    bottom: 18%;
-    left: 4px;
-    transform: translateY(50%);
-    width: 170px;
-    max-width: 170px;
-    text-align: center;
-  }
-  .groups-cols.first .concierge {
-    bottom: 18%;
-    right: 8px;
-    transform: translateY(50%);
-    width: 170px;
-    max-width: 170px;
-    text-align: center;
-    padding: 7px 10px;
-  }
-  @media (max-width: 567px){
-    .groups-cols.first .diagram {
-        max-width: 320px;
-    }
-    .groups-cols.first .link-box{
-      font-size: 10.5px;
-      padding: 8px 5px;
-    }
-    .groups-cols.first .dia_heading{
-      font-size: 11px;
-      max-width: 70px;
-    }
-    .groups-cols.first .unarmed {
-      top: -15%;
-      left: 3px;
-      width: 107px;
-      max-width: 107px;
-    }
-    .groups-cols.first .armed {
-      top: -15%;
-      right: 5px;
-      width: 107px;
-      max-width: 107px;
-    }
-    .groups-cols.first .mobile {
-      bottom: 22%;
-      left: 2px;
-      transform: translateY(50%);
-      width: 107px;
-      max-width: 107px;
-    }
-    .groups-cols.first .concierge {
-        bottom: 22%;
-        right: 4px;
-        transform: translateY(50%);
-        width: 107px;
-        max-width: 107px;
-    }
-  }
-  @media (max-width: 991px){
-    .groups-cols.first .col-lg-6:first-child{
-      margin-bottom: 3rem;
-    }
-  }
-    @media (min-width: 992px){
-      .groups-cols.first .row{
-        flex-wrap: nowrap;
-      }
-      .groups-cols.first .col-lg-6:last-child{
-        min-width: 550px;
-      }
-    }
-          </style>
-          <div class="diagram">
-            <span class="circle_img">
-              <img src="images/physical_security.png" alt="Physical Security Diagram"> 
-              <a href="services.html" class="dia_heading">Physical Security</a>
-            </span>
-
-            <a href="services-unarmed.html" class="link-box unarmed">Unarmed Security</a>
-            <a href="services-armed.html" class="link-box armed">Armed Security</a>
-            <a href="services-mobilepatrol.html" class="link-box mobile">Mobile Patrol</a>
-            <a href="services-concierge.html" class="link-box concierge">Concierge Services</a>
-          </div>
+        <div class="col-lg-6 text-center py-md-4">
+          <h1 class="py-4 banner-header">OUR SERVICES</h1>
+          <p class="banner-text p-0">
+            At Maximal Security Services, we deliver comprehensive security
+            solutions by seamlessly integrating physical security services
+            with cutting-edge, internally developed technology. This unique
+            combination allows us to provide our clients with a higher level
+            of protection, operational efficiency, and real-time
+            transparency—ensuring that every aspect of their security is
+            proactively managed and tailored to their specific needs.
+          </p>
         </div>
       </div>
     </div>
-    <div class="container t-brown groups-cols second">
-      <div class="row pb-lg-5 pb-2 align-items-center">
-        <div
-          class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center flex-reverse"
-        >
+  </div>
+  <div class="container groups-cols first t-brown">
+    <div class="row pb-lg-5 pb-2 align-items-center">
+      <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+        <img src="images/Vehicle.png" class="w-100" alt="" />
+      </div>
+      <div class="col-lg-6 text-center py-md-8 mt-2">
         <style>
+          .groups-cols.first .diagram {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+          }
+
+          .groups-cols.first .diagram .circle_img,
+          .groups-cols.first .diagram .circle_img img {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+
+          .groups-cols.first .dia_heading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 114px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+          }
+
+          .groups-cols.first .link-box {
+            position: absolute;
+            background: #4b2e1e;
+            color: #fff;
+            padding: 7px 22px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: 0.3s;
+          }
+
+          .groups-cols.first .link-box:hover {
+            background: #633d29;
+          }
+
+          .groups-cols.first .unarmed {
+            top: -11%;
+            left: 4px;
+            transform: translateY(-50%);
+            width: 170px;
+            max-width: 170px;
+            text-align: center;
+          }
+
+          .groups-cols.first .armed {
+            top: -11%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 170px;
+            max-width: 170px;
+            text-align: center;
+          }
+
+          .groups-cols.first .mobile {
+            bottom: 18%;
+            left: 4px;
+            transform: translateY(50%);
+            width: 170px;
+            max-width: 170px;
+            text-align: center;
+          }
+
+          .groups-cols.first .concierge {
+            bottom: 18%;
+            right: 8px;
+            transform: translateY(50%);
+            width: 170px;
+            max-width: 170px;
+            text-align: center;
+            padding: 7px 10px;
+          }
+
+          @media (max-width: 567px) {
+            .groups-cols.first .diagram {
+              max-width: 320px;
+            }
+
+            .groups-cols.first .link-box {
+              font-size: 10.5px;
+              padding: 8px 5px;
+            }
+
+            .groups-cols.first .dia_heading {
+              font-size: 11px;
+              max-width: 70px;
+            }
+
+            .groups-cols.first .unarmed {
+              top: -15%;
+              left: 3px;
+              width: 107px;
+              max-width: 107px;
+            }
+
+            .groups-cols.first .armed {
+              top: -15%;
+              right: 5px;
+              width: 107px;
+              max-width: 107px;
+            }
+
+            .groups-cols.first .mobile {
+              bottom: 22%;
+              left: 2px;
+              transform: translateY(50%);
+              width: 107px;
+              max-width: 107px;
+            }
+
+            .groups-cols.first .concierge {
+              bottom: 22%;
+              right: 4px;
+              transform: translateY(50%);
+              width: 107px;
+              max-width: 107px;
+            }
+          }
+
+          @media (max-width: 991px) {
+            .groups-cols.first .col-lg-6:first-child {
+              margin-bottom: 3rem;
+            }
+          }
+
+          @media (min-width: 992px) {
+            .groups-cols.first .row {
+              flex-wrap: nowrap;
+            }
+
+            .groups-cols.first .col-lg-6:last-child {
+              min-width: 550px;
+            }
+          }
+        </style>
+        <div class="diagram">
+          <span class="circle_img">
+            <img src="images/physical_security.png" alt="Physical Security Diagram">
+            <a href="services.html" class="dia_heading">Physical Security</a>
+          </span>
+
+          <a href="services-unarmed.html" class="link-box unarmed">Unarmed Security</a>
+          <a href="services-armed.html" class="link-box armed">Armed Security</a>
+          <a href="services-mobilepatrol.html" class="link-box mobile">Mobile Patrol</a>
+          <a href="services-concierge.html" class="link-box concierge">Concierge Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container t-brown groups-cols second">
+    <div class="row pb-lg-5 pb-2 align-items-center">
+      <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center flex-reverse">
+        <style>
+          .groups-cols.second .diagram {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+          }
+
+          .groups-cols.second .diagram .circle_img,
+          .groups-cols.second .diagram .circle_img img {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+
+          .groups-cols.second .dia_heading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 140px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.3em;
+            text-decoration: none;
+          }
+
+          .groups-cols.second .link-box {
+            position: absolute;
+            background: #4b2e1e;
+            color: #fff;
+            padding: 7px 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: 0.3s;
+          }
+
+          .groups-cols.second .link-box:hover {
+            background: #633d29;
+          }
+
+          .groups-cols.second .visitor {
+            top: -15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 172px;
+            text-align: center;
+            margin-left: 5px;
+          }
+
+          .groups-cols.second .guard {
+            top: 30%;
+            left: 2px;
+            transform: translateY(-50%);
+            width: 172px;
+            text-align: center;
+          }
+
+          .groups-cols.second .maximal {
+            bottom: 30%;
+            left: 3px;
+            transform: translateY(50%);
+            width: 169px;
+            text-align: center;
+          }
+
+          .groups-cols.second .reporting {
+            top: 30%;
+            right: 4px;
+            transform: translateY(-50%);
+            width: 173px;
+            text-align: center;
+          }
+
+          .groups-cols.second .object {
+            bottom: 30%;
+            right: 4px;
+            transform: translateY(50%);
+            width: 170px;
+            text-align: center;
+          }
+
+          .groups-cols.second .more {
+            bottom: -15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 172px;
+            text-align: center;
+            margin-left: -1px;
+          }
+
+          /* Responsive adjustments */
+          @media (max-width: 567px) {
             .groups-cols.second .diagram {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-  }
-  .groups-cols.second .diagram .circle_img, .groups-cols.second .diagram .circle_img img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .groups-cols.second .dia_heading{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 140px;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
-    line-height: 1.3em;
-    text-decoration: none;
-  }
-  .groups-cols.second .link-box {
-    position: absolute;
-    background: #4b2e1e;
-    color: #fff;
-    padding: 7px 10px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: 0.3s;
-  }
+              max-width: 320px;
+            }
 
-  .groups-cols.second .link-box:hover {
-    background: #633d29;
-  }
-  .groups-cols.second .visitor {
-    top: -15%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 172px;
-    text-align: center;
-    margin-left: 5px;
-  }
-  .groups-cols.second .guard {
-    top: 30%;
-    left: 2px;
-    transform: translateY(-50%);
-    width: 172px;
-    text-align: center;
-  }
-  .groups-cols.second .maximal {
-    bottom: 30%;
-    left: 3px;
-    transform: translateY(50%);
-    width: 169px;
-    text-align: center;
-  }
-  .groups-cols.second .reporting {
-    top: 30%;
-    right: 4px;
-    transform: translateY(-50%);
-    width: 173px;
-    text-align: center;
-  }
-  .groups-cols.second .object {
-    bottom: 30%;
-    right: 4px;
-    transform: translateY(50%);
-    width: 170px;
-    text-align: center;
-  }
-  .groups-cols.second .more {
-    bottom: -15%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 172px;
-    text-align: center;
-    margin-left: -1px;
-  }
+            .groups-cols.second .link-box {
+              font-size: 11px;
+              padding: 6px 2px;
+            }
 
-  /* Responsive adjustments */
-  @media (max-width: 567px){
-    .groups-cols.second .diagram {
-        max-width: 320px;
-    }
-    .groups-cols.second .link-box{
-      font-size: 11px;
-      padding: 6px 2px;
-    }
-    .groups-cols.second .dia_heading{
-      font-size: 11px;
-      max-width: 90px;
-    }
-    .groups-cols.second .visitor {
-        top: -18%;
-        width: 110px;
-        max-width: 110px;
-        margin-left: 3px;
-    }
-    .groups-cols.second .more {
-        bottom: -18%;
-        width: 110px;
-        max-width: 110px;
-        margin-left: -1px;
-    }
-    .groups-cols.second .guard {
-        top: 31%;
-        left: 1px;
-        width: 110px;
-        max-width: 110px;
-    }
-    .groups-cols.second .reporting {
-        top: 31%;
-        right: 2px;
-        width: 110px;
-        max-width: 110px;
-    }
-    .groups-cols.second .maximal {
-        bottom: 31%;
-        width: 110px;
-        left: 1px;
-        max-width: 110px;
-    }
-    .groups-cols.second .object {
-        bottom: 31%;
-        width: 110px;
-        max-width: 110px;
-        right: 2px;
-    }
-  }
-  @media (max-width: 991px){
-    .groups-cols.second .row{
-      flex-direction: column-reverse;
-      margin-bottom: 40px;
-    }
- .groups-cols.second .col-lg-6:last-child{
-      margin: 3rem auto;
-    }
-  }
-    @media (min-width: 992px){
-      .groups-cols.second .row{
-        flex-wrap: nowrap;
-      }
-       .groups-cols.second .col-lg-6:last-child{
-        min-width: 550px;
-       }
-    }
+            .groups-cols.second .dia_heading {
+              font-size: 11px;
+              max-width: 90px;
+            }
+
+            .groups-cols.second .visitor {
+              top: -18%;
+              width: 110px;
+              max-width: 110px;
+              margin-left: 3px;
+            }
+
+            .groups-cols.second .more {
+              bottom: -18%;
+              width: 110px;
+              max-width: 110px;
+              margin-left: -1px;
+            }
+
+            .groups-cols.second .guard {
+              top: 31%;
+              left: 1px;
+              width: 110px;
+              max-width: 110px;
+            }
+
+            .groups-cols.second .reporting {
+              top: 31%;
+              right: 2px;
+              width: 110px;
+              max-width: 110px;
+            }
+
+            .groups-cols.second .maximal {
+              bottom: 31%;
+              width: 110px;
+              left: 1px;
+              max-width: 110px;
+            }
+
+            .groups-cols.second .object {
+              bottom: 31%;
+              width: 110px;
+              max-width: 110px;
+              right: 2px;
+            }
+          }
+
+          @media (max-width: 991px) {
+            .groups-cols.second .row {
+              flex-direction: column-reverse;
+              margin-bottom: 40px;
+            }
+
+            .groups-cols.second .col-lg-6:last-child {
+              margin: 3rem auto;
+            }
+          }
+
+          @media (min-width: 992px) {
+            .groups-cols.second .row {
+              flex-wrap: nowrap;
+            }
+
+            .groups-cols.second .col-lg-6:last-child {
+              min-width: 550px;
+            }
+          }
         </style>
         <div class="diagram">
           <span class="circle_img">
             <img src="images/pts_tech.png" alt="PTS Technology Diagram">
             <a href="services-proprietary-security.html" class="dia_heading">Proprietary<br>Security<br>Technology</a>
-          </sapn>
+            </sapn>
 
-          <a href="services-proprietary-security.html" class="link-box visitor">Visitor Management</a>
-          <a href="services-proprietary-security.html" class="link-box guard">Guard Management</a>
-          <a href="services-proprietary-security.html" class="link-box maximal">Maximal Messenger</a>
-          <a href="services-proprietary-security.html" class="link-box reporting">Advanced Reporting</a>
-          <a href="services-proprietary-security.html" class="link-box object">Object Recognition</a>
-          <a href="services-proprietary-security.html" class="link-box more">More</a>
-        </div>
-        </div>
-        <div class="col-lg-6 text-center py-md-4">
-          <img src="images/access-granted (2).png" class="w-100" alt="" />
+            <a href="services-proprietary-security.html" class="link-box visitor">Visitor Management</a>
+            <a href="services-proprietary-security.html" class="link-box guard">Guard Management</a>
+            <a href="services-proprietary-security.html" class="link-box maximal">Maximal Messenger</a>
+            <a href="services-proprietary-security.html" class="link-box reporting">Advanced Reporting</a>
+            <a href="services-proprietary-security.html" class="link-box object">Object Recognition</a>
+            <a href="services-proprietary-security.html" class="link-box more">More</a>
         </div>
       </div>
+      <div class="col-lg-6 text-center py-md-4">
+        <img src="images/access-granted (2).png" class="w-100" alt="" />
+      </div>
     </div>
-    <div class="container t-brown">
-      <div class="row pb-lg-5 pb-2 align-items-center">
-        <div
-          class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center"
-        >
-          <img src="images/security_men.png" class="w-100" alt="" />
+  </div>
+  <div class="container t-brown">
+    <div class="row pb-lg-5 pb-2 align-items-center">
+      <div class="col-lg-6 p-0 p-md-5 p-lg-0 py-lg-0 p-t-md-0 align-items-center">
+        <img src="images/security_men.png" class="w-100" alt="" />
+      </div>
+      <div class="col-lg-6 text-center py-md-4">
+        <h1 class="py-4 banner-header">HOW WE’RE DIFFERENT</h1>
+        <p class="banner-text p-0">
+          At Maximal, we are committed to providing top-notch security
+          solutions tailored to your unique needs. With a team of highly
+          trained and experienced security guards, we make it our mission to
+          safeguard your peace of mind. Explore our comprehensive range of
+          security services designed to protect you, your assets, and your
+          peace of mind.
+        </p>
+        <p style="margin: 0;">
+          <a class="btn btn-danger alice py-md-2 my-3 px-4 fw-light" href="differentiators.html"
+            style="margin-bottom: 0 !important;">Learn More
+          </a>
+        </p>
+      </div>
+    </div>
+    <hr class="d-lg-none" />
+    <div class="row pb-md-5 pb-2">
+      <div class="col-lg-7 text-center py-lg-5">
+        <h1 class="py-4 banner-header">OUR<br />MISSION</h1>
+        <p class="banner-text">
+          Our mission is to provide unwavering protection and peace of mind to
+          our clients, empowering them to thrive in a secure environment. We
+          are committed to setting the highest standards in the security
+          industry through professionalism, innovation, and
+          customer-centricity. Our dedicated team of security professionals,
+          coupled with cutting-edge technology, ensures that we stand as the
+          vanguard of safety, safeguarding lives, assets, and tranquility.
+          With integrity as our compass, we pledge to be your steadfast
+          security partner, forging a safer world for all.
+        </p>
+      </div>
+      <div class="col-lg-5 d-flex text-center align-items-end py-lg-5 py-md-2 pb-4">
+        <img src="images/Security Officer Photo2.webp" class="w-100" alt="" />
+      </div>
+    </div>
+    <hr class="d-lg-none" />
+  </div>
+
+  <div class="container-fluid bg-lightbrown p-5 pt-md-0 text-center"
+    style="background-color: #fff !important; padding-top: 140px !important">
+    <div class="container home-industries">
+      <div class="row">
+        <div class="col-12">
+          <hr class="hr-text" data-content=" INDUSTRIES " />
         </div>
-        <div class="col-lg-6 text-center py-md-4">
-          <h1 class="py-4 banner-header">HOW WE’RE DIFFERENT</h1>
-          <p class="banner-text p-0">
-            At Maximal, we are committed to providing top-notch security
-            solutions tailored to your unique needs. With a team of highly
-            trained and experienced security guards, we make it our mission to
-            safeguard your peace of mind. Explore our comprehensive range of
-            security services designed to protect you, your assets, and your
-            peace of mind.
+      </div>
+
+      <div class="row g-5">
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Construction</h4>
+          <p>
+            As the construction progress, so do their security needs. We
+            provide our clients with flexible and scalable security solutions
+            adapted to the progress of the construction project.
           </p>
-          <p style="margin: 0;">
-            <a
-              class="btn btn-danger alice py-md-2 my-3 px-4 fw-light"
-              href="differentiators.html"
-              style="margin-bottom: 0 !important;">Learn More
-            </a>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Airports</h4>
+          <p>
+            Whether you’re looking to safeguard your airport, your aircrafts,
+            or to control access to airside areas, we will handle your
+            security needs with a customer-centric approach.
           </p>
         </div>
-      </div>
-      <hr class="d-lg-none" />
-      <div class="row pb-md-5 pb-2">
-        <div class="col-lg-7 text-center py-lg-5">
-          <h1 class="py-4 banner-header">OUR<br />MISSION</h1>
-          <p class="banner-text">
-            Our mission is to provide unwavering protection and peace of mind to
-            our clients, empowering them to thrive in a secure environment. We
-            are committed to setting the highest standards in the security
-            industry through professionalism, innovation, and
-            customer-centricity. Our dedicated team of security professionals,
-            coupled with cutting-edge technology, ensures that we stand as the
-            vanguard of safety, safeguarding lives, assets, and tranquility.
-            With integrity as our compass, we pledge to be your steadfast
-            security partner, forging a safer world for all.
+
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Distribution & Logistics</h4>
+          <p>
+            We deliver customized facilities security solutions designed to
+            mitigate security risks, reduce theft and other losses, maximize
+            employee collaboration and sustain profitability.
           </p>
         </div>
-        <div
-          class="col-lg-5 d-flex text-center align-items-end py-lg-5 py-md-2 pb-4"
-        >
-          <img src="images/Security Officer Photo2.webp" class="w-100" alt="" />
-        </div>
-      </div>
-      <hr class="d-lg-none" />
-    </div>
 
-    <div
-      class="container-fluid bg-lightbrown p-5 pt-md-0 text-center"
-      style="background-color: #fff !important; padding-top: 60px !important"
-    >
-      <div class="container home-industries">
-        <div class="row">
-          <div class="col-12">
-            <hr class="hr-text" data-content=" INDUSTRIES " />
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Education</h4>
+          <p>
+            Maximal offers security solutions specifically designed for the
+            education sector whose priority is the safety of students while
+            creating a safe and inclusive environment for their learning.
+          </p>
         </div>
 
-        <div class="row g-5">
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Construction</h4>
-            <p>
-              As the construction progress, so do their security needs. We
-              provide our clients with flexible and scalable security solutions
-              adapted to the progress of the construction project.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Government</h4>
+          <p>
+            Maximal understanding of the Government security industry can
+            provide customized services for courthouses, public utilities,
+            transit and transportation centers, port authorities, airports, as
+            well as municipal, country, and state agencies.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Airports</h4>
-            <p>
-              Whether you’re looking to safeguard your airport, your aircrafts,
-              or to control access to airside areas, we will handle your
-              security needs with a customer-centric approach.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Healthcare</h4>
+          <p>
+            Maximal provides services to hospitals, nursing homes, emergency
+            rooms, and research facilities and aims to provide a safe and
+            secure environment in these dynamic and emotionally charged
+            settings.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Distribution & Logistics</h4>
-            <p>
-              We deliver customized facilities security solutions designed to
-              mitigate security risks, reduce theft and other losses, maximize
-              employee collaboration and sustain profitability.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Maritime</h4>
+          <p>
+            Our solutions are tailored to secure the ports and harbor area, to
+            prevent the entry of prohibited or dangerous objects and
+            clandestine entrants on ships, and to control vehicles or goods
+            when boarding.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Education</h4>
-            <p>
-              Maximal offers security solutions specifically designed for the
-              education sector whose priority is the safety of students while
-              creating a safe and inclusive environment for their learning.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4">Commercial Property</h4>
+          <p>
+            Maximal offers qualitative complete solutions as we look after and
+            manage properties, from security technology, monitoring and alarm
+            response to verification and follow-up of fire protection.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Government</h4>
-            <p>
-              Maximal understanding of the Government security industry can
-              provide customized services for courthouses, public utilities,
-              transit and transportation centers, port authorities, airports, as
-              well as municipal, country, and state agencies.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4 pt-xl-2 pt-lg-0 pt-md-2">Retail</h4>
+          <p>
+            Maximal provides security services to retail clients, which can
+            include supermarkets, store chains, shopping centers or shopping
+            malls as well as the property owners of these buildings.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Healthcare</h4>
-            <p>
-              Maximal provides services to hospitals, nursing homes, emergency
-              rooms, and research facilities and aims to provide a safe and
-              secure environment in these dynamic and emotionally charged
-              settings.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4 pt-2">Residential</h4>
+          <p>
+            Our understanding of the Condominium and High-Rise sector ensures
+            we stay in tune with the industry’s most recent developments. Our
+            concierge provides a welcoming presence for your tenants and
+            visitors, who will be greeted with a smile when entering the
+            building.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Maritime</h4>
-            <p>
-              Our solutions are tailored to secure the ports and harbor area, to
-              prevent the entry of prohibited or dangerous objects and
-              clandestine entrants on ships, and to control vehicles or goods
-              when boarding.
-            </p>
-          </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
+          <h4 class="alice pb-4 pt-2">Manufacturing</h4>
+          <p>
+            Through our comprehensive security solutions, our industrial
+            security personnel provides access control, surveillance,
+            detection and reporting of crimes against your property, employees
+            and visitors to maintain order and safety on your industrial site.
+          </p>
+        </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4">Commercial Property</h4>
+        <div class="col-xl-3 col-lg-4 col-md-6 d-flex pb-4">
+          <div class="bdr-brown rounded-20 pb-4 px-2" style="background: #ede8e2">
+            <h4 class="alice pb-lg-4 pt-2">Want to Know More</h4>
             <p>
-              Maximal offers qualitative complete solutions as we look after and
-              manage properties, from security technology, monitoring and alarm
-              response to verification and follow-up of fire protection.
+              Uncover the hidden gems within our industries, where skilled
+              professionals address your security needs.
             </p>
-          </div>
-
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4 pt-xl-2 pt-lg-0 pt-md-2">Retail</h4>
-            <p>
-              Maximal provides security services to retail clients, which can
-              include supermarkets, store chains, shopping centers or shopping
-              malls as well as the property owners of these buildings.
-            </p>
-          </div>
-
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4 pt-2">Residential</h4>
-            <p>
-              Our understanding of the Condominium and High-Rise sector ensures
-              we stay in tune with the industry’s most recent developments. Our
-              concierge provides a welcoming presence for your tenants and
-              visitors, who will be greeted with a smile when entering the
-              building.
-            </p>
-          </div>
-
-          <div class="col-xl-3 col-lg-4 col-md-6 bdr-transparent">
-            <h4 class="alice pb-4 pt-2">Manufacturing</h4>
-            <p>
-              Through our comprehensive security solutions, our industrial
-              security personnel provides access control, surveillance,
-              detection and reporting of crimes against your property, employees
-              and visitors to maintain order and safety on your industrial site.
-            </p>
-          </div>
-
-          <div class="col-xl-3 col-lg-4 col-md-6 d-flex pb-4">
-            <div
-              class="bdr-brown rounded-20 pb-4 px-2"
-              style="background: #ede8e2"
-            >
-              <h4 class="alice pb-lg-4 pt-2">Want to Know More</h4>
-              <p>
-                Uncover the hidden gems within our industries, where skilled
-                professionals address your security needs.
-              </p>
-              <a
-                class="btn btn-danger alice py-1 mt-lg-4 px-3 fw-light"
-                href="industries.html"
-                >Learn More</a
-              >
-            </div>
+            <a class="btn btn-danger alice py-1 mt-lg-4 px-3 fw-light" href="industries.html">Learn More</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- FOOTER -->
-    <div class="container-fluid p-0 bg-brown text-light">
-      <div class="row justify-content-center">
-        <div class="col-lg-9 pt-5">
-          <h1
-            class="ps-4 ps-xl-5 ff-CatchyMager f-53"
-            data-aos="fade-up"
-            data-aos-once="true"
-            data-aos-duration="1000"
-          >
-            Headquarters
-          </h1>
-        </div>
+  <!-- FOOTER -->
+  <div class="container-fluid p-0 bg-brown text-light">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 pt-5">
+        <h1 class="ps-4 ps-xl-5 ff-CatchyMager f-53" data-aos="fade-up" data-aos-once="true" data-aos-duration="1000">
+          Headquarters
+        </h1>
       </div>
     </div>
-    <include src="footer.html"></include>
+  </div>
+  <include src="footer.html"></include>
 
-    <style>
-      .custoer-logo.small_logo{
-         transform: scale(1.5);
-      }
-    </style>
-    <div class="container-fluid bg-lightbrown p-5 text-center logos">
-      <div class="container justify-content-center">
-        <h2>
-          Our national partnerships are a testament to the quality of our
-          services
-        </h2>
-        <div class="swiper-container my-5">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/staples_logo_transparent.svg"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/GreyStar_blue-removebg-preview.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/Automann.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/Miele-logo.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/Universal Internmodal.png"
-                class="custoer-logo sm_logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/Greenbriar-removebg-preview.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
+  <style>
 
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/central-logo-removebg-preview.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Customer Logo/Creative Logistics.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Logo-AshlyStewart_1.png"
-                class="custoer-logo small_logo mx-5"
-           
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img src="images/NOI.png" class="custoer-logo small_logo mx-5" alt="" />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/iconnectiv-Logo-Photoroom.png"
-                class="custoer-logo small_logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/House of Representatives.png"
-                class="custoer-logo xs_logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Aurobindo_Pharma_logo.svg (1).png"
-                class="custoer-logo small_logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Barnes and Noble.png"
-                class="custoer-logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img
-                src="images/Alston Logo_0.png"
-                class="custoer-logo small_logo mx-5"
-                alt=""
-              />
-            </div>
-            <div class="swiper-slide">
-              <img src="images/driscoll.png" class="custoer-logo small_logo mx-5" alt="" />
-            </div>
-            <div class="swiper-slide">
-              <img src="images/freezpak.jpg" class="custoer-logo mx-5" alt="" />
-            </div>
-            <!-- Add more slides with logos/images -->
+  </style>
+  <div class="container-fluid bg-lightbrown p-5 text-center logos">
+    <div class="container justify-content-center">
+      <h2>
+        Our national partnerships are a testament to the quality of our
+        services
+      </h2>
+      <div class="swiper-container my-5" style="height:100px; display:flex; align-items:center; ">
+        <div class="swiper-wrapper" >
+          <div class="swiper-slide">
+            <img src="images/Staple.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
           </div>
+          <div class="swiper-slide">
+            <img src="images/Greystar.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Automan.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Miele.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Universal.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Greenbriar.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+
+          <div class="swiper-slide">
+            <img src="images/Central.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Creative.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Ashley.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" alt="" />
+          </div>
+          <div class="swiper-slide" >
+            <img src="images/NOI.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/iconnectib.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide" style="display: flex; align-items: center; justify-content: center;height:140px; ">
+            <img src="images/HOI.png"
+              style="height:60px; width:auto; display:block; margin:0 auto; object-fit:contain; align-items: center; justify-content: center;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Aurobindo.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide" style="display: flex; align-items: center; justify-content: center; height:140px; ">
+            <img src="images/Barnes.png"
+              style="height:80px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Alston.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide" style="display: flex; align-items: center; justify-content: center; height:140px; ">
+            <img src="images/Discroll.png"
+              style="height:80px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Freezpak.png"
+              style="height:140px; width:auto; display:block; margin:0 auto; object-fit:contain;" />
+          </div>
+          <!-- Add more slides with logos/images -->
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
-  <!-- JS FILES -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"
-  ></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- JS FILES -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-  <script>
-    //fade-up
-    x = document.querySelectorAll(".col-md-3");
-    for (i = 0; i < x.length; i++) {
-      // x[i].setAttribute("data-aos", "fade-up");
-      x[i].classList.add("px-4");
-      x[i].classList.add("py-2");
-    }
+<script>
+  //fade-up
+  x = document.querySelectorAll(".col-md-3");
+  for (i = 0; i < x.length; i++) {
+    // x[i].setAttribute("data-aos", "fade-up");
+    x[i].classList.add("px-4");
+    x[i].classList.add("py-2");
+  }
 
-    //navbar scroll
-    $(window).scroll(function () {
-      $("nav").toggleClass("scrolled", $(this).scrollTop() > 0);
+  //navbar scroll
+  $(window).scroll(function () {
+    $("nav").toggleClass("scrolled", $(this).scrollTop() > 0);
+  });
+
+  // window.addEventListener('load', )
+
+  //JS Codes for include nav and footer html files
+  let includes = document.getElementsByTagName("include");
+  for (var i = 0; i < includes.length; i++) {
+    let include = includes[i];
+    load_file(includes[i].attributes.src.value, function (text) {
+      $(include).before(text);
+      // include.insertAdjacentHTML('afterend', text);
+      include.remove();
     });
+  }
 
-    // window.addEventListener('load', )
+  function load_file(filename, callback) {
+    fetch(filename)
+      .then((response) => response.text())
+      .then((text) => callback(text));
+  }
 
-    //JS Codes for include nav and footer html files
-    let includes = document.getElementsByTagName("include");
-    for (var i = 0; i < includes.length; i++) {
-      let include = includes[i];
-      load_file(includes[i].attributes.src.value, function (text) {
-        $(include).before(text);
-        // include.insertAdjacentHTML('afterend', text);
-        include.remove();
-      });
-    }
+  var x = window.screen.availWidth;
+  var spv;
+  var sb;
 
-    function load_file(filename, callback) {
-      fetch(filename)
-        .then((response) => response.text())
-        .then((text) => callback(text));
-    }
-
-    var x = window.screen.availWidth;
-    var spv;
-    var sb;
-
-    if (x < 900) {
-      spv = 1;
-      sb = 20;
-    } else {
-      spv = 4;
-      sb = 10;
-    }
-
+  if (x < 900) {
+    spv = 1;
+    sb = 20;
+  } else {
+    spv = 4;
+    sb = 10;
+  }
     let swiper = new Swiper(".swiper-container", {
-      slidesPerView: spv,
-      spaceBetween: sb,
-      speed: 3000,
       loop: true,
+      speed: 3000,
       autoplay: {
-        delay: 1000, // Set the delay between slide transitions (in milliseconds)
-        disableOnInteraction: false, // Enable autoplay even when user interacts with the carousel
+        delay: 1000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        320: {
+          // small mobile
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        640: {
+          // larger mobile / tablet
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        1024: {
+          // desktop
+          slidesPerView: 5,
+          spaceBetween: 30,
+        },
       },
     });
 
-    AOS.init();
+  AOS.init();
 
-    $(".navbar-collapse").on("shown.bs.collapse", function () {
-      $("body").css("overflow", "hidden");
-    });
+  $(".navbar-collapse").on("shown.bs.collapse", function () {
+    $("body").css("overflow", "hidden");
+  });
 
-    $(".navbar-collapse").on("hidden.bs.collapse", function () {
-      $("body").css("overflow", "auto");
-      alert("Jquery working");
-    });
-  </script>
+  $(".navbar-collapse").on("hidden.bs.collapse", function () {
+    $("body").css("overflow", "auto");
+    alert("Jquery working");
+  });
+</script>
 
-  <script src="modal.js"></script>
+<script src="modal.js"></script>
+
 </html>
