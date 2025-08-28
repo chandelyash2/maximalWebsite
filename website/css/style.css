@@ -710,6 +710,7 @@ a.footer-link:hover
     transition: transform 1s !important;
   }
 
+
   .card:hover, .card:hover h1, .card:hover h2
   {
     /* background-size: 110% 110%; */
