@@ -3,6 +3,14 @@
     color: #593521;
     opacity: 1;
   }
+  .mySelect {
+    color: #593521; /* default color for normal options */
+  }
+
+  .mySelect option[disabled][selected] {
+    color: #593521; /* placeholder style */
+    opacity: 0.6;
+  }
 </style>
 <form id="Form" action="" onsubmit="event.preventDefault()" method="POST">
   <div class="row">
@@ -12,7 +20,7 @@
         class="form-control myInput W-100 my-1"
         id="email"
         placeholder="Business e-mail *"
-        style="border: 1px solid #593521"
+        style="border: 1px solid #593521; color: #593521"
       />
     </div>
     <div class="col-md-6">
@@ -22,7 +30,7 @@
           class="form-control myInput W-100 my-1"
           id="fname"
           placeholder="First name *"
-          style="border: 1px solid #593521"
+          style="border: 1px solid #593521; color: #593521"
         />
       </div>
     </div>
@@ -33,7 +41,7 @@
           class="form-control myInput W-100 my-1"
           id="lname"
           placeholder="Last name *"
-          style="border: 1px solid #593521"
+          style="border: 1px solid #593521; color: #593521"
         />
       </div>
     </div>
@@ -45,7 +53,8 @@
           class="form-control myInput W-100 my-1"
           id="cname"
           placeholder="Company name *"
-          style="border: 1px solid #593521"
+          style="border: 1px solid #593521; color: #593521"
+
         />
       </div>
     </div>
@@ -56,17 +65,19 @@
           class="form-control myInput W-100 my-1"
           id="job"
           placeholder="Job title *"
-          style="border: 1px solid #593521"
+                   style="border: 1px solid #593521; color: #593521"
+
         />
       </div>
     </div>
     <div class="col-md-6">
       <div class="mb-1">
         <select
-          class="form-select myInput W-100 my-1"
+          class="form-select mySelect W-100 my-1"
           id="state"
           placeholder="State *"
-          style="border: 1px solid #593521"
+                   style="border: 1px solid #593521; color: #593521"
+
         >
           <option selected>Select State</option>
           <option value="AL">Alabama</option>
@@ -130,7 +141,8 @@
           class="form-control myInput W-100 my-1"
           id="phone"
           placeholder="Phone *"
-          style="border: 1px solid #593521"
+                   style="border: 1px solid #593521; color: #593521"
+
         />
       </div>
     </div>
@@ -141,7 +153,8 @@
           class="form-control myInput W-100 my-1"
           id="city"
           placeholder="City *"
-          style="border: 1px solid #593521"
+                   style="border: 1px solid #593521; color: #593521"
+
         />
       </div>
     </div>
@@ -152,7 +165,8 @@
           class="form-control myInput W-100 my-1"
           id="postal"
           placeholder="Postal code *"
-          style="border: 1px solid #593521"
+                   style="border: 1px solid #593521; color: #593521"
+
         />
       </div>
     </div>
